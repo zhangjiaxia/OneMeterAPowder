@@ -1,100 +1,99 @@
 <template>
 	<view class="container">
 		<swiper class="swiper" circular :autoplay="autoplay" :interval="interval" :duration="duration">
-      <swiper-item v-for="(item,index) in bannerList" :key="index">
-         <image :src="item" class="banner-img"></image>
-      </swiper-item>
-    </swiper>
-    
-    <view class="shop-message">
-    	<view class="shop-title">{{goodsDetail.name || ''}}</view>
-    	<view class="shop-price">￥{{detail.goods_price || '0.00'}}</view>
-    </view>
+		  <swiper-item v-for="(item,index) in goodsDetail.detailImgUrlList" :key="index">
+			 <image :src="item" class="banner-img"></image>
+		  </swiper-item>
+		</swiper>
+		
+		<view class="shop-message">
+			<view class="shop-title">{{goodsDetail.name || ''}}</view>
+			<view class="shop-price">￥{{goodsDetail.goods_price || '0.00'}}</view>
+		</view>
 
-    <view class="tab-list">
-      <view class="tab-item">
-        <image src="/static/pay-success.png" class="tab-icon"></image>
-        <text>正品保证</text>
-      </view>
-    	<view class="tab-item">
-    		<image src="/static/pay-success.png" class="tab-icon"></image>
-    		<text>全场包邮</text>
-    	</view>
-    	<view class="tab-item">
-    		<image src="/static/pay-success.png" class="tab-icon"></image>
-    		<text>全场钜惠</text>
-    	</view>
-    	<view class="tab-item">
-    		<image src="/static/pay-success.png" class="tab-icon"></image>
-    		<text>售后无忧</text>
-    	</view>
-    </view>
+		<view class="tab-list">
+		  <view class="tab-item">
+			<image src="/static/pay-success.png" class="tab-icon"></image>
+			<text>正品保证</text>
+		  </view>
+			<view class="tab-item">
+				<image src="/static/pay-success.png" class="tab-icon"></image>
+				<text>全场包邮</text>
+			</view>
+			<view class="tab-item">
+				<image src="/static/pay-success.png" class="tab-icon"></image>
+				<text>全场钜惠</text>
+			</view>
+			<view class="tab-item">
+				<image src="/static/pay-success.png" class="tab-icon"></image>
+				<text>售后无忧</text>
+			</view>
+		</view>
 
-    <view class="detail">
-      <view class="rich-text">
-        <view v-html="detail.goods_details"></view>
-      </view>
-    </view>
+		<view class="detail">
+		  <view class="rich-text">
+			<!-- <view v-html="goodsDetail.detailInfo"></view> -->
+			<rich-text :nodes="goodsDetail.detailInfo"></rich-text>
+		  </view>
+		</view>
 
-    <view class="detail-bottom">
-    	<view class="detail-bottom-left">
-    		<view class="detail-bottom-item">
-    			<image src="/static/share-icon.png" class="share-icon"></image>
-    			<view>分享</view>
-          <button type="primary" open-type="share" class="share-btn"></button>
-    		</view>
-    		<view class="detail-bottom-item">
-    			<image src="/static/shopping-icon.png" class="share-icon"></image>
-    			<view @click="shoppingPage">购物车</view>
-    		</view>
-    	</view>
-    	<view class="shop-btn" @click="confrimOrderPage">加入购物车</view>
-    	<view class="pay-btn" @click="confrimOrderPage">立即购买</view>
-      <button class="search-btn" open-type="getUserInfo" lang="zh_CN" @getuserinfo="getUserInfo" v-if="!userInfo"></button>
-    </view>
+		<view class="detail-bottom">
+			<view class="detail-bottom-left">
+				<view class="detail-bottom-item">
+					<image src="/static/share-icon.png" class="share-icon"></image>
+					<view>分享</view>
+			  <button type="primary" open-type="share" class="share-btn"></button>
+				</view>
+				<view class="detail-bottom-item">
+					<image src="/static/shopping-icon.png" class="share-icon"></image>
+					<view @click="shoppingPage">购物车</view>
+				</view>
+			</view>
+			<view class="shop-btn" @click="confrimOrderPage">加入购物车</view>
+			<view class="pay-btn" @click="confrimOrderPage">立即购买</view>
+		  <button class="search-btn" open-type="getUserInfo" lang="zh_CN" @getuserinfo="getUserInfo" v-if="!userInfo"></button>
+		</view>
 
+		<view class="confirm-modal" v-show="confirmModal">
+			<view class="confirm-modal-content">
+				<view class="modal-shop-message">
+					<image :src="goodsDetail.mainImgUrl" class="modal-shop-img"></image>
+					<view class="modal-shop-content">
+						<view>{{goodsDetail.name}}</view>
+						<view class="shop-price">￥{{goodsDetail.goods_price || 0}}</view>
+						<view class="amount">库存 {{goodsDetail.goods_stock || 0}} 件</view>
+					</view>
+				</view>
 
-    <view class="confirm-modal" v-show="confirmModal">
-    	<view class="confirm-modal-content">
-    		<view class="modal-shop-message">
-    			<image :src="detail.goods_cover_img" class="modal-shop-img"></image>
-    			<view class="modal-shop-content">
-    				<view>{{detail.goods_name}}</view>
-    				<view class="shop-price">￥{{detail.goods_price}}</view>
-    				<view class="amount">库存 {{detail.goods_stock}} 件</view>
-    			</view>
-    		</view>
+				<!-- <view class="spec-content">
+					<view></view>
+					<view class="spec-list">
+						<text class="spec-item spec-active">50ml</text>
+						<text class="spec-item">80ml</text>
+						<text class="spec-item">100ml</text>
+					</view>
+				</view> -->
 
-    		<!-- <view class="spec-content">
-    			<view></view>
-    			<view class="spec-list">
-    				<text class="spec-item spec-active">50ml</text>
-    				<text class="spec-item">80ml</text>
-    				<text class="spec-item">100ml</text>
-    			</view>
-    		</view> -->
+				<view class="shop-item-bottom">
+					<text>购买数量</text>
+					<view class="shop-num">
+						<text class="reduct-btn" @click="reduceNum">-</text>
+						<text class="num">{{shopNum}}</text>
+						<text class="add-btn" @click="addNum">+</text>
+					</view>
+				</view>
 
-    		<view class="shop-item-bottom">
-    			<text>购买数量</text>
-    			<view class="shop-num">
-    				<text class="reduct-btn" @click="reduceNum">-</text>
-    				<text class="num">{{shopNum}}</text>
-    				<text class="add-btn" @click="addNum">+</text>
-    			</view>
-    		</view>
-
-    		<view class="modal-bottom">
-          <text class="modal-bottom-right" @click="confirmModal = false">查看详情</text>
-    			<text class="modal-bottom-left" @click="handleConfirm">确认</text>
-    		</view>
-    	</view>
-    </view>
+				<view class="modal-bottom">
+			  <text class="modal-bottom-right" @click="confirmModal = false">查看详情</text>
+					<text class="modal-bottom-left" @click="handleConfirm">确认</text>
+				</view>
+			</view>
+		</view>
 
 	</view>
 </template>
 
 <script>
-  // import { apiShopDetail, apiShoppingAdd, apiUserInfo, apiUserBind, apiUserInfoSave, apiUserLogin } from '@/service/index'
   import interfaceurl from '@/utils/interface.js'
   //引入store的内容
   import {
@@ -318,7 +317,7 @@
 }
 .swiper{
 	width: 100%;
-	height: 590upx;
+	height: 750upx;
 }
 .banner-img{
 	width: 100%;

@@ -29,6 +29,7 @@ page {
 }
 .content {
   padding: 0rpx 10rpx;
+  padding-top: 10rpx;
 }
 .shop-title {
   display: -webkit-box;
@@ -57,7 +58,6 @@ page {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  margin-top: 10rpx;
 }
 .shop-item {
   width: 360rpx;

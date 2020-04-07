@@ -83,7 +83,9 @@
 				couponId: '',
 				couponText: '',
 				couponItem: {},
-				isCoupon: false
+				isCoupon: false,
+				//动态参数
+				address: {} //用户的默认地址
 			}
 		},
 		onLoad(options) {
@@ -106,6 +108,43 @@
       }
 		},
 		methods: {
+			//下单
+			orderPay() {
+				if(this.shopList.length <= 0) {
+					uni.showToast({
+					    title: '无商品可下单',
+					    icon: 'none',
+					    duration: 2000
+					});
+					return;
+				}
+				if(!this.address) {
+					uni.showToast({
+					    title: '请先添加收货地址',
+					    icon: 'none',
+					    duration: 2000
+					});
+					return;
+				}
+				let that = this;
+				let params = {
+					cartId: '', //购物车ID，字符串逗号分隔
+					addressId: 0
+				}
+				interfaceurl.checkAuth(interfaceurl.orderPayment, {}, false).then((res) => {
+					that.bannerList = res.data
+				});
+			},
+			getAddressList() {
+				let that = this
+				let params = {
+					page: 1,
+					size: 10
+				}
+				interfaceurl.checkAuth(interfaceurl.addressPageList, params, false).then((res) => {
+					that.address = res.data.data
+				});
+			},
       selectTab(index) {
         this.tabIndex = index
         this.getTotalFee()

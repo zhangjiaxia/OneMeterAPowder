@@ -1,20 +1,20 @@
 <template>
-	<view>
+	<!-- <view> -->
 		<view class="content">
 			<view class="shop-list">
 				<view class="shop-item" v-for="(content,dex) in shopList" @click="shopDetailPage(content)" :key="dex">
-					<image :src="content.goods_cover_img" class="shop-img"></image>
+					<image :src="content.mainImgUrl" class="shop-img"></image>
 					<view class="shop-item-content">
 		        <view class="shop-item-bottom">
-		          <text class="shop-item-price">￥{{content.goods_price}}</text>
+		          <text class="shop-item-price">￥{{content.goods_price || 0}}</text>
 		          <text class="pay-btn">+</text>
 		        </view>
-						<view class="shop-item-title">{{content.goods_name}}</view>
+						<view class="shop-item-title">{{content.name}}</view>
 					</view>
 				</view>
 			</view>
 		</view>
-	</view>
+	<!-- </view> -->
 </template>
 
 <script>
@@ -38,13 +38,28 @@
 			}
 		},
 		onLoad(options) {
-			
+			this.getCagetogyList(options.cateId)
 		},
 		onShow() {
 			
 		},
 		methods: {
-			
+			//获取分类下的商品列表
+			getCagetogyList(cateId) {
+				let that = this;
+				let params = {
+					cateId: 5034,//cateId,
+					page: 1,
+					size: 10
+				}
+				interfaceurl.checkAuth(interfaceurl.categoryList, params, false).then((res) => {
+					that.shopList = res.data.data
+				});
+			},
+			shopDetailPage(item) {
+				this.$store.commit('setGoodsDetail', item)
+				this.$turnPage('/pages/index/shop-detail', 'navigateTo')
+			}
 		}
 	}
 </script>
@@ -55,6 +70,7 @@
 	}
 	.content{
 		padding: 0rpx 10rpx;
+		padding-top: 10rpx;
 	}
 	.shop-title{
 		display: flex;
@@ -74,7 +90,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-	  margin-top: 10rpx;
 	}
 	.shop-item{
 		width: 360rpx;

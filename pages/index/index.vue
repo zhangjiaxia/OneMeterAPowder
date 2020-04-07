@@ -44,15 +44,6 @@
 			<view class="type-item" v-for="(item, index) in specialAreaPicList" :key="index">
 			  <image :src="item.specialImgUrl"></image>
 			</view>
-			<!-- <view class="type-item">
-			  <image src="/static/type2.png"></image>
-			</view>
-			<view class="type-item">
-			  <image src="/static/type3.png"></image>
-			</view>
-			<view class="type-item">
-			  <image src="/static/type4.png"></image>
-			</view> -->
 		  </view>
 
 		  <view class="category-list">
@@ -270,9 +261,7 @@
 			  },
 			  shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
-				uni.navigateTo({
-					url: '/pages/index/shop-detail'
-				});
+				this.$turnPage('/pages/index/shop-detail', 'navigateTo')
 			  },
 			  shopListPage(item) {
 				uni.navigateTo({
