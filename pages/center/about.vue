@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		关于我们。
+		关于我们的说明。
 	</view>
 </template>
 
