@@ -1,0 +1,261 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*正中*/
+.content {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+}
+.form-item{
+	height: 100rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	background-color: #ffffff;
+	padding: 0rpx 30rpx;
+	border-bottom: 1px solid #E0E0E0;
+}
+.form-input{
+	text-align: right;
+	height: 100%;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	padding-left: 20rpx;
+}
+.form-label{
+	text-align: right;
+	height: 100%;
+	display: inline-block;
+	line-height: 100rpx;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	padding-left: 20rpx;
+}
+.arrow-icon{
+	width: 16rpx;
+	height: 30rpx;
+	margin-left: 10rpx;
+}
+.form-textarea{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 30rpx;
+  background-color: #ffffff;
+}
+.textarea{
+	min-height: 200rpx;
+	padding-top: 6rpx;
+	padding-left: 10rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  -webkit-transform: translateY(-20rpx);
+          transform: translateY(-20rpx);
+}
+.default-address{
+	margin-top: 20rpx;
+	background-color: #ffffff;
+	height: 100rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding:0rpx 30rpx;
+}
+.common-btn{
+	background: #0070D1;
+	color: #ffffff;
+	font-size: 34rpx;
+	height: 90rpx;
+	line-height: 90rpx;
+	text-align: center;
+	border-radius: 10rpx;
+	border: none;
+	margin: 0px auto;
+}
+.btn-container{
+	margin-top: 60rpx;
+	padding: 0rpx 30rpx;
+}
+

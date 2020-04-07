@@ -1,0 +1,208 @@
+
+.container{
+	padding-bottom: 130rpx;
+}
+.content{
+	padding: 20rpx 30rpx;
+}
+.tab-list{
+  padding: 30rpx;
+  background: #ffffff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+.tab-item{
+  width: 335rpx;
+  height: 60px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  border-radius: 10rpx;
+  box-shadow:0px 1px 10px 0px rgba(0, 0, 0, 0.2);
+  color: #333333;
+  box-sizing: border-box;
+}
+.tab-item-active{
+  border: 3rpx solid rgba(0,41,92,1);
+  color: #00295C;
+}
+.tab-item image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 30rpx;
+}
+.address{
+	padding: 20rpx 30rpx;
+	background: #ffffff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	border-radius: 10rpx;
+}
+.address-text{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	font-size: 26rpx;
+}
+.user-name{
+	margin-right: 30rpx;
+}
+.location-icon{
+	width: 36rpx;
+	height: 36rpx;
+	margin-right: 30rpx;
+}
+.edit-icon{
+	width: 13rpx;
+}
+.type{
+	margin-top: 20rpx;
+	height: 100rpx;
+	background-color: #ffffff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	font-size: 26rpx;
+	color: #666666;
+	padding: 0rpx 30rpx;
+	border-radius: 10rpx;
+}
+.type-title{
+	font-size: 30rpx;
+	font-weight: bold;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.radio-icon{
+	width: 36rpx;
+	height: 36rpx;
+	margin-left: 20rpx;
+}
+.shop-message{
+	margin-top: 20rpx;
+	border-radius: 20rpx;
+	padding: 20rpx 30rpx;
+	background-color: #ffffff;
+}
+.shop-item{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-bottom: 20rpx;
+	border-bottom: 1px solid #f5f5f5;
+}
+.shop-img{
+	width: 160rpx;
+	height: 160rpx;
+	margin-right: 30rpx;
+}
+.shop-item-content{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	font-size: 26rpx;
+}
+.shop-item-title{
+	font-size: 22rpx;
+	margin-bottom: 10rpx;
+}
+.shop-item-spec{
+	border-radius: 6rpx;
+	background: #EEEEEE;
+	padding: 6rpx;
+	font-size: 23rpx;
+	color: #999999;
+}
+.shop-item-bottom{
+	margin-top: 10rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.order-message{
+	margin-top: 20rpx;
+	font-size: 23rpx;
+	text-align: right;
+}
+.color-active{
+	color: #FF0000;
+	margin-left: 10rpx;
+}
+.order-remark{
+	margin-top: 30rpx;
+	font-size: 26rpx;
+	background-color: #ffffff;
+	padding: 30rpx;
+	padding-bottom: 20rpx;
+	border-radius: 20rpx;
+}
+.order-remark textarea{
+	width: 100%;
+	height: 130rpx;
+	margin-top: 10rpx;
+	background: #F5F5F5;
+	padding: 20rpx;
+	box-sizing: border-box;
+}
+.order-bottom{
+	width: 100%;
+	height: 100rpx;
+	background-color: #ffffff;
+	padding: 0rpx 20rpx;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	box-sizing: border-box;
+}
+.color-price{
+	color: #FF4444;
+	margin-left: 10rpx;
+	font-size: 32rpx;
+}
+.pay-btn{
+	width: 260rpx;
+	text-align: center;
+	color: #ffffff;
+	border-radius: 30rpx;
+	height: 39px;
+	line-height: 39px;
+	background: #016ECD;
+}
+

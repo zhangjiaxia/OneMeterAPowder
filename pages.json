@@ -1,0 +1,152 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "一米一粉"
+			}
+		},
+		{
+			"path": "pages/shopping/confirm-order",
+			"style": {
+				"navigationBarTitleText": "确认订单"
+			}
+		},
+		{
+			"path": "pages/category/category-detail",
+			"style": {
+				"navigationBarTitleText": "类目详情"
+			}
+		},
+		{
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "类目"
+			}
+		},
+		{
+			"path": "pages/shopping/shopping",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+			"path": "pages/center/address",
+			"style": {
+				"navigationBarTitleText": "收货地址"
+			}
+		},
+		
+		{
+			"path": "pages/center/center",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/index/Integral-stake",
+			"style": {
+				"navigationBarTitleText": "积分股权"
+			}
+		},
+		{
+			"path": "pages/center/order",
+			"style": {
+				"navigationBarTitleText": "我的订单"
+			}
+		},
+		{
+			"path": "pages/vip/vip",
+			"style": {
+				"navigationBarTitleText": "会员权益"
+			}
+		},
+		
+		
+		{
+			"path": "pages/index/search",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+		},
+		{
+			"path": "pages/index/shop-detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
+		},
+		{
+			"path": "pages/center/address-add",
+			"style": {
+				"navigationBarTitleText": "添加收货地址"
+			}
+		},
+		{
+			"path": "pages/center/team",
+			"style": {
+				"navigationBarTitleText": "我的团队"
+			}
+		},
+		{
+			"path": "pages/center/cash",
+			"style": {
+				"navigationBarTitleText": "我要提现"
+			}
+		},
+		{
+			"path": "pages/center/income-record",
+			"style": {
+				"navigationBarTitleText": "佣金明细"
+			}
+		},
+		{
+			"path": "pages/center/about",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		}
+	],
+	"globalStyle": {
+		//"navigationStyle": "custom", //自定义导航栏
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	  "color": "#999999",
+	  "selectedColor": "#0071CF",
+	  "borderStyle": "white",
+	  "backgroundColor": "#FFFFFF",
+	  "list": [{
+	    "pagePath": "pages/index/index",
+	    "iconPath": "static/index.png",
+	    "selectedIconPath": "static/index-selected.png",
+	    "text": "首页"
+	  },
+	  {
+	    "pagePath": "pages/category/category",
+	    "iconPath": "static/category.png",
+	    "selectedIconPath": "static/category-selected.png",
+	    "text": "分类"
+	  },
+	  {
+	    "pagePath": "pages/vip/vip",
+	    "iconPath": "static/vip.png",
+	    "selectedIconPath": "static/vip.png",
+	    "text": ""
+	  },
+	  {
+	    "pagePath": "pages/shopping/shopping",
+	    "iconPath": "static/shopping.png",
+	    "selectedIconPath": "static/shopping-selected.png",
+	    "text": "购物车"
+	  },
+	  {
+	    "pagePath": "pages/center/center",
+	    "iconPath": "static/center.png",
+	    "selectedIconPath": "static/center-selected.png",
+	    "text": "我的"
+	  }]
+	}
+}

@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/shopping/confirm-order",
+    "pages/category/category-detail",
+    "pages/category/category",
+    "pages/shopping/shopping",
+    "pages/center/address",
+    "pages/center/center",
+    "pages/index/Integral-stake",
+    "pages/center/order",
+    "pages/vip/vip",
+    "pages/index/search",
+    "pages/index/shop-detail",
+    "pages/center/address-add",
+    "pages/center/team",
+    "pages/center/cash",
+    "pages/center/income-record",
+    "pages/center/about"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#0071CF",
+    "borderStyle": "white",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/index.png",
+        "selectedIconPath": "static/index-selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "iconPath": "static/category.png",
+        "selectedIconPath": "static/category-selected.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/vip/vip",
+        "iconPath": "static/vip.png",
+        "selectedIconPath": "static/vip.png",
+        "text": ""
+      },
+      {
+        "pagePath": "pages/shopping/shopping",
+        "iconPath": "static/shopping.png",
+        "selectedIconPath": "static/shopping-selected.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/center/center",
+        "iconPath": "static/center.png",
+        "selectedIconPath": "static/center-selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
