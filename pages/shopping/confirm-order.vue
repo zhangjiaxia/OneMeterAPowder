@@ -1,429 +1,268 @@
 <template>
-	<view class="container">
-
-		<view class="content">
-
-			<view class="address" @click="addressPage">
-				<image src="/static/location.png" class="location-icon"></image>
-
-				<view class="address-text" v-if="addressItem.address_id">
-					<view>
-						<text class="user-name">{{addressItem.contact_name}}</text>
-						<text>{{addressItem.contact_mobile}}</text>
-					</view>
-					<view>{{addressItem.address}}</view>
+	<view>
+		<view class="layout">
+			<view class="uni-flex uni-row vertical address">
+				<view class="uni-flex">
+					<image src="../../static/location.png" class="location"></image>
 				</view>
-        <view v-else class="address-text">请选择收货地址</view>
-				<image src="/static/arrow.png" class="edit-icon" mode="widthFix"></image>
+				<view class="uni-flex uni-column rest" v-if="defaultAddress">
+					<view class="uni-flex">
+						<view class="uni-flex nick">{{defaultAddress.receiver}}</view>
+						<view class="uni-flex phone">{{defaultAddress.receiverPhone}}</view>
+					</view>
+					<view class="uni-flex position">{{defaultAddress.receiverAreaName}}</view>
+				</view>
+				<view class="uni-flex uni-column rest" v-else>
+					<view class="noposit">添加收货地址</view>
+				</view>
+				<view class="uni-flex">
+					<image src="../../static/center/backGrey.png" class="backGrey"></image>
+				</view>
 			</view>
-
-			<view class="shop-message">
-
-				<view class="shop-item" v-for="(item,index) in  shopList" :key="index">
-					<image :src="item.goods_cover_img" class="shop-img"></image>
-					<view class="shop-item-content">
-						<view class="shop-item-title">{{item.goods_name}}</view>
-						<!-- <view class="shop-item-spec">
-							<view>50ml</view>
-						</view> -->
-						<view class="shop-item-bottom">
-							<text>x{{item.shopNum}}</text>
-							<text class="color-price">￥{{item.goods_price || ''}}</text>
+			<view class="order" v-for="(item, index) in selectOrderGoods" :key="index">
+				<view class="uni-flex uni-row orderitem">
+					<view class="uni-flex">
+						<image :src="item.goodsPhotoUrl" class="goodsimg"></image>
+					</view>
+					<view class="uni-flex uni-column rest goodsinfo">
+						<view class="title">{{item.name}}</view>
+						<view class="prop">
+							<text class="size" v-for="(subItem, i) in item.skuPropertyList" :key="i">{{subItem.val}}</text>
+							<!-- <text class="size">100ml*1瓶</text> -->
 						</view>
 					</view>
+					<view class="uni-flex uni-column goodsdata">
+						<view class="title">￥{{item.price}}</view>
+						<view class="number">x{{item.quantity}}</view>
+					</view>
 				</view>
-
-				<view class="order-message">
-					<text>快递</text>
-					<text class="color-active">￥{{delivery_fee || '0.00'}}</text>
-				</view>
-
-				<view class="order-message">
-					<text style="font-size: 32upx;">小计:</text>
-					<text class="color-price">￥{{total}}</text>
+				<view class="uni-flex settle">
+					<view class="uni-flex rest horizontalright totaldesc">
+						共{{item.quantity}}件商品
+					</view>
+					<view class="uni-flex totalspace">
+						<text class="total">合计:</text>
+						<text class="totalnum">￥{{item.quantity * parseFloat(item.price) * 100 / 100}}</text>
+					</view>
 				</view>
 			</view>
-
-			<view class="order-remark">
-				<view>订单备注</view>
-        <textarea placeholder-style="color:#999999" placeholder="请填写相关备注" v-model="remark"/>
-			</view>
-
 		</view>
-
-		<view class="order-bottom">
-			<view>
-				<text>总价:</text>
-				<text class="color-price">￥{{total}}</text>
-			</view>
-			<view class="pay-btn" @click="onSubmit">付款</view>
+		<view class="uni-flex uni-row vertical btnop">
+			<view class="uni-flex rest vertical total">合计  ￥{{totalFee}}</view>
+			<view class="uni-flex content confirm" @click="submitOrder">提交订单</view>
 		</view>
-
 	</view>
 </template>
 
 <script>
-  // import { apiOrderDetail, apiOrderSubmit, apiOrderFee, apiUserInfo, apiCouponList } from '@/service/index'
+	import interfaceurl from '@/utils/interface.js'
+	//引入store的内容
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from 'vuex'
 	export default {
+		computed: mapState(['selectOrderGoods']),
 		data() {
 			return {
-				tabIndex: 0,
-				id: '',
-				status: 1,
-				shopNum: 1,
-				shopList: [],
-				addressItem: {},
-				remark: '',
-				mobile: '',
-				cardId: [],
-				total: '0.00',
-				orderAmout: 0,
-				delivery_fee: '',
-				detail: {},
-				couponId: '',
-				couponText: '',
-				couponItem: {},
-				isCoupon: false,
-				//动态参数
-				address: {} //用户的默认地址
+				totalFee: 0, //订单总额
+				defaultAddress: {}, //默认收货地址
+				cartId: '' //购物车ID参数，多个购物车用逗号隔开
 			}
 		},
-		onLoad(options) {
-      this.shopList = uni.getStorageSync('shopList');
-      // this.shopList.forEach((item) => {
-      // 	if(item.cart_id){
-      //     this.cardId.push(item.cart_id)
-      // 	}else {
-      //     this.getDetail(item)
-      // 	}
-      // })
-      // this.getOrderFee()
-      // this.getUserInfo()
-      // uni.removeStorageSync('addressItem');
-		},
-		onShow() {
-      const value = uni.getStorageSync('addressItem');
-      if(value){
-      	this.addressItem = uni.getStorageSync('addressItem');
-      }
+		onLoad() {
+			let total = 0;
+			this.cartId = ''
+			this.selectOrderGoods.forEach((item) => {
+				total = total + item.quantity * parseFloat(item.price)
+				this.cartId += item.cartId + ','
+			})
+			this.totalFee = total.toFixed(2)
+			this.getDefaultAddress()
 		},
 		methods: {
-			//下单
-			orderPay() {
-				if(this.shopList.length <= 0) {
-					uni.showToast({
-					    title: '无商品可下单',
-					    icon: 'none',
-					    duration: 2000
-					});
-					return;
-				}
-				if(!this.address) {
-					uni.showToast({
-					    title: '请先添加收货地址',
-					    icon: 'none',
-					    duration: 2000
-					});
-					return;
-				}
+			getDefaultAddress() {
 				let that = this;
-				let params = {
-					cartId: '', //购物车ID，字符串逗号分隔
-					addressId: 0
-				}
-				interfaceurl.checkAuth(interfaceurl.orderPayment, {}, false).then((res) => {
-					that.bannerList = res.data
+				//参数为空查询默认地址
+				interfaceurl.checkAuth(interfaceurl.addressInfo, {addressId: ''}).then((res) => {
+					that.defaultAddress = res.data
 				});
 			},
-			getAddressList() {
-				let that = this
+			submitOrder() {
+				let that = this;
+				if(!that.defaultAddress.addressId) {
+					uni.showToast({
+					    title: '收货地址不能为空',
+					    icon: 'none',
+					    duration: 2000
+					});
+					return;
+				}
+				if(this.cartId.length > 0) {
+					this.cartId.substring(0, this.cartId.length-1)
+				}
 				let params = {
-					page: 1,
-					size: 10
+					cartId: that.cartId,
+					addressId: that.defaultAddress.addressId
 				}
-				interfaceurl.checkAuth(interfaceurl.addressPageList, params, false).then((res) => {
-					that.address = res.data.data
-				});
-			},
-      selectTab(index) {
-        this.tabIndex = index
-        this.getTotalFee()
-      },
-      getUserInfo() {
-        apiUserInfo()
-        .then((res) => {
-          if(res.code == 0) {
-            this.detail = res.data
-          }
-        })
-      },
-      getOrderFee() {
-        apiOrderFee()
-        .then((res) => {
-          if(res.code == 0) {
-            this.delivery_fee = res.data.delivery_fee
-            this.getTotalFee()
-          }
-        })
-      },
-			getTotalFee() {
-        let total = 0
-        this.shopList.forEach((item) => {
-        	total = total + item.shopNum * parseFloat(item.goods_price)
-        })
-        if(this.tabIndex == 1) {
-          total = total + parseFloat(this.delivery_fee)
-        }
-        this.total = total.toFixed(2)
-        this.orderAmout = this.total
-			},
-			getDetail(item) {
-        apiOrderDetail({
-        	goods_id: item.goods_id,
-        	buy_number: item.shopNum
-        })
-        .then((res) => {
-        	if(res.code == 0) {
-            this.cardId.push(res.data.cart_id)
-        	}
-        })
-			},
-			addressPage() {
-        uni.navigateTo({
-          url: '/pages/address/address?origin=2'
-        });
-			},
-			onSubmit() {
-        if(this.tabIndex == 0 && !this.mobile) {
-          uni.showToast({
-            title: '自提请填写手机号码',
-            icon: 'none',
-            duration: 2000
-          });
-          return
-        }
-				if(this.tabIndex == 1 && !this.addressItem.address_id) {
-          uni.showToast({
-            title: '请选择收货地址',
-            icon: 'none',
-            duration: 2000
-          });
-          return
-				}
-        let params = {
-          cart_id: this.cardId.join(','),
-          remark: this.remark,
-          take_fashion: parseInt(this.tabIndex) + 1
-        }
-        if(this.tabIndex == 0) {
-          params.take_mobile = this.mobile
-        }
-        if(this.tabIndex == 1) {
-          params.address_id = this.addressItem.address_id
-        }
-				apiOrderSubmit(params)
-				.then((res) => {
-					if(res.code == 0) {
-						const self = this
-            if(!res.data) {
-              self.successPage()
-              return
-            }
-            uni.requestPayment({
-                provider: 'wxpay',
-                timeStamp: res.data.timeStamp,
-                nonceStr: res.data.nonceStr,
-                package: res.data.package,
-                signType: 'MD5',
-                paySign: res.data.paySign,
-                success: function (res) {
-                  self.successPage()
-                },
-                fail: function (err) {
-                  uni.showToast({
-                    title: '支付失败',
-                    icon: 'none',
-                    duration: 2000
-                  });
-                }
-            });
-					}
-				})
-			},
-			successPage() {
-				uni.navigateTo({
-				  url: '/pages/success/success'
+				interfaceurl.checkAuth(interfaceurl.orderPayment, params).then((res) => {
+					uni.requestPayment({
+					    timeStamp: res.data.timeStamp,
+					    nonceStr: res.data.nonceStr,
+					    package: res.data.package,
+					    signType: res.data.signType,
+					    paySign: res.data.paySign,
+					    success: (res) => {
+					        that.$turnPage('/pages/center/order', 'redirectTo')
+					    },
+					    fail: (res) => {
+							that.$turnPage('/pages/center/order', 'redirectTo')
+					    },
+					    complete: () => {
+							
+					    }
+					});
 				});
 			}
 		}
 	}
 </script>
 
-<style>
-.container{
-	padding-bottom: 130upx;
-}
-.content{
-	padding: 20upx 30upx;
-}
-.tab-list{
-  padding: 30upx;
-  background: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20upx;
-}
-.tab-item{
-  width: 335upx;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10upx;
-  box-shadow:0px 1px 10px 0px rgba(0, 0, 0, 0.2);
-  color: #333333;
-  box-sizing: border-box;
-}
-.tab-item-active{
-  border: 3upx solid rgba(0,41,92,1);
-  color: #00295C;
-}
-.tab-item image{
-  width: 50upx;
-  height: 50upx;
-  margin-right: 30upx;
-}
-.address{
-	padding: 20upx 30upx;
-	background: #ffffff;
-	display: flex;
-	align-items: center;
-	border-radius: 10upx;
-}
-.address-text{
-	flex: 1;
-	font-size: 26upx;
-}
-.user-name{
-	margin-right: 30upx;
-}
-.location-icon{
-	width: 36upx;
-	height: 36upx;
-	margin-right: 30upx;
-}
-.edit-icon{
-	width: 13upx;
-}
-.type{
-	margin-top: 20upx;
-	height: 100upx;
-	background-color: #ffffff;
-	display: flex;
-	align-items: center;
-	font-size: 26upx;
-	color: #666666;
-	padding: 0upx 30upx;
-	border-radius: 10upx;
-}
-.type-title{
-	font-size: 30upx;
-	font-weight: bold;
-	flex: 1;
-}
-.radio-icon{
-	width: 36upx;
-	height: 36upx;
-	margin-left: 20upx;
-}
-.shop-message{
-	margin-top: 20upx;
-	border-radius: 20upx;
-	padding: 20upx 30upx;
-	background-color: #ffffff;
-}
-.shop-item{
-	display: flex;
-	align-items: center;
-	margin-bottom: 20upx;
-	border-bottom: 1px solid #f5f5f5;
-}
-.shop-img{
-	width: 160upx;
-	height: 160upx;
-	margin-right: 30upx;
-}
-.shop-item-content{
-	flex: 1;
-	font-size: 26upx;
-}
-.shop-item-title{
-	font-size: 22upx;
-	margin-bottom: 10upx;
-}
-.shop-item-spec{
-	border-radius: 6upx;
-	background: #EEEEEE;
-	padding: 6upx;
-	font-size: 23upx;
-	color: #999999;
-}
-.shop-item-bottom{
-	margin-top: 10upx;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-.order-message{
-	margin-top: 20upx;
-	font-size: 23upx;
-	text-align: right;
-}
-.color-active{
-	color: #FF0000;
-	margin-left: 10upx;
-}
-.order-remark{
-	margin-top: 30upx;
-	font-size: 26upx;
-	background-color: #ffffff;
-	padding: 30upx;
-	padding-bottom: 20upx;
-	border-radius: 20upx;
-}
-.order-remark textarea{
-	width: 100%;
-	height: 130upx;
-	margin-top: 10upx;
-	background: #F5F5F5;
-	padding: 20upx;
-	box-sizing: border-box;
-}
-.order-bottom{
-	width: 100%;
-	height: 100upx;
-	background-color: #ffffff;
-	padding: 0upx 20upx;
-	position: fixed;
-	left: 0px;
-	bottom: 0px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	box-sizing: border-box;
-}
-.color-price{
-	color: #FF4444;
-	margin-left: 10upx;
-	font-size: 32upx;
-}
-.pay-btn{
-	width: 260upx;
-	text-align: center;
-	color: #ffffff;
-	border-radius: 30upx;
-	height: 39px;
-	line-height: 39px;
-	background: #016ECD;
-}
+<style lang="scss">
+	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
+	@import '/common/uni.css';
+	/*自定义公共样式*/
+	@import '/common/custom.css';
+	page {
+		background: #F7F4F8;
+	}
+	.layout {
+		padding-top: 20rpx;
+		width: 710rpx;
+		margin: 0 auto;
+		margin-bottom: 133rpx;
+	}
+	.address {
+		width:710rpx;
+		height:160rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 2rpx 10rpx 0px rgba(0, 0, 0, 0.08);
+		border-radius:15rpx;
+		.location {
+			width: 66rpx;
+			height: 66rpx;
+			margin-left: 40rpx;
+			margin-right: 30rpx;
+		}
+		.backGrey {
+			width: 16rpx;
+			height: 25rpx;
+			margin-right: 30rpx;
+		}
+		.nick {
+			font-size: 32rpx;
+			color: #333333;
+			margin-right: 30rpx;
+		}
+		.phone {
+			color: #999999;
+			font-size: 30rpx;
+		}
+		.position {
+			font-size: 28rpx;
+			color: #333333;
+		}
+		.noposit {
+			font-size: 26rpx;
+			color: #333333;
+		}
+	}
+	.title {
+		font-size: 24rpx;
+		color: #333333;
+	}
+	.order {
+		width:710rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+		border-radius:15rpx;
+		margin-top: 20rpx;
+	}
+	.orderitem {
+		padding-top: 50rpx;
+		margin-bottom: 27rpx;
+		.goodsimg {
+			width: 159rpx;
+			height: 159rpx;
+			margin-left: 20rpx;
+			margin-right: 30rpx;
+		}
+		.goodsinfo {
+			.prop {
+				.size {
+					background: #F3F0F3;
+					color: #A09DA1;
+					margin-right: 10rpx;
+					padding: 6rpx;
+				}
+			}
+		}
+		.goodsdata {
+			margin-left: 40rpx;
+			margin-right: 30rpx;
+			.number {
+				color: #999999;
+				font-size: 20rpx;
+				text-align: right;
+			}
+		}
+	}
+	.settle {
+		font-size: 24rpx;
+		.totaldesc {
+			color: #999999;
+		}
+		.totalspace {
+			margin-left: 10px;
+			margin-right: 20px;
+			margin-bottom: 40rpx;
+			.total {
+				color: #333333;
+			}
+			.totalnum {
+				color: #FF0808;
+			}
+		}
+	}
+	.base {
+		font-size: 30rpx;
+		color: #333333;
+	}
+	.subbase {
+		font-size: 24rpx;
+		color: #999999;
+		.back {
+			width: 16rpx;
+			height: 25rpx;
+			margin-left: 14rpx;
+		}
+	}
+	.btnop {
+		height: 80rpx;
+		color: #FFFFFF;
+		position: fixed;
+		width: 100%;
+		bottom: 0;
+		.total {
+			height: 100%;
+			background: #333333;
+			padding-left: 80rpx;
+		}
+		.confirm {
+			height: 100%;
+			width: 250rpx;
+			background: #0270CF;
+		}
+	}
 </style>

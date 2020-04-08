@@ -1,29 +1,29 @@
 
-.container{
-  background: #F5F5F5;
-  padding: 30rpx;
+.container {
+	background: #F5F5F5;
+	padding: 30rpx;
 }
-.recommand-content{
-  border-radius: 10rpx;
+.recommand-content {
+	border-radius: 10rpx;
 }
-.recommand-item{
-  margin-top: 20rpx;
-  background: #ffffff;
-  font-size: 26rpx;
-  color: #999999;
-  padding: 10rpx 30rpx;
+.recommand-item {
+	margin-top: 20rpx;
+	background: #ffffff;
+	font-size: 26rpx;
+	color: #999999;
+	padding: 10rpx 30rpx;
 }
-.recommand-title{
-  font-size: 32rpx !important;
-  color: #333333;
+.recommand-title {
+	font-size: 32rpx !important;
+	color: #333333;
 }
-.recommand-item image{
-  width: 60rpx;
-  height: 60rpx;
-  border-radius: 100%;
-  margin-right: 10rpx;
+.recommand-item image {
+	width: 60rpx;
+	height: 60rpx;
+	border-radius: 100%;
+	margin-right: 10rpx;
 }
-.amount{
-  color: #EB6100;
+.amount {
+	color: #EB6100;
 }
 

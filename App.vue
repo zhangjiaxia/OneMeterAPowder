@@ -31,15 +31,6 @@
 	  color: #999999;
 	  padding-top: 50upx;
 	}
-	.confirm-modal{
-	  width: 100%;
-	  height: 100%;
-	  position: absolute;
-	  left: 0px;
-	  top: 0px;
-	  z-index: 99;
-	  background: rgba(0,0,0,0.3);
-	}
 	.common-btn{
 	  width: 100%;
 	  height: 39px;

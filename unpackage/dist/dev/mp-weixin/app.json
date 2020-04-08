@@ -1,17 +1,21 @@
 {
   "pages": [
+    "pages/vip/vip-mainrule",
+    "pages/vip/vip-rule",
+    "pages/vip/vip",
+    "pages/center/order",
+    "pages/shopping/shopping",
     "pages/index/index",
+    "pages/index/shop-detail",
     "pages/shopping/confirm-order",
+    "pages/shopping/order-detail",
     "pages/category/category-detail",
     "pages/category/category",
-    "pages/shopping/shopping",
     "pages/center/address",
     "pages/center/center",
     "pages/index/Integral-stake",
-    "pages/center/order",
-    "pages/vip/vip",
+    "pages/vip/vip-index",
     "pages/index/search",
-    "pages/index/shop-detail",
     "pages/center/address-add",
     "pages/center/team",
     "pages/center/cash",
@@ -63,6 +67,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap53.json"
+  "usingComponents": {}
 }

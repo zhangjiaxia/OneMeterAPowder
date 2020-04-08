@@ -214,25 +214,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -311,7 +293,16 @@ var _default = { data: function data() {return { indicatorDots: true, autoplay: 
       tabIndex: 0, //选择的专区索引
       specialGoodsList: [], //专区商品
       championList: [] //销量冠军
-    };}, onShareAppMessage: function onShareAppMessage(res) {return { title: '一米一粉', path: '/pages/index/index?code=' + this.invitation_code, imageUrl: '/static/banner.png' };}, onLoad: function onLoad(options) {console.log('options');console.log(options);return;var login = uni.getStorageSync('login');if (!login) {return;uni.login({ provider: 'weixin', success: function success(res) {apiUserLogin({ code: res.code }).then(function (res) {
+    };}, onShareAppMessage: function onShareAppMessage(res) {return { title: '一米一粉', path: '/pages/index/index?code=' + this.invitation_code, imageUrl: '/static/banner.png' };}, onLoad: function onLoad(options) {console.log('options');console.log(options);return;var login = uni.getStorageSync('login');
+    if (!login) {
+      return;
+      uni.login({
+        provider: 'weixin',
+        success: function success(res) {
+          apiUserLogin({
+            code: res.code }).
+
+          then(function (res) {
             if (res.code == 0) {
               uni.setStorageSync('token', res.data.token);
               uni.setStorageSync('login', true);
@@ -434,7 +425,9 @@ var _default = { data: function data() {return { indicatorDots: true, autoplay: 
     //获取专区1:图片位置2:标题位置
     getSpecialAreaList: function getSpecialAreaList(specialType) {
       var that = this;
-      _interface.default.checkAuth(_interface.default.specialAreaList, { specialType: specialType }, false).then(function (res) {
+      _interface.default.checkAuth(_interface.default.specialAreaList, {
+        specialType: specialType },
+      false).then(function (res) {
         if (specialType == 1) {
           that.specialAreaPicList = res.data;
         } else {
@@ -455,7 +448,6 @@ var _default = { data: function data() {return { indicatorDots: true, autoplay: 
 
       _interface.default.checkAuth(_interface.default.specialGoodsList, params, false).then(function (res) {
         that.specialGoodsList = res.data.data;
-        console.log('that.specialGoodsList', that.specialGoodsList);
       });
     },
     //销量冠军

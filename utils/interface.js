@@ -7,9 +7,9 @@ const baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开
 const baseUrlFormal = "https://shop.itaocow.com.cn"; //正式域名，提交文件时要切换到正式域名
 const baseUrl = isFormal ? baseUrlFormal : baseUrlTest;
 
-/**后台>http://39.97.247.179:8080/productInfoList.html
- * 后台账号：test  密码： 123456
- * 后台接口》https://192.168.0.199/swagger-ui.html#!/
+/**后台>http://admin-emi.bidou88.cn/
+ * 后台账号：  密码： 123123123
+ * 后台接口》http://www.sosoapi.com/pass/apidoc/share/show.htm?shareKey=1c34a46bb3e1e626daace5f5d09d83b4
  * 配置接口定义，请求方式默认为get，post方式需明确指定
  * 根据指引》https://www.jianshu.com/p/edd9a1aac8bd
  */
@@ -76,17 +76,20 @@ const interfaceurl = {
 						let loginResp = res.data.data;
 						uni.setStorageSync('token', loginResp.token)
 						store.commit('updateToken', loginResp.token)
-						interfaceurl.checkAuth(interfaceurl.saveInfo, {
-						    nickName: detail.userInfo.nickName,
-							gender: detail.userInfo.gender,
-							avatarUrl: detail.userInfo.avatarUrl
-						}).then((res) => {
-							let userInfo = {
-								nickName: detail.userInfo.nickName,
+						//首次授权登录需要保存用户信息
+						if(detail.userInfo) {
+							interfaceurl.checkAuth(interfaceurl.saveInfo, {
+							    nickName: detail.userInfo.nickName,
+								gender: detail.userInfo.gender,
 								avatarUrl: detail.userInfo.avatarUrl
-							}
-							uni.setStorageSync('userInfo', userInfo);
-						});
+							}).then((res) => {
+								let userInfo = {
+									nickName: detail.userInfo.nickName,
+									avatarUrl: detail.userInfo.avatarUrl
+								}
+								uni.setStorageSync('userInfo', userInfo);
+							});
+						}
 						if(successBack) {
 							successBack();
 						}
@@ -193,6 +196,7 @@ const interfaceurl = {
 	addressUpdate(data) { return req.request({ url: `${baseUrl}/v1/address/update`, data, method: 'POST' }) },
 	addressPageList(data) { return req.request({ url: `${baseUrl}/v1/address/pageList`, data }) },
 	addressDelete(data) { return req.request({ url: `${baseUrl}/v1/address/delete`, data }) },
+	addressInfo(data) { return req.request({ url: `${baseUrl}/v1/address/info`, data }) },
 	/*会员*/
 	vipPayment(data) { return req.request({ url: `${baseUrl}/v1/vip_payment/payment`, data, method: 'POST' }) },
 	/*用户*/

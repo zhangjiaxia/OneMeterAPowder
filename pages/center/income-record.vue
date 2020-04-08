@@ -1,6 +1,5 @@
 <template>
 	<view class="container">
-
 		<view class="record-item">
 			<view>
 				<view class="record-item-top">
@@ -11,7 +10,6 @@
 			</view>
 			<view class="num">+500</view>
 		</view>
-
 	</view>
 </template>
 

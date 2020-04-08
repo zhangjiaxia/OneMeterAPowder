@@ -1,29 +1,29 @@
 
-.container{
+.container {
 	background-color: #ffffff;
 	padding-top: 50px;
 }
-.title-contents{
-  width: 100%;
+.title-contents {
+	width: 100%;
 	position: fixed;
 	top: 0;
 }
-.titles{  
-  height: 50px;
-  color: #ffffff;
-  background: #0070CF;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  padding: 0rpx 30rpx;
+.titles {
+	height: 50px;
+	color: #ffffff;
+	background: #0070CF;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding: 0rpx 30rpx;
 }
-.search-input{
+.search-input {
 	height: 60rpx;
 	background-color: #ffffff;
 	-webkit-box-flex: 1;
@@ -41,33 +41,33 @@
 	padding: 10rpx 20rpx;
 	box-sizing: border-box;
 }
-.search-icon{
+.search-icon {
 	width: 30rpx;
 	height: 30rpx;
 	margin-right: 10rpx;
 }
-.search-input input{
+.search-input input {
 	height: 100%;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
 	color: #333333;
 }
-.return-icon{
+.return-icon {
 	width: 20rpx;
 	height: 36rpx;
 }
-.search-text{
+.search-text {
 	font-size: 36rpx;
 }
-input{
-  caret-color: #FF585C;
+input {
+	caret-color: #FF585C;
 }
-.search-content{
+.search-content {
 	padding: 0rpx 30rpx;
 	margin-top: 40rpx;
 }
-.search-title{
+.search-title {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -77,14 +77,14 @@ input{
 	margin-bottom: 30rpx;
 	font-size: 32rpx;
 }
-.record-list{
+.record-list {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-wrap: wrap;
 	        flex-wrap: wrap;
 }
-.record-item{
+.record-item {
 	display: inline-block;
 	padding: 0rpx 30rpx;
 	height: 53rpx;
@@ -97,7 +97,7 @@ input{
 	margin-right: 30rpx;
 	margin-bottom: 30rpx;
 }
-.delete-icon{
+.delete-icon {
 	width: 32rpx;
 	height: 32rpx;
 }

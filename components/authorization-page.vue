@@ -33,12 +33,12 @@
 		},
 		data() {
 			return {
-				
+				token: '' //先用存储本地的token判断
 			};
 		},
-		computed: mapState(['token', 'userInfo']),
+		//computed: mapState(['token', 'userInfo']),
 		mounted() {
-			
+			this.token = uni.getStorageSync('token');
 		},
 		methods: {
 			prevent() { }, //阻止父级元素跳转

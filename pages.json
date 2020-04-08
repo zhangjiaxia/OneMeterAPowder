@@ -1,15 +1,57 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/vip/vip-mainrule",
+			"style": {
+				"navigationBarTitleText": "佣金规则"
+			}
+		},
+		{
+			"path": "pages/vip/vip-rule",
+			"style": {
+				"navigationBarTitleText": "VIP会员规则"
+			}
+		},
+		{
+			"path": "pages/vip/vip",
+			"style": {
+				"navigationBarTitleText": "VIP"
+			}
+		},
+		{
+			"path": "pages/center/order",
+			"style": {
+				"navigationBarTitleText": "我的订单"
+			}
+		},
+		{
+			"path": "pages/shopping/shopping",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "一米一粉"
 			}
 		},
 		{
+			"path": "pages/index/shop-detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
+		},
+		{
 			"path": "pages/shopping/confirm-order",
 			"style": {
 				"navigationBarTitleText": "确认订单"
+			}
+		},
+		{
+			"path": "pages/shopping/order-detail",
+			"style": {
+				"navigationBarTitleText": "订单详情"
 			}
 		},
 		{
@@ -25,18 +67,11 @@
 			}
 		},
 		{
-			"path": "pages/shopping/shopping",
-			"style": {
-				"navigationBarTitleText": "购物车"
-			}
-		},
-		{
 			"path": "pages/center/address",
 			"style": {
 				"navigationBarTitleText": "收货地址"
 			}
 		},
-		
 		{
 			"path": "pages/center/center",
 			"style": {
@@ -50,29 +85,15 @@
 			}
 		},
 		{
-			"path": "pages/center/order",
-			"style": {
-				"navigationBarTitleText": "我的订单"
-			}
-		},
-		{
-			"path": "pages/vip/vip",
+			"path": "pages/vip/vip-index",
 			"style": {
 				"navigationBarTitleText": "会员权益"
 			}
 		},
-		
-		
 		{
 			"path": "pages/index/search",
 			"style": {
 				"navigationBarTitleText": "搜索"
-			}
-		},
-		{
-			"path": "pages/index/shop-detail",
-			"style": {
-				"navigationBarTitleText": "商品详情"
 			}
 		},
 		{

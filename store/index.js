@@ -10,7 +10,8 @@ export default new Vuex.Store({
     state: {
         //用户登录后记录
 		token: '', //用户登录后接口传回的token
-		goodsDetail: {} //商品详情
+		goodsDetail: {}, //商品详情
+		selectOrderGoods: [] //用户选择下单的商品
     },
 	//数据修改，非异步
     mutations: {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
 		},
 		setGoodsDetail(state, newValue) {
 			state.goodsDetail = newValue
+		},
+		setSelectOrderGoods(state, newValue) {
+			state.selectOrderGoods = newValue
 		}
     },
 	//异步方法，如果需要修改state中的数据，必须调用mutations里的方法

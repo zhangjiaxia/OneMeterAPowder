@@ -164,7 +164,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
 
@@ -200,7 +199,6 @@ var _cityData = _interopRequireDefault(__webpack_require__(/*! @/common/city.dat
 //
 //
 //
-// import { apiAddressAdd, apiAddressEdit } from '@/service/index'
 var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensure | components/mpvue-picker/mpvuePicker */ "components/mpvue-picker/mpvuePicker").then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-picker/mpvuePicker.vue */ 161));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var mpvueCityPicker = function mpvueCityPicker() {Promise.all(/*! require.ensure | components/mpvue-citypicker/mpvueCityPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/mpvue-citypicker/mpvueCityPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-citypicker/mpvueCityPicker.vue */ 168));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { mpvuePicker: mpvuePicker, mpvueCityPicker: mpvueCityPicker }, data: function data() {return { true_name: '', cellphone: '', detail_address: '', address_id: '', //动态参数
       themeColor: '#007AFF', cityPickerValueDefault: [0, 0, 1], mode: '', deepLength: 1, pickerValueDefault: [0], pickerValueArray: [], info: {}, //用户地址信息，深拷贝
       position: '', //选择的地址
@@ -210,6 +208,7 @@ var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensu
       // this.cellphone = item.receiverPhone
       // this.detail_address = item.receiverAddr
     }}, onShow: function onShow() {
+
   },
   methods: {
     // 三级联动选择

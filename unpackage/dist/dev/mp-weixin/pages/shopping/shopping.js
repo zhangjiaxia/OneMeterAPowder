@@ -234,7 +234,8 @@ var _default = { data: function data() {return { currentPage: 1, pageSize: 20, t
       timer: null, isAll: true, isEdit: false, //动态参数
       cartList: {} //购物车列表
     };}, onShow: function onShow() {// this.getShoppingList(1)
-    this.getCartPageList();}, onReachBottom: function onReachBottom() {if (this.shopList.length >= this.total) {return;}this.currentPage++;this.getShoppingList(2);}, methods: { getCartPageList: function getCartPageList() {var that = this;var params = { page: 1, size: 10 };_interface.default.checkAuth(_interface.default.cartPageList, params).then(function (res) {that.cartList = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.cartList.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;item.selected = true;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}that.shopList = that.cartList.data;});}, indexPage: function indexPage() {uni.switchTab({ url: '/pages/index/index' });}, getShoppingList: function getShoppingList(type) {var _this = this;apiShoppingList({ page: this.currentPage,
+    this.getCartPageList();}, onReachBottom: function onReachBottom() {if (this.shopList.length >= this.total) {return;}this.currentPage++;this.getShoppingList(2);}, methods: { getCartPageList: function getCartPageList() {var that = this;var params = { page: 1, size: 10 };_interface.default.checkAuth(_interface.default.cartPageList, params).then(function (res) {that.cartList = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.cartList.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;item.selected = true;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}that.shopList = that.cartList.data;that.getTotalFee();});}, indexPage: function indexPage() {uni.switchTab({ url: '/pages/index/index' });}, getShoppingList: function getShoppingList(type) {var _this = this;apiShoppingList({
+        page: this.currentPage,
         size: this.pageSize }).
 
       then(function (res) {
@@ -300,12 +301,14 @@ var _default = { data: function data() {return { currentPage: 1, pageSize: 20, t
     },
     getTotalFee: function getTotalFee() {
       var total = 0;
+      console.log(this.shopList);
       this.shopList.forEach(function (item) {
         if (item.selected) {
           total = total + item.quantity * parseFloat(item.price);
         }
       });
       this.totalFee = total.toFixed(2);
+      console.log(this.totalFee);
     },
     shoppingUpdate: function shoppingUpdate(item) {
       var that = this;
@@ -361,15 +364,18 @@ var _default = { data: function data() {return { currentPage: 1, pageSize: 20, t
       var shopList = [];
       arr.forEach(function (item) {
         var shopItem = {
-          goods_id: item.spuId,
-          goods_price: item.price,
-          goods_name: item.name,
-          goods_cover_img: item.goodsPhotoUrl,
-          shopNum: item.quantity,
-          cart_id: item.cartId };
+          spuId: item.spuId,
+          price: item.price,
+          name: item.name,
+          goodsPhotoUrl: item.goodsPhotoUrl,
+          quantity: item.quantity,
+          cartId: item.cartId,
+          skuPropertyList: item.skuPropertyList };
 
         shopList.push(shopItem);
       });
+      //数据存储优先使用store
+      this.$store.commit('setSelectOrderGoods', shopList);
       uni.setStorageSync('shopList', shopList);
       uni.navigateTo({
         url: '/pages/shopping/confirm-order' });

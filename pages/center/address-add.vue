@@ -31,7 +31,6 @@
 </template>
 
 <script>
-	// import { apiAddressAdd, apiAddressEdit } from '@/service/index'
 	import interfaceurl from '@/utils/interface.js'
 	import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'

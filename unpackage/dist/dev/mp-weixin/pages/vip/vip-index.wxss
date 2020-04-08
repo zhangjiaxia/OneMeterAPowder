@@ -1,0 +1,13 @@
+
+.bac{
+	width: 100%;
+	vertical-align: top;
+}
+.bottom-btn{
+	height: 39px;
+	line-height: 39px;
+	background: #EEB950;
+	color: #ffffff;
+	text-align: center;
+}
+

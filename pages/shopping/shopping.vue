@@ -92,6 +92,7 @@
 						item.selected = true
 					}
 					that.shopList = that.cartList.data
+					that.getTotalFee()
 				});
 			},
 		  indexPage() {
@@ -167,12 +168,14 @@
 			},
 			getTotalFee() {
 				let total = 0
+				console.log(this.shopList)
 				this.shopList.forEach((item) => {
 					if(item.selected) {
 						total = total + item.quantity * parseFloat(item.price)
 					}
 				})
 				this.totalFee = total.toFixed(2)
+				console.log(this.totalFee)
 			},
 			shoppingUpdate(item) {
 				let that = this;
@@ -228,15 +231,18 @@
 				let shopList = []
 				arr.forEach((item) => {
 				  const shopItem = {
-					goods_id: item.spuId,
-					goods_price: item.price,
-					goods_name: item.name,
-					goods_cover_img: item.goodsPhotoUrl,
-					shopNum: item.quantity,
-					cart_id: item.cartId
+					spuId: item.spuId,
+					price: item.price,
+					name: item.name,
+					goodsPhotoUrl: item.goodsPhotoUrl,
+					quantity: item.quantity,
+					cartId: item.cartId,
+					skuPropertyList: item.skuPropertyList
 				  }
 				  shopList.push(shopItem)
 				})
+				//数据存储优先使用store
+				this.$store.commit('setSelectOrderGoods', shopList)
 				uni.setStorageSync('shopList', shopList)
 				uni.navigateTo({
 				  url: '/pages/shopping/confirm-order'

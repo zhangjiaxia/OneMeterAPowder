@@ -148,13 +148,13 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 //引入store的内容
 var _default = { props: { show: { type: Boolean }, //显示用户信息或手机
     showUserOrPhone: { type: Boolean, default: true } }, data: function data() {
-    return {};
-
-
+    return {
+      token: '' //先用存储本地的token判断
+    };
   },
-  computed: (0, _vuex.mapState)(['token', 'userInfo']),
+  //computed: mapState(['token', 'userInfo']),
   mounted: function mounted() {
-
+    this.token = uni.getStorageSync('token');
   },
   methods: {
     prevent: function prevent() {}, //阻止父级元素跳转

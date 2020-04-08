@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1716,7 +1716,8 @@ new _vuex.default.Store({
   state: {
     //用户登录后记录
     token: '', //用户登录后接口传回的token
-    goodsDetail: {} //商品详情
+    goodsDetail: {}, //商品详情
+    selectOrderGoods: [] //用户选择下单的商品
   },
   //数据修改，非异步
   mutations: {
@@ -1725,6 +1726,9 @@ new _vuex.default.Store({
     },
     setGoodsDetail: function setGoodsDetail(state, newValue) {
       state.goodsDetail = newValue;
+    },
+    setSelectOrderGoods: function setSelectOrderGoods(state, newValue) {
+      state.selectOrderGoods = newValue;
     } },
 
   //异步方法，如果需要修改state中的数据，必须调用mutations里的方法
@@ -22439,7 +22443,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -22460,14 +22464,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -22543,7 +22547,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -22954,9 +22958,9 @@ var baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开�
 var baseUrlFormal = "https://shop.itaocow.com.cn"; //正式域名，提交文件时要切换到正式域名
 var baseUrl = isFormal ? baseUrlFormal : baseUrlTest;
 
-/**后台>http://39.97.247.179:8080/productInfoList.html
-                                                       * 后台账号：test  密码： 123456
-                                                       * 后台接口》https://192.168.0.199/swagger-ui.html#!/
+/**后台>http://admin-emi.bidou88.cn/
+                                                       * 后台账号：  密码： 123123123
+                                                       * 后台接口》http://www.sosoapi.com/pass/apidoc/share/show.htm?shareKey=1c34a46bb3e1e626daace5f5d09d83b4
                                                        * 配置接口定义，请求方式默认为get，post方式需明确指定
                                                        * 根据指引》https://www.jianshu.com/p/edd9a1aac8bd
                                                        */
@@ -23023,17 +23027,20 @@ var interfaceurl = (_interfaceurl = {
               var loginResp = res.data.data;
               uni.setStorageSync('token', loginResp.token);
               _store.default.commit('updateToken', loginResp.token);
-              interfaceurl.checkAuth(interfaceurl.saveInfo, {
-                nickName: detail.userInfo.nickName,
-                gender: detail.userInfo.gender,
-                avatarUrl: detail.userInfo.avatarUrl }).
-              then(function (res) {
-                var userInfo = {
+              //首次授权登录需要保存用户信息
+              if (detail.userInfo) {
+                interfaceurl.checkAuth(interfaceurl.saveInfo, {
                   nickName: detail.userInfo.nickName,
-                  avatarUrl: detail.userInfo.avatarUrl };
+                  gender: detail.userInfo.gender,
+                  avatarUrl: detail.userInfo.avatarUrl }).
+                then(function (res) {
+                  var userInfo = {
+                    nickName: detail.userInfo.nickName,
+                    avatarUrl: detail.userInfo.avatarUrl };
 
-                uni.setStorageSync('userInfo', userInfo);
-              });
+                  uni.setStorageSync('userInfo', userInfo);
+                });
+              }
               if (successBack) {
                 successBack();
               }
@@ -23139,7 +23146,8 @@ data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/retu
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/create"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "addressUpdate", function addressUpdate(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/update"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "addressPageList", function addressPageList(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/pageList"), data: data });}), _defineProperty(_interfaceurl, "addressDelete", function addressDelete(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/delete"), data: data });}), _defineProperty(_interfaceurl, "vipPayment", function vipPayment(
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/delete"), data: data });}), _defineProperty(_interfaceurl, "addressInfo", function addressInfo(
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/info"), data: data });}), _defineProperty(_interfaceurl, "vipPayment", function vipPayment(
 
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/vip_payment/payment"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "showDetail", function showDetail(
 
@@ -24201,7 +24209,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉" }, "pages/shopping/confirm-order": { "navigationBarTitleText": "确认订单" }, "pages/category/category-detail": { "navigationBarTitleText": "类目详情" }, "pages/category/category": { "navigationBarTitleText": "类目" }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车" }, "pages/center/address": { "navigationBarTitleText": "收货地址" }, "pages/center/center": { "navigationBarTitleText": "我的" }, "pages/index/Integral-stake": { "navigationBarTitleText": "积分股权" }, "pages/center/order": { "navigationBarTitleText": "我的订单" }, "pages/vip/vip": { "navigationBarTitleText": "会员权益" }, "pages/index/search": { "navigationBarTitleText": "搜索" }, "pages/index/shop-detail": { "navigationBarTitleText": "商品详情" }, "pages/center/address-add": { "navigationBarTitleText": "添加收货地址" }, "pages/center/team": { "navigationBarTitleText": "我的团队" }, "pages/center/cash": { "navigationBarTitleText": "我要提现" }, "pages/center/income-record": { "navigationBarTitleText": "佣金明细" }, "pages/center/about": { "navigationBarTitleText": "关于我们" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/confirm-order": { "navigationBarTitleText": "确认订单", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/category-detail": { "navigationBarTitleText": "类目详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/category": { "navigationBarTitleText": "类目", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/address": { "navigationBarTitleText": "收货地址", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/center": { "navigationBarTitleText": "我的", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/index/Integral-stake": { "navigationBarTitleText": "积分股权", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/order": { "navigationBarTitleText": "我的订单", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/search": { "navigationBarTitleText": "搜索", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/shop-detail": { "navigationBarTitleText": "商品详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/address-add": { "navigationBarTitleText": "添加收货地址", "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker" }, "usingAutoImportComponents": {} }, "pages/center/team": { "navigationBarTitleText": "我的团队", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/cash": { "navigationBarTitleText": "我要提现", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/income-record": { "navigationBarTitleText": "佣金明细", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/about": { "navigationBarTitleText": "关于我们", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/order-detail": { "navigationBarTitleText": "订单详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip-index": { "navigationBarTitleText": "会员权益", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip-rule": { "navigationBarTitleText": "VIP会员规则", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip-mainrule": { "navigationBarTitleText": "佣金规则" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 
