@@ -1,30 +1,63 @@
 {
   "pages": [
-    "pages/vip/vip-mainrule",
-    "pages/vip/vip-rule",
-    "pages/vip/vip",
-    "pages/center/order",
-    "pages/shopping/shopping",
     "pages/index/index",
-    "pages/index/shop-detail",
-    "pages/shopping/confirm-order",
-    "pages/shopping/order-detail",
-    "pages/category/category-detail",
     "pages/category/category",
-    "pages/center/address",
-    "pages/center/center",
-    "pages/index/Integral-stake",
-    "pages/vip/vip-index",
-    "pages/index/search",
-    "pages/center/address-add",
-    "pages/center/team",
-    "pages/center/cash",
-    "pages/center/income-record",
-    "pages/center/about"
+    "pages/vip/vip",
+    "pages/shopping/shopping",
+    "pages/center/center"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "pages/vip/rule/",
+      "pages": [
+        "vip-index",
+        "vip-mainrule",
+        "vip-rule"
+      ]
+    },
+    {
+      "root": "pages/shopping/trade/",
+      "pages": [
+        "address",
+        "address-add",
+        "confirm-order",
+        "invoice-info",
+        "order",
+        "order-detail"
+      ]
+    },
+    {
+      "root": "pages/index/business/",
+      "pages": [
+        "business-school",
+        "Integral-stake",
+        "shop-detail",
+        "original-equity"
+      ]
+    },
+    {
+      "root": "pages/center/my/",
+      "pages": [
+        "about",
+        "cash",
+        "commission-detail",
+        "income-record",
+        "my-points",
+        "team"
+      ]
+    },
+    {
+      "root": "pages/category/search/",
+      "pages": [
+        "category-detail",
+        "goods-list",
+        "search",
+        "search-list"
+      ]
+    }
+  ],
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
@@ -37,32 +70,32 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "static/index.png",
-        "selectedIconPath": "static/index-selected.png",
+        "iconPath": "static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/index-selected.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/category/category",
-        "iconPath": "static/category.png",
-        "selectedIconPath": "static/category-selected.png",
+        "iconPath": "static/tabbar/category.png",
+        "selectedIconPath": "static/tabbar/category-selected.png",
         "text": "分类"
       },
       {
         "pagePath": "pages/vip/vip",
-        "iconPath": "static/vip.png",
-        "selectedIconPath": "static/vip.png",
-        "text": ""
+        "iconPath": "static/tabbar/vip.png",
+        "selectedIconPath": "static/tabbar/vip.png",
+        "text": "VIP"
       },
       {
         "pagePath": "pages/shopping/shopping",
-        "iconPath": "static/shopping.png",
-        "selectedIconPath": "static/shopping-selected.png",
+        "iconPath": "static/tabbar/shopping.png",
+        "selectedIconPath": "static/tabbar/shopping-selected.png",
         "text": "购物车"
       },
       {
         "pagePath": "pages/center/center",
-        "iconPath": "static/center.png",
-        "selectedIconPath": "static/center-selected.png",
+        "iconPath": "static/tabbar/center.png",
+        "selectedIconPath": "static/tabbar/center-selected.png",
         "text": "我的"
       }
     ]

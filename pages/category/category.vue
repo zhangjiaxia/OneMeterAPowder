@@ -11,12 +11,12 @@
 				<view class="shop-list">
 					<view class="classify" v-for="(item, index) in categoryList" :key="index">
 						<view class="goodstitle" style="margin-bottom: 20rpx;" 
-							@click="$turnPage('/pages/category/category-detail?cateId='+item.cateId, 'navigateTo')">
+							@click="$turnPage('/pages/category/search/category-detail?cateId='+item.cateId, 'navigateTo')">
 							{{item.cateName}}
 						</view>
 						<view>
 							<view class="space" v-for="(subItem, i) in item.childList" :key="i" 
-								@click="$turnPage('/pages/category/category-detail?cateId='+subItem.cateId, 'navigateTo')">
+								@click="$turnPage('/pages/category/search/category-detail?cateId='+subItem.cateId, 'navigateTo')">
 								<image :src="subItem.iconImgUrl" class="goodsimg"></image>
 								<view class="goodstitle">{{subItem.cateName}}</view>
 							</view>

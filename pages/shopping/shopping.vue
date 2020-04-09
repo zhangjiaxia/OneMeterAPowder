@@ -6,8 +6,7 @@
 				<text v-else @click="handleEdit">编辑</text>
 			  </view>
 			<view class="shop-item" v-for="(item,index) in shopList" :key="index">
-				<image v-if="item.selected" src="/static/radio-selected.png" class="radio-icon" @click="handleSelect(index)"></image>
-				<image v-else src="/static/radio.png" class="radio-icon" @click="handleSelect(index)"></image>
+				<view class="icon-gou" :style="{color: item.selected ? '#0070CF' : '#999999'}" @click="handleSelect(index)"></view>
 				<image :src="item.goodsPhotoUrl" class="shop-img"></image>
 				<view class="shop-item-content">
 					<view class="shop-item-title">{{item.name}}</view>
@@ -26,8 +25,7 @@
 			</view>
 		</view>
 		<view class="shopping-bottom" v-if="cartList.total > 0">
-			<image v-if="isAll" src="/static/radio-selected.png" class="radio-icon" @click="hadleSelectAll"></image>
-			<image v-else src="/static/radio.png" class="radio-icon" @click="hadleSelectAll"></image>
+			<view class="icon-gou radio-icon" :style="{color: isAll ? '#0070CF' : '#999999'}" @click="hadleSelectAll"></view>
 			<text @click="hadleSelectAll">全选</text>
 			<view class="total" v-if="isEdit"></view>
 			<view class="total" v-if="!isEdit">
@@ -37,7 +35,7 @@
 			<view class="pay-btn" v-if="isEdit" @click="handleDelete">删除</view>
 			<view class="pay-btn" v-else @click="confrimOrderPage">结算</view>
 		</view>
-		<view class="empty-text" v-if="cartList.total == 0">
+		<view class="empty-text" v-else>
 			<image src="/static/empty.png" class="empty-icon" mode="widthFix"></image>
 			<view>购物车还是空的</view>
 		</view>
@@ -70,7 +68,9 @@
 		},
 		onShow() {
       // this.getShoppingList(1)
-			this.getCartPageList();
+			if(uni.getStorageSync('token')) {
+				this.getCartPageList();
+			}
 		},
 		onReachBottom() {
 		  if(this.shopList.length >= this.total){
@@ -186,15 +186,6 @@
 				interfaceurl.checkAuth(interfaceurl.cartUpdate, params, false).then((res) => {
 					that.bannerList = res.data
 				});
-				// apiShoppingUpdate({
-				// 	cart_id: item.cart_id,
-				// 	buy_number: item.quantity
-				// })
-				// .then((res) => {
-				// 	if(res.code == 0) {
-
-				// 	}
-				// })
 			},
 			reduceNum(index) {
 				if (this.shopList[index].quantity <= 1) {
@@ -243,10 +234,8 @@
 				})
 				//数据存储优先使用store
 				this.$store.commit('setSelectOrderGoods', shopList)
-				uni.setStorageSync('shopList', shopList)
-				uni.navigateTo({
-				  url: '/pages/shopping/confirm-order'
-				});
+				//uni.setStorageSync('shopList', shopList)
+				this.$turnPage('/pages/shopping/trade/confirm-order', 'navigateTo')
 			}
 		}
 	}
@@ -274,6 +263,7 @@
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid #f5f5f5;
+	margin-bottom: 20rpx;
 }
 .shop-img{
 	width: 160upx;
@@ -338,8 +328,7 @@
   font-size: 26upx;
 }
 .radio-icon{
-	width: 36upx;
-	height: 36upx;
+	font-size: 36rpx !important;
 	margin-right: 20upx;
 }
 .total{
@@ -360,7 +349,7 @@
 	text-align: center;
 	color: #ffffff;
   border-radius: 30upx;
-  background: #031F5E;
+  background: #0071CF;
   font-size: 30upx;
 }
 .empty-icon{

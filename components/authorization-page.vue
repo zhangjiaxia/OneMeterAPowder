@@ -33,13 +33,14 @@
 		},
 		data() {
 			return {
-				token: '' //先用存储本地的token判断
+				//token: '' //先用存储本地的token判断
 			};
 		},
-		//computed: mapState(['token', 'userInfo']),
-		mounted() {
-			this.token = uni.getStorageSync('token');
-		},
+		computed: mapState(['token', 'userInfos']),
+		// mounted() {
+		// 	console.log('授权mounted',this.token)
+		// 	this.token = uni.getStorageSync('token');
+		// },
 		methods: {
 			prevent() { }, //阻止父级元素跳转
 			bindGetUserInfo(res){
@@ -57,18 +58,18 @@
 			    console.log(res);
 				if (res.detail.encryptedData) {
 					let params = {
-						sessionKey: this.userInfo.sessionKey,
-						openId: this.userInfo.openId,
-						rawData: this.userInfo.rawData,
-						signature: this.userInfo.signature,
+						sessionKey: this.userInfos.sessionKey,
+						openId: this.userInfos.openId,
+						rawData: this.userInfos.rawData,
+						signature: this.userInfos.signature,
 						encryptedData: res.detail.encryptedData,
 						iv: res.detail.iv
 					}
 					let that = this;
 					interfaceurl.checkAuth(interfaceurl.getMobile, params).then((res) => {
-						that.userInfo.mobile = res.data.mobile;
-						that.$store.commit('setUserInfo', that.userInfo);
-						uni.setStorageSync('userInfo', that.userInfo);
+						that.userInfos.mobile = res.data.mobile;
+						that.$store.commit('setUserInfo', that.userInfos);
+						uni.setStorageSync('userInfos', that.userInfos);
 					});
 				} else {
 					uni.showModal({

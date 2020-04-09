@@ -1556,6 +1556,12 @@ radio-group label, checkbox-group label{
 	-webkit-box-align: center;
 	        align-items: center;
 }
+/*垂直居底*/
+.verticalbottom {
+	-webkit-align-items: flex-end;
+	-webkit-box-align: end;
+	        align-items: flex-end;
+}
 /*剩余的部分*/
 .rest {
 	-webkit-flex: 1;
@@ -1651,8 +1657,7 @@ page {
       margin-left: 30rpx;
 }
 .manage .order .back {
-      width: 17rpx;
-      height: 26rpx;
+      font-size: 26rpx !important;
       margin-right: 30rpx;
 }
 .manage .title {

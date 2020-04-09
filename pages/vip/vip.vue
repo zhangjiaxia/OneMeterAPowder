@@ -1,18 +1,18 @@
 <template>
 	<view class="">
 		<view class="uni-flex topitem vertical">
-			<image src="../../static/center/bg.png" class="bg"></image>
+			<image src="/static/bg.png" class="bg"></image>
 			<view class="uni-flex uni-row info">
 				<view class="uni-flex">
-					<image :src="userInfo.headimgurl || '../../static/center/head.png'" class="head"></image>
+					<image :src="userInfo.headimgurl || '/static/head.png'" class="head"></image>
 				</view>
 				<view class="uni-flex uni-column rest">
 					<view class="nick">
 						{{userInfo.nickname || '御翔绝瞬'}}
-						<image src="../../static/VIPicon.png" class="vip"></image>
+						<image src="/static/VIPicon.png" class="vip"></image>
 					</view>
 					<view>
-						<image src="../../static/center/silver.png" class="rate"></image>
+						<image src="/static/silver.png" class="rate"></image>
 					</view>
 					<view class="idnumber">ID:354673</view>
 					<view class="time">会员到期时间：2021-3-16</view>
@@ -82,19 +82,20 @@
 			<view class="uni-flex vertical rank">
 				佣金排名
 			</view>
-			<view class="ranklist">
+			<view class="empty-text" v-if="rankList.length == 0">暂无佣金排名数据</view>
+			<view class="ranklist" v-else>
 				<view class="uni-flex uni-row vertical item" :style="{'border-bottom': index == rankList.length - 1 ? 'none' : '1px solid #EEEEEE'}"
 					v-for="(item, index) in rankList" :key="index">
-					<view class="uni-flex uni-column content" style="margin-left: 11rpx;margin-right: 51rpx;">
-						<view class="num">5</view>
-						<view class="me">我的排名</view>
+					<view class="uni-flex uni-column content" style="width: 140rpx;">
+						<view class="num">{{item.rankingNumber}}</view>
+						<view class="me">{{index == 0 ? '我的排名' : '排名'}}</view>
 					</view>
 					<view class="uni-flex rest vertical">
-						<image src="../../static/VIPicon.png" class="head"></image>
-						<text class="nick">御翔绝瞬</text>
+						<image :src="item.headimgurl" class="head"></image>
+						<text class="nick">{{item.nickname}}</text>
 					</view>
 					<view class="uni-flex vertical" style="margin-right: 19rpx;">
-						<text class="money active">1000</text>
+						<text class="money active">{{item.total_profit}}</text>
 						<text class="mum">佣金</text>
 					</view>
 				</view>
@@ -104,14 +105,26 @@
 </template>
 
 <script>
+	import interfaceurl from '@/utils/interface.js'
 	export default {
 		data() {
 			return {
-				rankList: [{},{},{},{},{}] //佣金排名
+				rankList: [] //佣金排名
+			}
+		},
+		onShow() {
+			if(uni.getStorageSync('token')) {
+				this.getRanking()
 			}
 		},
 		methods: {
-			
+			//获取排名列表GET v1/user_team/rankingList
+			getRanking() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.teamRankingList, {}).then((res) => {
+					that.rankList = res.data
+				});
+			}
 		}
 	}
 </script>
@@ -242,6 +255,7 @@
 					width: 80rpx;
 					height: 80rpx;
 					border-radius: 50%;
+					margin-left: 50rpx;
 				}
 				.nick {
 					color: #333333;

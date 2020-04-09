@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view style="background: #ffffff;">
+		<view>
 			<view class="search-container">
 				<image src="/static/logo.png" class="logo"></image>
 				<view class="search" @click="searchPage">
-					<image src="/static/search.png" class="search-icon"></image>
+					<view class="icon-search search-icon"></view>
 					<text>搜索</text>
 				</view>
 			</view>
@@ -15,7 +15,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="tab-list" style="padding-top: 0px;padding-bottom: 0px;position: relative;top:-50upx;">
+			<view class="tab-list" style="padding-top: 0px;padding-bottom: 0px;position: relative;top:-90upx;background: #F0EDF1;">
 				<view class="advantage-item">
 					<text>VIP购物</text>
 				</view>
@@ -29,7 +29,7 @@
 					<text>积分配股</text>
 				</view>
 			</view>
-			<view class="tab-list" style="padding-top: 0px;">
+			<view class="tab-list" style="padding-top: 40rpx;margin-top: -60rpx;">
 				<view v-for="(item,index) in iconTypeList" :key="index" class="tab-item" @click="shopListPage(item)">
 					<image :src="item.iconTypeUrl" class="type-icon"></image>
 					<view>{{item.iconTypeName}}</view>
@@ -42,22 +42,21 @@
 			</view>
 			<view class="category-list">
 				<view class="category-item" v-for="(item,index) in specialAreaTextList" :key="index" @click="selectTab(index)">
-					<view><text :class="{'category-item-active':tabIndex == index}">{{item.specialTitle}}</text></view>
-					<view><text class="category-item-text">{{item.specialName}}</text></view>
+					<view><text :class="{'category-item-active':tabIndex == index}">{{item.specialName}}</text></view>
+					<view><text class="category-item-text" :class="{'category-text-active':tabIndex == index}">{{item.specialTitle}}</text></view>
 				</view>
 			</view>
 		</view>
-		<view class="content">
-			<view class="shop-list">
-				<view class="shop-item" v-for="(content,dex) in specialGoodsList" @click="shopDetailPage(content)" :key="dex">
-					<image :src="content.mainImgUrl" class="shop-img"></image>
-					<view class="shop-item-content">
-						<view class="shop-item-bottom">
-							<text class="shop-item-price">￥{{content.goods_price}}</text>
-							<text class="pay-btn">+</text>
-						</view>
-						<view class="shop-item-title">{{content.name}}</view>
-					</view>
+		<view class="space">
+			<view class="goods" :style="{'margin-right': index % 2 == 0 ? '20rpx' : '0'}"
+				v-for="(item, index) in specialGoodsList" :key="index" @click="shopDetailPage(item)">
+				<view style="width: 100%;">
+					<image :src="item.mainImgUrl" class="goodsimg"></image>
+				</view>
+				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
+				<view class="price">
+					<text style="font-size: 24rpx;">￥</text>
+					<text>{{item.retailPrice[0]}}</text>
 				</view>
 			</view>
 		</view>
@@ -69,66 +68,16 @@
 </template>
 
 <script>
-	// import { apiBannerList, apiShopList, apiUserCode, apiUserInfo, apiUserBind, apiUserLogin, apiTypeList } from '@/service/index'
 	import interfaceurl from '@/utils/interface.js'
 	export default {
 		data() {
 			return {
+				//轮播图参数
 				indicatorDots: true,
 				autoplay: true,
-				interval: 2000,
+				interval: 3000,
 				duration: 500,
-				shopList: [{
-					goods_cover_img: '/static/shop.png',
-					goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒',
-					goods_price: '30.00'
-				}],
-				categoryList: [{
-					title: '今日特卖',
-					remark: '特价销售'
-				}, {
-					title: '人气商品',
-					remark: '大家都在买'
-				}, {
-					title: '热卖商店',
-					remark: '大家都在逛'
-				}, {
-					title: '销量冠军',
-					remark: '最多人买'
-				}],
-				invitation_code: '',
-				typeList: [{
-					type_icon_img: '/static/tab1.png',
-					type_name: '送礼优选'
-				}, {
-					type_icon_img: '/static/tab2.png',
-					type_name: '数码CP'
-				}, {
-					type_icon_img: '/static/tab3.png',
-					type_name: '女神专属'
-				}, {
-					type_icon_img: '/static/tab4.png',
-					type_name: '节日专区'
-				}, {
-					type_icon_img: '/static/tab5.png',
-					type_name: '生鲜特卖'
-				}, {
-					type_icon_img: '/static/tab6.png',
-					type_name: '佣金'
-				}, {
-					type_icon_img: '/static/tab7.png',
-					type_name: '原始股权'
-				}, {
-					type_icon_img: '/static/tab8.png',
-					type_name: 'VIP会员'
-				}, {
-					type_icon_img: '/static/tab9.png',
-					type_name: '积分股权'
-				}, {
-					type_icon_img: '/static/tab10.png',
-					type_name: '商学院'
-				}],
-				//动态数据
+				invitation_code: '', //分销邀请码
 				bannerList: ['/static/banner.png'], //轮播图
 				iconTypeList: [], //小图标
 				specialAreaPicList: [], //专区图片
@@ -146,122 +95,51 @@
 			}
 		},
 		onLoad(options) {
-			console.log('options')
-			console.log(options)
-			return
-			const login = uni.getStorageSync('login');
-			if (!login) {
-				return
-				uni.login({
-					provider: 'weixin',
-					success: function(res) {
-						apiUserLogin({
-								code: res.code
-							})
-							.then((res) => {
-								if (res.code == 0) {
-									uni.setStorageSync('token', res.data.token);
-									uni.setStorageSync('login', true);
-									if (options.code) {
-										apiUserBind({
-												scene_value: options.code
-											})
-											.then((res) => {
-
-											})
-									}
-									if (options.scene) {
-										apiUserBind({
-												scene_value: options.scene
-											})
-											.then((res) => {
-
-											})
-									}
-									if (options.query && options.query.scene) {
-										apiUserBind({
-												scene_value: options.query.scene
-											})
-											.then((res) => {
-
-											})
-									}
-								}
-							})
-					}
-				});
-			} else {
-				return
-				if (options.code) {
-					apiUserBind({
-							scene_value: options.code
-						})
-						.then((res) => {
-
-						})
-				}
-				if (options.scene) {
-					apiUserBind({
-							scene_value: options.scene
-						})
-						.then((res) => {
-
-						})
-				}
-				if (options.query && options.query.scene) {
-					apiUserBind({
-							scene_value: options.query.scene
-						})
-						.then((res) => {
-
-						})
-				}
-			}
+			
 		},
 		onShow() {
 			this.getBannerList()
 			this.getIconTypeList()
 			this.getSpecialAreaList(1)
 			this.getSpecialAreaList(2)
-			//this.getSpecialGoodsList()
-			//this.getChampionList()
-			// this.getShopList()
-			// this.getUserCode()
-			// this.getTypeList()
 		},
 		methods: {
 			selectTab(index) {
 				this.tabIndex = index
-				this.getSpecialGoodsList()
-			},
-			getUserCode() {
-				apiUserInfo()
-					.then((res) => {
-						if (res.code == 0) {
-							this.invitation_code = res.data.invitation_code
-						}
-					})
-			},
-			getTypeList() {
-				apiTypeList()
-					.then((res) => {
-						if (res.code == 0) {
-							this.typeList = res.data
-						}
-					})
+				if(this.tabIndex == this.specialAreaTextList.length -1) {
+					this.getChampionList();
+				} else {
+					this.getSpecialGoodsList()
+				}
 			},
 			shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
-				this.$turnPage('/pages/index/shop-detail', 'navigateTo')
+				this.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
 			},
 			shopListPage(item) {
-				uni.navigateTo({
-					url: '/pages/shop-list/shop-list?id=' + item.goods_type_id
-				});
+				switch(item.link) {
+				    case '1':
+				        this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo')
+				        break;
+				    case '2':
+				        this.$turnPage('/pages/index/business/original-equity', 'navigateTo')
+						break;
+					case '3':
+						this.$turnPage('/pages/vip/rule/vip-index', 'navigateTo')
+						break;
+					case '4':
+						this.$turnPage('/pages/index/business/Integral-stake', 'navigateTo')
+						break;
+					case '5':
+						this.$turnPage('/pages/index/business/business-school', 'navigateTo')
+				        break;
+				     default:
+				        //this.$turnPage('/pages/vip/vip-mainrule', 'navigateTo')
+				}
 			},
 			searchPage() {
 				uni.navigateTo({
-					url: '/pages/index/search'
+					url: '/pages/category/search/search'
 				});
 			},
 			//获取轮播图
@@ -316,22 +194,15 @@
 				interfaceurl.checkAuth(interfaceurl.championList, params, false).then((res) => {
 					that.championList = res.data
 				});
-			},
-			getShopList() {
-				apiShopList({
-					page: 1
-				})
-				.then((res) => {
-					if (res.code == 0) {
-						this.shopList = res.data.data
-					}
-				})
 			}
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
+	page {
+		background: #F0EDF1;
+	}
 	.sharebtn {
 		height: 100rpx;
 		position: relative;
@@ -368,9 +239,9 @@
 	}
 
 	.search-icon {
-		width: 30upx;
-		height: 30upx;
-		margin-right: 10upx;
+		font-size: 30rpx !important;
+		color: #000000;
+		margin-right: 10rpx;
 	}
 
 	.swiper {
@@ -381,6 +252,7 @@
 	.banner-img {
 		width: 100%;
 		height: 100%;
+		border-radius: 20rpx;
 	}
 
 	.advantage-item {
@@ -432,68 +304,7 @@
 		width: 100%;
 		height: 100%;
 	}
-
-	.content {
-		padding: 0upx 10upx;
-	}
-
-	.shop-title {
-		display: flex;
-		align-items: center;
-		font-size: 32upx;
-		color: #000000;
-		font-weight: 500;
-	}
-
-	.shop-title-line {
-		display: inline-block;
-		width: 10upx;
-		height: 32upx;
-		background-color: #FF8336;
-		margin-right: 20upx;
-	}
-
-	.shop-list {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		margin-top: 10upx;
-	}
-
-	.shop-item {
-		width: 360upx;
-		margin-bottom: 20upx;
-		background-color: #ffffff;
-	}
-
-	.shop-img {
-		width: 100%;
-		height: 300upx;
-	}
-
-	.shop-item-content {
-		padding: 0upx 20upx;
-		padding-top: 10upx;
-		padding-bottom: 20upx;
-	}
-
-	.shop-item-title {
-		font-size: 26upx;
-		color: #333333;
-		font-weight: bold;
-	}
-
-	.shop-item-text {
-		color: #999999;
-		margin-top: 20upx;
-		font-size: 26upx;
-		display: inline-block;
-		max-width: 260upx;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
+	
 	.shop-item-bottom {
 		display: flex;
 		justify-content: space-between;
@@ -540,7 +351,6 @@
 		padding-top: 10upx;
 		color: #333333;
 		font-size: 32upx;
-		background: #ffffff;
 	}
 
 	.category-item {
@@ -554,6 +364,45 @@
 	}
 
 	.category-item-active {
-		color: #F13646;
+		color: #0071CF;
+	}
+	
+	.category-text-active {
+		background: #0071CF;
+		color: #FFFFFF;
+		border-radius: 40rpx;
+		padding: 2rpx;
+	}
+	//商品列表
+	.space {
+		width: 700rpx;
+		margin: 20rpx auto;
+		.goods {
+			width: 340rpx;
+			background: #FFFFFF;
+			border-radius: 20rpx;
+			float: left;
+			margin-bottom: 20rpx;
+			.goodsimg {
+				width: 340rpx;
+				height: 340rpx;
+				border-top-left-radius: 20rpx;
+				border-top-right-radius: 20rpx;
+			}
+			.title {
+				font-size: 24rpx;
+				color: #333333;
+				margin: 10rpx;
+			}
+			.price {
+				font-size: 30rpx;
+				color: #0071CF;
+				margin-left: 10rpx;
+				margin-bottom: 20rpx;
+			}
+			view {
+				line-height: 1.2;
+			}
+		}
 	}
 </style>

@@ -1,235 +1,239 @@
-
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+page {
+  background: #F0EDF1;
+}
 .sharebtn {
-	height: 100rpx;
-	position: relative;
-	top: -110rpx;
-	opacity: 0;
+  height: 100rpx;
+  position: relative;
+  top: -110rpx;
+  opacity: 0;
 }
 .search-container {
-	height: 230rpx;
-	background: #0071CF;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	padding: 30rpx;
-	box-sizing: border-box;
+  height: 230rpx;
+  background: #0071CF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 30rpx;
+  box-sizing: border-box;
 }
 .logo {
-	width: 160rpx;
-	height: 39rpx;
-	margin-right: 20rpx;
-	position: relative;
-	top: 10rpx;
+  width: 160rpx;
+  height: 39rpx;
+  margin-right: 20rpx;
+  position: relative;
+  top: 10rpx;
 }
 .search {
-	width: 360rpx;
-	height: 60rpx;
-	background: #ffffff;
-	border-radius: 30rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	font-size: 26rpx;
-	color: #000000;
+  width: 360rpx;
+  height: 60rpx;
+  background: #ffffff;
+  border-radius: 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 26rpx;
+  color: #000000;
 }
 .search-icon {
-	width: 30rpx;
-	height: 30rpx;
-	margin-right: 10rpx;
+  font-size: 30rpx !important;
+  color: #000000;
+  margin-right: 10rpx;
 }
 .swiper {
-	width: 100%;
-	height: 390rpx;
+  width: 100%;
+  height: 390rpx;
 }
 .banner-img {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
 }
 .advantage-item {
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
-	text-align: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  text-align: center;
 }
 .advantage-icon {
-	width: 69rpx;
-	height: 20rpx;
+  width: 69rpx;
+  height: 20rpx;
 }
 .tab-list {
-	padding: 20rpx 30rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	background: #ffffff;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
+  padding: 20rpx 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  background: #ffffff;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
 }
 .tab-item {
-	width: 120rpx;
-	text-align: center;
-	color: #222222;
-	font-size: 22rpx;
-	margin-bottom: 20rpx;
+  width: 120rpx;
+  text-align: center;
+  color: #222222;
+  font-size: 22rpx;
+  margin-bottom: 20rpx;
 }
 .type-icon {
-	width: 90rpx;
-	height: 90rpx;
+  width: 90rpx;
+  height: 90rpx;
 }
 .type-list {
-	padding: 20rpx 30rpx;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	background: #ffffff;
+  padding: 20rpx 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  background: #ffffff;
 }
 .type-item {
-	width: 336rpx;
-	height: 170rpx;
-	margin-bottom: 10rpx;
+  width: 336rpx;
+  height: 170rpx;
+  margin-bottom: 10rpx;
 }
 .type-item image {
-	width: 100%;
-	height: 100%;
-}
-.content {
-	padding: 0rpx 10rpx;
-}
-.shop-title {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	font-size: 32rpx;
-	color: #000000;
-	font-weight: 500;
-}
-.shop-title-line {
-	display: inline-block;
-	width: 10rpx;
-	height: 32rpx;
-	background-color: #FF8336;
-	margin-right: 20rpx;
-}
-.shop-list {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-	margin-top: 10rpx;
-}
-.shop-item {
-	width: 360rpx;
-	margin-bottom: 20rpx;
-	background-color: #ffffff;
-}
-.shop-img {
-	width: 100%;
-	height: 300rpx;
-}
-.shop-item-content {
-	padding: 0rpx 20rpx;
-	padding-top: 10rpx;
-	padding-bottom: 20rpx;
-}
-.shop-item-title {
-	font-size: 26rpx;
-	color: #333333;
-	font-weight: bold;
-}
-.shop-item-text {
-	color: #999999;
-	margin-top: 20rpx;
-	font-size: 26rpx;
-	display: inline-block;
-	max-width: 260rpx;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  width: 100%;
+  height: 100%;
 }
 .shop-item-bottom {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: justify;
-	-webkit-justify-content: space-between;
-	        justify-content: space-between;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	margin-bottom: 10rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-bottom: 10rpx;
 }
 .shop-item-price {
-	font-weight: bold;
-	color: #0071CF;
-	font-size: 36rpx;
+  font-weight: bold;
+  color: #0071CF;
+  font-size: 36rpx;
 }
 .pay-btn {
-	display: inline-block;
-	width: 32rpx;
-	height: 32rpx;
-	line-height: 26rpx;
-	border-radius: 100%;
-	text-align: center;
-	color: #0071CF;
-	color: #ffffff;
-	background: #0071CF;
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  line-height: 26rpx;
+  border-radius: 100%;
+  text-align: center;
+  color: #0071CF;
+  color: #ffffff;
+  background: #0071CF;
 }
 .share {
-	width: 100rpx;
-	height: 100rpx;
-	border-radius: 100%;
-	position: fixed;
-	right: 30rpx;
-	bottom: 30rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 100%;
+  position: fixed;
+  right: 30rpx;
+  bottom: 30rpx;
 }
 .share image {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .category-list {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	        align-items: center;
-	padding: 30rpx;
-	padding-top: 10rpx;
-	color: #333333;
-	font-size: 32rpx;
-	background: #ffffff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 30rpx;
+  padding-top: 10rpx;
+  color: #333333;
+  font-size: 32rpx;
 }
 .category-item {
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	        flex: 1;
-	text-align: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  text-align: center;
 }
 .category-item-text {
-	font-size: 23rpx;
-	color: #999999;
+  font-size: 23rpx;
+  color: #999999;
 }
 .category-item-active {
-	color: #F13646;
+  color: #0071CF;
+}
+.category-text-active {
+  background: #0071CF;
+  color: #FFFFFF;
+  border-radius: 40rpx;
+  padding: 2rpx;
+}
+.space {
+  width: 700rpx;
+  margin: 20rpx auto;
+}
+.space .goods {
+    width: 340rpx;
+    background: #FFFFFF;
+    border-radius: 20rpx;
+    float: left;
+    margin-bottom: 20rpx;
+}
+.space .goods .goodsimg {
+      width: 340rpx;
+      height: 340rpx;
+      border-top-left-radius: 20rpx;
+      border-top-right-radius: 20rpx;
+}
+.space .goods .title {
+      font-size: 24rpx;
+      color: #333333;
+      margin: 10rpx;
+}
+.space .goods .price {
+      font-size: 30rpx;
+      color: #0071CF;
+      margin-left: 10rpx;
+      margin-bottom: 20rpx;
+}
+.space .goods view {
+      line-height: 1.2;
 }
 

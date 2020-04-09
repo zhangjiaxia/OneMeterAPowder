@@ -43,11 +43,22 @@ const interfaceurl = {
 		if(res.code == 0) {
 			return true
 		} else {
-			uni.showToast({
-				title: res.msg,
-				icon: 'none',
-				duration: 2000
-			});
+			if(res.code == 401) {
+				store.commit('updateToken', '');
+				uni.setStorageSync('token', '');
+				interfaceurl.login()
+				uni.showToast({
+					title: '用户登录过期,请重新操作',
+					icon: 'none',
+					duration: 2000
+				});
+			} else {
+				uni.showToast({
+					title: res.msg,
+					icon: 'none',
+					duration: 2000
+				});
+			}
 			return false
 		}
     },
@@ -73,6 +84,11 @@ const interfaceurl = {
 							});
 							return;
 						}
+						uni.showToast({
+							title: '授权成功',
+							icon: 'none',
+							duration: 2000
+						});
 						let loginResp = res.data.data;
 						uni.setStorageSync('token', loginResp.token)
 						store.commit('updateToken', loginResp.token)
@@ -87,6 +103,7 @@ const interfaceurl = {
 									nickName: detail.userInfo.nickName,
 									avatarUrl: detail.userInfo.avatarUrl
 								}
+								store.commit('setUserInfos', userInfo)
 								uni.setStorageSync('userInfo', userInfo);
 							});
 						}

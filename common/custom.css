@@ -20,6 +20,11 @@
 	-webkit-align-items: center;
 	align-items: center;
 }
+/*垂直居底*/
+.verticalbottom {
+	-webkit-align-items: flex-end;
+	align-items: flex-end;
+}
 /*剩余的部分*/
 .rest {
 	-webkit-flex: 1;

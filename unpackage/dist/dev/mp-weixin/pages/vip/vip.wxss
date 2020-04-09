@@ -1556,6 +1556,12 @@ radio-group label, checkbox-group label{
 	-webkit-box-align: center;
 	        align-items: center;
 }
+/*垂直居底*/
+.verticalbottom {
+	-webkit-align-items: flex-end;
+	-webkit-box-align: end;
+	        align-items: flex-end;
+}
 /*剩余的部分*/
 .rest {
 	-webkit-flex: 1;
@@ -1690,6 +1696,7 @@ page {
       width: 80rpx;
       height: 80rpx;
       border-radius: 50%;
+      margin-left: 50rpx;
 }
 .ranking .ranklist .item .nick {
       color: #333333;

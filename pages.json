@@ -1,135 +1,219 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/vip/vip-mainrule",
-			"style": {
-				"navigationBarTitleText": "佣金规则"
+			"path":"pages/index/index",
+			"style":{
+				"navigationBarTitleText":"一米一粉",
+				"navigationBarBackgroundColor": "#0071CF"
 			}
 		},
 		{
-			"path": "pages/vip/vip-rule",
-			"style": {
-				"navigationBarTitleText": "VIP会员规则"
+			"path":"pages/category/category",
+			"style":{
+				"navigationBarTitleText":"类目",
+				"navigationBarBackgroundColor": "#0071CF"
 			}
 		},
 		{
-			"path": "pages/vip/vip",
-			"style": {
-				"navigationBarTitleText": "VIP"
-			}
-		},
-		{
-			"path": "pages/center/order",
-			"style": {
-				"navigationBarTitleText": "我的订单"
+			"path":"pages/vip/vip",
+			"style":{
+				"navigationBarTitleText":"VIP",
+				"navigationBarBackgroundColor": "#0071CF"
 			}
 		},
 		{
 			"path": "pages/shopping/shopping",
 			"style": {
-				"navigationBarTitleText": "购物车"
-			}
-		},
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "一米一粉"
-			}
-		},
-		{
-			"path": "pages/index/shop-detail",
-			"style": {
-				"navigationBarTitleText": "商品详情"
-			}
-		},
-		{
-			"path": "pages/shopping/confirm-order",
-			"style": {
-				"navigationBarTitleText": "确认订单"
-			}
-		},
-		{
-			"path": "pages/shopping/order-detail",
-			"style": {
-				"navigationBarTitleText": "订单详情"
-			}
-		},
-		{
-			"path": "pages/category/category-detail",
-			"style": {
-				"navigationBarTitleText": "类目详情"
-			}
-		},
-		{
-			"path": "pages/category/category",
-			"style": {
-				"navigationBarTitleText": "类目"
-			}
-		},
-		{
-			"path": "pages/center/address",
-			"style": {
-				"navigationBarTitleText": "收货地址"
+				"navigationBarTitleText": "购物车",
+				"navigationBarBackgroundColor": "#0071CF"
 			}
 		},
 		{
 			"path": "pages/center/center",
 			"style": {
-				"navigationBarTitleText": "我的"
-			}
-		},
-		{
-			"path": "pages/index/Integral-stake",
-			"style": {
-				"navigationBarTitleText": "积分股权"
-			}
-		},
-		{
-			"path": "pages/vip/vip-index",
-			"style": {
-				"navigationBarTitleText": "会员权益"
-			}
-		},
-		{
-			"path": "pages/index/search",
-			"style": {
-				"navigationBarTitleText": "搜索"
-			}
-		},
-		{
-			"path": "pages/center/address-add",
-			"style": {
-				"navigationBarTitleText": "添加收货地址"
-			}
-		},
-		{
-			"path": "pages/center/team",
-			"style": {
-				"navigationBarTitleText": "我的团队"
-			}
-		},
-		{
-			"path": "pages/center/cash",
-			"style": {
-				"navigationBarTitleText": "我要提现"
-			}
-		},
-		{
-			"path": "pages/center/income-record",
-			"style": {
-				"navigationBarTitleText": "佣金明细"
-			}
-		},
-		{
-			"path": "pages/center/about",
-			"style": {
-				"navigationBarTitleText": "关于我们"
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#0071CF"
 			}
 		}
 	],
+	"subPackages": [{
+		"root": "pages/vip/rule/",
+		"pages": [{
+			"path" : "vip-index",
+			"style": {
+				"navigationBarTitleText": "会员权益",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path" : "vip-mainrule",
+			"style": {
+				"navigationBarTitleText": "佣金规则",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path" : "vip-rule",
+			"style": {
+				"navigationBarTitleText": "VIP会员规则",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		}]
+	},
+	{
+		"root": "pages/shopping/trade/",
+		"pages": [{
+			"path" : "address",
+			"style": {
+				"navigationBarTitleText": "收货地址",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path" : "address-add",
+			"style": {
+				"navigationBarTitleText": "添加收货地址",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path" : "confirm-order",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path" : "invoice-info",
+			"style": {
+				"navigationBarTitleText": "发票信息",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "order",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "order-detail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		}]
+	},
+	{
+		"root": "pages/index/business/",
+		"pages": [{
+			"path": "business-school",
+			"style": {
+				"navigationBarTitleText": "商学院",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "Integral-stake",
+			"style": {
+				"navigationBarTitleText": "积分股权",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "shop-detail",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		}, {
+			"path": "original-equity",
+			"style": {
+				"navigationBarTitleText": "原始股权",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		}]
+	},
+	{
+		"root": "pages/center/my/",
+		"pages": [{
+			"path": "about",
+			"style": {
+				"navigationBarTitleText": "关于我们",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "cash",
+			"style": {
+				"navigationBarTitleText": "我要提现",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "commission-detail",
+			"style": {
+				"navigationBarTitleText": "佣金明细",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "income-record",
+			"style": {
+				"navigationBarTitleText": "佣金明细",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "my-points",
+			"style": {
+				"navigationBarTitleText": "我的积分",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "team",
+			"style": {
+				"navigationBarTitleText": "我的团队",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		}]
+	},
+	{
+		"root": "pages/category/search/",
+		"pages": [{
+			"path": "category-detail",
+			"style": {
+				"navigationBarTitleText": "类目详情",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "goods-list",
+			"style": {
+				"navigationBarTitleText": "美妆护肤",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
+			"path": "search-list",
+			"style": {
+				"navigationBarTitleText": "搜索商品",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		}]
+	}],
 	"globalStyle": {
 		//"navigationStyle": "custom", //自定义导航栏
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
@@ -141,32 +225,32 @@
 	  "backgroundColor": "#FFFFFF",
 	  "list": [{
 	    "pagePath": "pages/index/index",
-	    "iconPath": "static/index.png",
-	    "selectedIconPath": "static/index-selected.png",
+	    "iconPath": "static/tabbar/index.png",
+	    "selectedIconPath": "static/tabbar/index-selected.png",
 	    "text": "首页"
 	  },
 	  {
 	    "pagePath": "pages/category/category",
-	    "iconPath": "static/category.png",
-	    "selectedIconPath": "static/category-selected.png",
+	    "iconPath": "static/tabbar/category.png",
+	    "selectedIconPath": "static/tabbar/category-selected.png",
 	    "text": "分类"
 	  },
 	  {
 	    "pagePath": "pages/vip/vip",
-	    "iconPath": "static/vip.png",
-	    "selectedIconPath": "static/vip.png",
-	    "text": ""
+	    "iconPath": "static/tabbar/vip.png",
+	    "selectedIconPath": "static/tabbar/vip.png",
+	    "text": "VIP"
 	  },
 	  {
 	    "pagePath": "pages/shopping/shopping",
-	    "iconPath": "static/shopping.png",
-	    "selectedIconPath": "static/shopping-selected.png",
+	    "iconPath": "static/tabbar/shopping.png",
+	    "selectedIconPath": "static/tabbar/shopping-selected.png",
 	    "text": "购物车"
 	  },
 	  {
 	    "pagePath": "pages/center/center",
-	    "iconPath": "static/center.png",
-	    "selectedIconPath": "static/center-selected.png",
+	    "iconPath": "static/tabbar/center.png",
+	    "selectedIconPath": "static/tabbar/center-selected.png",
 	    "text": "我的"
 	  }]
 	}

@@ -1,22 +1,22 @@
 <template>
 	<view>
 		<view class="uni-flex topitem vertical">
-			<image src="../../static/center/bg.png" class="bg"></image>
+			<image src="/static/bg.png" class="bg"></image>
 			<view class="uni-flex uni-row info">
 				<view class="uni-flex">
-					<image :src="userInfo.headimgurl || '../../static/center/head.png'" class="head"></image>
+					<image :src="userInfo.avatarUrl || '/static/head.png'" class="head"></image>
 				</view>
 				<view class="uni-flex uni-column rest">
-					<view class="nick">{{userInfo.nickname || '御翔绝瞬'}}</view>
+					<view class="nick">{{userInfo.nickName || '御翔绝瞬'}}</view>
 					<view>
-						<image src="../../static/center/common.png" class="rate" style="margin-right: 10rpx;"></image>
-						<image src="../../static/center/silver.png" class="rate"></image>
+						<image src="/static/common.png" class="rate" style="margin-right: 10rpx;"></image>
+						<image src="/static/silver.png" class="rate"></image>
 					</view>
 					<view class="time">会员到期时间：2021-3-16</view>
 				</view>
-				<view class="uni-flex vertical" style="margin-right: 60rpx;">
-					<image src="../../static/center/back.png" class="arrow"></image>
-				</view>
+				<!-- <view class="uni-flex vertical" style="margin-right: 60rpx;">
+					<image src="/static/back.png" class="arrow"></image>
+				</view> -->
 			</view>
 		</view>
 		<authPage>
@@ -32,29 +32,30 @@
 		</authPage>
 		<view class="uni-flex uni-column manage">
 			<authPage>
-				<view class="uni-flex uni-row vertical order" @click="$turnPage('order?status=0', 'navigateTo')">
+				<view class="uni-flex uni-row vertical order" @click="$turnPage('/pages/shopping/trade/order?status=0', 'navigateTo')">
 					<view class="uni-flex rest orderManage">订单管理</view>
 					<view class="uni-flex">
-						<image src="../../static/center/backGrey.png" class="back"></image>
+						<!-- <image src="/static/backGrey.png" class="back"></image> -->
+						<view class="icon-qianjin back"></view>
 					</view>
 				</view>
 			</authPage>
 			<authPage>
 				<view class="uni-flex uni-row" style="height: 150rpx;">
-					<view class="uni-flex rest content" @click="$turnPage('order?status=1', 'navigateTo')">
-						<image src="../../static/center/waitPay.png" class="icon"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=1', 'navigateTo')">
+						<image src="/static/waitPay.png" class="icon"></image>
 						<view class="title">待支付</view>
 					</view>
-					<view class="uni-flex rest content" @click="$turnPage('order?status=2', 'navigateTo')">
-						<image src="../../static/center/waitGoods.png" class="icon"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=2', 'navigateTo')">
+						<image src="/static/waitGoods.png" class="icon"></image>
 						<view class="title">待发货</view>
 					</view>
-					<view class="uni-flex rest content" @click="$turnPage('order?status=3', 'navigateTo')">
-						<image src="../../static/center/waitGoods.png" class="icon"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=3', 'navigateTo')">
+						<image src="/static/waitGoods.png" class="icon"></image>
 						<view class="title">待收货</view>
 					</view>
 					<view class="uni-flex rest content">
-						<image src="../../static/center/afterSale.png" class="icon"></image>
+						<image src="/static/afterSale.png" class="icon"></image>
 						<view class="title">售后</view>
 					</view>
 				</view>
@@ -66,37 +67,40 @@
 			</view>
 			<authPage>
 				<view class="uni-flex uni-row" style="height: 150rpx;">
-					<view class="uni-flex rest content" @click="$turnPage('team', 'navigateTo')">
-						<image src="../../static/center/team.png" class="icon"></image>
-						<view class="title">我的团队</view>
-					</view>
-					<view class="uni-flex rest content" @click="$turnPage('income-record', 'navigateTo')">
-						<image src="../../static/center/commission.png" class="icon"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
+						<image src="/static/commission.png" class="icon"></image>
 						<view class="title">佣金明细</view>
 					</view>
-					<view class="uni-flex rest content" @click="$turnPage('cash', 'navigateTo')">
-						<image src="../../static/center/withdraw.png" class="icon"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/my-points', 'navigateTo')">
+						<image src="/static/commission.png" class="icon"></image>
+						<view class="title">积分明细</view>
+					</view>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/cash', 'navigateTo')">
+						<image src="/static/withdraw.png" class="icon"></image>
 						<view class="title">我要提现</view>
 					</view>
-					<view class="uni-flex rest content" @click="$turnPage('', 'navigateTo')">
-						<image src="../../static/center/commission.png" class="icon"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/income-record', 'navigateTo')">
+						<image src="/static/commission.png" class="icon"></image>
 						<view class="title">提现明细</view>
 					</view>
 				</view>
 				<view class="uni-flex uni-row" style="margin: 28rpx 0;">
-					<view class="uni-flex rest content" @click="$turnPage('address', 'navigateTo')">
-						<image src="../../static/center/address.png" class="icon"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
+						<image src="/static/team.png" class="icon"></image>
+						<view class="title">我的团队</view>
+					</view>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/address', 'navigateTo')">
+						<image src="/static/address.png" class="icon"></image>
 						<view class="title">收货地址</view>
 					</view>
 					<view class="uni-flex rest content">
-						<image src="../../static/center/service.png" class="icon"></image>
+						<image src="/static/service.png" class="icon"></image>
 						<view class="title">联系客服</view>
 					</view>
 					<view class="uni-flex rest content">
-						<image src="../../static/center/about.png" class="icon"></image>
+						<image src="/static/about.png" class="icon"></image>
 						<view class="title">关于我们</view>
 					</view>
-					<view class="uni-flex rest content"></view>
 				</view>
 			</authPage>
 		</view>
@@ -106,23 +110,36 @@
 <script>
 	import interfaceurl from '@/utils/interface.js'
 	import authPage from '@/components/authorization-page.vue' //引入授权窗体
+	//引入store的内容
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from 'vuex'
 	export default {
 		components: {
 			authPage
 		},
+		computed: mapState(['userInfos']),
 		data() {
 			return {
 				detail: {},
 				userInfo: {}
 			}
 		},
+		watch:{
+			userInfos(val) {
+				//用户的授权信息存本地，全局变量是为了第一次授权时快速响应
+				if(val) {
+					this.userInfo = uni.getStorageSync('userInfo')
+				}
+			}
+		},
 		onLoad() {
 			
 		},
 		onShow() {
-			if(this.userInfo) {
-				this.getUserInfo()
-			}
+			this.userInfo = this.userInfos.nickName ? this.userInfos : uni.getStorageSync('userInfo')
 		},
 		methods: {
 			getUserInfo() {
@@ -221,8 +238,7 @@
 				margin-left: 30rpx;
 			}
 			.back {
-				width: 17rpx;
-				height: 26rpx;
+				font-size: 26rpx !important;
 				margin-right: 30rpx;
 			}
 		}
