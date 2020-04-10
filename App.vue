@@ -1,13 +1,15 @@
 <script>
+	import store from '@/store' //引入全局变量的token
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			//console.log('App Launch')
 		},
 		onShow: function() {
-			console.log('App Show')
+			store.commit('updateToken', uni.getStorageSync('token'))
+			//console.log('App Show')
 		},
 		onHide: function() {
-			console.log('App Hide')
+			//console.log('App Hide')
 		}
 	}
 </script>

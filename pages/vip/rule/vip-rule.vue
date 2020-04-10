@@ -79,7 +79,6 @@
 			}
 		},
 		onLoad(options) {
-			console.log('options', options)
 			this.isUpgrade = options.isUpgrade
 		},
 		methods: {

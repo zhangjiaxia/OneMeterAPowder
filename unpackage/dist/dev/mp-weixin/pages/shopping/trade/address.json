@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "收货地址",
   "navigationBarBackgroundColor": "#0071CF",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action"
+  }
 }

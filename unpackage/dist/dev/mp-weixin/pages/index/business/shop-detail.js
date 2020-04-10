@@ -394,6 +394,11 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
         quantity: this.shopNum };
 
       _interface.default.checkAuth(_interface.default.cartCreate, params).then(function (res) {
+        if (res.code != 0) {
+          that.confirmModal = true;
+        } else {
+          that.confirmModal = false;
+        }
         uni.showToast({
           title: '购物车添加成功',
           icon: 'success',
@@ -459,9 +464,9 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
       if (this.cartOrOrder) {
         this.addCart(item.code);
       } else {
+        this.confirmModal = false;
         this.cartDirectBuy(item.code);
       }
-      this.confirmModal = false;
     },
     handleImgHtml: function handleImgHtml(str) {
       var richtext = str;

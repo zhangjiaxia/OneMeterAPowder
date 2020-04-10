@@ -2,28 +2,17 @@
 	<view class="layout">
 		<view class="uni-flex vertical searchbar">
 			<view class="uni-flex">
-				<image src="/static/search.png" class="search"></image>
+				<view class="icon-search search"></view>
 			</view>
 			<view class="uni-flex searchorder">搜索订单</view>
 		</view>
 		<view class="uni-flex uni-row" style="margin: 28rpx 0;">
-			<view class="uni-flex rest content">
-				<text class="active">全部</text>
-			</view>
-			<view class="uni-flex rest content">
-				<text>待发货</text>
-			</view>
-			<view class="uni-flex rest content">
-				<text>待收货</text>
-			</view>
-			<view class="uni-flex rest content">
-				<text>售后</text>
-			</view>
-			<view class="uni-flex rest content">
-				<text>已完成</text>
+			<view class="uni-flex rest content" @click="selectTab(index, item.val)" v-for="(item, index) in tabList" :key="index">
+				<text :class="{active: tabIndex == index}">{{item.text}}</text>
 			</view>
 		</view>
-		<view class="order" v-for="(item, index) in orderPageList.data" :key="index" @click="$turnPage('/pages/shopping/trade/order-detail?id='+item.orderId, 'navigateTo')">
+		<view class="order" v-for="(item, index) in orderPageList" :key="index" 
+			@click="$turnPage('/pages/shopping/trade/order-detail?id='+item.orderId, 'navigateTo')">
 			<view class="uni-flex uni-row time">
 				<view class="uni-flex rest date">
 					{{item.confirmTime}}
@@ -73,7 +62,7 @@
 					<view class="btnright content">确认收货</view>
 				</view>
 			</view>
-			<view class="uni-flex vertical btnop" v-if="item.orderStatus === 50">
+			<view class="uni-flex vertical btnop" v-if="item.orderStatus === 70 || item.orderStatus === 80">
 				<view class="uni-flex rest horizontalright">
 					<view class="btnleft content">查看订单</view>
 				</view>
@@ -103,110 +92,79 @@
 	export default {
 		data() {
 			return {
-				tabIndex: 0,
-				tabList: ['全部', '待支付', '待发货', '待收货', '售后'],
-				status: 0,
-				orderList: [],
-				total: 0,
-				currentPage: 1,
-				pageSize: 20,
+				tabIndex: 0, //订单状态索引
+				tabList: [{
+					text: '全部',
+					val: ''
+				},{
+					text: '待发货',
+					val: '20'
+				},{
+					text: '待收货',
+					val: '30'
+				},{
+					text: '售后',
+					val: '70,80'
+				},{
+					text: '已完成',
+					val: '40'
+				}],
 				//动态参数
-				orderPageList: {}, //订单列表数据
+				params: {
+					page: 1, //页数
+					size: 3, //每页几条
+					status: ''
+				}, //分页参数
+				orderPageData: {}, //订单数据
+				orderPageList: [], //订单列表
 				orderCount: [] //每个订单的商品个数
 			}
 		},
 		onLoad(options) {
-			// this.tabIndex = options.status
-			// this.getOrderList(1)
+			
 		},
 		onShow() {
-			this.getOrderPageList()
+			this.initData()
 		},
 		onReachBottom() {
-			if (this.orderList.length >= this.total) {
+			if (this.orderPageList.length >= this.orderPageData.total) {
 				return
 			}
-			this.currentPage++
-			this.getOrderList(2)
+			this.params.page++;
+			this.getOrderPageList()
 		},
 		methods: {
+			initData() {
+				//重置分页参数
+				this.orderPageData = {}
+				this.orderPageList = []
+				this.params.page = 1
+				this.getOrderPageList();
+			},
 			getOrderPageList() {
 				let that = this;
-				let orderParams = {
-					page: 1,
-					size: 10,
-					status: 0
-				}
-				interfaceurl.checkAuth(interfaceurl.orderPageList, orderParams).then((res) => {
-					that.orderPageList = res.data
+				interfaceurl.checkAuth(interfaceurl.orderPageList, this.params).then((res) => {
+					that.orderPageData = res.data
+					if(that.params.page == 1) {
+						that.orderPageList = res.data.data
+					} else {
+						that.orderPageList = that.orderPageList.concat(res.data.data)
+					}
 					that.orderCount = []
 					let num = 0;
-					for(var item of that.orderPageList.data) {
+					for(var item of that.orderPageList) {
 						for(var subItem of item.skuList) {
 							num += subItem.quantity
 						}
 						that.orderCount.push(num)
 						num = 0;
 					}
-					//console.log(that.orderCount)
 				});
 			},
-			selectTab(index) {
+			selectTab(index, status) {
 				this.tabIndex = index
-				this.getOrderList(1)
-			},
-			getOrderList(type) {
-				let params = {
-					page: this.currentPage,
-					size: this.pageSize
-				}
-				const status = this.tabIndex - 1
-				if (status >= 0) {
-					params.status = status
-				} else {
-					params.status = ''
-				}
-				apiOrderList(params)
-					.then((res) => {
-						if (res.code == 0) {
-							this.total = res.data.total
-							if (type == 1) {
-								this.orderList = res.data.data
-							} else {
-								this.orderList = this.orderList.concat(res.data.data)
-							}
-							console.log(this.orderList)
-							this.orderList.forEach((item) => {
-								let totalNum = 0
-								item.goods_cart.forEach((content) => {
-									totalNum = totalNum + content.buy_number
-								})
-								item.totalNum = totalNum
-							})
-						}
-					})
-			},
-			shopDetailPage(item) {
-				if (item.status !== 0) {
-					return
-				}
-				let shopList = []
-				item.goods_cart.forEach((item) => {
-					const shopItem = {
-						goods_id: item.goods_id,
-						goods_price: item.goods_price,
-						goods_name: item.goods_name,
-						goods_cover_img: item.goods_cover_img,
-						shopNum: item.buy_number,
-						cart_id: item.cart_id,
-						is_cash_back: item.is_cash_back || '0'
-					}
-					shopList.push(shopItem)
-				})
-				uni.setStorageSync('shopList', shopList)
-				uni.navigateTo({
-					url: '/pages/confirm-order/confirm-order'
-				});
+				this.params.status = status
+				this.initData();
 			}
 		}
 	}
@@ -223,6 +181,7 @@
 	.layout {
 		margin: 0 auto;
 		width: 700rpx;
+		padding-top: 20rpx;
 	}
 	.notice {
 		color: #999999;
@@ -243,15 +202,14 @@
 		border-bottom: 1px solid #0071CF;
 	}
 	.searchbar {
-		margin-top: 20rpx;
+		// margin-top: 20rpx;
 		width: 100%;
 		height: 70rpx;
 		background: rgba(255, 255, 255, 1);
 		box-shadow: 0px 2px 3px 0px rgba(255, 255, 255, 0.2);
 		border-radius: 35rpx;
 		.search {
-			width: 28rpx;
-			height: 28rpx;
+			font-size: 28rpx;
 			margin-left: 41rpx;
 			margin-right: 15rpx;
 		}
@@ -291,13 +249,15 @@
 		}
 		.goodsinfo {
 			.prop {
+				background: #F3F0F3;
 				.size {
-					background: #F3F0F3;
 					color: #A09DA1;
 					margin-right: 10rpx;
 					padding: 6rpx;
 					display: inline-flex;
 					margin-bottom: 10rpx;
+					font-size: 23rpx;
+					border-radius: 6rpx;
 				}
 			}
 		}

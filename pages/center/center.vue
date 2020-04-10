@@ -14,9 +14,6 @@
 					</view>
 					<view class="time">会员到期时间：2021-3-16</view>
 				</view>
-				<!-- <view class="uni-flex vertical" style="margin-right: 60rpx;">
-					<image src="/static/back.png" class="arrow"></image>
-				</view> -->
 			</view>
 		</view>
 		<authPage>
@@ -35,7 +32,6 @@
 				<view class="uni-flex uni-row vertical order" @click="$turnPage('/pages/shopping/trade/order?status=0', 'navigateTo')">
 					<view class="uni-flex rest orderManage">订单管理</view>
 					<view class="uni-flex">
-						<!-- <image src="/static/backGrey.png" class="back"></image> -->
 						<view class="icon-qianjin back"></view>
 					</view>
 				</view>

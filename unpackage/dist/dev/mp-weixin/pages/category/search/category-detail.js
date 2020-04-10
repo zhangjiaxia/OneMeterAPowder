@@ -131,7 +131,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
 
 
 
@@ -170,7 +173,11 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var _default = { data: function data() {return { shopList: [{ goods_cover_img: '/static/shop.png', goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒', goods_price: '30.00' }, { goods_cover_img: '/static/shop.png', goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒', goods_price: '30.00' }, { goods_cover_img: '/static/shop.png', goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒', goods_price: '30.00' }] };}, onLoad: function onLoad(options) {
+//
+//
+//
+var _default = { data: function data() {return { shopList: [{ goods_cover_img: '/static/shop.png', goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒', goods_price: '30.00' }, { goods_cover_img: '/static/shop.png', goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒', goods_price: '30.00' }, { goods_cover_img: '/static/shop.png', goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒', goods_price: '30.00' }], loading: true };}, onLoad: function onLoad(options) {uni.setNavigationBarTitle({ title: options.category || '' });
+
     this.getCagetogyList(options.cateId);
   },
   onShow: function onShow() {
@@ -181,11 +188,12 @@ var _default = { data: function data() {return { shopList: [{ goods_cover_img: '
     getCagetogyList: function getCagetogyList(cateId) {
       var that = this;
       var params = {
-        cateId: 5034, //cateId,
+        cateId: cateId, //5034
         page: 1,
         size: 10 };
 
       _interface.default.checkAuth(_interface.default.categoryList, params, false).then(function (res) {
+        that.loading = false;
         that.shopList = res.data.data;
       });
     },
@@ -193,6 +201,7 @@ var _default = { data: function data() {return { shopList: [{ goods_cover_img: '
       this.$store.commit('setGoodsDetail', item);
       this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

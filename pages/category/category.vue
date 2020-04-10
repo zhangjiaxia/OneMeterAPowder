@@ -16,7 +16,7 @@
 						</view>
 						<view>
 							<view class="space" v-for="(subItem, i) in item.childList" :key="i" 
-								@click="$turnPage('/pages/category/search/category-detail?cateId='+subItem.cateId, 'navigateTo')">
+								@click="$turnPage('/pages/category/search/category-detail?cateId='+subItem.cateId+'&category='+subItem.cateName, 'navigateTo')">
 								<image :src="subItem.iconImgUrl" class="goodsimg"></image>
 								<view class="goodstitle">{{subItem.cateName}}</view>
 							</view>
@@ -46,10 +46,10 @@
 			}
 		},
 		onLoad(options) {
-			
+			this.getTopCagetogyList()
 		},
 		onShow() {
-			this.getTopCagetogyList()
+			
 		},
 		methods: {
 			//获取一级分类

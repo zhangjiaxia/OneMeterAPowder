@@ -93,7 +93,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  "uni-swipe-action": function() {
+    return Promise.all(/*! import() | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then(__webpack_require__.bind(null, /*! @/components/uni-swipe-action/uni-swipe-action.vue */ 294))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -132,6 +136,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -220,46 +233,46 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var _default = { data: function data() {return { currentPage: 1, pageSize: 20, total: 0, totalFee: '0.00', shopList: [], // shopList: [{
-      // 	selected: true,
-      // 	goods_name: '商品名',
-      // 	goods_cover_img: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200327/0f0bfc1fbb6a8faabd0de3c2b5fbab66.jpg',
-      // 	goods_price: 123,
-      // 	buy_number: 1
-      // }],
-      timer: null, isAll: true, isEdit: false, //动态参数
-      cartList: {} //购物车列表
-    };}, onShow: function onShow() {// this.getShoppingList(1)
-    if (uni.getStorageSync('token')) {this.getCartPageList();}}, onReachBottom: function onReachBottom() {if (this.shopList.length >= this.total) {return;}this.currentPage++;this.getShoppingList(2);}, methods: { getCartPageList: function getCartPageList() {var that = this;var params = { page: 1, size: 10 };_interface.default.checkAuth(_interface.default.cartPageList, params).then(function (res) {that.cartList = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.cartList.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;item.selected = true;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}that.shopList = that.cartList.data;that.getTotalFee();});}, indexPage: function indexPage() {uni.switchTab({ url: '/pages/index/index' });
-
-    },
-    getShoppingList: function getShoppingList(type) {var _this = this;
-      apiShoppingList({
-        page: this.currentPage,
-        size: this.pageSize }).
-
-      then(function (res) {
-        if (res.code == 0) {
-          _this.total = res.data.total;
-          if (type == 1) {
-            _this.shopList = res.data.data;
-          } else {
-            _this.shopList = _this.shopList.concat(res.data.data);
-          }
-          _this.shopList.forEach(function (item) {
-            item.selected = false;
-          });
-        }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var uniSwipeAction = function uniSwipeAction() {Promise.all(/*! require.ensure | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-swipe-action/uni-swipe-action.vue */ 294));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniSwipeAction: uniSwipeAction }, data: function data() {return { totalFee: '0.00', //总金额
+      timer: null, //延迟处理用户多次点击商品数量加减按钮
+      isAll: true, //判断是否全选
+      isEdit: false, //是否出现编辑删除按钮
+      cartList: {}, //购物车数据
+      shopList: [], //购物车列表
+      params: { page: 1, //页数
+        size: 10 //每页几条
+      }, //分页参数
+      isOpened: false, //是否显示右滑删除
+      //右滑删除
+      options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }], loading: true //加载中
+    };}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.shopList.length >= this.cartList.total) {return;}this.params.page++;this.getCartPageList();}, methods: { initData: function initData() {//重置分页参数
+      this.loading = true;this.isAll = true;this.cartList = {};this.shopList = [];this.params.page = 1;if (uni.getStorageSync('token')) {this.getCartPageList();}}, bindClick: function bindClick(id) {this.delCartGame(id);}, getCartPageList: function getCartPageList() {var that = this;_interface.default.checkAuth(_interface.default.cartPageList, this.params).then(function (res) {that.loading = false;that.cartList = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.cartList.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;item.selected = true;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}that.shopList = that.shopList.concat(that.cartList.data);that.getTotalFee();});}, delCartGame: function delCartGame(ids) {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.cartDelete, { cartId: ids }).then(function (res) {
+        that.initData();
       });
     },
     handleEdit: function handleEdit() {
       this.isEdit = !this.isEdit;
     },
-    handleDelete: function handleDelete() {var _this2 = this;
-      var arr = this.shopList.filter(function (item) {
-        return item.selected == true;
-      });
-      if (!arr.length) {
+    handleDelete: function handleDelete() {
+      var ids = ''; //批量删除，逗号隔开
+      var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {for (var _iterator2 = this.shopList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var item = _step2.value;
+          if (item.selected) {
+            ids += ',' + item.cartId;
+          }
+        }} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}
+      if (!ids.length > 0) {
         uni.showToast({
           title: '请选择删除的商品',
           icon: 'none',
@@ -267,19 +280,7 @@ var _default = { data: function data() {return { currentPage: 1, pageSize: 20, t
 
         return;
       }
-      arr.forEach(function (item) {
-        _this2.confirmDelete(item.cart_id);
-      });
-    },
-    confirmDelete: function confirmDelete(id) {var _this3 = this;
-      apiShoppingDelete({
-        cart_id: id }).
-
-      then(function (res) {
-        if (res.code == 0) {
-          _this3.getShoppingList(1);
-        }
-      });
+      this.delCartGame(ids.substring(1));
     },
     handleSelect: function handleSelect(index) {
       this.shopList[index].selected = !this.shopList[index].selected;
@@ -301,14 +302,13 @@ var _default = { data: function data() {return { currentPage: 1, pageSize: 20, t
     },
     getTotalFee: function getTotalFee() {
       var total = 0;
-      console.log(this.shopList);
+      //console.log(this.shopList)
       this.shopList.forEach(function (item) {
         if (item.selected) {
           total = total + item.quantity * parseFloat(item.price);
         }
       });
       this.totalFee = total.toFixed(2);
-      console.log(this.totalFee);
     },
     shoppingUpdate: function shoppingUpdate(item) {
       var that = this;
@@ -317,10 +317,10 @@ var _default = { data: function data() {return { currentPage: 1, pageSize: 20, t
         quantity: item.quantity };
 
       _interface.default.checkAuth(_interface.default.cartUpdate, params, false).then(function (res) {
-        that.bannerList = res.data;
+
       });
     },
-    reduceNum: function reduceNum(index) {var _this4 = this;
+    reduceNum: function reduceNum(index) {var _this = this;
       if (this.shopList[index].quantity <= 1) {
         this.shopList[index].quantity = 1;
       } else {
@@ -328,15 +328,15 @@ var _default = { data: function data() {return { currentPage: 1, pageSize: 20, t
       }
       clearInterval(this.timer);
       this.timer = setTimeout(function () {
-        _this4.shoppingUpdate(_this4.shopList[index]);
+        _this.shoppingUpdate(_this.shopList[index]);
       }, 1000);
       this.getTotalFee();
     },
-    addNum: function addNum(index) {var _this5 = this;
+    addNum: function addNum(index) {var _this2 = this;
       this.shopList[index].quantity = this.shopList[index].quantity + 1;
       clearInterval(this.timer);
       this.timer = setTimeout(function () {
-        _this5.shoppingUpdate(_this5.shopList[index]);
+        _this2.shoppingUpdate(_this2.shopList[index]);
       }, 1000);
       this.getTotalFee();
     },

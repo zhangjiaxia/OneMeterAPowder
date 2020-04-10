@@ -1638,11 +1638,19 @@ page {
     margin-left: 20rpx;
     margin-right: 30rpx;
 }
-.orderitem .goodsinfo .prop .size {
+.orderitem .goodsinfo .prop {
     background: #F3F0F3;
-    color: #A09DA1;
-    margin-right: 10rpx;
-    padding: 6rpx;
+}
+.orderitem .goodsinfo .prop .size {
+      color: #A09DA1;
+      margin-right: 10rpx;
+      padding: 6rpx;
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      margin-bottom: 10rpx;
+      font-size: 23rpx;
+      border-radius: 6rpx;
 }
 .orderitem .goodsdata {
     margin-left: 40rpx;

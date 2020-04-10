@@ -93,7 +93,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  "uni-swipe-action": function() {
+    return Promise.all(/*! import() | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then(__webpack_require__.bind(null, /*! @/components/uni-swipe-action/uni-swipe-action.vue */ 294))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -170,6 +174,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -192,21 +199,47 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var _default = { data: function data() {return { addressList: [], origin: 1 };}, onLoad: function onLoad(options) {if (options.origin) {this.origin = options.origin;}}, onShow: function onShow() {this.getAddressList();}, methods: { getAddressList: function getAddressList() {var that = this;var params = { page: 1, size: 10 };
-      _interface.default.checkAuth(_interface.default.addressPageList, params, false).then(function (res) {
-        that.addressList = res.data.data;
-      });
+//
+//
+//
+var uniSwipeAction = function uniSwipeAction() {Promise.all(/*! require.ensure | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-swipe-action/uni-swipe-action.vue */ 294));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniSwipeAction: uniSwipeAction }, data: function data() {return { addressData: {}, //收货地址数据
+      addressList: [], //收货列表
+      params: { page: 1, //页数
+        size: 10 //每页几条
+      }, //分页参数
+      isOpened: false, //是否显示右滑删除
+      //右滑删除
+      options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }] };}, onLoad: function onLoad(options) {}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.addressList.length >= this.cartList.total) {return;
     }
-    // selectAddress(item) {
-    // 	if(this.origin == 1){
-    // 		return
-    // 	}
-    // 	uni.setStorageSync('addressItem', item)
-    // 	uni.navigateBack({
-    // 	  delta: 1
-    // 	})
-    // }
-  } };exports.default = _default;
+    this.params.page++;
+    this.getAddressList();
+  },
+  methods: {
+    initData: function initData() {
+      //重置分页参数
+      this.addressData = {};
+      this.addressList = [];
+      this.params.page = 1;
+      this.getAddressList();
+    },
+    getAddressList: function getAddressList() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.addressPageList, this.params).then(function (res) {
+        that.addressData = res.data;
+        if (that.params.page == 1) {
+          that.addressList = res.data.data;
+        } else {
+          that.addressList = that.addressList.concat(res.data.data);
+        }
+      });
+    },
+    delAddress: function delAddress(addressId) {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.addressDelete, { addressId: addressId }).then(function (res) {
+        that.initData();
+      });
+    } } };exports.default = _default;
 
 /***/ }),
 

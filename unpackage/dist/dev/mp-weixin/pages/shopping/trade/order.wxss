@@ -1580,6 +1580,7 @@ page {
 .layout {
   margin: 0 auto;
   width: 700rpx;
+  padding-top: 20rpx;
 }
 .notice {
   color: #999999;
@@ -1598,7 +1599,6 @@ page {
   border-bottom: 1px solid #0071CF;
 }
 .searchbar {
-  margin-top: 20rpx;
   width: 100%;
   height: 70rpx;
   background: white;
@@ -1606,8 +1606,7 @@ page {
   border-radius: 35rpx;
 }
 .searchbar .search {
-    width: 28rpx;
-    height: 28rpx;
+    font-size: 28rpx;
     margin-left: 41rpx;
     margin-right: 15rpx;
 }
@@ -1642,15 +1641,19 @@ page {
     margin-left: 20rpx;
     margin-right: 30rpx;
 }
-.orderitem .goodsinfo .prop .size {
+.orderitem .goodsinfo .prop {
     background: #F3F0F3;
-    color: #A09DA1;
-    margin-right: 10rpx;
-    padding: 6rpx;
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: inline-flex;
-    margin-bottom: 10rpx;
+}
+.orderitem .goodsinfo .prop .size {
+      color: #A09DA1;
+      margin-right: 10rpx;
+      padding: 6rpx;
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      margin-bottom: 10rpx;
+      font-size: 23rpx;
+      border-radius: 6rpx;
 }
 .orderitem .goodsdata {
     margin-left: 40rpx;

@@ -1,9 +1,8 @@
 <template>
 	<view>
 		<view class="layout">
-			<view class="uni-flex uni-row vertical address">
+			<view class="uni-flex uni-row vertical address" @click="$turnPage('/pages/shopping/trade/address', 'navigateTo')">
 				<view class="uni-flex">
-					<!-- <image src="/static/location.png" class="location"></image> -->
 					<view class="icon-dizhi location"></view>
 				</view>
 				<view class="uni-flex uni-column rest" v-if="defaultAddress">
@@ -17,7 +16,6 @@
 					<view class="noposit">添加收货地址</view>
 				</view>
 				<view class="uni-flex">
-					<!-- <image src="/static/center/backGrey.png" class="backGrey"></image> -->
 					<view class="icon-qianjin backGrey"></view>
 				</view>
 			</view>
@@ -93,7 +91,7 @@
 			},
 			submitOrder() {
 				let that = this;
-				if(!that.defaultAddress.addressId) {
+				if(!that.defaultAddress || !that.defaultAddress.addressId) {
 					uni.showToast({
 					    title: '收货地址不能为空',
 					    icon: 'none',
@@ -201,11 +199,15 @@
 		}
 		.goodsinfo {
 			.prop {
+				background: #F3F0F3;
 				.size {
-					background: #F3F0F3;
 					color: #A09DA1;
 					margin-right: 10rpx;
 					padding: 6rpx;
+					display: inline-flex;
+					margin-bottom: 10rpx;
+					font-size: 23rpx;
+					border-radius: 6rpx;
 				}
 			}
 		}

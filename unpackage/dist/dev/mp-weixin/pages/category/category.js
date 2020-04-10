@@ -197,7 +197,7 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 var _default = { data: function data() {return { indicatorDots: true, autoplay: true, interval: 2000, duration: 500, bannerList: [], id: 1, //动态参数
       topCagetogyList: [], //获取一级分类
       categoryList: [] //获取二级和三级分类
-    };}, onLoad: function onLoad(options) {}, onShow: function onShow() {this.getTopCagetogyList();}, methods: { //获取一级分类
+    };}, onLoad: function onLoad(options) {this.getTopCagetogyList();}, onShow: function onShow() {}, methods: { //获取一级分类
     getTopCagetogyList: function getTopCagetogyList() {var that = this;_interface.default.checkAuth(_interface.default.firstList, {}, false).then(function (res) {that.topCagetogyList = res.data;that.id = that.topCagetogyList[0].cateId;that.getCategoryList();});}, //获取子分类
     getCategoryList: function getCategoryList() {var that = this;var params = { cateId: that.id, page: 2,
         size: 10 };

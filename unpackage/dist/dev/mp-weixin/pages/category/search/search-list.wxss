@@ -1574,13 +1574,70 @@ radio-group label, checkbox-group label{
 	height: 0;
 	background-color: transparent;
 }
-.topline {
-  height: 20rpx;
-  background: #F7F5F6;
+.title-contents {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+.titles {
+  height: 50px;
+  color: #ffffff;
+  background: #0070CF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 0rpx 30rpx;
+}
+.search-input {
+  height: 60rpx;
+  background-color: #ffffff;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 8rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+}
+.search-icon {
+  font-size: 30rpx !important;
+  margin-right: 10rpx;
+}
+.search-input input {
+  height: 100%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  color: #333333;
+}
+.return-icon {
+  width: 20rpx;
+  height: 36rpx;
+}
+.search-text {
+  font-size: 36rpx;
+}
+input {
+  caret-color: #FF585C;
 }
 .goodslist {
   height: 280rpx;
   background: white;
+  margin-top: 120rpx;
 }
 .goodslist .goods {
     height: 280rpx;

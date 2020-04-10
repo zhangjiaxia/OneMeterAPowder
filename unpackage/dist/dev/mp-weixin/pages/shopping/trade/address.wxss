@@ -1577,13 +1577,19 @@ radio-group label, checkbox-group label{
 page {
   background: #F7F4F8;
 }
+.uni-swipe_content {
+  border-radius: 15rpx;
+}
+.swipelayout {
+  width: 723rpx;
+  margin: 0 auto;
+  margin-bottom: 20rpx;
+}
 .addresslist {
   border-radius: 15rpx;
   width: 723rpx;
   height: 182rpx;
   background: #FFFFFF;
-  margin: 0 auto;
-  margin-bottom: 20rpx;
 }
 .addresslist .left {
     margin-left: 20rpx;

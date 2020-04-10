@@ -8764,7 +8764,7 @@ var interfaceurl = (_interfaceurl = {
       * 数据格式业务处理
       */
   showBussisnessErr: function showBussisnessErr(res) {
-    console.log('showBussisnessErr', res);
+    //console.log('showBussisnessErr',res);
     //res.respCode为0则是正常，其它数值代表请求有正常跑完全程，后台接口能够捕获到的异常处理
     if (res.code == 0) {
       return true;
@@ -8878,17 +8878,21 @@ var interfaceurl = (_interfaceurl = {
   specialGoodsList: function specialGoodsList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/home/specialGoodsList"), data: data }, false);},
   championList: function championList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/home/championList"), data: data }, false);},
   /*商品*/
-  selectList: function selectList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/selectList"), data: data });},
-  firstList: function firstList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/firstList"), data: data });},
-  childList: function childList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/childList"), data: data });},
-  categoryList: function categoryList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/goods/categoryList"), data: data });},
-  goodsDetail: function goodsDetail(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/goods/detail"), data: data });},
+  selectList: function selectList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/selectList"), data: data }, false);},
+  firstList: function firstList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/firstList"), data: data }, false);},
+  childList: function childList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/childList"), data: data }, false);},
+  categoryList: function categoryList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/goods/categoryList"), data: data }, false);},
+  goodsDetail: function goodsDetail(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/goods/detail"), data: data }, false);},
+  pageGoodsList: function pageGoodsList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/home/pageGoodsList"), data: data }, false);},
+  categoryChildrenList: function categoryChildrenList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/childrenList"), data: data }, false);},
+  childrenGoodsList: function childrenGoodsList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/category/childrenGoodsList"), data: data }, false);},
 
   //权限接口调用前先检查下用户登录状态
   checkAuth: function checkAuth(bussinessInterfaceurl, data) {var isAuth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
     return new Promise(function (resolve, reject) {
       if (isAuth) {
         interfaceurl.checkLogin().then(function (res) {//login API 获取code
+          uni.showLoading();
           // wx.showLoading({
           // 	title: '',
           // 	mask: true,
@@ -8896,8 +8900,8 @@ var interfaceurl = (_interfaceurl = {
           // });
           //权限接口调用
           bussinessInterfaceurl(data).then(function (res) {
+            uni.hideLoading();
             if (interfaceurl.showBussisnessErr(res)) {
-              //wx.hideLoading();
               resolve(res); //接口200时返回的数据
             }
           }).catch(interfaceurl.showErr); //异常捕获
@@ -8938,7 +8942,7 @@ data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/retu
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/create"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "addressUpdate", function addressUpdate(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/update"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "addressPageList", function addressPageList(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/pageList"), data: data });}), _defineProperty(_interfaceurl, "addressDelete", function addressDelete(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/delete"), data: data });}), _defineProperty(_interfaceurl, "addressInfo", function addressInfo(
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/delete"), data: data, method: 'DELETE' });}), _defineProperty(_interfaceurl, "addressInfo", function addressInfo(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/info"), data: data });}), _defineProperty(_interfaceurl, "vipPayment", function vipPayment(
 
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/vip_payment/payment"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "showDetail", function showDetail(
@@ -23269,6 +23273,150 @@ areaData;exports.default = _default;
 
 /***/ }),
 
+/***/ 299:
+/*!***********************************************************************!*\
+  !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mpother.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      uniShow: false,
+      left: 0 };
+
+  },
+  computed: {
+    moveLeft: function moveLeft() {
+      return "translateX(".concat(this.left, "px)");
+    } },
+
+  watch: {
+    show: function show(newVal) {
+      if (this.autoClose) return;
+      if (newVal) {
+        this.$emit('change', true);
+        this.open();
+      } else {
+        this.$emit('change', false);
+        this.close();
+      }
+      uni.$emit('__uni__swipe__event', this);
+    } },
+
+  onReady: function onReady() {
+    this.init();
+    this.getSelectorQuery();
+  },
+  beforeDestoy: function beforeDestoy() {
+    uni.$off('__uni__swipe__event');
+  },
+  methods: {
+    init: function init() {var _this = this;
+      uni.$on('__uni__swipe__event', function (res) {
+        if (res !== _this && _this.autoClose) {
+          if (_this.left !== 0) {
+            _this.close();
+          }
+        }
+      });
+    },
+    onClick: function onClick(index, item) {
+      this.$emit('click', {
+        content: item,
+        index: index });
+
+    },
+    touchstart: function touchstart(e) {var
+
+      pageX =
+      e.touches[0].pageX;
+      if (this.disabled) return;
+      var left = this.position[0].left;
+      uni.$emit('__uni__swipe__event', this);
+      this.width = pageX - left;
+      if (this.isopen) return;
+      if (this.uniShow) {
+        this.uniShow = false;
+        this.isopen = true;
+        this.openleft = this.left + this.position[1].width;
+      }
+    },
+    touchmove: function touchmove(e, index) {
+      if (this.disabled) return;var
+
+      pageX =
+      e.touches[0].pageX;
+      this.setPosition(pageX);
+    },
+    touchend: function touchend() {
+      if (this.disabled) return;
+      if (this.isopen) {
+        this.move(this.openleft, 0);
+        return;
+      }
+      this.move(this.left, -40);
+    },
+    setPosition: function setPosition(x, y) {
+      if (!this.position[1].width) {
+        return;
+      }
+      // const width = this.position[0].width
+      this.left = x - this.width;
+      this.setValue(x - this.width);
+    },
+    setValue: function setValue(value) {
+      // 设置最大最小值
+      this.left = Math.max(-this.position[1].width, Math.min(parseInt(value), 0));
+      this.position[0].left = this.left;
+      if (this.isopen) {
+        this.openleft = this.left + this.position[1].width;
+      }
+    },
+    move: function move(left, value) {
+      if (left >= value) {
+        this.$emit('change', false);
+        this.close();
+      } else {
+        this.$emit('change', true);
+        this.open();
+      }
+    },
+    open: function open() {
+      this.uniShow = true;
+      this.left = -this.position[1].width;
+      this.setValue(-this.position[1].width);
+    },
+    close: function close() {var _this2 = this;
+      this.uniShow = true;
+      this.setValue(0);
+      setTimeout(function () {
+        _this2.uniShow = false;
+        _this2.isopen = false;
+      }, 200);
+    },
+    getSelectorQuery: function getSelectorQuery() {var _this3 = this;
+      var views = uni.createSelectorQuery().
+      in(this);
+      views.
+      selectAll('.selector-query-hock').
+      boundingClientRect(function (data) {
+        _this3.position = data;
+        if (_this3.autoClose) return;
+        if (_this3.show) {
+          _this3.open();
+        } else {
+          _this3.close();
+        }
+      }).
+      exec();
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -23297,6 +23445,105 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ 300:
+/*!******************************************************************!*\
+  !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mp.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      position: [],
+      button: [] };
+
+  },
+  computed: {
+    pos: function pos() {
+      return JSON.stringify(this.position);
+    },
+    btn: function btn() {
+      return JSON.stringify(this.button);
+    } },
+
+  watch: {
+    show: function show(newVal) {
+      if (this.autoClose) return;
+      var valueObj = this.position[0];
+      if (!valueObj) return;
+      valueObj.show = newVal;
+      this.$set(this.position, 0, valueObj);
+    } },
+
+
+
+
+
+
+
+
+
+  onReady: function onReady() {
+    this.init();
+    this.getSize();
+    this.getButtonSize();
+  },
+
+  methods: {
+    init: function init() {var _this = this;
+      uni.$on('__uni__swipe__event', function (res) {
+        if (res !== _this && _this.autoClose) {
+          var valueObj = _this.position[0];
+          valueObj.show = false;
+          _this.$set(_this.position, 0, valueObj);
+        }
+      });
+    },
+    openSwipe: function openSwipe() {
+      uni.$emit('__uni__swipe__event', this);
+    },
+    change: function change(e) {
+      this.$emit('change', e.open);
+      var valueObj = this.position[0];
+      valueObj.show = e.open;
+      this.$set(this.position, 0, valueObj);
+      // console.log('改变', e);
+    },
+    onClick: function onClick(index, item) {
+      this.$emit('click', {
+        content: item,
+        index: index });
+
+    },
+    getSize: function getSize() {var _this2 = this;
+      var views = uni.createSelectorQuery().in(this);
+      views.
+      selectAll('.selector-query-hock').
+      boundingClientRect(function (data) {
+        if (_this2.autoClose) {
+          data[0].show = false;
+        } else {
+          data[0].show = _this2.show;
+        }
+        _this2.position = data;
+      }).
+      exec();
+    },
+    getButtonSize: function getButtonSize() {var _this3 = this;
+      var views = uni.createSelectorQuery().in(this);
+      views.
+      selectAll('.button-hock').
+      boundingClientRect(function (data) {
+        _this3.button = data;
+      }).
+      exec();
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -24218,7 +24465,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/category": { "navigationBarTitleText": "类目", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/center": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/about": { "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/team": { "navigationBarTitleText": "我的团队", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/category/category": { "navigationBarTitleText": "类目", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/center/center": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/about": { "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/team": { "navigationBarTitleText": "我的团队", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

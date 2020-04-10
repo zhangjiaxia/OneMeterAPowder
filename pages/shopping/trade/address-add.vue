@@ -85,7 +85,7 @@
 				this.$refs.mpvueCityPicker.show()
 			},
 			onConfirm(e) {
-				console.log(e)
+				//console.log(e)
 				this.saveParams.regionId = e.cityCode;
 				this.position = e.label.replace('-', '').replace('-', '');
 			},

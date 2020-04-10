@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/shopping/shopping",
     "pages/category/category",
     "pages/vip/vip",
-    "pages/shopping/shopping",
     "pages/center/center"
   ],
   "subPackages": [
@@ -57,6 +57,7 @@
     }
   ],
   "window": {
+    "navigationStyle": "custom",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
@@ -83,7 +84,7 @@
       {
         "pagePath": "pages/vip/vip",
         "iconPath": "static/tabbar/vip.png",
-        "selectedIconPath": "static/tabbar/vip.png",
+        "selectedIconPath": "static/tabbar/vip-selected.png",
         "text": "VIP"
       },
       {

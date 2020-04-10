@@ -344,8 +344,9 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var _default = { data: function data() {return { rankList: [] //佣金排名
-    };}, onShow: function onShow() {if (uni.getStorageSync('token')) {this.getRanking();}}, methods: { //获取排名列表GET v1/user_team/rankingList
+var _default = { data: function data() {return { rankList: [], //佣金排名
+      userInfo: {} //获取用户信息
+    };}, onShow: function onShow() {this.userInfo = uni.getStorageSync('userInfo');if (uni.getStorageSync('token')) {this.getRanking();}}, methods: { //获取排名列表GET v1/user_team/rankingList
     getRanking: function getRanking() {var that = this;_interface.default.checkAuth(_interface.default.teamRankingList, {}).then(function (res) {that.rankList = res.data;});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

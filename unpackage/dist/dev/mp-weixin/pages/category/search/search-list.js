@@ -98,6 +98,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.searchList, function(item, index) {
+    var g0 = item.name.substring(0, 15)
+    return {
+      $orig: _vm.__get_orig(item),
+      g0: g0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -131,42 +147,96 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {
-      list: [{}, {}, {}, {}] };
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-  },
-  methods: {} };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { searchGoodsPage: {}, //商品搜索数据
+      searchList: [], //商品搜索列表
+      params: { page: 1, size: 10, keyWord: '' //搜索关键字
+      } };}, onLoad: function onLoad(options) {this.params.keyWord = options.keyword;}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.searchList.length >= this.searchGoodsPage.total) {return;}this.params.page++;this.getPageGoodsList();}, methods: { search: function search() {this.getPageGoodsList();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, initData: function initData() {//重置分页参数
+      this.specialGoodsData = {};this.specialGoodsList = [];this.params.page = 1;this.getPageGoodsList();},
+    getPageGoodsList: function getPageGoodsList() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.pageGoodsList, this.params).then(function (res) {
+        that.searchGoodsPage = res.data;
+        if (that.params.page == 1) {
+          that.searchList = res.data.data;
+        } else {
+          that.searchList = that.searchList.concat(res.data.data);
+        }
+      });
+    } } };exports.default = _default;
 
 /***/ }),
 

@@ -212,7 +212,6 @@ var _default =
     };
   },
   onLoad: function onLoad(options) {
-    console.log('options', options);
     this.isUpgrade = options.isUpgrade;
   },
   methods: {} };exports.default = _default;

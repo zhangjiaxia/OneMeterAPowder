@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "一米一粉",
   "navigationBarBackgroundColor": "#0071CF",
-  "usingComponents": {}
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar",
+    "auth-page": "/components/authorization-page"
+  }
 }

@@ -160,7 +160,7 @@ var _default = { props: { show: { type: Boolean }, //显示用户信息或手机
   methods: {
     prevent: function prevent() {}, //阻止父级元素跳转
     bindGetUserInfo: function bindGetUserInfo(res) {
-      console.log(res);
+      //console.log(res)
       if (res.detail.rawData) {
         _interface.default.login(res.detail);
       } else {
@@ -171,7 +171,7 @@ var _default = { props: { show: { type: Boolean }, //显示用户信息或手机
       }
     },
     getPhoneNumber: function getPhoneNumber(res) {
-      console.log(res);
+      //console.log(res);
       if (res.detail.encryptedData) {
         var params = {
           sessionKey: this.userInfos.sessionKey,

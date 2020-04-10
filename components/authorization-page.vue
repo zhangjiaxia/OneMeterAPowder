@@ -44,7 +44,7 @@
 		methods: {
 			prevent() { }, //阻止父级元素跳转
 			bindGetUserInfo(res){
-				console.log(res)
+				//console.log(res)
 				if(res.detail.rawData){
 					interfaceurl.login(res.detail);
 				} else {
@@ -55,7 +55,7 @@
 				}
 			},
 			getPhoneNumber(res) {
-			    console.log(res);
+			    //console.log(res);
 				if (res.detail.encryptedData) {
 					let params = {
 						sessionKey: this.userInfos.sessionKey,

@@ -4,11 +4,11 @@
 			<image src="/static/bg.png" class="bg"></image>
 			<view class="uni-flex uni-row info">
 				<view class="uni-flex">
-					<image :src="userInfo.headimgurl || '/static/head.png'" class="head"></image>
+					<image :src="userInfo.avatarUrl || '/static/head.png'" class="head"></image>
 				</view>
 				<view class="uni-flex uni-column rest">
 					<view class="nick">
-						{{userInfo.nickname || '御翔绝瞬'}}
+						{{userInfo.nickName || '御翔绝瞬'}}
 						<image src="/static/VIPicon.png" class="vip"></image>
 					</view>
 					<view>
@@ -38,7 +38,7 @@
 		</view>
 		<view class="uni-flex uni-column commissiondetail">
 			<view class="uni-flex uni-row rest vertical" style="border-bottom: 1px solid #EEEEEE;">
-				<view class="uni-flex rest content vline">
+				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">一级粉丝</view>
 					<view class="number">
 						<text class="active">49</text>人
@@ -50,7 +50,7 @@
 						<text class="active">37</text>人
 					</view>
 				</view>
-				<view class="uni-flex rest content">
+				<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 					<view class="title">佣金收益</view>
 					<view class="number">
 						<text class="active">2150</text>元
@@ -58,7 +58,7 @@
 				</view>
 			</view>
 			<view class="uni-flex uni-row rest vertical">
-				<view class="uni-flex rest content vline">
+				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">二级粉丝</view>
 					<view class="number">
 						<text class="active">49</text>人
@@ -70,7 +70,7 @@
 						<text class="active">37</text>人
 					</view>
 				</view>
-				<view class="uni-flex rest content">
+				<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 					<view class="title">佣金收益</view>
 					<view class="number">
 						<text class="active">2150</text>元
@@ -109,10 +109,12 @@
 	export default {
 		data() {
 			return {
-				rankList: [] //佣金排名
+				rankList: [], //佣金排名
+				userInfo: {} //获取用户信息
 			}
 		},
 		onShow() {
+			this.userInfo = uni.getStorageSync('userInfo')
 			if(uni.getStorageSync('token')) {
 				this.getRanking()
 			}

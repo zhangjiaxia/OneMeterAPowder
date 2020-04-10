@@ -8,6 +8,13 @@
 			}
 		},
 		{
+			"path": "pages/shopping/shopping",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
 			"path":"pages/category/category",
 			"style":{
 				"navigationBarTitleText":"类目",
@@ -18,13 +25,6 @@
 			"path":"pages/vip/vip",
 			"style":{
 				"navigationBarTitleText":"VIP",
-				"navigationBarBackgroundColor": "#0071CF"
-			}
-		},
-		{
-			"path": "pages/shopping/shopping",
-			"style": {
-				"navigationBarTitleText": "购物车",
 				"navigationBarBackgroundColor": "#0071CF"
 			}
 		},
@@ -212,7 +212,7 @@
 		}]
 	}],
 	"globalStyle": {
-		//"navigationStyle": "custom", //自定义导航栏
+		"navigationStyle": "custom", //自定义导航栏
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
@@ -238,7 +238,7 @@
 	  {
 	    "pagePath": "pages/vip/vip",
 	    "iconPath": "static/tabbar/vip.png",
-	    "selectedIconPath": "static/tabbar/vip.png",
+	    "selectedIconPath": "static/tabbar/vip-selected.png",
 	    "text": "VIP"
 	  },
 	  {

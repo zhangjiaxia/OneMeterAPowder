@@ -98,6 +98,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.childrenGoodsList, function(item, index) {
+    var g0 = item.name.substring(0, 25)
+    return {
+      $orig: _vm.__get_orig(item),
+      g0: g0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -131,32 +147,95 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {
-      list: [{}, {}, {}, {}] };
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-  },
-  methods: {} };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { list: [], params: { page: 1, size: 10, cateId: 5034 //分类ID,选中的tab分类ID
+      }, //二级分类下的商品
+      categoryChildrenList: [], //tab栏数据
+      childrenGoodsData: {}, //分类商品数据
+      childrenGoodsList: [] //分类商品列表
+    };}, onLoad: function onLoad(options) {this.params.cateId = options.cateId;this.getCategoryChildrenList();this.initData();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {return;}this.params.page++;this.getChildrenGoodsList();}, methods: { shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');},
+    initData: function initData() {
+      //重置分页参数
+      this.childrenGoodsData = {};
+      this.childrenGoodsList = [];
+      this.params.page = 1;
+      this.getChildrenGoodsList();
+    },
+    selectTab: function selectTab(cateId) {
+      this.params.cateId = cateId;
+      this.initData();
+    },
+    getCategoryChildrenList: function getCategoryChildrenList() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.categoryChildrenList, { cateId: this.params.cateId }, false).then(function (res) {
+        that.categoryChildrenList = res.data;
+        that.params.cateId = that.categoryChildrenList[0].cateId;
+      });
+    },
+    getChildrenGoodsList: function getChildrenGoodsList() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.childrenGoodsList, this.params, false).then(function (res) {
+        that.childrenGoodsData = res.data;
+        if (that.params.page == 1) {
+          that.childrenGoodsList = res.data.data;
+        } else {
+          that.childrenGoodsList = that.childrenGoodsList.concat(res.data.data);
+        }
+      });
+    } } };exports.default = _default;
 
 /***/ }),
 

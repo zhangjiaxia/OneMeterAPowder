@@ -131,76 +131,80 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-// import { apiSearchRecord } from '../../service/index'
-var _default = {
-  data: function data() {
-    return {
-      recordList: ['美食', '护肤', '生活百货', '巧克力'],
-      searchList: ['美食', '护肤', '生活百货', '巧克力', '口红', '运动衫', '手表'] };
 
-  },
-  onShow: function onShow() {
-    // this.getSearchList()
-  },
-  methods: {
-    handleBack: function handleBack() {
-      uni.navigateBack();
-    },
-    getSearchList: function getSearchList() {var _this = this;
-      apiSearchRecord().
-      then(function (res) {
-        if (res.code == 200) {
-          _this.recordList = res.data;
-        }
-      });
-    },
-    deleteRecord: function deleteRecord() {
-      this.recordList = [];
-    },
-    searchPage: function searchPage(item) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { recordList: ['美食', '护肤', '生活百货', '巧克力'], searchList: ['美食', '护肤', '生活百货', '巧克力', '口红', '运动衫', '手表'], params: { page: 1, size: 10, keyWord: '' //搜索关键字
+      } };}, onShow: function onShow() {}, methods: { handleBack: function handleBack() {uni.navigateBack();}, deleteRecord: function deleteRecord() {this.recordList = [];}, searchPage: function searchPage(item) {uni.navigateTo({ url: '/pages/category/search/search-list?keyword=' + item });}, search: function search() {if (!this.params.keyWord) {uni.showToast({ title: '搜索关键字不能为空', icon: 'none', duration: 2000 });return;
+      }
       uni.navigateTo({
-        url: '/pages/shop-list/shop-list?keyword=' + item });
-
-    },
-    search: function search() {
-      uni.navigateTo({
-        url: '/pages/shop-list/shop-list' });
+        url: '/pages/category/search/search-list?keyword=' + this.params.keyWord });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

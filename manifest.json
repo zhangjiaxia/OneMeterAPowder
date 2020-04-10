@@ -57,7 +57,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxed2866a0b2a9a2de",
+        "appid" : "wx87fd5cdb36f02fcf",
         "setting" : {
             "urlCheck" : false
         },

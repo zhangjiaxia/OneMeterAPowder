@@ -119,11 +119,20 @@ var render = function() {
     }
   })
 
+  var l1 = _vm.__map(_vm.championList, function(item, index) {
+    var g1 = item.name.substring(0, 20)
+    return {
+      $orig: _vm.__get_orig(item),
+      g1: g1
+    }
+  })
+
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        l0: l0
+        l0: l0,
+        l1: l1
       }
     }
   )
@@ -158,7 +167,40 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -297,65 +339,104 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var _default = { data: function data() {return { //轮播图参数
-      indicatorDots: true, autoplay: true, interval: 3000, duration: 500, invitation_code: '', //分销邀请码
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 306));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 240));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入授权窗体
+var _default = { components: { navigationBar: navigationBar, authPage: authPage }, data: function data() {return { //轮播图参数
+      indicatorDots: true, autoplay: false, interval: 3000, duration: 500, invitation_code: '', //分销邀请码
       bannerList: ['/static/banner.png'], //轮播图
       iconTypeList: [], //小图标
       specialAreaPicList: [], //专区图片
       specialAreaTextList: [], //专区文字
       tabIndex: 0, //选择的专区索引
-      specialGoodsList: [], //专区商品
-      championList: [] //销量冠军
-    };}, onShareAppMessage: function onShareAppMessage(res) {return { title: '一米一粉', path: '/pages/index/index?code=' + this.invitation_code, imageUrl: '/static/banner.png' };}, onLoad: function onLoad(options) {}, onShow: function onShow() {this.getBannerList();this.getIconTypeList();this.getSpecialAreaList(1);this.getSpecialAreaList(2);}, methods: { selectTab: function selectTab(index) {this.tabIndex = index;if (this.tabIndex == this.specialAreaTextList.length - 1) {this.getChampionList();} else {this.getSpecialGoodsList();}}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');break;case '2':this.$turnPage('/pages/index/business/original-equity', 'navigateTo');break;case '3':this.$turnPage('/pages/vip/rule/vip-index', 'navigateTo');break;case '4':this.$turnPage('/pages/index/business/Integral-stake', 'navigateTo');break;case '5':this.$turnPage('/pages/index/business/business-school', 'navigateTo');break;default: //this.$turnPage('/pages/vip/vip-mainrule', 'navigateTo')
-      }}, searchPage: function searchPage() {uni.navigateTo({ url: '/pages/category/search/search' });}, //获取轮播图
-    getBannerList: function getBannerList() {var that = this;_interface.default.checkAuth(_interface.default.bannerList, {}, false).then(function (res) {that.bannerList = res.data;});},
-    //获取分类小图标
-    getIconTypeList: function getIconTypeList() {
-      var that = this;
-      _interface.default.checkAuth(_interface.default.iconTypeList, {}, false).then(function (res) {
-        that.iconTypeList = res.data;
-      });
-    },
-    //获取专区1:图片位置2:标题位置
-    getSpecialAreaList: function getSpecialAreaList(specialType) {
-      var that = this;
-      _interface.default.checkAuth(_interface.default.specialAreaList, {
-        specialType: specialType },
-      false).then(function (res) {
-        if (specialType == 1) {
-          that.specialAreaPicList = res.data;
-        } else {
+      specialGoodsData: {}, //专区商品数据
+      specialGoodsList: [], //专区商品列表
+      params: { page: 1, size: 2, specialId: 0 //选择的专区索引
+      }, //专区商品参数
+      championData: {}, //销量冠军数据
+      championList: [], //销量冠军列表
+      isGoods: 1 //判断是否为销量冠军，0是，1不是
+    };}, onShareAppMessage: function onShareAppMessage(res) {return { title: '一米一粉', path: '/pages/index/index?code=' + this.invitation_code, imageUrl: '/static/banner.png' };}, onLoad: function onLoad(options) {this.getBannerList();this.getIconTypeList();this.getSpecialAreaList(1);this.getSpecialAreaList(2);this.tabIndex = 0;this.specialGoodsData = {};this.specialGoodsList = [];}, onShow: function onShow() {}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.isGoods == 0) {if (this.championList.length >= this.championData.total) {return;}this.params.page++;this.getChampionList();} else {if (this.specialGoodsList.length >= this.specialGoodsData.total) {return;}this.params.page++;this.getSpecialGoodsList();}}, methods: { selectTab: function selectTab(index, isGoods) {this.tabIndex = index;this.isGoods = isGoods;this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');break;case '2':this.$turnPage('/pages/index/business/original-equity', 'navigateTo');break;case '3':this.$turnPage('/pages/vip/rule/vip-index', 'navigateTo');break;case '4':this.$turnPage('/pages/index/business/Integral-stake', 'navigateTo');break;case '5':this.$turnPage('/pages/index/business/business-school', 'navigateTo');break;default:this.$turnPage('/pages/category/search/goods-list?cateId=' + item.link, 'navigateTo');}}, //获取轮播图
+    getBannerList: function getBannerList() {var that = this;_interface.default.checkAuth(_interface.default.bannerList, {}, false).then(function (res) {that.bannerList = res.data;});}, //获取分类小图标
+    getIconTypeList: function getIconTypeList() {var that = this;_interface.default.checkAuth(_interface.default.iconTypeList, {}, false).then(function (res) {that.iconTypeList = res.data;});}, //获取专区1:图片位置2:标题位置
+    getSpecialAreaList: function getSpecialAreaList(specialType) {var that = this;_interface.default.checkAuth(_interface.default.specialAreaList, { specialType: specialType }, false).then(function (res) {if (specialType == 1) {that.specialAreaPicList = res.data;} else {
           that.specialAreaTextList = res.data;
+          //设置第一个tab的类型（判断是否为销售冠军）
+          that.isGoods = that.specialAreaTextList[0].isGoods;
         }
         if (that.specialAreaTextList.length > 0) {
-          that.getSpecialGoodsList();
+          that.initData();
         }
       });
+    },
+    initData: function initData() {
+      //重置分页参数
+      this.specialGoodsData = {};
+      this.specialGoodsList = [];
+      this.params.page = 1;
+      if (this.isGoods == 0) {
+        this.getChampionList();
+      } else {
+        this.getSpecialGoodsList();
+      }
     },
     //获取专区商品列表
     getSpecialGoodsList: function getSpecialGoodsList() {
       var that = this;
-      var params = {
-        page: 1,
-        size: 2,
-        specialId: that.specialAreaTextList[that.tabIndex].specialId };
-
-      _interface.default.checkAuth(_interface.default.specialGoodsList, params, false).then(function (res) {
-        that.specialGoodsList = res.data.data;
+      that.params.specialId = that.specialAreaTextList[that.tabIndex].specialId;
+      _interface.default.checkAuth(_interface.default.specialGoodsList, this.params, false).then(function (res) {
+        that.specialGoodsData = res.data;
+        if (that.params.page == 1) {
+          that.specialGoodsList = res.data.data;
+        } else {
+          that.specialGoodsList = that.specialGoodsList.concat(res.data.data);
+        }
       });
     },
     //销量冠军
     getChampionList: function getChampionList() {
       var that = this;
-      var params = {
-        page: 1,
-        size: 2 };
-
-      _interface.default.checkAuth(_interface.default.championList, params, false).then(function (res) {
-        that.championList = res.data;
+      _interface.default.checkAuth(_interface.default.championList, this.params, false).then(function (res) {
+        that.championData = res.data;
+        if (that.params.page == 1) {
+          that.championList = res.data.data;
+        } else {
+          that.championList = that.specialGoodsList.concat(res.data.data);
+        }
       });
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 23 */,

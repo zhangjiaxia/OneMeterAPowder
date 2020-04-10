@@ -1,15 +1,23 @@
 <template>
 	<view>
+		<view class="banner">
+			<image src="../../../static/bussiness.png" class="banner-img"></image>
+		</view>
+		<scroll-view scroll-x="true" class="tab-list">
+			<view class="tab" v-for="(item, index) in categoryChildrenList" :key="index" @click="selectTab(item.cateId)">
+				<text class="tab-text" :class="{'tab-active': params.cateId == item.cateId}">{{item.cateName}}</text>
+			</view>
+		</scroll-view>
 		<view class="space">
 			<view class="goods" :style="{'margin-right': index % 2 == 0 ? '20rpx' : '0'}"
-				v-for="(item, index) in list" :key="index">
+				v-for="(item, index) in childrenGoodsList" :key="index" @click="shopDetailPage(item)">
 				<view style="width: 100%;">
-					<image src="/static/bussiness.png" class="goodsimg"></image>
+					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
-				<view class="title">FL男子短袖T恤FL男子短袖T恤 FL男子短袖T恤</view>
+				<view class="title">{{item.name.substring(0,25) + '...'}}</view>
 				<view class="price">
 					<text style="font-size: 24rpx;">￥</text>
-					<text>299</text>
+					<text>{{item.retailPrice[0]}}</text>
 				</view>
 			</view>
 		</view>
@@ -17,14 +25,68 @@
 </template>
 
 <script>
+	import interfaceurl from '@/utils/interface.js'
 	export default {
 		data() {
 			return {
-				list: [{},{},{},{}]
+				list: [],
+				params: {
+					page: 1,
+					size: 10,
+					cateId: 5034 //分类ID,选中的tab分类ID
+				}, //二级分类下的商品
+				categoryChildrenList: [] ,//tab栏数据
+				childrenGoodsData: {}, //分类商品数据
+				childrenGoodsList: [] //分类商品列表
 			}
 		},
+		onLoad(options) {
+			this.params.cateId = options.cateId
+			this.getCategoryChildrenList();
+			this.initData();
+		},
+		//到达页面底部时触发的事件
+		onReachBottom() {
+			if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {
+				return;
+			}
+			this.params.page++;
+			this.getChildrenGoodsList()
+		},
 		methods: {
-			
+			shopDetailPage(item) {
+				this.$store.commit('setGoodsDetail', item)
+				this.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
+			},
+			initData() {
+				//重置分页参数
+				this.childrenGoodsData = {}
+				this.childrenGoodsList = []
+				this.params.page = 1
+				this.getChildrenGoodsList();
+			},
+			selectTab(cateId) {
+				this.params.cateId = cateId
+				this.initData()
+			},
+			getCategoryChildrenList() {
+				let that = this;
+				interfaceurl.checkAuth(interfaceurl.categoryChildrenList, { cateId: this.params.cateId }, false).then((res) => {
+					that.categoryChildrenList = res.data
+					that.params.cateId = that.categoryChildrenList[0].cateId
+				});
+			},
+			getChildrenGoodsList() {
+				let that = this;
+				interfaceurl.checkAuth(interfaceurl.childrenGoodsList, this.params, false).then((res) => {
+					that.childrenGoodsData = res.data
+					if(that.params.page == 1) {
+						that.childrenGoodsList = res.data.data
+					} else {
+						that.childrenGoodsList = that.childrenGoodsList.concat(res.data.data)
+					}
+				});
+			}
 		}
 	}
 </script>
@@ -33,9 +95,45 @@
 	page {
 		background: #F0EDF1;
 	}
+	.banner {
+		.banner-img {
+			width: 100%;
+			height: 270rpx;
+		}
+	}
+	.tab-list {
+		height: 80rpx;
+		background: #FFFFFF;
+		//一行显示
+		display: flex;
+		flex-direction: row;
+		white-space: nowrap;
+		.tab {
+			line-height: 76rpx;
+			text-align: center;
+			display: inline-block;
+			// width: 120rpx;
+			margin: 0 20rpx;
+			.tab-text {
+				font-size: 30rpx;
+				color: #333333;
+				height: 100%;
+				display: block;
+			}
+			.tab-active {
+				border-bottom: 4rpx solid #0071CF;
+				color: #0071CF;
+			}
+		}
+	}
 	.space {
 		width: 700rpx;
-		margin: 20rpx auto;
+		margin: 0rpx auto;
+		padding-top: 20rpx;
+		margin-bottom: 40rpx;
+		//父级div高度同子级高度
+		height: auto;
+		overflow: auto;
 		.goods {
 			width: 340rpx;
 			background: #FFFFFF;
@@ -45,6 +143,8 @@
 			.goodsimg {
 				width: 340rpx;
 				height: 340rpx;
+				border-top-left-radius: 20rpx;
+				border-top-right-radius: 20rpx;
 			}
 			.title {
 				font-size: 24rpx;
@@ -53,8 +153,9 @@
 			}
 			.price {
 				font-size: 30rpx;
-				color: #EC3030;
+				color: #0071CF;
 				margin-left: 10rpx;
+				margin-bottom: 20rpx;
 			}
 			view {
 				line-height: 1.2;

@@ -13,7 +13,7 @@
 					<text class="original-price">￥239</text>
 				</view>
 				<view class="shop-postage">
-					{{goodsDetail.goodsAreaList ? '' : '全国包邮'}}
+					全国包邮
 				</view>
 			</view>
 			<view class="tab-list">
@@ -50,9 +50,9 @@
 						<view>分享</view>
 						<button type="primary" open-type="share" class="share-btn"></button>
 					</view>
-					<view class="detail-bottom-item">
+					<view class="detail-bottom-item" @click="shoppingPage">
 						<image src="/static/shopping-icon.png" class="share-icon"></image>
-						<view @click="shoppingPage">购物车</view>
+						<view>购物车</view>
 					</view>
 				</view>
 				<authPage>
@@ -252,6 +252,11 @@
 					quantity: this.shopNum
 				}
 				interfaceurl.checkAuth(interfaceurl.cartCreate, params).then((res) => {
+					if(res.code != 0) {
+						that.confirmModal = true
+					} else {
+						that.confirmModal = false
+					}
 					uni.showToast({
 						title: '购物车添加成功',
 						icon: 'success',
@@ -317,9 +322,9 @@
 				if(this.cartOrOrder) {
 					this.addCart(item.code)
 				} else {
+					this.confirmModal = false
 					this.cartDirectBuy(item.code)
 				}
-				this.confirmModal = false
 			},
 			handleImgHtml(str) {
 				var richtext = str
@@ -568,10 +573,8 @@
 	}
 
 	.spec-content {
-		margin-top: 20upx;
-		padding: 30upx 0upx;
-		border-top: 1px solid #F5F5F5;
-		border-bottom: 1px solid #F5F5F5;
+		margin-top: 10rpx;
+		padding: 10rpx 0rpx;
 	}
 
 	.spec-list {
@@ -589,6 +592,7 @@
 		background-color: #EEEEEE;
 		color: #CCCCCC;
 		font-size: 26upx;
+		margin: 10rpx;
 	}
 
 	.spec-active {

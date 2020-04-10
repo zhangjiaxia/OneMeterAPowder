@@ -38,7 +38,7 @@ const interfaceurl = {
      * 数据格式业务处理
      */
     showBussisnessErr(res) {
-        console.log('showBussisnessErr',res);
+        //console.log('showBussisnessErr',res);
         //res.respCode为0则是正常，其它数值代表请求有正常跑完全程，后台接口能够捕获到的异常处理
 		if(res.code == 0) {
 			return true
@@ -152,17 +152,21 @@ const interfaceurl = {
 	specialGoodsList(data) { return req.request({ url: `${baseUrl}/v1/home/specialGoodsList`, data }, false) },
 	championList(data) { return req.request({ url: `${baseUrl}/v1/home/championList`, data }, false) },
 	/*商品*/
-	selectList(data) { return req.request({ url: `${baseUrl}/v1/category/selectList`, data }) },
-	firstList(data) { return req.request({ url: `${baseUrl}/v1/category/firstList`, data }) },
-	childList(data) { return req.request({ url: `${baseUrl}/v1/category/childList`, data }) },
-	categoryList(data) { return req.request({ url: `${baseUrl}/v1/goods/categoryList`, data }) },
-	goodsDetail(data) { return req.request({ url: `${baseUrl}/v1/goods/detail`, data }) },
+	selectList(data) { return req.request({ url: `${baseUrl}/v1/category/selectList`, data }, false) },
+	firstList(data) { return req.request({ url: `${baseUrl}/v1/category/firstList`, data }, false) },
+	childList(data) { return req.request({ url: `${baseUrl}/v1/category/childList`, data }, false) },
+	categoryList(data) { return req.request({ url: `${baseUrl}/v1/goods/categoryList`, data }, false) },
+	goodsDetail(data) { return req.request({ url: `${baseUrl}/v1/goods/detail`, data }, false) },
+	pageGoodsList(data) { return req.request({ url: `${baseUrl}/v1/home/pageGoodsList`, data }, false) },
+	categoryChildrenList(data) { return req.request({ url: `${baseUrl}/v1/category/childrenList`, data }, false) },
+	childrenGoodsList(data) { return req.request({ url: `${baseUrl}/v1/category/childrenGoodsList`, data }, false) },
 	
 	//权限接口调用前先检查下用户登录状态
 	checkAuth(bussinessInterfaceurl, data, isAuth = true) {
 		return new Promise(function (resolve, reject) {
 			if(isAuth) {
 				interfaceurl.checkLogin().then((res) => { //login API 获取code
+					uni.showLoading()
 					// wx.showLoading({
 					// 	title: '',
 					// 	mask: true,
@@ -170,8 +174,8 @@ const interfaceurl = {
 					// });
 					//权限接口调用
 					bussinessInterfaceurl(data).then((res) => {
+						uni.hideLoading();
 						if(interfaceurl.showBussisnessErr(res)){
-							//wx.hideLoading();
 							resolve(res); //接口200时返回的数据
 						} 
 					}).catch(interfaceurl.showErr); //异常捕获
@@ -212,7 +216,7 @@ const interfaceurl = {
 	addressCreate(data) { return req.request({ url: `${baseUrl}/v1/address/create`, data, method: 'POST' }) },
 	addressUpdate(data) { return req.request({ url: `${baseUrl}/v1/address/update`, data, method: 'POST' }) },
 	addressPageList(data) { return req.request({ url: `${baseUrl}/v1/address/pageList`, data }) },
-	addressDelete(data) { return req.request({ url: `${baseUrl}/v1/address/delete`, data }) },
+	addressDelete(data) { return req.request({ url: `${baseUrl}/v1/address/delete`, data, method: 'DELETE' }) },
 	addressInfo(data) { return req.request({ url: `${baseUrl}/v1/address/info`, data }) },
 	/*会员*/
 	vipPayment(data) { return req.request({ url: `${baseUrl}/v1/vip_payment/payment`, data, method: 'POST' }) },

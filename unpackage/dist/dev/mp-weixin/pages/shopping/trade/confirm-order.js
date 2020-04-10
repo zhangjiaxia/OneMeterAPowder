@@ -204,13 +204,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
 var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
 //
 //
 //
@@ -271,7 +267,9 @@ var _default = { computed: (0, _vuex.mapState)(['selectOrderGoods']), data: func
       defaultAddress: {}, //默认收货地址
       cartId: '' //购物车ID参数，多个购物车用逗号隔开
     };}, onLoad: function onLoad() {var _this = this;var total = 0;this.cartId = '';this.selectOrderGoods.forEach(function (item) {total = total + item.quantity * parseFloat(item.price);_this.cartId += item.cartId + ',';});this.totalFee = total.toFixed(2);this.getDefaultAddress();}, methods: { getDefaultAddress: function getDefaultAddress() {var that = this; //参数为空查询默认地址
-      _interface.default.checkAuth(_interface.default.addressInfo, { addressId: '' }).then(function (res) {that.defaultAddress = res.data;});}, submitOrder: function submitOrder() {var that = this;if (!that.defaultAddress.addressId) {uni.showToast({ title: '收货地址不能为空', icon: 'none', duration: 2000 });return;}if (this.cartId.length > 0) {this.cartId.substring(0, this.cartId.length - 1);}var params = { cartId: that.cartId, addressId: that.defaultAddress.addressId };_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');}, fail: function fail(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');}, complete: function complete() {
+      _interface.default.checkAuth(_interface.default.addressInfo, { addressId: '' }).then(function (res) {that.defaultAddress = res.data;});}, submitOrder: function submitOrder() {var that = this;if (!that.defaultAddress || !that.defaultAddress.addressId) {uni.showToast({ title: '收货地址不能为空', icon: 'none', duration: 2000 });return;}if (this.cartId.length > 0) {this.cartId.substring(0, this.cartId.length - 1);}var params = { cartId: that.cartId, addressId: that.defaultAddress.addressId };_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');}, fail: function fail(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');},
+          complete: function complete() {
+
           } });
 
       });

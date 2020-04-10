@@ -1,18 +1,21 @@
 <template>
 	<view style="padding-top: 20rpx;">
-		<view class="uni-flex uni-row vertical addresslist" v-for="(item,index) in addressList" :key="index">
-			<view class="uni-flex uni-column rest left">
-				<view>
-					<text class="name">{{item.receiver}}</text>
-					<text class="name">{{item.receiverPhone}}</text>
+		<view v-for="(item,index) in addressList" :key="index" class="swipelayout">
+			<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="delAddress(item.addressId)">
+				<view class="uni-flex uni-row vertical addresslist">
+					<view class="uni-flex uni-column rest left">
+						<view>
+							<text class="name">{{item.receiver}}</text>
+							<text class="name">{{item.receiverPhone}}</text>
+						</view>
+						<view class="uni-flex vertical">
+							<view class="uni-flex content default" v-if="item.isDefault == 1">默认</view>
+							<view class="uni-flex address">{{item.receiverAddr}}</view>
+						</view>
+					</view>
+					<view class="uni-flex right address" @click="$turnPage('/pages/shopping/trade/address-add?item='+JSON.stringify(item), 'navigateTo')">编辑</view>
 				</view>
-				<view class="uni-flex vertical">
-					<view class="uni-flex content default" v-if="item.isDefault == 1">默认</view>
-					<view class="uni-flex address">{{item.receiverAddr}}</view>
-				</view>
-			</view>
-			<!-- <view class="uni-flex"></view> -->
-			<view class="uni-flex right address" @click="$turnPage('/pages/shopping/trade/address-add?item='+JSON.stringify(item), 'navigateTo')">编辑</view>
+			</uni-swipe-action>
 		</view>
 		<view class="uni-flex content">
 			<view class="uni-flex content addbtn" @click="$turnPage('/pages/shopping/trade/address-add', 'navigateTo')">新建地址</view>
@@ -22,41 +25,68 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import uniSwipeAction from '@/components/uni-swipe-action/uni-swipe-action.vue'
 	export default {
+		components:{ uniSwipeAction },
 		data() {
 			return {
-				addressList: [],
-				origin: 1
+				addressData: {}, //收货地址数据
+				addressList: [], //收货列表
+				params: {
+					page: 1, //页数
+					size: 10 //每页几条
+				}, //分页参数
+				isOpened: false, //是否显示右滑删除
+				//右滑删除
+				options: [{
+					text: '删除',
+					style: {
+						backgroundColor: '#C7C6CD',
+						color: '#ffffff',
+						borderRadius: '0 10rpx 10rpx 0'
+					}
+				}]
 			}
 		},
 		onLoad(options) {
-		  if(options.origin) {
-			this.origin = options.origin
-		  }
+			
 		},
 		onShow() {
+			this.initData()
+		},
+		//到达页面底部时触发的事件
+		onReachBottom() {
+			if (this.addressList.length >= this.cartList.total) {
+				return;
+			}
+			this.params.page++;
 			this.getAddressList()
 		},
 		methods: {
+			initData() {
+				//重置分页参数
+				this.addressData = {}
+				this.addressList = []
+				this.params.page = 1
+				this.getAddressList();
+			},
 			getAddressList() {
 				let that = this
-				let params = {
-					page: 1,
-					size: 10
-				}
-				interfaceurl.checkAuth(interfaceurl.addressPageList, params, false).then((res) => {
-					that.addressList = res.data.data
+				interfaceurl.checkAuth(interfaceurl.addressPageList, this.params).then((res) => {
+					that.addressData = res.data
+					if(that.params.page == 1) {
+						that.addressList = res.data.data
+					} else {
+						that.addressList = that.addressList.concat(res.data.data)
+					}
 				});
 			},
-			// selectAddress(item) {
-			// 	if(this.origin == 1){
-			// 		return
-			// 	}
-			// 	uni.setStorageSync('addressItem', item)
-			// 	uni.navigateBack({
-			// 	  delta: 1
-			// 	})
-			// }
+			delAddress(addressId) {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.addressDelete, { addressId }).then((res) => {
+					that.initData()
+				});
+			}
 		}
 	}
 </script>
@@ -69,13 +99,19 @@
 	page {
 		background: #F7F4F8;
 	}
+	.uni-swipe_content {
+		border-radius: 15rpx;
+	}
+	.swipelayout {
+		width: 723rpx;
+		margin: 0 auto;
+		margin-bottom: 20rpx;
+	}
 	.addresslist {
 		border-radius: 15rpx;
 		width: 723rpx;
 		height: 182rpx;
 		background: #FFFFFF;
-		margin: 0 auto;
-		margin-bottom: 20rpx;
 		.left {
 			margin-left: 20rpx;
 			.name {

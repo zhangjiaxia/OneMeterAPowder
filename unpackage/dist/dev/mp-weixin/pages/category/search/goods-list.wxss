@@ -27,9 +27,45 @@
 page {
   background: #F0EDF1;
 }
+.banner .banner-img {
+  width: 100%;
+  height: 270rpx;
+}
+.tab-list {
+  height: 80rpx;
+  background: #FFFFFF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  white-space: nowrap;
+}
+.tab-list .tab {
+    line-height: 76rpx;
+    text-align: center;
+    display: inline-block;
+    margin: 0 20rpx;
+}
+.tab-list .tab .tab-text {
+      font-size: 30rpx;
+      color: #333333;
+      height: 100%;
+      display: block;
+}
+.tab-list .tab .tab-active {
+      border-bottom: 4rpx solid #0071CF;
+      color: #0071CF;
+}
 .space {
   width: 700rpx;
-  margin: 20rpx auto;
+  margin: 0rpx auto;
+  padding-top: 20rpx;
+  margin-bottom: 40rpx;
+  height: auto;
+  overflow: auto;
 }
 .space .goods {
     width: 340rpx;
@@ -41,6 +77,8 @@ page {
 .space .goods .goodsimg {
       width: 340rpx;
       height: 340rpx;
+      border-top-left-radius: 20rpx;
+      border-top-right-radius: 20rpx;
 }
 .space .goods .title {
       font-size: 24rpx;
@@ -49,8 +87,9 @@ page {
 }
 .space .goods .price {
       font-size: 30rpx;
-      color: #EC3030;
+      color: #0071CF;
       margin-left: 10rpx;
+      margin-bottom: 20rpx;
 }
 .space .goods view {
       line-height: 1.2;

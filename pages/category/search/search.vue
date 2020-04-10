@@ -6,7 +6,7 @@
 				<view class="search-input">
 					<!-- <image src="/static/search.png" class="search-icon"></image> -->
 					<view class="icon-search search-icon"></view>
-					<input placeholder="女装" placeholder-style="color:#c2c2c2;" />
+					<input placeholder="女装" placeholder-style="color:#c2c2c2;" v-model="params.keyWord" />
 				</view>
 				<view class="search-text" @click="search">搜索</view>
 			</view>
@@ -22,11 +22,10 @@
 		<view class="search-content" v-show="recordList.length">
 			<view class="search-title">
 				<text>搜索记录</text>
-				<!-- <image src="/static/delete-icon.png" class="delete-icon" @click="deleteRecord"></image> -->
 				<view class="icon-shanchu delete-icon" @click="deleteRecord"></view>
 			</view>
 			<view class="record-list">
-				<text v-for="(item,index) in recordList" :key="index" class="record-item">{{item}}</text>
+				<text v-for="(item,index) in recordList" :key="index" class="record-item" @click="searchPage(item)">{{item}}</text>
 			</view>
 		</view>
 
@@ -34,40 +33,45 @@
 </template>
 
 <script>
-	// import { apiSearchRecord } from '../../service/index'
+	import interfaceurl from '@/utils/interface.js'
 	export default {
 		data() {
 			return {
 				recordList: ['美食', '护肤', '生活百货', '巧克力'],
-				searchList: ['美食', '护肤', '生活百货', '巧克力', '口红', '运动衫', '手表']
+				searchList: ['美食', '护肤', '生活百货', '巧克力', '口红', '运动衫', '手表'],
+				params: {
+					page: 1,
+					size: 10,
+					keyWord: '' //搜索关键字
+				}
 			}
 		},
 		onShow() {
-			// this.getSearchList()
+			
 		},
 		methods: {
 			handleBack() {
 				uni.navigateBack()
-			},
-			getSearchList() {
-				apiSearchRecord()
-					.then((res) => {
-						if (res.code == 200) {
-							this.recordList = res.data
-						}
-					})
 			},
 			deleteRecord() {
 				this.recordList = []
 			},
 			searchPage(item) {
 				uni.navigateTo({
-					url: '/pages/shop-list/shop-list?keyword=' + item
+					url: '/pages/category/search/search-list?keyword=' + item
 				});
 			},
 			search() {
+				if(!this.params.keyWord) {
+					uni.showToast({
+					    title: '搜索关键字不能为空',
+					    icon: 'none',
+					    duration: 2000
+					});
+					return;
+				}
 				uni.navigateTo({
-					url: '/pages/shop-list/shop-list'
+					url: '/pages/category/search/search-list?keyword=' + this.params.keyWord
 				});
 			}
 		}

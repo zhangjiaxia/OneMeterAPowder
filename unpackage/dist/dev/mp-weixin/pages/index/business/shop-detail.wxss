@@ -211,10 +211,8 @@
 		margin-top: 10rpx;
 }
 .spec-content {
-		margin-top: 20rpx;
-		padding: 30rpx 0rpx;
-		border-top: 1px solid #F5F5F5;
-		border-bottom: 1px solid #F5F5F5;
+		margin-top: 10rpx;
+		padding: 10rpx 0rpx;
 }
 .spec-list {
 		display: -webkit-box;
@@ -233,6 +231,7 @@
 		background-color: #EEEEEE;
 		color: #CCCCCC;
 		font-size: 26rpx;
+		margin: 10rpx;
 }
 .spec-active {
 		color: #F39800;

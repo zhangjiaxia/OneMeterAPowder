@@ -98,7 +98,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l1 = _vm.__map(_vm.orderPageList.data, function(item, index) {
+  var l1 = _vm.__map(_vm.orderPageList, function(item, index) {
     var l0 = _vm.__map(item.skuList, function(subItem, i) {
       var g0 = subItem.prodName.substring(0, 20)
       return {
@@ -154,18 +154,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -344,27 +333,16 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { data: function data() {return { tabIndex: 0, tabList: ['全部', '待支付', '待发货', '待收货', '售后'], status: 0, orderList: [], total: 0, currentPage: 1, pageSize: 20, //动态参数
-      orderPageList: {}, //订单列表数据
+var _default = { data: function data() {return { tabIndex: 0, //订单状态索引
+      tabList: [{ text: '全部', val: '' }, { text: '待发货', val: '20' }, { text: '待收货', val: '30' }, { text: '售后', val: '70,80' }, { text: '已完成', val: '40' }], //动态参数
+      params: { page: 1, //页数
+        size: 3, //每页几条
+        status: '' }, //分页参数
+      orderPageData: {}, //订单数据
+      orderPageList: [], //订单列表
       orderCount: [] //每个订单的商品个数
-    };}, onLoad: function onLoad(options) {// this.tabIndex = options.status
-    // this.getOrderList(1)
-  }, onShow: function onShow() {this.getOrderPageList();}, onReachBottom: function onReachBottom() {if (this.orderList.length >= this.total) {return;}this.currentPage++;this.getOrderList(2);}, methods: { getOrderPageList: function getOrderPageList() {var that = this;var orderParams = { page: 1, size: 10, status: 0 };_interface.default.checkAuth(_interface.default.orderPageList, orderParams).then(function (res) {that.orderPageList = res.data;that.orderCount = [];var num = 0;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderPageList.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {for (var _iterator2 = item.skuList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var subItem = _step2.value;num += subItem.quantity;}} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}that.orderCount.push(num);num = 0;} //console.log(that.orderCount)
-        } catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}});}, selectTab: function selectTab(index) {this.tabIndex = index;this.getOrderList(1);}, getOrderList: function getOrderList(type) {var _this = this;var params = { page: this.currentPage, size: this.pageSize };var status = this.tabIndex - 1;if (status >= 0) {params.status = status;} else {params.status = '';}apiOrderList(params).then(function (res) {if (res.code == 0) {_this.total = res.data.total;if (type == 1) {_this.orderList = res.data.data;} else {_this.orderList = _this.orderList.concat(res.data.data);}console.log(_this.orderList);_this.orderList.forEach(function (item) {var totalNum = 0;item.goods_cart.forEach(function (content) {totalNum = totalNum + content.buy_number;});item.totalNum = totalNum;});}});}, shopDetailPage: function shopDetailPage(item) {if (item.status !== 0) {return;}var shopList = [];item.goods_cart.forEach(function (item) {var shopItem = { goods_id: item.goods_id, goods_price: item.goods_price, goods_name: item.goods_name, goods_cover_img: item.goods_cover_img, shopNum: item.buy_number, cart_id: item.cart_id, is_cash_back: item.is_cash_back || '0' };shopList.push(shopItem);});uni.setStorageSync('shopList', shopList);uni.navigateTo({ url: '/pages/confirm-order/confirm-order' });
-
-    } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+    };}, onLoad: function onLoad(options) {}, onShow: function onShow() {this.initData();}, onReachBottom: function onReachBottom() {if (this.orderPageList.length >= this.orderPageData.total) {return;}this.params.page++;this.getOrderPageList();}, methods: { initData: function initData() {//重置分页参数
+      this.orderPageData = {};this.orderPageList = [];this.params.page = 1;this.getOrderPageList();}, getOrderPageList: function getOrderPageList() {var that = this;_interface.default.checkAuth(_interface.default.orderPageList, this.params).then(function (res) {that.orderPageData = res.data;if (that.params.page == 1) {that.orderPageList = res.data.data;} else {that.orderPageList = that.orderPageList.concat(res.data.data);}that.orderCount = [];var num = 0;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderPageList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {for (var _iterator2 = item.skuList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var subItem = _step2.value;num += subItem.quantity;}} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}that.orderCount.push(num);num = 0;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}});}, selectTab: function selectTab(index, status) {this.tabIndex = index;this.params.status = status;this.initData();} } };exports.default = _default;
 
 /***/ }),
 

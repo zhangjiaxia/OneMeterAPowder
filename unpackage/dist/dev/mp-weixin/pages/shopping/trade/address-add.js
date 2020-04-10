@@ -218,7 +218,7 @@ var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensu
       this.$refs.mpvueCityPicker.show();
     },
     onConfirm: function onConfirm(e) {
-      console.log(e);
+      //console.log(e)
       this.saveParams.regionId = e.cityCode;
       this.position = e.label.replace('-', '').replace('-', '');
     },

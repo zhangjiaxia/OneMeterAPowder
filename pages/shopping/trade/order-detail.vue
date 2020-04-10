@@ -14,7 +14,8 @@
 					<view class="uni-flex position">{{orderDetail.receiverAreaName}}</view>
 				</view>
 				<view class="uni-flex">
-					<image src="/static/center/backGrey.png" class="backGrey"></image>
+					<!-- <image src="/static/center/backGrey.png" class="backGrey"></image> -->
+					<view class="icon-qianjin backGrey"></view>
 				</view>
 			</view>
 			<view class="order" v-for="(item, index) in orderDetail.skuList" :key="index">
@@ -104,7 +105,8 @@
 					<view class="uni-flex rest base">发票信息</view>
 					<view class="uni-flex vertical subbase">
 						个人(普通发票)商品明细
-						<image src="/static/center/backGrey.png" class="back"></image>
+						<!-- <image src="/static/center/backGrey.png" class="back"></image> -->
+						<view class="icon-qianjin back"></view>
 					</view>
 				</view>
 			</view>
@@ -179,8 +181,7 @@
 			margin-right: 30rpx;
 		}
 		.backGrey {
-			width: 16rpx;
-			height: 25rpx;
+			font-size: 25rpx !important;
 			margin-right: 30rpx;
 		}
 		.nick {
@@ -219,13 +220,15 @@
 		}
 		.goodsinfo {
 			.prop {
+				background: #F3F0F3;
 				.size {
-					background: #F3F0F3;
 					color: #A09DA1;
 					margin-right: 10rpx;
 					padding: 6rpx;
 					display: inline-flex;
 					margin-bottom: 10rpx;
+					font-size: 23rpx;
+					border-radius: 6rpx;
 				}
 			}
 		}
@@ -278,8 +281,7 @@
 		font-size: 24rpx;
 		color: #999999;
 		.back {
-			width: 16rpx;
-			height: 25rpx;
+			font-size: 25rpx !important;
 			margin-left: 14rpx;
 		}
 	}
@@ -311,5 +313,7 @@
 		background:rgba(0,113,207,1);
 		color: #FFFFFF;
 		margin-top: 22rpx;
+		position: fixed;
+		bottom: 0;
 	}
 </style>
