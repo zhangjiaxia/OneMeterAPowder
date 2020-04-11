@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "发票信息",
   "navigationBarBackgroundColor": "#0071CF",
-  "usingComponents": {}
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar"
+  }
 }

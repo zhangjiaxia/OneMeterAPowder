@@ -1574,70 +1574,43 @@ radio-group label, checkbox-group label{
 	height: 0;
 	background-color: transparent;
 }
-.title-contents {
+.search-bar {
   width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 100;
+  position: relative;
 }
-.titles {
-  height: 50px;
-  color: #ffffff;
-  background: #0070CF;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  padding: 0rpx 30rpx;
+.search-bar .bar-back {
+    margin-left: 30rpx;
+    margin-right: 24rpx;
+    font-size: 52rpx;
+    color: #FFFFFF;
 }
-.search-input {
-  height: 60rpx;
-  background-color: #ffffff;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-          flex: 1;
-  margin-left: 30rpx;
-  margin-right: 30rpx;
-  border-radius: 8rpx;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  padding: 10rpx 20rpx;
-  box-sizing: border-box;
+.search-bar input {
+    width: 80%;
+    height: 50rpx;
+    background: white;
+    box-shadow: 0px 2rpx 3rpx 0px rgba(255, 255, 255, 0.2);
+    border-radius: 25rpx;
 }
-.search-icon {
-  font-size: 30rpx !important;
-  margin-right: 10rpx;
-}
-.search-input input {
-  height: 100%;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-          flex: 1;
-  color: #333333;
-}
-.return-icon {
-  width: 20rpx;
-  height: 36rpx;
-}
-.search-text {
-  font-size: 36rpx;
-}
-input {
-  caret-color: #FF585C;
+.search-bar .search {
+    width: 460rpx;
+    height: 60rpx;
+    background: #ffffff;
+    border-radius: 30rpx;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    font-size: 26rpx;
+    color: #000000;
 }
 .goodslist {
-  height: 280rpx;
-  background: white;
-  margin-top: 120rpx;
+  height: auto;
+  background: #FFFFFF;
 }
 .goodslist .goods {
     height: 280rpx;

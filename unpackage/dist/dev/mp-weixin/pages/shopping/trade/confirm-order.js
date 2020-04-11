@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _confirm_order_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./confirm-order.vue?vue&type=script&lang=js& */ 104);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _confirm_order_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _confirm_order_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _confirm_order_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./confirm-order.vue?vue&type=style&index=0&lang=scss& */ 106);
-/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 14);
+/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 16);
 
 var renderjs
 
@@ -204,9 +204,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
-var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+
+var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -262,12 +264,27 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 //
 //
 //
-//引入store的内容
-var _default = { computed: (0, _vuex.mapState)(['selectOrderGoods']), data: function data() {return { totalFee: 0, //订单总额
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['selectOrderGoods']), data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { background: '#0071CF', fontColor: '#FFFFFF', iconColor: '#FFFFFF', iconText: '确认订单' //导航栏文字
+      }, totalFee: 0, //订单总额
       defaultAddress: {}, //默认收货地址
       cartId: '' //购物车ID参数，多个购物车用逗号隔开
-    };}, onLoad: function onLoad() {var _this = this;var total = 0;this.cartId = '';this.selectOrderGoods.forEach(function (item) {total = total + item.quantity * parseFloat(item.price);_this.cartId += item.cartId + ',';});this.totalFee = total.toFixed(2);this.getDefaultAddress();}, methods: { getDefaultAddress: function getDefaultAddress() {var that = this; //参数为空查询默认地址
-      _interface.default.checkAuth(_interface.default.addressInfo, { addressId: '' }).then(function (res) {that.defaultAddress = res.data;});}, submitOrder: function submitOrder() {var that = this;if (!that.defaultAddress || !that.defaultAddress.addressId) {uni.showToast({ title: '收货地址不能为空', icon: 'none', duration: 2000 });return;}if (this.cartId.length > 0) {this.cartId.substring(0, this.cartId.length - 1);}var params = { cartId: that.cartId, addressId: that.defaultAddress.addressId };_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');}, fail: function fail(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');},
+    };}, onLoad: function onLoad() {var _this = this;console.log('this.selectOrderGoods', this.selectOrderGoods);var total = 0;this.cartId = '';this.selectOrderGoods.forEach(function (item) {total = total + item.quantity * parseFloat(item.price);_this.cartId += item.cartId + ',';});this.totalFee = total.toFixed(2);}, onShow: function onShow() {this.getDefaultAddress();}, methods: { getDefaultAddress: function getDefaultAddress() {var that = this; //参数为空查询默认地址
+      _interface.default.checkAuth(_interface.default.addressInfo, { addressId: '' }).then(function (res) {that.defaultAddress = res.data;});}, submitOrder: function submitOrder() {var that = this;if (!that.defaultAddress || !that.defaultAddress.addressId) {uni.showToast({ title: '收货地址不能为空', icon: 'none', duration: 2000 });return;}if (this.cartId.length > 0) {this.cartId.substring(0, this.cartId.length - 1);}var params = { cartId: that.cartId, addressId: that.defaultAddress.addressId };_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({
+          timeStamp: res.data.timeStamp,
+          nonceStr: res.data.nonceStr,
+          package: res.data.package,
+          signType: res.data.signType,
+          paySign: res.data.paySign,
+          success: function success(res) {
+            that.$turnPage('/pages/shopping/trade/order', 'redirectTo');
+            uni.hideLoading();
+          },
+          fail: function fail(res) {
+            that.$turnPage('/pages/shopping/trade/order', 'redirectTo');
+            uni.hideLoading();
+          },
           complete: function complete() {
 
           } });

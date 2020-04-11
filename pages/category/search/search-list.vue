@@ -1,14 +1,17 @@
 <template>
 	<view>
-		<view class="title-contents">
-			<view class="titles">
-				<view class="search-input">
-					<view class="icon-search search-icon"></view>
-					<input placeholder="女装" placeholder-style="color:#c2c2c2;" v-model="params.keyWord" />
+		<navigationBar custom="true">
+			<view class="uni-flex uni-row vertical search-bar">
+				<view class="icon-fanhui bar-back"
+					@click="$turnPage('1', 'navigateBack')">
 				</view>
-				<view class="search-text" @click="search">搜索</view>
+				<view class="">
+					<view class="uni-flex uni-row vertical search">
+						<input placeholder="女装" v-model="params.keyWord" @confirm="search"/>
+					</view>
+				</view>
 			</view>
-		</view>
+		</navigationBar>
 		<view class="goodslist">
 			<view class="uni-flex uni-row vertical goods"
 				v-for="(item, index) in searchList" :key="index" @click="shopDetailPage(item)">
@@ -31,14 +34,26 @@
 				</view>
 			</view>
 		</view>
+		<view class="empty-text" v-if="searchList.length == 0">暂无商品数据</view>
 	</view>
 </template>
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '搜索商品' //导航栏文字
+				},
 				searchGoodsPage: {}, //商品搜索数据
 				searchList: [], //商品搜索列表
 				params: {
@@ -50,8 +65,6 @@
 		},
 		onLoad(options) {
 			this.params.keyWord = options.keyword
-		},
-		onShow() {
 			this.initData()
 		},
 		//到达页面底部时触发的事件
@@ -64,7 +77,7 @@
 		},
 		methods: {
 			search() {
-				this.getPageGoodsList();
+				this.initData();
 			},
 			shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
@@ -97,63 +110,37 @@
 	@import '/common/uni.css';
 	/*自定义公共样式*/
 	@import '/common/custom.css';
-	.title-contents {
+	.search-bar {
 		width: 100%;
-		position: fixed;
-		top: 0;
-		z-index: 100;
-	}
-	
-	.titles {
-		height: 50px;
-		color: #ffffff;
-		background: #0070CF;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0upx 30upx;
-	}
-	
-	.search-input {
-		height: 60upx;
-		background-color: #ffffff;
-		flex: 1;
-		margin-left: 30upx;
-		margin-right: 30upx;
-		border-radius: 8upx;
-		display: flex;
-		align-items: center;
-		padding: 10upx 20upx;
-		box-sizing: border-box;
-	}
-	
-	.search-icon {
-		font-size: 30rpx !important;
-		margin-right: 10upx;
-	}
-	
-	.search-input input {
-		height: 100%;
-		flex: 1;
-		color: #333333;
-	}
-	
-	.return-icon {
-		width: 20upx;
-		height: 36upx;
-	}
-	
-	.search-text {
-		font-size: 36upx;
-	}
-	
-	input {
-		caret-color: #FF585C;
+		position: relative;
+		.bar-back {
+			margin-left: 30rpx;
+			margin-right: 24rpx;
+			font-size: 52rpx;
+			color: #FFFFFF;
+		}
+		input {
+			width:80%;
+			height:50rpx;
+			background:rgba(255,255,255,1);
+			box-shadow:0px 2rpx 3rpx 0px rgba(255,255,255,0.2);
+			border-radius:25rpx;
+		}
+		.search {
+			width: 460upx;
+			height: 60upx;
+			background: #ffffff;
+			border-radius: 30upx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 26upx;
+			color: #000000;
+		}
 	}
 	.goodslist {
-		height:280rpx;
-		background:rgba(255,255,255,1);
-		margin-top: 120rpx;
+		height: auto;
+		background: #FFFFFF;
 		.goods {
 			height: 280rpx;
 			.goodsimg {

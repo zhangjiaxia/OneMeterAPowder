@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="uni-flex uni-row title">
 			<view class="uni-flex rest content">
 				<view class="uni-flex content fans">一级粉丝</view>
@@ -41,10 +42,20 @@
 </template>
 
 <script>
-	// import { apiTeamList, apiUserInfo } from '@/service/index'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '我的团队' //导航栏文字
+				},
 				teamList: [{},{},{},{}],
 				detail: {}
 			}

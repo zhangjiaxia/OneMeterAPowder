@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="record-item">
 			<view>
 				<view class="record-item-top">
@@ -15,10 +16,20 @@
 </template>
 
 <script>
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
-				
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '佣金明细' //导航栏文字
+				},
 			}
 		},
 		methods: {

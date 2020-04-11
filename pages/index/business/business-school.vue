@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view>
 			<image src="/static/bussiness.png" class="bussiness"></image>
 		</view>
@@ -65,9 +66,20 @@
 </template>
 
 <script>
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '商学院' //导航栏文字
+				},
 				list: [{},{},{},{}]
 			}
 		},

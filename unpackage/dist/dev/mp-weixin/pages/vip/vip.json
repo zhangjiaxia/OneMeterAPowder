@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "VIP",
   "navigationBarBackgroundColor": "#0071CF",
-  "usingComponents": {}
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar"
+  }
 }

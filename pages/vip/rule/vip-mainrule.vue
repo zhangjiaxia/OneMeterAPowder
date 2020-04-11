@@ -1,5 +1,6 @@
 <template>
-	<view style="overflow-x: hidden;">
+	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view>
 			<image src="/static/rule.png" class="ruleimg"></image>
 		</view>
@@ -87,9 +88,20 @@
 </template>
 
 <script>
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '佣金规则' //导航栏文字
+				},
 				isUpgrade: true //是否显示升级规则
 			}
 		},
@@ -104,6 +116,12 @@
 	@import '/common/uni.css';
 	/*自定义公共样式*/
 	@import '/common/custom.css';
+	/*隐藏滚动条,只能使用于在scroll-view中*/
+	::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+		background-color: transparent;
+	}
 	.ruleimg {
 		height: 230rpx;
 		width: 100%;

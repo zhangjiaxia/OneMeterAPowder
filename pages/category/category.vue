@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<view class="content">
+		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false" @getHeight="getBarHeight"></navigationBar>
+		<!-- <view style="height: 1238rpx;background: red;"></view> -->
+		<view class="content" :style="{height: scrollHeight}">
 			<scroll-view class="category-left" scroll-y="true">
 				<view v-for="(item,index) in topCagetogyList" :key="index" class="category-item" :class="{'category-item-active':item.cateId == id}" 
 					@click="selectTab(item)">
@@ -31,9 +33,21 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					// background: '#0071CF',
+					// fontColor: '#FFFFFF',
+					// iconColor: '#FFFFFF',
+					iconText: '类目' //导航栏文字
+				},
+				scrollHeight: '0rpx', //设置滚动区域的高度
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
@@ -52,6 +66,9 @@
 			
 		},
 		methods: {
+			getBarHeight(systemInfo) {
+				this.scrollHeight = (systemInfo.ktxWindowHeight - systemInfo.ktxStatusHeight - systemInfo.navigationHeight) + 'rpx'
+			},
 			//获取一级分类
 			getTopCagetogyList() {
 				let that = this;
@@ -82,6 +99,10 @@
 </script>
 
 <style lang="scss">
+	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
+	//@import '/common/uni.css';
+	/*自定义公共样式*/
+	//@import '/common/custom.css';
 .content{
 	height: 100%;
 	display: flex;
@@ -97,13 +118,13 @@
 	border-radius: 10upx;
 }
 .category-left{
-	height: 100vh;
+	height: 100%;
 	width: 180upx;
 	background-color: #EEEEEE;
 }
 .category-right{
 	flex: 1;
-	height: 100vh;
+	height: 100%;
 	padding: 20upx;
 	padding-bottom: 130upx;
 	background: #ffffff;

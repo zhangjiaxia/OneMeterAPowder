@@ -72,7 +72,7 @@ page {
     background: #FFFFFF;
     border-radius: 20rpx;
     float: left;
-    margin-bottom: 10rpx;
+    margin-bottom: 20rpx;
 }
 .space .goods .goodsimg {
       width: 340rpx;

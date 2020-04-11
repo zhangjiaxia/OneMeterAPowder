@@ -1,50 +1,50 @@
 <template>
-	<view class="content">
-		<view class="shop-list" v-if="shopList.length > 0">
-			<view class="shop-item" v-for="(content,dex) in shopList" @click="shopDetailPage(content)" :key="dex">
-				<image :src="content.mainImgUrl" class="shop-img"></image>
-				<view class="shop-item-content">
-					<view class="shop-item-bottom">
-						<text class="shop-item-price">￥{{content.retailPrice[0] || 0}}</text>
-						<text class="pay-btn">+</text>
+	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="content">
+			<view class="shop-list" v-if="shopList.length > 0">
+				<view class="shop-item" v-for="(content,dex) in shopList" @click="shopDetailPage(content)" :key="dex">
+					<image :src="content.mainImgUrl" class="shop-img"></image>
+					<view class="shop-item-content">
+						<view class="shop-item-bottom">
+							<text class="shop-item-price">￥{{content.retailPrice[0] || 0}}</text>
+							<text class="pay-btn">+</text>
+						</view>
+						<view class="shop-item-title">{{content.name}}</view>
 					</view>
-					<view class="shop-item-title">{{content.name}}</view>
 				</view>
 			</view>
-		</view>
-		<view class="empty-text" v-else>
-			<template v-if="!loading">
-				<view>暂无数据</view>
-			</template>
+			<view class="empty-text" v-else>
+				<template v-if="!loading">
+					<view>暂无数据</view>
+				</template>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
-				shopList: [{
-					goods_cover_img: '/static/shop.png',
-					goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒',
-					goods_price: '30.00'
-				}, {
-					goods_cover_img: '/static/shop.png',
-					goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒',
-					goods_price: '30.00'
-				}, {
-					goods_cover_img: '/static/shop.png',
-					goods_name: '红牡丹抽色润颜霜 均匀亮白十全十美套盒',
-					goods_price: '30.00'
-				}],
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '类目详情' //导航栏文字
+				},
+				shopList: [],
 				loading: true
 			}
 		},
 		onLoad(options) {
-			uni.setNavigationBarTitle({
-				title: options.category || ''
-			})
+			this.navigationBarStyle.iconText = options.category
 			this.getCagetogyList(options.cateId)
 		},
 		onShow() {

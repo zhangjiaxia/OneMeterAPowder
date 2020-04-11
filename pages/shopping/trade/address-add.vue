@@ -1,12 +1,13 @@
 <template>
 	<view class="container">
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="form-item">
 			<view>收货人</view>
-			<input class="form-input" placeholder="请输入收货人姓名" placeholder-style="color:#BFBFBF;" v-model="saveParams.receiver"/>
+			<input class="form-input" placeholder="请输入收货人姓名" placeholder-style="color:#BFBFBF;" v-model="saveParams.receiver" />
 		</view>
 		<view class="form-item">
 			<view>手机号码</view>
-			<input class="form-input" placeholder="请输入收货人手机号码" placeholder-style="color:#BFBFBF;" v-model="saveParams.receiverPhone"/>
+			<input class="form-input" placeholder="请输入收货人手机号码" placeholder-style="color:#BFBFBF;" v-model="saveParams.receiverPhone" />
 		</view>
 		<view class="form-item">
 			<view>选择地区</view>
@@ -16,9 +17,10 @@
 		</view>
 		<view class="form-textarea">
 			<text>详细地址:</text>
-			<textarea auto-height placeholder-style="color:#BFBFBF" placeholder="请填写详细地址" class="textarea" v-model="saveParams.receiverAddr" style="margin-top: 16rpx;"/>
-		</view>
-		<view class="default-address">
+			<textarea auto-height placeholder-style="color:#BFBFBF" placeholder="请填写详细地址" class="textarea" v-model="saveParams.receiverAddr"
+			 style="margin-top: 16rpx;" />
+			</view>
+		<view class="default-address" v-if="!forceDefault">
 			<view>设为默认地址</view>
 			<switch :checked="saveParams.isDefault == 1 ? true : false" @change="switchChange" color="#0070D1" style="transform:scale(0.8)"/>
 		</view>
@@ -37,13 +39,22 @@
 	import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	import cityData from '@/common/city.data.js';
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
 		components: {
 			mpvuePicker,
-			mpvueCityPicker
+			mpvueCityPicker,
+			navigationBar
 		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '添加收货地址' //导航栏文字
+				},
 				true_name: '',
 				cellphone: '',
 				detail_address: '',
@@ -64,17 +75,25 @@
 					receiverPhone: '',
 					isDefault: 0, //0非默认，1默认
 					addressId: ''
-				}
+				},
+				forceDefault: false //判断是否需要强制默认
 			}
 		},
 		onLoad(options) {
-		  if(options.item) {
-			this.saveParams = JSON.parse(options.item)
-			// this.address_id = item.addressId
-			// this.true_name = item.receiver
-			// this.cellphone = item.receiverPhone
-			// this.detail_address = item.receiverAddr
-		  }
+			console.log('isDefault',options)
+			if(options.isDefault == 'false') {
+				this.forceDefault = true
+				this.saveParams.isDefault = 1
+			} else {
+				this.forceDefault = false
+			}
+			if(options.item) {
+				this.saveParams = JSON.parse(options.item)
+				// this.address_id = item.addressId
+				// this.true_name = item.receiver
+				// this.cellphone = item.receiverPhone
+				// this.detail_address = item.receiverAddr
+			}
 		},
 		onShow() {
       
@@ -87,7 +106,7 @@
 			onConfirm(e) {
 				//console.log(e)
 				this.saveParams.regionId = e.cityCode;
-				this.position = e.label.replace('-', '').replace('-', '');
+				this.saveParams.receiverAreaName = e.label.replace('-', '').replace('-', '');
 			},
 			onCancel(e) {
 				//console.log('取消地址选择')
@@ -98,16 +117,8 @@
 			updateAddress() {
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.addressUpdate, that.saveParams, false).then((res) => {
-					uni.showToast({
-						title: '修改成功',
-						icon: 'success',
-						duration: 2000
-					});
-					setTimeout(function(){
-					  uni.navigateBack({
-						delta: 1
-					  })
-					},2000)
+					//保存成功后关闭本页面跳到上一页
+					that.$turnPage('1', 'navigateBack')
 				});
 			},
 			saveAddress() {
@@ -141,16 +152,8 @@
 				}
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.addressCreate, that.saveParams, false).then((res) => {
-					uni.showToast({
-						title: '添加成功',
-						icon: 'success',
-						duration: 2000
-					});
-					setTimeout(function(){
-					  uni.navigateBack({
-						delta: 1
-					  })
-					},2000)
+					//保存成功后关闭本页面跳到上一页
+					that.$turnPage('1', 'navigateBack')
 				});
 			}
 		}

@@ -1,5 +1,6 @@
 <template>
 	<view class="">
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="uni-flex uni-row verticalbottom today">
 			<view class="uni-flex uni-row space">
 				<view class="uni-flex rest">
@@ -36,9 +37,20 @@
 </template>
 
 <script>
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '佣金明细' //导航栏文字
+				},
 				list: [{},{},{},{},{},{},{},{},{},{}]
 			}
 		},

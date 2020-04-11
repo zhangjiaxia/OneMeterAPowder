@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _address_add_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./address-add.vue?vue&type=script&lang=js& */ 95);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _address_add_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _address_add_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _address_add_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./address-add.vue?vue&type=style&index=0&lang=css& */ 98);
-/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 14);
+/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 16);
 
 var renderjs
 
@@ -166,6 +166,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
 
@@ -203,15 +205,32 @@ var _cityData = _interopRequireDefault(__webpack_require__(/*! @/common/city.dat
 //
 //
 //
-var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensure | components/mpvue-picker/mpvuePicker */ "components/mpvue-picker/mpvuePicker").then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-picker/mpvuePicker.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var mpvueCityPicker = function mpvueCityPicker() {Promise.all(/*! require.ensure | components/mpvue-citypicker/mpvueCityPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/mpvue-citypicker/mpvueCityPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-citypicker/mpvueCityPicker.vue */ 254));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { mpvuePicker: mpvuePicker, mpvueCityPicker: mpvueCityPicker }, data: function data() {return { true_name: '', cellphone: '', detail_address: '', address_id: '', //动态参数
+//
+//
+var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensure | components/mpvue-picker/mpvuePicker */ "components/mpvue-picker/mpvuePicker").then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-picker/mpvuePicker.vue */ 265));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var mpvueCityPicker = function mpvueCityPicker() {Promise.all(/*! require.ensure | components/mpvue-citypicker/mpvueCityPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/mpvue-citypicker/mpvueCityPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-citypicker/mpvueCityPicker.vue */ 272));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var _default = { components: { mpvuePicker: mpvuePicker, mpvueCityPicker: mpvueCityPicker, navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { background: '#0071CF', fontColor: '#FFFFFF', iconColor: '#FFFFFF', iconText: '添加收货地址' //导航栏文字
+      }, true_name: '', cellphone: '', detail_address: '', address_id: '', //动态参数
       themeColor: '#007AFF', cityPickerValueDefault: [0, 0, 1], mode: '', deepLength: 1, pickerValueDefault: [0], pickerValueArray: [], info: {}, //用户地址信息，深拷贝
       position: '', //选择的地址
       saveParams: { regionId: 0, receiver: '', receiverAddr: '', receiverPhone: '', isDefault: 0, //0非默认，1默认
-        addressId: '' } };}, onLoad: function onLoad(options) {if (options.item) {this.saveParams = JSON.parse(options.item); // this.address_id = item.addressId
+        addressId: '' }, forceDefault: false //判断是否需要强制默认
+    };}, onLoad: function onLoad(options) {console.log('isDefault', options);if (options.isDefault == 'false') {this.forceDefault = true;
+      this.saveParams.isDefault = 1;
+    } else {
+      this.forceDefault = false;
+    }
+    if (options.item) {
+      this.saveParams = JSON.parse(options.item);
+      // this.address_id = item.addressId
       // this.true_name = item.receiver
       // this.cellphone = item.receiverPhone
       // this.detail_address = item.receiverAddr
-    }}, onShow: function onShow() {},
+    }
+  },
+  onShow: function onShow() {
+
+  },
   methods: {
     // 三级联动选择
     showMulLinkageThreePicker: function showMulLinkageThreePicker() {
@@ -220,7 +239,7 @@ var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensu
     onConfirm: function onConfirm(e) {
       //console.log(e)
       this.saveParams.regionId = e.cityCode;
-      this.position = e.label.replace('-', '').replace('-', '');
+      this.saveParams.receiverAreaName = e.label.replace('-', '').replace('-', '');
     },
     onCancel: function onCancel(e) {
       //console.log('取消地址选择')
@@ -231,16 +250,8 @@ var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensu
     updateAddress: function updateAddress() {
       var that = this;
       _interface.default.checkAuth(_interface.default.addressUpdate, that.saveParams, false).then(function (res) {
-        uni.showToast({
-          title: '修改成功',
-          icon: 'success',
-          duration: 2000 });
-
-        setTimeout(function () {
-          uni.navigateBack({
-            delta: 1 });
-
-        }, 2000);
+        //保存成功后关闭本页面跳到上一页
+        that.$turnPage('1', 'navigateBack');
       });
     },
     saveAddress: function saveAddress() {
@@ -274,16 +285,8 @@ var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensu
       }
       var that = this;
       _interface.default.checkAuth(_interface.default.addressCreate, that.saveParams, false).then(function (res) {
-        uni.showToast({
-          title: '添加成功',
-          icon: 'success',
-          duration: 2000 });
-
-        setTimeout(function () {
-          uni.navigateBack({
-            delta: 1 });
-
-        }, 2000);
+        //保存成功后关闭本页面跳到上一页
+        that.$turnPage('1', 'navigateBack');
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

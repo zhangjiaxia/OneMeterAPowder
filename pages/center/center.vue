@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
 		<view class="uni-flex topitem vertical">
 			<image src="/static/bg.png" class="bg"></image>
 			<view class="uni-flex uni-row info">
@@ -9,9 +10,10 @@
 				<view class="uni-flex uni-column rest">
 					<view class="nick">{{userInfo.nickName || '御翔绝瞬'}}</view>
 					<view>
-						<image src="/static/common.png" class="rate" style="margin-right: 10rpx;"></image>
+						<!-- <image src="/static/common.png" class="rate" style="margin-right: 10rpx;"></image> -->
 						<image src="/static/silver.png" class="rate"></image>
 					</view>
+					<view class="idnumber">ID:354673</view>
 					<view class="time">会员到期时间：2021-3-16</view>
 				</view>
 			</view>
@@ -37,21 +39,25 @@
 				</view>
 			</authPage>
 			<authPage>
-				<view class="uni-flex uni-row" style="height: 150rpx;">
+				<view class="uni-flex uni-row" style="height: 150rpx;padding-bottom: 28rpx;">
 					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=1', 'navigateTo')">
 						<image src="/static/waitPay.png" class="icon"></image>
+						<!-- <view class="icon-daizhifu icon icon-active"></view> -->
 						<view class="title">待支付</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=2', 'navigateTo')">
-						<image src="/static/waitGoods.png" class="icon"></image>
+						<image src="/static/sendGoods.png" class="icon"></image>
+						<!-- <view class="icon-daifahuo icon icon-active"></view> -->
 						<view class="title">待发货</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=3', 'navigateTo')">
 						<image src="/static/waitGoods.png" class="icon"></image>
+						<!-- <view class="icon-daishouhuo icon icon-active"></view> -->
 						<view class="title">待收货</view>
 					</view>
 					<view class="uni-flex rest content">
 						<image src="/static/afterSale.png" class="icon"></image>
+						<!-- <view class="icon-tubiaolunkuo- icon icon-active"></view> -->
 						<view class="title">售后</view>
 					</view>
 				</view>
@@ -65,36 +71,44 @@
 				<view class="uni-flex uni-row" style="height: 150rpx;">
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 						<image src="/static/commission.png" class="icon"></image>
+						<!-- <view class="icon-tixianmingxi icon"></view> -->
 						<view class="title">佣金明细</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/my-points', 'navigateTo')">
 						<image src="/static/commission.png" class="icon"></image>
+						<!-- <view class="icon-tixianmingxi icon"></view> -->
 						<view class="title">积分明细</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/cash', 'navigateTo')">
 						<image src="/static/withdraw.png" class="icon"></image>
+						<!-- <view class="icon-yuetixian icon"></view> -->
 						<view class="title">我要提现</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/income-record', 'navigateTo')">
 						<image src="/static/commission.png" class="icon"></image>
+						<!-- <view class="icon-tixianmingxi icon"></view> -->
 						<view class="title">提现明细</view>
 					</view>
 				</view>
 				<view class="uni-flex uni-row" style="margin: 28rpx 0;">
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 						<image src="/static/team.png" class="icon"></image>
+						<!-- <view class="icon-wodetuandui icon"></view> -->
 						<view class="title">我的团队</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/address', 'navigateTo')">
 						<image src="/static/address.png" class="icon"></image>
+						<!-- <view class="icon-dizhi1 icon"></view> -->
 						<view class="title">收货地址</view>
 					</view>
 					<view class="uni-flex rest content">
 						<image src="/static/service.png" class="icon"></image>
+						<!-- <view class="icon-kefu icon"></view> -->
 						<view class="title">联系客服</view>
 					</view>
 					<view class="uni-flex rest content">
 						<image src="/static/about.png" class="icon"></image>
+						<!-- <view class="icon-about icon"></view> -->
 						<view class="title">关于我们</view>
 					</view>
 				</view>
@@ -106,6 +120,7 @@
 <script>
 	import interfaceurl from '@/utils/interface.js'
 	import authPage from '@/components/authorization-page.vue' //引入授权窗体
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	//引入store的内容
 	import {
 		mapState,
@@ -114,11 +129,19 @@
 	} from 'vuex'
 	export default {
 		components: {
-			authPage
+			authPage,
+			navigationBar
 		},
 		computed: mapState(['userInfos']),
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '我的' //导航栏文字
+				},
 				detail: {},
 				userInfo: {}
 			}
@@ -179,7 +202,7 @@
 			border-radius: 50%;
 		}
 		.rate {
-			width: 80rpx;
+			width: 60rpx;
 			height: 30rpx;
 		}
 		.arrow {
@@ -189,6 +212,10 @@
 		.nick {
 			font-size:30rpx;
 			color: #FFFFFF;
+		}
+		.idnumber {
+			color: #FFFFFF;
+			font-size: 20rpx;
 		}
 		.time {
 			font-size:20rpx;
@@ -243,8 +270,13 @@
 			color: #333333;
 		}
 		.icon {
+			// font-size: 60rpx;
+			// color: #333333;
 			width: 60rpx;
 			height: 60rpx;
+		}
+		.icon-active {
+			color: #0071CF;
 		}
 	}
 </style>

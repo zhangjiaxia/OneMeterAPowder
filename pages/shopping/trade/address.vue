@@ -1,24 +1,27 @@
 <template>
-	<view style="padding-top: 20rpx;">
-		<view v-for="(item,index) in addressList" :key="index" class="swipelayout">
-			<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="delAddress(item.addressId)">
-				<view class="uni-flex uni-row vertical addresslist">
-					<view class="uni-flex uni-column rest left">
-						<view>
-							<text class="name">{{item.receiver}}</text>
-							<text class="name">{{item.receiverPhone}}</text>
+	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view style="padding-top: 20rpx;">
+			<view v-for="(item,index) in addressList" :key="index" class="swipelayout">
+				<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="delAddress(item.addressId)">
+					<view class="uni-flex uni-row vertical addresslist">
+						<view class="uni-flex uni-column rest left">
+							<view>
+								<text class="name">{{item.receiver}}</text>
+								<text class="name">{{item.receiverPhone}}</text>
+							</view>
+							<view class="uni-flex vertical">
+								<view class="uni-flex content default" v-if="item.isDefault == 1">默认</view>
+								<view class="uni-flex address">{{item.receiverAddr}}</view>
+							</view>
 						</view>
-						<view class="uni-flex vertical">
-							<view class="uni-flex content default" v-if="item.isDefault == 1">默认</view>
-							<view class="uni-flex address">{{item.receiverAddr}}</view>
-						</view>
+						<view class="uni-flex right address" @click="$turnPage('/pages/shopping/trade/address-add?item='+JSON.stringify(item), 'navigateTo')">编辑</view>
 					</view>
-					<view class="uni-flex right address" @click="$turnPage('/pages/shopping/trade/address-add?item='+JSON.stringify(item), 'navigateTo')">编辑</view>
-				</view>
-			</uni-swipe-action>
-		</view>
-		<view class="uni-flex content">
-			<view class="uni-flex content addbtn" @click="$turnPage('/pages/shopping/trade/address-add', 'navigateTo')">新建地址</view>
+				</uni-swipe-action>
+			</view>
+			<view class="uni-flex content">
+				<view class="uni-flex content addbtn" @click="turn">新建地址</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -26,10 +29,18 @@
 <script>
 	import interfaceurl from '@/utils/interface.js'
 	import uniSwipeAction from '@/components/uni-swipe-action/uni-swipe-action.vue'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
-		components:{ uniSwipeAction },
+		components:{ uniSwipeAction, navigationBar },
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '收货地址' //导航栏文字
+				},
 				addressData: {}, //收货地址数据
 				addressList: [], //收货列表
 				params: {
@@ -63,6 +74,10 @@
 			this.getAddressList()
 		},
 		methods: {
+			turn() {
+				let isDefault = this.addressList.length > 0
+				this.$turnPage('/pages/shopping/trade/address-add?isDefault='+isDefault, 'navigateTo')
+			},
 			initData() {
 				//重置分页参数
 				this.addressData = {}

@@ -1,15 +1,16 @@
 <template>
 	<view class="container">
+		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
 		<view class="content">
 			<view class="edit-status" v-if="cartList.total > 0">
 				<text v-if="isEdit" @click="handleEdit">取消</text>
 				<text v-else @click="handleEdit">编辑</text>
 			</view>
 			
-			<view style="margin-bottom: 20rpx;" v-for="(item,index) in shopList" :key="index">
+			<view style="margin-bottom: 20rpx;" v-for="(item,index) in shopList" :key="index" @click="shopDetailPage(item)">
 				<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="bindClick(item.cartId)">
 					<view class="shop-item">
-						<view class="icon-gou" :style="{color: item.selected ? '#0070CF' : '#999999'}" @click="handleSelect(index)"></view>
+						<view class="icon-gou" :style="{color: item.selected ? '#0070CF' : '#999999'}" @click.stop="handleSelect(index)"></view>
 						<image :src="item.goodsPhotoUrl" class="shop-img"></image>
 						<view class="shop-item-content">
 							<view class="shop-item-title">{{item.name}}</view>
@@ -20,9 +21,9 @@
 							<view class="shop-item-bottom">
 								<text class="color-price" style="margin-left: 0px;">￥{{item.price}}</text>
 								<view class="shop-num">
-									<text class="reduct-btn" @click="reduceNum(index)">-</text>
+									<text class="reduct-btn" @click.stop="reduceNum(index)">-</text>
 									<text class="num">{{item.quantity}}</text>
-									<text class="add-btn" @click="addNum(index)">+</text>
+									<text class="add-btn" @click.stop="addNum(index)">+</text>
 								</view>
 							</view>
 						</view>
@@ -54,10 +55,21 @@
 <script>
 	import interfaceurl from '@/utils/interface.js'
 	import uniSwipeAction from '@/components/uni-swipe-action/uni-swipe-action.vue'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
-		components:{ uniSwipeAction },
+		components: {
+			navigationBar,
+			uniSwipeAction
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '购物车' //导航栏文字
+				},
 				totalFee: '0.00', //总金额
 				timer: null, //延迟处理用户多次点击商品数量加减按钮
 				isAll: true, //判断是否全选
@@ -93,6 +105,16 @@
 			this.getCartPageList()
 		},
 		methods: {
+			shopDetailPage(item) {
+				let that = this;
+				let params = {
+					spuId: item.spuId
+				}
+				interfaceurl.checkAuth(interfaceurl.goodsDetail, params, false).then((res) => {
+					that.$store.commit('setGoodsDetail', res.data)
+					that.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
+				});
+			},
 			initData() {
 				//重置分页参数
 				this.loading = true

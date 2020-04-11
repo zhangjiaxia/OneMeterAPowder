@@ -1,42 +1,53 @@
 <template>
-	<view class="container">
-
-		<view class="title-contents">
-			<view class="titles">
-				<view class="search-input">
-					<!-- <image src="/static/search.png" class="search-icon"></image> -->
-					<view class="icon-search search-icon"></view>
-					<input placeholder="女装" placeholder-style="color:#c2c2c2;" v-model="params.keyWord" />
+	<view>
+		<navigationBar custom="true">
+			<view class="uni-flex uni-row vertical search-bar">
+				<view class="icon-fanhui bar-back"
+					@click="$turnPage('1', 'navigateBack')">
 				</view>
-				<view class="search-text" @click="search">搜索</view>
+				<view class="">
+					<view class="uni-flex uni-row vertical search">
+						<input placeholder="女装" v-model="params.keyWord" @confirm="search"/>
+					</view>
+				</view>
+			</view>
+		</navigationBar>
+		<view class="container">
+			<view class="search-content">
+				<view class="search-title">热门搜索</view>
+				<view class="record-list">
+					<text v-for="(item,index) in searchList" :key="index" class="record-item" @click="searchPage(item)">{{item}}</text>
+				</view>
+			</view>
+			<view class="search-content" v-show="recordList.length">
+				<view class="search-title">
+					<text>搜索记录</text>
+					<view class="icon-shanchu delete-icon" @click="deleteRecord"></view>
+				</view>
+				<view class="record-list">
+					<text v-for="(item,index) in recordList" :key="index" class="record-item" @click="searchPage(item)">{{item}}</text>
+				</view>
 			</view>
 		</view>
-
-		<view class="search-content">
-			<view class="search-title">热门搜索</view>
-			<view class="record-list">
-				<text v-for="(item,index) in searchList" :key="index" class="record-item" @click="searchPage(item)">{{item}}</text>
-			</view>
-		</view>
-
-		<view class="search-content" v-show="recordList.length">
-			<view class="search-title">
-				<text>搜索记录</text>
-				<view class="icon-shanchu delete-icon" @click="deleteRecord"></view>
-			</view>
-			<view class="record-list">
-				<text v-for="(item,index) in recordList" :key="index" class="record-item" @click="searchPage(item)">{{item}}</text>
-			</view>
-		</view>
-
 	</view>
 </template>
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '搜索' //导航栏文字
+				},
 				recordList: ['美食', '护肤', '生活百货', '巧克力'],
 				searchList: ['美食', '护肤', '生活百货', '巧克力', '口红', '运动衫', '手表'],
 				params: {
@@ -78,10 +89,45 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
+	@import '/common/uni.css';
+	/*自定义公共样式*/
+	@import '/common/custom.css';
+	page {
+		background: #F0EDF1;
+	}
+	.search-bar {
+		width: 100%;
+		position: relative;
+		.bar-back {
+			margin-left: 30rpx;
+			margin-right: 24rpx;
+			font-size: 52rpx;
+			color: #FFFFFF;
+		}
+		input {
+			width:80%;
+			height:50rpx;
+			background:rgba(255,255,255,1);
+			box-shadow:0px 2rpx 3rpx 0px rgba(255,255,255,0.2);
+			border-radius:25rpx;
+		}
+		.search {
+			width: 460upx;
+			height: 60upx;
+			background: #ffffff;
+			border-radius: 30upx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 26upx;
+			color: #000000;
+		}
+	}
 	.container {
 		background-color: #ffffff;
-		padding-top: 50px;
+		padding-top: 20rpx;
 	}
 
 	.title-contents {

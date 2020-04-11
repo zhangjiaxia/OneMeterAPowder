@@ -2,6 +2,7 @@
   "navigationBarTitleText": "我的",
   "navigationBarBackgroundColor": "#0071CF",
   "usingComponents": {
-    "auth-page": "/components/authorization-page"
+    "auth-page": "/components/authorization-page",
+    "navigation-bar": "/components/navigation-bar"
   }
 }

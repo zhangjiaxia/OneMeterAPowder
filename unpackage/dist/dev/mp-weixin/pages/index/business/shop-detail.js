@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shop_detail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shop-detail.vue?vue&type=script&lang=js& */ 150);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _shop_detail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _shop_detail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _shop_detail_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shop-detail.vue?vue&type=style&index=0&lang=css& */ 152);
-/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 14);
+/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 16);
 
 var renderjs
 
@@ -249,20 +249,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
-var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 240));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 240));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
 
 {
   components: {
-    authPage: authPage },
+    authPage: authPage,
+    navigationBar: navigationBar },
 
   computed: (0, _vuex.mapState)(['goodsDetail']),
   data: function data() {
     return {
+      //设置导航栏样式
+      navigationBarStyle: {
+        background: '#0071CF',
+        fontColor: '#FFFFFF',
+        iconColor: '#FFFFFF',
+        iconText: '' //导航栏文字
+      },
       id: '',
       confirmModal: false,
       indicatorDots: false,
@@ -280,6 +292,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
       userInfo: {},
       is_cash_back: '0',
       //动态参数
+      skuPropertyList: [], //用户所选的商品sku
       skuPropList: [{}, {}, {}, {}, {}], //商品属性
       propsCheck: {}, //属性选择
       //goodsDetail: {}, //商品详情，暂时
@@ -296,6 +309,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
   },
   onLoad: function onLoad(options) {
+    this.navigationBarStyle.iconText = this.goodsDetail.brandName;
     var item = this.deepCopy(this.goodsDetail);
     item.detailInfo = item.detailInfo.replace(/<img/gi, '<img width="100%!important" ');
     this.$store.commit('setGoodsDetail', item);
@@ -377,8 +391,9 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
               }
             }} catch (err) {_didIteratorError4 = true;_iteratorError4 = err;} finally {try {if (!_iteratorNormalCompletion4 && _iterator4.return != null) {_iterator4.return();}} finally {if (_didIteratorError4) {throw _iteratorError4;}}}
           if (flag == item.skuPropertyList.length) {
-            //console.log('用户选择存在',item)
+            console.log('用户选择存在', item);
             //如果规格值等于一组中的所有值，则用户所选规格存在，返回该组sku对应的code
+            this.skuPropertyList = item.skuPropertyList;
             return item;
           }
           flag = 0;
@@ -487,7 +502,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
         goodsPhotoUrl: item.mainImgUrl,
         quantity: this.shopNum,
         cartId: this.cartId,
-        skuPropertyList: item.skuPropertyList };
+        skuPropertyList: this.skuPropertyList };
 
       var shopList = [];
       shopList.push(shopItem);

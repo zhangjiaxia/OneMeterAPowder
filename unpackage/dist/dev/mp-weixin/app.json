@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/shopping/shopping",
     "pages/category/category",
+    "pages/shopping/shopping",
     "pages/vip/vip",
     "pages/center/center"
   ],

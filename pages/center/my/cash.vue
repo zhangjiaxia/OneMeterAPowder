@@ -1,49 +1,62 @@
 <template>
-	<view class="container">
-		<view class="content">
-			<view class="center">
-				<view class="avatar">
-					<open-data type="userAvatarUrl"></open-data>
+	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="container">
+			<view class="content">
+				<view class="center">
+					<view class="avatar">
+						<open-data type="userAvatarUrl"></open-data>
+					</view>
+					<view>
+						<view>可提现佣金(元)</view>
+						<view class="amount">{{detail.brokerage || '0.00'}}元</view>
+					</view>
 				</view>
-				<view>
-					<view>可提现佣金(元)</view>
-					<view class="amount">{{detail.brokerage || '0.00'}}元</view>
+				<view class="form-item">
+					<view>收款人姓名</view>
+					<input class="form-input" placeholder="请输入收款人姓名" placeholder-style="color:#BFBFBF;" v-model="true_name" />
 				</view>
-			</view>
-			<view class="form-item">
-				<view>收款人姓名</view>
-				<input class="form-input" placeholder="请输入收款人姓名" placeholder-style="color:#BFBFBF;" v-model="true_name" />
-			</view>
-			<view class="form-item">
-				<view>提现金额</view>
-				<input class="form-input" placeholder="请填写提现金额" placeholder-style="color:#BFBFBF;" v-model="bank" />
-			</view>
-			<view class="form-item">
-				<view>银行卡号</view>
-				<input class="form-input" type="number" placeholder="请填写银行卡号" placeholder-style="color:#BFBFBF;" v-model="bank_card" />
-			</view>
-			<view class="form-item">
-				<view>开户银行</view>
-				<input class="form-input" placeholder="请填写开户银行" placeholder-style="color:#BFBFBF;" v-model="bank" />
-			</view>
-			<!-- <view class="form-content">
-				<view>实际到账金额</view>
-				<input type="number" placeholder="请输入提现金额" placeholder-style="color:#BFBFBF;" v-model="amount" />
-			</view> -->
-			<view class="remark">注:平台仅支付金额提现,申请提现后48小时内到账</view>
-
-			<view class="btn-container">
-				<view class="common-btn" @click="onSubmit">确定提现</view>
+				<view class="form-item">
+					<view>提现金额</view>
+					<input class="form-input" placeholder="请填写提现金额" placeholder-style="color:#BFBFBF;" v-model="bank" />
+				</view>
+				<view class="form-item">
+					<view>银行卡号</view>
+					<input class="form-input" type="number" placeholder="请填写银行卡号" placeholder-style="color:#BFBFBF;" v-model="bank_card" />
+				</view>
+				<view class="form-item">
+					<view>开户银行</view>
+					<input class="form-input" placeholder="请填写开户银行" placeholder-style="color:#BFBFBF;" v-model="bank" />
+				</view>
+				<!-- <view class="form-content">
+					<view>实际到账金额</view>
+					<input type="number" placeholder="请输入提现金额" placeholder-style="color:#BFBFBF;" v-model="amount" />
+				</view> -->
+				<view class="remark">注:平台仅支付金额提现,申请提现后48小时内到账</view>
+		
+				<view class="btn-container">
+					<view class="common-btn" @click="onSubmit">确定提现</view>
+				</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	// import { apiCashApply, apiUserInfo } from '@/service/index'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '我要提现' //导航栏文字
+				},
 				true_name: '',
 				bank: '',
 				bank_card: '',

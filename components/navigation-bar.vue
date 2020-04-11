@@ -1,10 +1,12 @@
 <template>
-	<view>
-		<view class="status-line" :style="{height: lineHeight, background: style.background}"></view>
-		<view class="bar-line container-in" :style="{background: style.background}">
-			<view class="bar-font container-in" v-if="!custom">
-				<view class="icon-fanhui bar-back" :style="{color: style.iconColor}" v-if="showBack"></view>
-				<view class="bar-title" :style="{color: style.fontColor}">一米一粉</view>
+	<view class="bar-sticky">
+		<view class="status-line" :style="{height: lineHeight, background: navigationBarStyle.background || normal.background}"></view>
+		<view class="bar-line container-in" :style="{background: navigationBarStyle.background || normal.background}">
+			<view class="bar-font bar-content" v-if="!custom">
+				<view class="icon-fanhui bar-back" :style="{color: navigationBarStyle.iconColor || normal.iconColor}" @click="$turnPage('1', 'navigateBack')"
+				 v-if="showBack">
+				</view>
+				<view class="bar-title" :style="{color: navigationBarStyle.fontColor || normal.fontColor}">{{navigationBarStyle.iconText}}</view>
 			</view>
 			<view class="bar-font container-in" v-else>
 				<slot></slot>
@@ -17,32 +19,50 @@
 	export default {
 		props: {
 			custom: {
-			  type: Boolean,
-			  default: false
+				type: Boolean,
+				default: false
 			}, //自定义头部，否则沿用原生的头部样式
-			style: {
+			navigationBarStyle: {
 				type: Object,
 				default: function() {
-					return{
+					return {
 						background: '#0071CF',
 						fontColor: '#FFFFFF',
-						iconColor: '#FFFFFF'
+						iconColor: '#FFFFFF',
+						iconText: '一米一粉' //导航栏文字
 					}
 				}
-			}, //原生头部样式
+			}, //原生头部自定义样式
 			showBack: {
-			  type: Boolean,
-			  default: true
+				type: Boolean,
+				default: true
 			}, //是否显示回退图标，默认显示
 		},
 		data() {
 			return {
+				normal: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+				}, //公用样式
 				lineHeight: '' //状态栏高度
 			};
 		},
 		mounted() {
-			const res = uni.getSystemInfoSync();
-			this.lineHeight = res.statusBarHeight + 'px';
+			const systemInfo = uni.getSystemInfoSync();
+			// px转换到rpx的比例
+			let pxToRpxScale = 750 / systemInfo.windowWidth;
+			let systems = {
+				ktxStatusHeight: systemInfo.statusBarHeight * pxToRpxScale, // 状态栏的高度
+				navigationHeight: 44 * pxToRpxScale, // 导航栏的高度
+				ktxWindowWidth: systemInfo.windowWidth * pxToRpxScale, // window的宽度
+				ktxWindowHeight: systemInfo.windowHeight * pxToRpxScale, // window的高度
+				ktxScreentHeight: systemInfo.screenHeight * pxToRpxScale, // 屏幕的高度
+			}
+			// 底部tabBar的高度
+			systems.tabBarHeight = systems.ktxScreentHeight - systems.ktxStatusHeight - systems.navigationHeight - systems.ktxWindowHeight // 底部tabBar的高度
+			this.lineHeight = systems.ktxStatusHeight + 'rpx';
+			this.$emit('getHeight', systems)
 		},
 		methods: {
 			prevent() {}
@@ -51,6 +71,24 @@
 </script>
 
 <style lang="scss">
+	/*正中*/
+	.bar-content {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	//导航栏吸顶效果
+	.bar-sticky {
+		position: sticky;
+		position: -webkit-sticky;
+		top: 0;
+		z-index: 101;
+	}
+
+	/*垂直居中*/
 	.container-in {
 		display: flex;
 		-webkit-align-items: center;
@@ -58,13 +96,16 @@
 		width: 100%;
 		height: 44px;
 	}
+
 	.bar-line {
 		height: 44px; //导航栏高度
+
 		.bar-back {
-			font-size: 32rpx !important;
+			font-size: 52rpx !important;
 			position: absolute;
 			left: 30rpx;
 		}
+
 		.bar-title {
 			font-size: 32rpx;
 		}

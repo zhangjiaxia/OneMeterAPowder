@@ -1,97 +1,111 @@
 <template>
-	<view class="layout">
-		<view class="uni-flex vertical searchbar">
-			<view class="uni-flex">
-				<view class="icon-search search"></view>
-			</view>
-			<view class="uni-flex searchorder">搜索订单</view>
-		</view>
-		<view class="uni-flex uni-row" style="margin: 28rpx 0;">
-			<view class="uni-flex rest content" @click="selectTab(index, item.val)" v-for="(item, index) in tabList" :key="index">
-				<text :class="{active: tabIndex == index}">{{item.text}}</text>
-			</view>
-		</view>
-		<view class="order" v-for="(item, index) in orderPageList" :key="index" 
-			@click="$turnPage('/pages/shopping/trade/order-detail?id='+item.orderId, 'navigateTo')">
-			<view class="uni-flex uni-row time">
-				<view class="uni-flex rest date">
-					{{item.confirmTime}}
-				</view>
-				<view class="uni-flex tip">
-					{{item.orderStatusName}}
-				</view>
-			</view>
-			<view class="uni-flex uni-row orderitem" v-for="(subItem, i) in item.skuList" :key="i">
+	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="layout">
+			<view class="uni-flex vertical searchbar">
 				<view class="uni-flex">
-					<image :src="subItem.goodsPhotoUrl" class="goodsimg"></image>
+					<view class="icon-search search"></view>
 				</view>
-				<view class="uni-flex uni-column rest goodsinfo">
-					<view class="title">{{subItem.prodName.substring(0,20) + '...'}}</view>
-					<view class="prop">
-						<text class="size" v-for="(thirdItem, x) in subItem.skuDetail.skuPropertyList" :key="x">{{thirdItem.val}}</text>
-						<!-- <text class="size">100ml*1瓶</text> -->
+				<view class="uni-flex searchorder">搜索订单</view>
+			</view>
+			<view class="uni-flex uni-row" style="margin: 28rpx 0;">
+				<view class="uni-flex rest content" @click="selectTab(index, item.val)" v-for="(item, index) in tabList" :key="index">
+					<text :class="{active: tabIndex == index}">{{item.text}}</text>
+				</view>
+			</view>
+			<view class="order" v-for="(item, index) in orderPageList" :key="index" 
+				@click="$turnPage('/pages/shopping/trade/order-detail?id='+item.orderId, 'navigateTo')">
+				<view class="uni-flex uni-row time">
+					<view class="uni-flex rest date">
+						{{item.confirmTime}}
+					</view>
+					<view class="uni-flex tip">
+						{{item.orderStatusName}}
 					</view>
 				</view>
-				<view class="uni-flex uni-column goodsdata">
-					<view class="title">￥{{subItem.price}}</view>
-					<view class="horizontalright number">x{{subItem.quantity}}</view>
+				<view class="uni-flex uni-row orderitem" v-for="(subItem, i) in item.skuList" :key="i">
+					<view class="uni-flex">
+						<image :src="subItem.goodsPhotoUrl" class="goodsimg"></image>
+					</view>
+					<view class="uni-flex uni-column rest goodsinfo">
+						<view class="title">{{subItem.prodName.substring(0,20) + '...'}}</view>
+						<view class="prop">
+							<text class="size" v-for="(thirdItem, x) in subItem.skuDetail.skuPropertyList" :key="x">{{thirdItem.val}}</text>
+							<!-- <text class="size">100ml*1瓶</text> -->
+						</view>
+					</view>
+					<view class="uni-flex uni-column goodsdata">
+						<view class="title">￥{{subItem.price}}</view>
+						<view class="horizontalright number">x{{subItem.quantity}}</view>
+					</view>
+				</view>
+				<view class="uni-flex settle">
+					<view class="uni-flex rest horizontalright totaldesc">
+						共{{orderCount[index]}}件商品
+					</view>
+					<view class="uni-flex totalspace">
+						<text class="total">合计:</text>
+						<text class="totalnum">￥{{item.payAmount}}</text>
+					</view>
+				</view>
+				<view class="uni-flex vertical btnop" v-if="item.orderStatus === 20">
+					<view class="uni-flex rest horizontalright">
+						<view class="btnleft content">提醒发货</view>
+					</view>
+					<view class="uni-flex">
+						<view class="btnright content">查看订单</view>
+					</view>
+				</view>
+				<view class="uni-flex vertical btnop" v-if="item.orderStatus === 30">
+					<view class="uni-flex rest horizontalright">
+						<view class="btnleft content">查看物流</view>
+					</view>
+					<view class="uni-flex">
+						<view class="btnright content">确认收货</view>
+					</view>
+				</view>
+				<view class="uni-flex vertical btnop" v-if="item.orderStatus === 70 || item.orderStatus === 80">
+					<view class="uni-flex rest horizontalright">
+						<view class="btnleft content">查看订单</view>
+					</view>
+					<view class="uni-flex">
+						<view class="btnright content">取消售后</view>
+					</view>
+				</view>
+				<view class="uni-flex vertical btnop" v-if="item.orderStatus === 40">
+					<view class="uni-flex rest horizontalright">
+						<view class="btnleft content">删除订单</view>
+					</view>
+					<view class="uni-flex">
+						<view class="btnright content">查看订单</view>
+					</view>
 				</view>
 			</view>
-			<view class="uni-flex settle">
-				<view class="uni-flex rest horizontalright totaldesc">
-					共{{orderCount[index]}}件商品
-				</view>
-				<view class="uni-flex totalspace">
-					<text class="total">合计:</text>
-					<text class="totalnum">￥{{item.payAmount}}</text>
-				</view>
+			<view class="uni-flex uni-row horizontally vertical notice">
+				<view class="line"></view>
+				<text class="space">已经没有了哦</text>
+				<view class="line"></view>
 			</view>
-			<view class="uni-flex vertical btnop" v-if="item.orderStatus === 20">
-				<view class="uni-flex rest horizontalright">
-					<view class="btnleft content">提醒发货</view>
-				</view>
-				<view class="uni-flex">
-					<view class="btnright content">查看订单</view>
-				</view>
-			</view>
-			<view class="uni-flex vertical btnop" v-if="item.orderStatus === 30">
-				<view class="uni-flex rest horizontalright">
-					<view class="btnleft content">查看物流</view>
-				</view>
-				<view class="uni-flex">
-					<view class="btnright content">确认收货</view>
-				</view>
-			</view>
-			<view class="uni-flex vertical btnop" v-if="item.orderStatus === 70 || item.orderStatus === 80">
-				<view class="uni-flex rest horizontalright">
-					<view class="btnleft content">查看订单</view>
-				</view>
-				<view class="uni-flex">
-					<view class="btnright content">取消售后</view>
-				</view>
-			</view>
-			<view class="uni-flex vertical btnop" v-if="item.orderStatus === 40">
-				<view class="uni-flex rest horizontalright">
-					<view class="btnleft content">删除订单</view>
-				</view>
-				<view class="uni-flex">
-					<view class="btnright content">查看订单</view>
-				</view>
-			</view>
-		</view>
-		<view class="uni-flex uni-row horizontally vertical notice">
-			<view class="line"></view>
-			<text class="space">已经没有了哦</text>
-			<view class="line"></view>
 		</view>
 	</view>
 </template>
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '我的订单' //导航栏文字
+				},
 				tabIndex: 0, //订单状态索引
 				tabList: [{
 					text: '全部',
@@ -109,7 +123,6 @@
 					text: '已完成',
 					val: '40'
 				}],
-				//动态参数
 				params: {
 					page: 1, //页数
 					size: 3, //每页几条

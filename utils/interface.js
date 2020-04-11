@@ -164,14 +164,13 @@ const interfaceurl = {
 	//权限接口调用前先检查下用户登录状态
 	checkAuth(bussinessInterfaceurl, data, isAuth = true) {
 		return new Promise(function (resolve, reject) {
+			uni.showLoading({
+				title: '',
+				mask: true,
+				duration:3000
+			});
 			if(isAuth) {
 				interfaceurl.checkLogin().then((res) => { //login API 获取code
-					uni.showLoading()
-					// wx.showLoading({
-					// 	title: '',
-					// 	mask: true,
-					// 	duration:3000
-					// });
 					//权限接口调用
 					bussinessInterfaceurl(data).then((res) => {
 						uni.hideLoading();
@@ -186,6 +185,7 @@ const interfaceurl = {
 			} else {
 				//开放接口调用
 				bussinessInterfaceurl(data).then((res) => {
+					uni.hideLoading();
 					if(interfaceurl.showBussisnessErr(res)){
 						resolve(res); //接口200时返回的数据
 					} 

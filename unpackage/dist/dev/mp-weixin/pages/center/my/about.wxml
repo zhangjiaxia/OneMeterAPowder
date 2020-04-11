@@ -1,1 +1,1 @@
-<view class="container">关于我们的说明。</view>
+<view class="container"><navigation-bar vue-id="4ca24feb-1" navigationBarStyle="{{navigationBarStyle}}" bind:__l="__l"></navigation-bar>关于我们的说明。</view>

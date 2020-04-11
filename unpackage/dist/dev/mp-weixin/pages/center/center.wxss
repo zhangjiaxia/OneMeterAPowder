@@ -1601,7 +1601,7 @@ page {
     border-radius: 50%;
 }
 .info .rate {
-    width: 80rpx;
+    width: 60rpx;
     height: 30rpx;
 }
 .info .arrow {
@@ -1611,6 +1611,10 @@ page {
 .info .nick {
     font-size: 30rpx;
     color: #FFFFFF;
+}
+.info .idnumber {
+    color: #FFFFFF;
+    font-size: 20rpx;
 }
 .info .time {
     font-size: 20rpx;
@@ -1667,5 +1671,8 @@ page {
 .manage .icon {
     width: 60rpx;
     height: 60rpx;
+}
+.manage .icon-active {
+    color: #0071CF;
 }
 

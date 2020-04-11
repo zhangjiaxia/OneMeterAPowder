@@ -24,6 +24,8 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
+/*自定义公共样式*/
 .content {
   height: 100%;
   display: -webkit-box;
@@ -41,7 +43,7 @@
   border-radius: 10rpx;
 }
 .category-left {
-  height: 100vh;
+  height: 100%;
   width: 180rpx;
   background-color: #EEEEEE;
 }
@@ -49,7 +51,7 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
-  height: 100vh;
+  height: 100%;
   padding: 20rpx;
   padding-bottom: 130rpx;
   background: #ffffff;

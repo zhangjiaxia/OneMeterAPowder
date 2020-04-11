@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "原始股权",
   "navigationBarBackgroundColor": "#0071CF",
-  "usingComponents": {}
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar"
+  }
 }

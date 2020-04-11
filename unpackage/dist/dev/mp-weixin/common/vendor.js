@@ -1555,136 +1555,7 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 14:
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 15:
+/***/ 12:
 /*!***********************************************!*\
   !*** D:/project/uniRiceNoodle/store/index.js ***!
   \***********************************************/
@@ -1693,7 +1564,7 @@ function normalizeComponent (
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 _vue.default.use(_vuex.default);var _default =
 
@@ -1735,7 +1606,7 @@ new _vuex.default.Store({
 
 /***/ }),
 
-/***/ 16:
+/***/ 13:
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
   \********************************************/
@@ -2682,6 +2553,135 @@ var index_esm = {
 
 
 /* harmony default export */ __webpack_exports__["default"] = (index_esm);
+
+
+/***/ }),
+
+/***/ 16:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
 
 
 /***/ }),
@@ -8725,7 +8725,7 @@ internalMixin(Vue);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 24));
-var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 15));var _interfaceurl;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //引入全局变量的token
+var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 12));var _interfaceurl;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //引入全局变量的token
 
 var isFormal = false; //是否正式,false:测试，true:正式
 
@@ -8890,14 +8890,13 @@ var interfaceurl = (_interfaceurl = {
   //权限接口调用前先检查下用户登录状态
   checkAuth: function checkAuth(bussinessInterfaceurl, data) {var isAuth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
     return new Promise(function (resolve, reject) {
+      uni.showLoading({
+        title: '',
+        mask: true,
+        duration: 3000 });
+
       if (isAuth) {
         interfaceurl.checkLogin().then(function (res) {//login API 获取code
-          uni.showLoading();
-          // wx.showLoading({
-          // 	title: '',
-          // 	mask: true,
-          // 	duration:3000
-          // });
           //权限接口调用
           bussinessInterfaceurl(data).then(function (res) {
             uni.hideLoading();
@@ -8912,6 +8911,7 @@ var interfaceurl = (_interfaceurl = {
       } else {
         //开放接口调用
         bussinessInterfaceurl(data).then(function (res) {
+          uni.hideLoading();
           if (interfaceurl.showBussisnessErr(res)) {
             resolve(res); //接口200时返回的数据
           }
@@ -8971,7 +8971,7 @@ interfaceurl;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 15));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 12));
 var _interface = _interopRequireDefault(__webpack_require__(/*! ./interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //引入全局变量的token
 
 /**
@@ -9057,6 +9057,249 @@ req;exports.default = _default;
 /***/ }),
 
 /***/ 259:
+/*!***********************************************************************!*\
+  !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mpother.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      uniShow: false,
+      left: 0 };
+
+  },
+  computed: {
+    moveLeft: function moveLeft() {
+      return "translateX(".concat(this.left, "px)");
+    } },
+
+  watch: {
+    show: function show(newVal) {
+      if (this.autoClose) return;
+      if (newVal) {
+        this.$emit('change', true);
+        this.open();
+      } else {
+        this.$emit('change', false);
+        this.close();
+      }
+      uni.$emit('__uni__swipe__event', this);
+    } },
+
+  onReady: function onReady() {
+    this.init();
+    this.getSelectorQuery();
+  },
+  beforeDestoy: function beforeDestoy() {
+    uni.$off('__uni__swipe__event');
+  },
+  methods: {
+    init: function init() {var _this = this;
+      uni.$on('__uni__swipe__event', function (res) {
+        if (res !== _this && _this.autoClose) {
+          if (_this.left !== 0) {
+            _this.close();
+          }
+        }
+      });
+    },
+    onClick: function onClick(index, item) {
+      this.$emit('click', {
+        content: item,
+        index: index });
+
+    },
+    touchstart: function touchstart(e) {var
+
+      pageX =
+      e.touches[0].pageX;
+      if (this.disabled) return;
+      var left = this.position[0].left;
+      uni.$emit('__uni__swipe__event', this);
+      this.width = pageX - left;
+      if (this.isopen) return;
+      if (this.uniShow) {
+        this.uniShow = false;
+        this.isopen = true;
+        this.openleft = this.left + this.position[1].width;
+      }
+    },
+    touchmove: function touchmove(e, index) {
+      if (this.disabled) return;var
+
+      pageX =
+      e.touches[0].pageX;
+      this.setPosition(pageX);
+    },
+    touchend: function touchend() {
+      if (this.disabled) return;
+      if (this.isopen) {
+        this.move(this.openleft, 0);
+        return;
+      }
+      this.move(this.left, -40);
+    },
+    setPosition: function setPosition(x, y) {
+      if (!this.position[1].width) {
+        return;
+      }
+      // const width = this.position[0].width
+      this.left = x - this.width;
+      this.setValue(x - this.width);
+    },
+    setValue: function setValue(value) {
+      // 设置最大最小值
+      this.left = Math.max(-this.position[1].width, Math.min(parseInt(value), 0));
+      this.position[0].left = this.left;
+      if (this.isopen) {
+        this.openleft = this.left + this.position[1].width;
+      }
+    },
+    move: function move(left, value) {
+      if (left >= value) {
+        this.$emit('change', false);
+        this.close();
+      } else {
+        this.$emit('change', true);
+        this.open();
+      }
+    },
+    open: function open() {
+      this.uniShow = true;
+      this.left = -this.position[1].width;
+      this.setValue(-this.position[1].width);
+    },
+    close: function close() {var _this2 = this;
+      this.uniShow = true;
+      this.setValue(0);
+      setTimeout(function () {
+        _this2.uniShow = false;
+        _this2.isopen = false;
+      }, 200);
+    },
+    getSelectorQuery: function getSelectorQuery() {var _this3 = this;
+      var views = uni.createSelectorQuery().
+      in(this);
+      views.
+      selectAll('.selector-query-hock').
+      boundingClientRect(function (data) {
+        _this3.position = data;
+        if (_this3.autoClose) return;
+        if (_this3.show) {
+          _this3.open();
+        } else {
+          _this3.close();
+        }
+      }).
+      exec();
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 260:
+/*!******************************************************************!*\
+  !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mp.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      position: [],
+      button: [] };
+
+  },
+  computed: {
+    pos: function pos() {
+      return JSON.stringify(this.position);
+    },
+    btn: function btn() {
+      return JSON.stringify(this.button);
+    } },
+
+  watch: {
+    show: function show(newVal) {
+      if (this.autoClose) return;
+      var valueObj = this.position[0];
+      if (!valueObj) return;
+      valueObj.show = newVal;
+      this.$set(this.position, 0, valueObj);
+    } },
+
+
+
+
+
+
+
+
+
+  onReady: function onReady() {
+    this.init();
+    this.getSize();
+    this.getButtonSize();
+  },
+
+  methods: {
+    init: function init() {var _this = this;
+      uni.$on('__uni__swipe__event', function (res) {
+        if (res !== _this && _this.autoClose) {
+          var valueObj = _this.position[0];
+          valueObj.show = false;
+          _this.$set(_this.position, 0, valueObj);
+        }
+      });
+    },
+    openSwipe: function openSwipe() {
+      uni.$emit('__uni__swipe__event', this);
+    },
+    change: function change(e) {
+      this.$emit('change', e.open);
+      var valueObj = this.position[0];
+      valueObj.show = e.open;
+      this.$set(this.position, 0, valueObj);
+      // console.log('改变', e);
+    },
+    onClick: function onClick(index, item) {
+      this.$emit('click', {
+        content: item,
+        index: index });
+
+    },
+    getSize: function getSize() {var _this2 = this;
+      var views = uni.createSelectorQuery().in(this);
+      views.
+      selectAll('.selector-query-hock').
+      boundingClientRect(function (data) {
+        if (_this2.autoClose) {
+          data[0].show = false;
+        } else {
+          data[0].show = _this2.show;
+        }
+        _this2.position = data;
+      }).
+      exec();
+    },
+    getButtonSize: function getButtonSize() {var _this3 = this;
+      var views = uni.createSelectorQuery().in(this);
+      views.
+      selectAll('.button-hock').
+      boundingClientRect(function (data) {
+        _this3.button = data;
+      }).
+      exec();
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 277:
 /*!**********************************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/mpvue-citypicker/city-data/province.js ***!
   \**********************************************************************************/
@@ -9206,7 +9449,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 260:
+/***/ 278:
 /*!******************************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/mpvue-citypicker/city-data/city.js ***!
   \******************************************************************************/
@@ -10720,7 +10963,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 261:
+/***/ 279:
 /*!******************************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/mpvue-citypicker/city-data/area.js ***!
   \******************************************************************************/
@@ -23273,150 +23516,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 299:
-/*!***********************************************************************!*\
-  !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mpother.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  data: function data() {
-    return {
-      uniShow: false,
-      left: 0 };
-
-  },
-  computed: {
-    moveLeft: function moveLeft() {
-      return "translateX(".concat(this.left, "px)");
-    } },
-
-  watch: {
-    show: function show(newVal) {
-      if (this.autoClose) return;
-      if (newVal) {
-        this.$emit('change', true);
-        this.open();
-      } else {
-        this.$emit('change', false);
-        this.close();
-      }
-      uni.$emit('__uni__swipe__event', this);
-    } },
-
-  onReady: function onReady() {
-    this.init();
-    this.getSelectorQuery();
-  },
-  beforeDestoy: function beforeDestoy() {
-    uni.$off('__uni__swipe__event');
-  },
-  methods: {
-    init: function init() {var _this = this;
-      uni.$on('__uni__swipe__event', function (res) {
-        if (res !== _this && _this.autoClose) {
-          if (_this.left !== 0) {
-            _this.close();
-          }
-        }
-      });
-    },
-    onClick: function onClick(index, item) {
-      this.$emit('click', {
-        content: item,
-        index: index });
-
-    },
-    touchstart: function touchstart(e) {var
-
-      pageX =
-      e.touches[0].pageX;
-      if (this.disabled) return;
-      var left = this.position[0].left;
-      uni.$emit('__uni__swipe__event', this);
-      this.width = pageX - left;
-      if (this.isopen) return;
-      if (this.uniShow) {
-        this.uniShow = false;
-        this.isopen = true;
-        this.openleft = this.left + this.position[1].width;
-      }
-    },
-    touchmove: function touchmove(e, index) {
-      if (this.disabled) return;var
-
-      pageX =
-      e.touches[0].pageX;
-      this.setPosition(pageX);
-    },
-    touchend: function touchend() {
-      if (this.disabled) return;
-      if (this.isopen) {
-        this.move(this.openleft, 0);
-        return;
-      }
-      this.move(this.left, -40);
-    },
-    setPosition: function setPosition(x, y) {
-      if (!this.position[1].width) {
-        return;
-      }
-      // const width = this.position[0].width
-      this.left = x - this.width;
-      this.setValue(x - this.width);
-    },
-    setValue: function setValue(value) {
-      // 设置最大最小值
-      this.left = Math.max(-this.position[1].width, Math.min(parseInt(value), 0));
-      this.position[0].left = this.left;
-      if (this.isopen) {
-        this.openleft = this.left + this.position[1].width;
-      }
-    },
-    move: function move(left, value) {
-      if (left >= value) {
-        this.$emit('change', false);
-        this.close();
-      } else {
-        this.$emit('change', true);
-        this.open();
-      }
-    },
-    open: function open() {
-      this.uniShow = true;
-      this.left = -this.position[1].width;
-      this.setValue(-this.position[1].width);
-    },
-    close: function close() {var _this2 = this;
-      this.uniShow = true;
-      this.setValue(0);
-      setTimeout(function () {
-        _this2.uniShow = false;
-        _this2.isopen = false;
-      }, 200);
-    },
-    getSelectorQuery: function getSelectorQuery() {var _this3 = this;
-      var views = uni.createSelectorQuery().
-      in(this);
-      views.
-      selectAll('.selector-query-hock').
-      boundingClientRect(function (data) {
-        _this3.position = data;
-        if (_this3.autoClose) return;
-        if (_this3.show) {
-          _this3.open();
-        } else {
-          _this3.close();
-        }
-      }).
-      exec();
-    } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -23445,105 +23544,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-
-/***/ 300:
-/*!******************************************************************!*\
-  !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mp.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  data: function data() {
-    return {
-      position: [],
-      button: [] };
-
-  },
-  computed: {
-    pos: function pos() {
-      return JSON.stringify(this.position);
-    },
-    btn: function btn() {
-      return JSON.stringify(this.button);
-    } },
-
-  watch: {
-    show: function show(newVal) {
-      if (this.autoClose) return;
-      var valueObj = this.position[0];
-      if (!valueObj) return;
-      valueObj.show = newVal;
-      this.$set(this.position, 0, valueObj);
-    } },
-
-
-
-
-
-
-
-
-
-  onReady: function onReady() {
-    this.init();
-    this.getSize();
-    this.getButtonSize();
-  },
-
-  methods: {
-    init: function init() {var _this = this;
-      uni.$on('__uni__swipe__event', function (res) {
-        if (res !== _this && _this.autoClose) {
-          var valueObj = _this.position[0];
-          valueObj.show = false;
-          _this.$set(_this.position, 0, valueObj);
-        }
-      });
-    },
-    openSwipe: function openSwipe() {
-      uni.$emit('__uni__swipe__event', this);
-    },
-    change: function change(e) {
-      this.$emit('change', e.open);
-      var valueObj = this.position[0];
-      valueObj.show = e.open;
-      this.$set(this.position, 0, valueObj);
-      // console.log('改变', e);
-    },
-    onClick: function onClick(index, item) {
-      this.$emit('click', {
-        content: item,
-        index: index });
-
-    },
-    getSize: function getSize() {var _this2 = this;
-      var views = uni.createSelectorQuery().in(this);
-      views.
-      selectAll('.selector-query-hock').
-      boundingClientRect(function (data) {
-        if (_this2.autoClose) {
-          data[0].show = false;
-        } else {
-          data[0].show = _this2.show;
-        }
-        _this2.position = data;
-      }).
-      exec();
-    },
-    getButtonSize: function getButtonSize() {var _this3 = this;
-      var views = uni.createSelectorQuery().in(this);
-      views.
-      selectAll('.button-hock').
-      boundingClientRect(function (data) {
-        _this3.button = data;
-      }).
-      exec();
-    } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -24465,7 +24465,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/category/category": { "navigationBarTitleText": "类目", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/center/center": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/about": { "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/center/my/team": { "navigationBarTitleText": "我的团队", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品", "navigationBarBackgroundColor": "#0071CF", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/center/center": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/index": { "navigationBarTitleText": "一米一粉", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar", "auth-page": "/components/authorization-page" }, "usingAutoImportComponents": {} }, "pages/category/category": { "navigationBarTitleText": "类目", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar", "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "auth-page": "/components/authorization-page", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/about": { "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/team": { "navigationBarTitleText": "我的团队", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品", "navigationBarBackgroundColor": "#0071CF", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

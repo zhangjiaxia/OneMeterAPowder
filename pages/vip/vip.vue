@@ -1,5 +1,6 @@
 <template>
 	<view class="">
+		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
 		<view class="uni-flex topitem vertical">
 			<image src="/static/bg.png" class="bg"></image>
 			<view class="uni-flex uni-row info">
@@ -106,9 +107,20 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: 'VIP' //导航栏文字
+				},
 				rankList: [], //佣金排名
 				userInfo: {} //获取用户信息
 			}

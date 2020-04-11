@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#0071CF",
   "usingComponents": {
     "mpvue-picker": "/components/mpvue-picker/mpvuePicker",
-    "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker"
+    "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker",
+    "navigation-bar": "/components/navigation-bar"
   }
 }

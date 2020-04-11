@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="uni-flex uni-row content point">
 			<image src="/static/pointbg.png" class="pointbg"></image>
 			<view class="uni-flex uni-column">
@@ -51,9 +52,20 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '我的积分' //导航栏文字
+				},
 				list: [{},{}],
 				userInfo: {} //获取用户授权信息
 			}

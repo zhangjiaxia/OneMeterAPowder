@@ -1,7 +1,8 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="layout">
-			<view class="uni-flex uni-row vertical address" @click="$turnPage('/pages/shopping/trade/address', 'navigateTo')">
+			<view class="uni-flex uni-row vertical address" @click="$turnPage('/pages/shopping/trade/address-add', 'navigateTo')">
 				<view class="uni-flex">
 					<view class="icon-dizhi location"></view>
 				</view>
@@ -56,6 +57,7 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	//引入store的内容
 	import {
 		mapState,
@@ -63,15 +65,26 @@
 		mapActions
 	} from 'vuex'
 	export default {
+		components: {
+			navigationBar
+		},
 		computed: mapState(['selectOrderGoods']),
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '确认订单' //导航栏文字
+				},
 				totalFee: 0, //订单总额
 				defaultAddress: {}, //默认收货地址
 				cartId: '' //购物车ID参数，多个购物车用逗号隔开
 			}
 		},
 		onLoad() {
+			console.log('this.selectOrderGoods',this.selectOrderGoods)
 			let total = 0;
 			this.cartId = ''
 			this.selectOrderGoods.forEach((item) => {
@@ -79,6 +92,8 @@
 				this.cartId += item.cartId + ','
 			})
 			this.totalFee = total.toFixed(2)
+		},
+		onShow() {
 			this.getDefaultAddress()
 		},
 		methods: {
@@ -115,9 +130,11 @@
 					    paySign: res.data.paySign,
 					    success: (res) => {
 					        that.$turnPage('/pages/shopping/trade/order', 'redirectTo')
+							uni.hideLoading()
 					    },
 					    fail: (res) => {
 							that.$turnPage('/pages/shopping/trade/order', 'redirectTo')
+							uni.hideLoading()
 					    },
 					    complete: () => {
 							

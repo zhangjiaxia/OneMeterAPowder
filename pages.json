@@ -8,16 +8,16 @@
 			}
 		},
 		{
-			"path": "pages/shopping/shopping",
-			"style": {
-				"navigationBarTitleText": "购物车",
+			"path":"pages/category/category",
+			"style":{
+				"navigationBarTitleText":"类目",
 				"navigationBarBackgroundColor": "#0071CF"
 			}
 		},
 		{
-			"path":"pages/category/category",
-			"style":{
-				"navigationBarTitleText":"类目",
+			"path": "pages/shopping/shopping",
+			"style": {
+				"navigationBarTitleText": "购物车",
 				"navigationBarBackgroundColor": "#0071CF"
 			}
 		},

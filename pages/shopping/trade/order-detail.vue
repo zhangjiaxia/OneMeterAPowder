@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="layout">
 			<view class="uni-flex uni-row vertical address">
 				<view class="uni-flex">
@@ -130,9 +131,20 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '订单详情' //导航栏文字
+				},
 				orderDetail: {}, //订单详情
 				orderCount: [] //每个订单的商品个数
 			}

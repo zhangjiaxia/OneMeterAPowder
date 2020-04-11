@@ -1,13 +1,16 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="banner">
-			<image src="../../../static/bussiness.png" class="banner-img"></image>
+			<image src="/static/bussiness.png" class="banner-img"></image>
 		</view>
-		<scroll-view scroll-x="true" class="tab-list">
-			<view class="tab" v-for="(item, index) in categoryChildrenList" :key="index" @click="selectTab(item.cateId)">
-				<text class="tab-text" :class="{'tab-active': params.cateId == item.cateId}">{{item.cateName}}</text>
-			</view>
-		</scroll-view>
+		<view>
+			<scroll-view scroll-x="true" class="tab-list">
+				<view class="tab" v-for="(item, index) in categoryChildrenList" :key="index" @click="selectTab(item.cateId)">
+					<text class="tab-text" :class="{'tab-active': params.cateId == item.cateId}">{{item.cateName}}</text>
+				</view>
+			</scroll-view>
+		</view>
 		<view class="space">
 			<view class="goods" :style="{'margin-right': index % 2 == 0 ? '20rpx' : '0'}"
 				v-for="(item, index) in childrenGoodsList" :key="index" @click="shopDetailPage(item)">
@@ -26,9 +29,20 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
+		components: {
+			navigationBar
+		},
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '美妆护肤' //导航栏文字
+				},
 				list: [],
 				params: {
 					page: 1,
@@ -42,6 +56,7 @@
 		},
 		onLoad(options) {
 			this.params.cateId = options.cateId
+			this.navigationBarStyle.iconText = options.cateName
 			this.getCategoryChildrenList();
 			this.initData();
 		},
@@ -77,8 +92,10 @@
 				});
 			},
 			getChildrenGoodsList() {
+				//uni.showLoading()
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.childrenGoodsList, this.params, false).then((res) => {
+					//uni.hideLoading()
 					that.childrenGoodsData = res.data
 					if(that.params.page == 1) {
 						that.childrenGoodsList = res.data.data
@@ -139,7 +156,7 @@
 			background: #FFFFFF;
 			border-radius: 20rpx;
 			float: left;
-			margin-bottom: 10rpx;
+			margin-bottom: 20rpx;
 			.goodsimg {
 				width: 340rpx;
 				height: 340rpx;

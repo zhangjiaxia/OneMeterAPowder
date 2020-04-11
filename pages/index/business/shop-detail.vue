@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="container">
 			<swiper class="swiper" circular :autoplay="autoplay" :interval="interval" :duration="duration">
 				<swiper-item v-for="(item,index) in goodsDetail.detailImgUrlList" :key="index">
@@ -10,7 +11,7 @@
 				<view class="shop-title">{{goodsDetail.name || ''}}</view>
 				<view class="shop-price">
 					￥{{goodsDetail.retailPrice[0] || '0.00'}}
-					<text class="original-price">￥239</text>
+					<!-- <text class="original-price">￥239</text> -->
 				</view>
 				<view class="shop-postage">
 					全国包邮
@@ -46,12 +47,14 @@
 			<view class="detail-bottom">
 				<view class="detail-bottom-left">
 					<view class="detail-bottom-item">
-						<image src="/static/share-icon.png" class="share-icon"></image>
+						<!-- <image src="/static/share-icon.png" class="share-icon"></image> -->
+						<view class="icon-fenxiang " style="font-size: 32rpx;"></view>
 						<view>分享</view>
 						<button type="primary" open-type="share" class="share-btn"></button>
 					</view>
 					<view class="detail-bottom-item" @click="shoppingPage">
 						<image src="/static/shopping-icon.png" class="share-icon"></image>
+						<!-- <view class="icon-fenxiang share-icon"></view> -->
 						<view>购物车</view>
 					</view>
 				</view>
@@ -107,6 +110,7 @@
 
 <script>
 	import authPage from '@/components/authorization-page.vue' //引入授权窗体
+	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	import interfaceurl from '@/utils/interface.js'
 	//引入store的内容
 	import {
@@ -116,11 +120,19 @@
 	} from 'vuex'
 	export default {
 		components: {
-			authPage
+			authPage,
+			navigationBar
 		},
 		computed: mapState(['goodsDetail']),
 		data() {
 			return {
+				//设置导航栏样式
+				navigationBarStyle: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+					iconText: '' //导航栏文字
+				},
 				id: '',
 				confirmModal: false,
 				indicatorDots: false,
@@ -138,6 +150,7 @@
 				userInfo: {},
 				is_cash_back: '0',
 				//动态参数
+				skuPropertyList: [], //用户所选的商品sku
 				skuPropList: [{}, {}, {}, {}, {}], //商品属性
 				propsCheck: {}, //属性选择
 				//goodsDetail: {}, //商品详情，暂时
@@ -154,6 +167,7 @@
 			}
 		},
 		onLoad(options) {
+			this.navigationBarStyle.iconText = this.goodsDetail.brandName
 			let item = this.deepCopy(this.goodsDetail)
 			item.detailInfo = item.detailInfo.replace(/<img/gi, '<img width="100%!important" ')
 			this.$store.commit('setGoodsDetail', item)
@@ -235,8 +249,9 @@
 						}
 					}
 					if(flag == item.skuPropertyList.length) {
-						//console.log('用户选择存在',item)
+						console.log('用户选择存在',item)
 						//如果规格值等于一组中的所有值，则用户所选规格存在，返回该组sku对应的code
+						this.skuPropertyList = item.skuPropertyList
 						return item;
 					}
 					flag = 0
@@ -345,7 +360,7 @@
 					goodsPhotoUrl: item.mainImgUrl,
 					quantity: this.shopNum,
 					cartId: this.cartId,
-					skuPropertyList: item.skuPropertyList
+					skuPropertyList: this.skuPropertyList
 				}
 				let shopList = []
 				shopList.push(shopItem)
@@ -494,8 +509,8 @@
 	}
 
 	.share-icon {
-		width: 32upx;
-		height: 32upx;
+		width: 32rpx;
+		height: 32rpx;
 	}
 
 	.detail-bottom-item {

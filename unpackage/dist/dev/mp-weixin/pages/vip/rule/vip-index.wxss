@@ -9,5 +9,9 @@
 	background: #EEB950;
 	color: #ffffff;
 	text-align: center;
+	position: -webkit-sticky;
+	position: sticky;
+	bottom: 0;
+	width: 100%;
 }
 

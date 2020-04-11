@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _goods_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./goods-list.vue?vue&type=script&lang=js& */ 220);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _goods_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _goods_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _goods_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./goods-list.vue?vue&type=style&index=0&lang=scss& */ 222);
-/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 14);
+/* harmony import */ var _FrontEnd_HBuilderX_2_6_5_20200314_full_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../FrontEnd/HBuilderX.2.6.5.20200314.full/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 16);
 
 var renderjs
 
@@ -174,6 +174,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -200,13 +203,25 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var _default = { data: function data() {return { list: [], params: { page: 1, size: 10, cateId: 5034 //分类ID,选中的tab分类ID
+//
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { background: '#0071CF', fontColor: '#FFFFFF', iconColor: '#FFFFFF', iconText: '美妆护肤' //导航栏文字
+      }, list: [], params: { page: 1, size: 10, cateId: 5034 //分类ID,选中的tab分类ID
       }, //二级分类下的商品
       categoryChildrenList: [], //tab栏数据
       childrenGoodsData: {}, //分类商品数据
       childrenGoodsList: [] //分类商品列表
-    };}, onLoad: function onLoad(options) {this.params.cateId = options.cateId;this.getCategoryChildrenList();this.initData();}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {return;}this.params.page++;this.getChildrenGoodsList();}, methods: { shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');},
+    };}, onLoad: function onLoad(options) {this.params.cateId = options.cateId;this.navigationBarStyle.iconText = options.cateName;this.getCategoryChildrenList();this.initData();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {return;}this.params.page++;this.getChildrenGoodsList();
+  },
+  methods: {
+    shopDetailPage: function shopDetailPage(item) {
+      this.$store.commit('setGoodsDetail', item);
+      this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');
+    },
     initData: function initData() {
       //重置分页参数
       this.childrenGoodsData = {};
@@ -226,8 +241,10 @@ var _default = { data: function data() {return { list: [], params: { page: 1, si
       });
     },
     getChildrenGoodsList: function getChildrenGoodsList() {
+      //uni.showLoading()
       var that = this;
       _interface.default.checkAuth(_interface.default.childrenGoodsList, this.params, false).then(function (res) {
+        //uni.hideLoading()
         that.childrenGoodsData = res.data;
         if (that.params.page == 1) {
           that.childrenGoodsList = res.data.data;

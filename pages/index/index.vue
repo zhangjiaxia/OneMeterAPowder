@@ -2,18 +2,11 @@
 	<view class="container">
 		<view>
 			<navigationBar custom="true">
-				<!-- <view class="search-container">
-					<image src="/static/logo.png" class="logo"></image>
-					<view class="search" @click="$turnPage('/pages/category/search/search', 'navigateTo')">
-						<view class="icon-search search-icon"></view>
-						<text>搜索</text>
-					</view>
-				</view> -->
-				<view class="uni-flex uni-row vertical search-bar">
-					<view class="uni-flex">
+				<view class="uni-flex uni-row content search-bar">
+					<view class="search-img">
 						<image src="/static/logo.png" class="icon-logo"></image>
 					</view>
-					<view class="uni-flex">
+					<view class="">
 						<view class="uni-flex uni-row vertical search" @click="$turnPage('/pages/category/search/search', 'navigateTo')">
 							<view class="icon-search search-icon"></view>
 							<text>搜索</text>
@@ -21,21 +14,15 @@
 					</view>
 				</view>
 			</navigationBar>
-			<!-- <view class="search-container">
-				<image src="/static/logo.png" class="logo"></image>
-				<view class="search" @click="$turnPage('/pages/category/search/search', 'navigateTo')">
-					<view class="icon-search search-icon"></view>
-					<text>搜索</text>
-				</view>
-			</view> -->
-			<view style="padding:0upx 20upx;transform: translateY(-100upx); margin-top: 90px;">
-				<swiper class="swiper" :autoplay="autoplay" circular :interval="interval" :duration="duration">
+			<view style="position: relative;height: 290rpx;">
+				<view class="bgColor"></view>
+				<swiper class="banner-swiper" :autoplay="autoplay" circular :interval="interval" :duration="duration">
 					<swiper-item v-for="(item,index) in bannerList" :key="index">
 						<image :src="item.bannerUrl" class="banner-img"></image>
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="tab-list" style="padding-top: 0px;padding-bottom: 0px;position: relative;top:-90upx;background: #F0EDF1;">
+			<view class="tab-list" style="background: #F0EDF1;margin-bottom: 10rpx;">
 				<view class="advantage-item">
 					<text>VIP购物</text>
 				</view>
@@ -49,11 +36,11 @@
 					<text>积分配股</text>
 				</view>
 			</view>
-			<view class="tab-list" style="padding-top: 40rpx;margin-top: -60rpx;">
+			<view class="tab-list" style="padding-top: 40rpx;background: #FFFFFF;">
 				<view v-for="(item,index) in iconTypeList" :key="index" class="tab-item" @click="shopListPage(item)">
 					<authPage>
 						<image :src="item.iconTypeUrl" class="type-icon"></image>
-						<view>{{item.iconTypeName}}</view>
+						<view class="classify">{{item.iconTypeName}}</view>
 					</authPage>
 				</view>
 			</view>
@@ -197,7 +184,7 @@
 						this.$turnPage('/pages/index/business/business-school', 'navigateTo')
 				        break;
 				     default:
-				        this.$turnPage('/pages/category/search/goods-list?cateId='+item.link, 'navigateTo')
+				        this.$turnPage('/pages/category/search/goods-list?cateId='+item.link+'&cateName='+item.iconTypeName, 'navigateTo')
 				}
 			},
 			//获取轮播图
@@ -281,6 +268,13 @@
 		background: #F0EDF1;
 	}
 	.search-bar {
+		width: 100%;
+		position: relative;
+		.search-img {
+			position: absolute;
+			left: 16rpx;
+			top: 8rpx;
+		}
 		.icon-logo {
 			width: 154rpx;
 			height: 37rpx;
@@ -294,6 +288,42 @@
 			box-shadow:0px 2rpx 3rpx 0px rgba(255,255,255,0.2);
 			border-radius:25rpx;
 		}
+		.search {
+			width: 300upx;
+			height: 60upx;
+			background: #ffffff;
+			border-radius: 30upx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 26upx;
+			color: #000000;
+		}
+	}
+	.bgColor {
+		width: 100%;
+		height: 160rpx;
+		background: #0071CF;
+		position: absolute;
+		z-index: 10;
+		top: 44;
+	}
+	.banner-swiper {
+		width: 710rpx;
+		height: 280rpx;
+		position: absolute;
+		z-index: 99;
+		top: 20rpx;
+		left: 20rpx;
+		.banner-img {
+			width: 100%;
+			height: 100%;
+			border-radius: 20rpx;
+		}
+	}
+	.classify {
+		font-size: 22rpx;
+		color: #333333;
 	}
 	.sharebtn {
 		height: 100rpx;
@@ -318,17 +348,7 @@
 		top: 10upx;
 	}
 
-	.search {
-		width: 300upx;
-		height: 60upx;
-		background: #ffffff;
-		border-radius: 30upx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		font-size: 26upx;
-		color: #000000;
-	}
+	
 
 	.search-icon {
 		font-size: 30rpx !important;
@@ -365,7 +385,7 @@
 		padding: 20upx 30upx;
 		display: flex;
 		flex-wrap: wrap;
-		background: #ffffff;
+		// background: #ffffff;
 		justify-content: space-between;
 	}
 

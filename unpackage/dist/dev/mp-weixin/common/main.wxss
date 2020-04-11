@@ -1,10 +1,11 @@
-@font-face {font-family: 'iconfont';  /* project id 1743546 */
-  src: url('https://at.alicdn.com/t/font_1743546_346jc4gf2x7.eot');
-  src: url('https://at.alicdn.com/t/font_1743546_346jc4gf2x7.eot?#iefix') format('embedded-opentype'),
-  url('https://at.alicdn.com/t/font_1743546_346jc4gf2x7.woff2') format('woff2'),
-  url('https://at.alicdn.com/t/font_1743546_346jc4gf2x7.woff') format('woff'),
-  url('https://at.alicdn.com/t/font_1743546_346jc4gf2x7.ttf') format('truetype'),
-  url('https://at.alicdn.com/t/font_1743546_346jc4gf2x7.svg#iconfont') format('svg');
+@font-face {
+  font-family: 'iconfont';  /* project id 1743546 */
+  src: url('https://at.alicdn.com/t/font_1743546_7tjw6sli9ee.eot');
+  src: url('https://at.alicdn.com/t/font_1743546_7tjw6sli9ee.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_1743546_7tjw6sli9ee.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_1743546_7tjw6sli9ee.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_1743546_7tjw6sli9ee.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_1743546_7tjw6sli9ee.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -12,6 +13,39 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.icon-daifahuo:before {
+  content: "\e601";
+}
+.icon-about:before {
+  content: "\e616";
+}
+.icon-daizhifu:before {
+  content: "\e612";
+}
+.icon-dizhi1:before {
+  content: "\e63e";
+}
+.icon-kefu:before {
+  content: "\e625";
+}
+.icon-daishouhuo:before {
+  content: "\e640";
+}
+.icon-tubiaolunkuo-:before {
+  content: "\e60b";
+}
+.icon-tixianmingxi:before {
+  content: "\e646";
+}
+.icon-tuandui:before {
+  content: "\e648";
+}
+.icon-yuetixian:before {
+  content: "\e613";
+}
+.icon-wodetuandui:before {
+  content: "\e6a0";
 }
 .icon-gou:before {
   content: "\e63b";
@@ -61,6 +95,11 @@
 .icon-weixinfang:before {
   content: "\e61b";
 }
+.icon-fenxiang:before {
+	content: "\e633";
+}
+
+/*缺少这个配置，图标显示有问题*/
 text[class*="icon-"],
 view[class*="icon-"],
 button[class*="icon-"] {
