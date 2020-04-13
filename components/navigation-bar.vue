@@ -44,7 +44,7 @@
 					background: '#0071CF',
 					fontColor: '#FFFFFF',
 					iconColor: '#FFFFFF',
-				}, //公用样式
+				}, //公用样式,个性化样式可通过传值实现
 				lineHeight: '' //状态栏高度
 			};
 		},

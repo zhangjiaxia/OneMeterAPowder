@@ -52,9 +52,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '我要提现' //导航栏文字
 				},
 				true_name: '',

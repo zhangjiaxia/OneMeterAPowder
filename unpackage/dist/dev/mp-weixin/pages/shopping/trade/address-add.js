@@ -207,18 +207,15 @@ var _cityData = _interopRequireDefault(__webpack_require__(/*! @/common/city.dat
 //
 //
 //
-var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensure | components/mpvue-picker/mpvuePicker */ "components/mpvue-picker/mpvuePicker").then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-picker/mpvuePicker.vue */ 265));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var mpvueCityPicker = function mpvueCityPicker() {Promise.all(/*! require.ensure | components/mpvue-citypicker/mpvueCityPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/mpvue-citypicker/mpvueCityPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-citypicker/mpvueCityPicker.vue */ 272));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var mpvuePicker = function mpvuePicker() {__webpack_require__.e(/*! require.ensure | components/mpvue-picker/mpvuePicker */ "components/mpvue-picker/mpvuePicker").then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-picker/mpvuePicker.vue */ 274));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var mpvueCityPicker = function mpvueCityPicker() {Promise.all(/*! require.ensure | components/mpvue-citypicker/mpvueCityPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/mpvue-citypicker/mpvueCityPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/mpvue-citypicker/mpvueCityPicker.vue */ 281));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { mpvuePicker: mpvuePicker, mpvueCityPicker: mpvueCityPicker, navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
-      navigationBarStyle: { background: '#0071CF', fontColor: '#FFFFFF', iconColor: '#FFFFFF', iconText: '添加收货地址' //导航栏文字
+      navigationBarStyle: { iconText: '添加收货地址' //导航栏文字
       }, true_name: '', cellphone: '', detail_address: '', address_id: '', //动态参数
       themeColor: '#007AFF', cityPickerValueDefault: [0, 0, 1], mode: '', deepLength: 1, pickerValueDefault: [0], pickerValueArray: [], info: {}, //用户地址信息，深拷贝
       position: '', //选择的地址
       saveParams: { regionId: 0, receiver: '', receiverAddr: '', receiverPhone: '', isDefault: 0, //0非默认，1默认
         addressId: '' }, forceDefault: false //判断是否需要强制默认
-    };}, onLoad: function onLoad(options) {console.log('isDefault', options);if (options.isDefault == 'false') {this.forceDefault = true;
-      this.saveParams.isDefault = 1;
-    } else {
-      this.forceDefault = false;
+    };}, onLoad: function onLoad(options) {console.log('isDefault', options);if (options.isDefault == 'false') {this.forceDefault = true;this.saveParams.isDefault = 1;} else {this.forceDefault = false;
     }
     if (options.item) {
       this.saveParams = JSON.parse(options.item);

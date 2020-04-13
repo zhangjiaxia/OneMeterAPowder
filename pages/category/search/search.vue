@@ -43,9 +43,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '搜索' //导航栏文字
 				},
 				recordList: ['美食', '护肤', '生活百货', '巧克力'],
@@ -102,7 +99,7 @@
 		position: relative;
 		.bar-back {
 			margin-left: 30rpx;
-			margin-right: 24rpx;
+			margin-right: 10rpx;
 			font-size: 52rpx;
 			color: #FFFFFF;
 		}

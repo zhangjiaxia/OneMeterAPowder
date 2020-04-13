@@ -15,9 +15,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '发票信息' //导航栏文字
 				},
 			}

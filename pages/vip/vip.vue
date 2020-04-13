@@ -10,22 +10,22 @@
 				<view class="uni-flex uni-column rest">
 					<view class="nick">
 						{{userInfo.nickName || '御翔绝瞬'}}
-						<image src="/static/VIPicon.png" class="vip"></image>
+						<image src="/static/VIPicon.png" class="vip" v-if="userDetail.is_vip==1"></image>
 					</view>
-					<view>
+					<view v-if="userDetail.is_vip==1">
 						<image src="/static/silver.png" class="rate"></image>
 					</view>
-					<view class="idnumber">ID:354673</view>
-					<view class="time">会员到期时间：2021-3-16</view>
+					<view class="idnumber">ID:{{userDetail.invitation_code}}</view>
+					<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="uni-flex uni-row vertical commission">
 			<view class="uni-flex uni-column rest content">
 				<view class="money">我的佣金</view>
-				<view class="money">5176</view>
+				<view class="money">{{userDetail.total_profit}}</view>
 				<view class="tip">
-					（已到帐金额:<text class="active">3167元</text>）
+					（已到帐金额:<text class="active">{{userDetail.cash_out_profit}}元</text>）
 				</view>
 			</view>
 			<view class="uni-flex">
@@ -33,8 +33,8 @@
 			</view>
 			<view class="uni-flex uni-column rest content">
 				<view class="money">待提现</view>
-				<view class="money">1000</view>
-				<view class="tip">（提现中:<text class="active">1000元</text>）</view>
+				<view class="money">{{userDetail.frozen_profit}}</view>
+				<view class="tip">（提现中:<text class="active">{{userDetail.frozen_profit}}元</text>）</view>
 			</view>
 		</view>
 		<view class="uni-flex uni-column commissiondetail">
@@ -42,19 +42,19 @@
 				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">一级粉丝</view>
 					<view class="number">
-						<text class="active">49</text>人
+						<text class="active">{{userNumber.firstUserNumber}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content vline">
 					<view class="title">一级VIP会员</view>
 					<view class="number">
-						<text class="active">37</text>人
+						<text class="active">{{userNumber.firstVipNumber}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 					<view class="title">佣金收益</view>
 					<view class="number">
-						<text class="active">2150</text>元
+						<text class="active">{{userDetail.first_profit}}</text>元
 					</view>
 				</view>
 			</view>
@@ -62,19 +62,19 @@
 				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">二级粉丝</view>
 					<view class="number">
-						<text class="active">49</text>人
+						<text class="active">{{userNumber.secondUserNumber}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content vline">
 					<view class="title">二级VIP会员</view>
 					<view class="number">
-						<text class="active">37</text>人
+						<text class="active">{{userNumber.secondVipNumber}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 					<view class="title">佣金收益</view>
 					<view class="number">
-						<text class="active">2150</text>元
+						<text class="active">{{userDetail.second_profit}}</text>元
 					</view>
 				</view>
 			</view>
@@ -116,23 +116,38 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: 'VIP' //导航栏文字
 				},
 				rankList: [], //佣金排名
-				userInfo: {} //获取用户信息
+				userInfo: {}, //获取用户信息
+				userDetail: {}, //获取用户详情
+				userNumber: {} //获取用户的粉丝和会员人数
 			}
 		},
 		onShow() {
 			this.userInfo = uni.getStorageSync('userInfo')
 			if(uni.getStorageSync('token')) {
+				this.getUserDetail();
+				this.getUserNumber();
 				this.getRanking()
 			}
 		},
 		methods: {
-			//获取排名列表GET v1/user_team/rankingList
+			//获取用户详情
+			getUserDetail() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
+					that.userDetail = res.data
+				});
+			},
+			//获取用户的粉丝和会员人数
+			getUserNumber() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.surveyList, {}).then((res) => {
+					that.userNumber = res.data
+				});
+			},
+			//获取排名列表
 			getRanking() {
 				let that = this
 				interfaceurl.checkAuth(interfaceurl.teamRankingList, {}).then((res) => {
@@ -177,7 +192,7 @@
 			border-radius: 50%;
 		}
 		.rate {
-			width: 80rpx;
+			width: 60rpx;
 			height: 30rpx;
 		}
 		.arrow {

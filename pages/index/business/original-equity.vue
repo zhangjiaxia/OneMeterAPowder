@@ -6,10 +6,10 @@
 				<image src="/static/chartbg.png" class="chartbg"></image>
 				<view class="uni-flex uni-row vertical info" style="margin: 16rpx 0;">
 					<view class="uni-flex">
-						<image src="/static/head.png" class="head"></image>
+						<image :src="userInfo.avatarUrl" class="head"></image>
 					</view>
 					<view class="uni-flex uni-column rest">
-						<view class="nick">月亮之上</view>
+						<view class="nick">{{userInfo.nickName}}</view>
 						<view style="font-size: 18rpx;">(会员至2020-10-13到期)</view>
 					</view>
 				</view>
@@ -36,7 +36,6 @@
 				<view class="uni-flex rest rank">我的排名</view>
 				<view class="uni-flex ranking">
 					2316名
-					<!-- <image src="" class=""></image> -->
 				</view>
 			</view>
 			<view class="query">
@@ -62,14 +61,15 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '原始股权' //导航栏文字
 				},
 				teamList: [],
-				detail: {}
+				detail: {},
+				userInfo: {} //获取用户授权信息
 			}
+		},
+		onLoad() {
+			this.userInfo = uni.getStorageSync('userInfo')
 		},
 		onShow() {
 		 
@@ -112,6 +112,7 @@
 				height: 120rpx;
 				margin-left: 50rpx;
 				margin-right: 20rpx;
+				border-radius: 50%;
 			}
 			.nick {
 				font-size:30rpx;
@@ -202,6 +203,7 @@
 		}
 		input {
 			width: 100%;
+			height: 100%;
 			margin-left: 31rpx;
 		}
 		.inputkey {

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "分享海报",
+  "navigationBarBackgroundColor": "#0071CF",
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar"
+  }
+}

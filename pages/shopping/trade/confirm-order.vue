@@ -73,9 +73,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '确认订单' //导航栏文字
 				},
 				totalFee: 0, //订单总额

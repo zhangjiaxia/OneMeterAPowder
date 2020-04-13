@@ -143,8 +143,6 @@ const interfaceurl = {
 	/*登录*/
 	//获取token
 	getToken(data) { return req.request({ url: `${baseUrl}/v1/login/getToken`, data }, false) },
-	//绑定用户
-	bingUser(data) { return req.request({ url: `${baseUrl}/v1/user/bingUser`, data }, false) },
 	/*首页*/
 	bannerList(data) { return req.request({ url: `${baseUrl}/v1/home/bannerList`, data }, false) },
 	iconTypeList(data) { return req.request({ url: `${baseUrl}/v1/home/iconTypeList`, data }, false) },
@@ -160,6 +158,9 @@ const interfaceurl = {
 	pageGoodsList(data) { return req.request({ url: `${baseUrl}/v1/home/pageGoodsList`, data }, false) },
 	categoryChildrenList(data) { return req.request({ url: `${baseUrl}/v1/category/childrenList`, data }, false) },
 	childrenGoodsList(data) { return req.request({ url: `${baseUrl}/v1/category/childrenGoodsList`, data }, false) },
+	/*系统*/
+	getSystemKey(data) { return req.request({ url: `${baseUrl}/v1/setting/getSystemKey`, data }, false) },
+	getArticleKey(data) { return req.request({ url: `${baseUrl}/v1/setting/getArticleKey`, data }, false) },
 	
 	//权限接口调用前先检查下用户登录状态
 	checkAuth(bussinessInterfaceurl, data, isAuth = true) {
@@ -220,6 +221,8 @@ const interfaceurl = {
 	addressInfo(data) { return req.request({ url: `${baseUrl}/v1/address/info`, data }) },
 	/*会员*/
 	vipPayment(data) { return req.request({ url: `${baseUrl}/v1/vip_payment/payment`, data, method: 'POST' }) },
+	//绑定用户
+	bingUser(data) { return req.request({ url: `${baseUrl}/v1/user/bingUser`, data, method: 'POST' }) },
 	/*用户*/
 	showDetail(data) { return req.request({ url: `${baseUrl}/v1/user/showDetail`, data }) },
 	saveInfo(data) { return req.request({ url: `${baseUrl}/v1/user/saveInfo`, data, method: 'POST' }) },

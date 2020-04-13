@@ -36,9 +36,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '收货地址' //导航栏文字
 				},
 				addressData: {}, //收货地址数据

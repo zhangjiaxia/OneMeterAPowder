@@ -65,9 +65,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '购物车' //导航栏文字
 				},
 				totalFee: '0.00', //总金额

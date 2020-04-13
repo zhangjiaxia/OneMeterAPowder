@@ -1,7 +1,6 @@
 <template>
 	<view class="container">
 		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false" @getHeight="getBarHeight"></navigationBar>
-		<!-- <view style="height: 1238rpx;background: red;"></view> -->
 		<view class="content" :style="{height: scrollHeight}">
 			<scroll-view class="category-left" scroll-y="true">
 				<view v-for="(item,index) in topCagetogyList" :key="index" class="category-item" :class="{'category-item-active':item.cateId == id}" 
@@ -42,9 +41,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					// background: '#0071CF',
-					// fontColor: '#FFFFFF',
-					// iconColor: '#FFFFFF',
 					iconText: '类目' //导航栏文字
 				},
 				scrollHeight: '0rpx', //设置滚动区域的高度
@@ -67,6 +63,7 @@
 		},
 		methods: {
 			getBarHeight(systemInfo) {
+				//滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
 				this.scrollHeight = (systemInfo.ktxWindowHeight - systemInfo.ktxStatusHeight - systemInfo.navigationHeight) + 'rpx'
 			},
 			//获取一级分类

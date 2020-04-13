@@ -101,9 +101,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '我的订单' //导航栏文字
 				},
 				tabIndex: 0, //订单状态索引

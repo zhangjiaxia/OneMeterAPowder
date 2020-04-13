@@ -29,6 +29,7 @@
     {
       "root": "pages/index/business/",
       "pages": [
+        "poster",
         "business-school",
         "Integral-stake",
         "shop-detail",

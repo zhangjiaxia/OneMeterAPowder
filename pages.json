@@ -108,6 +108,12 @@
 	{
 		"root": "pages/index/business/",
 		"pages": [{
+			"path": "poster",
+			"style": {
+				"navigationBarTitleText": "分享海报",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},{
 			"path": "business-school",
 			"style": {
 				"navigationBarTitleText": "商学院",

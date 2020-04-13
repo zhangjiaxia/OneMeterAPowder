@@ -24,6 +24,7 @@
 				</view>
 			</view>
 		</view>
+		<view class="empty-text" v-if="childrenGoodsList.length == 0">暂无商品数据</view>
 	</view>
 </template>
 
@@ -38,9 +39,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '美妆护肤' //导航栏文字
 				},
 				list: [],

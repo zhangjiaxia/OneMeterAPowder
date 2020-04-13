@@ -6,10 +6,10 @@
 				<image src="/static/chartbg.png" class="chartbg"></image>
 				<view class="uni-flex uni-row vertical info" style="margin: 16rpx 0;">
 					<view class="uni-flex">
-						<image src="/static/head.png" class="head"></image>
+						<image :src="userInfo.avatarUrl" class="head"></image>
 					</view>
 					<view class="uni-flex uni-column rest">
-						<view class="nick">月亮之上</view>
+						<view class="nick">{{userInfo.nickName}}</view>
 						<view class="nick">我的积分:5000分</view>
 					</view>
 				</view>
@@ -71,14 +71,15 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '积分股权' //导航栏文字
 				},
 				teamList: [],
-				detail: {}
+				detail: {},
+				userInfo: {} //获取用户授权信息
 			}
+		},
+		onLoad() {
+			this.userInfo = uni.getStorageSync('userInfo')
 		},
 		onShow() {
 		 
@@ -121,6 +122,7 @@
 				height: 120rpx;
 				margin-left: 50rpx;
 				margin-right: 20rpx;
+				border-radius: 50%;
 			}
 			.nick {
 				font-size:30rpx;

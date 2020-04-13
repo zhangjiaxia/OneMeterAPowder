@@ -97,9 +97,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '佣金规则' //导航栏文字
 				},
 				isUpgrade: true //是否显示升级规则

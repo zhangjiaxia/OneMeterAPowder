@@ -9,19 +9,19 @@
 				</view>
 				<view class="uni-flex uni-column rest">
 					<view class="nick">{{userInfo.nickName || '御翔绝瞬'}}</view>
-					<view>
+					<view v-if="userDetail.is_vip==1">
 						<!-- <image src="/static/common.png" class="rate" style="margin-right: 10rpx;"></image> -->
 						<image src="/static/silver.png" class="rate"></image>
 					</view>
-					<view class="idnumber">ID:354673</view>
-					<view class="time">会员到期时间：2021-3-16</view>
+					<view class="idnumber">ID:{{userDetail.invitation_code}}</view>
+					<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
 				</view>
 			</view>
 		</view>
 		<authPage>
 			<view class="uni-flex uni-row vertical commission">
 				<view class="uni-flex uni-column rest" style="margin-left: 50rpx;">
-					<view class="price">2000</view>
+					<view class="price">{{userDetail.profit}}</view>
 					<view class="canapply">可提佣金</view>
 				</view>
 				<view class="uni-flex content apply">
@@ -106,7 +106,7 @@
 						<!-- <view class="icon-kefu icon"></view> -->
 						<view class="title">联系客服</view>
 					</view>
-					<view class="uni-flex rest content">
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/about', 'navigateTo')">
 						<image src="/static/about.png" class="icon"></image>
 						<!-- <view class="icon-about icon"></view> -->
 						<view class="title">关于我们</view>
@@ -137,13 +137,10 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '我的' //导航栏文字
 				},
-				detail: {},
-				userInfo: {}
+				userInfo: {}, //获取用户信息
+				userDetail: {}, //获取用户详情
 			}
 		},
 		watch:{
@@ -158,13 +155,18 @@
 			
 		},
 		onShow() {
+			let token = uni.getStorageSync('token')
 			this.userInfo = this.userInfos.nickName ? this.userInfos : uni.getStorageSync('userInfo')
+			if(token) {
+				this.getUserDetail()
+			}
 		},
 		methods: {
-			getUserInfo() {
-				let that = this;
-				interfaceurl.checkAuth(interfaceurl.showDetail, {}, false).then((res) => {
-					that.userInfo = res.data
+			//获取用户详情
+			getUserDetail() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
+					that.userDetail = res.data
 				});
 			}
 		}

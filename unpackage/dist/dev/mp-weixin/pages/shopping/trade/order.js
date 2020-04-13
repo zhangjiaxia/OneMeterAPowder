@@ -339,9 +339,9 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 247));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
-      navigationBarStyle: { background: '#0071CF', fontColor: '#FFFFFF', iconColor: '#FFFFFF', iconText: '我的订单' //导航栏文字
+      navigationBarStyle: { iconText: '我的订单' //导航栏文字
       }, tabIndex: 0, //订单状态索引
       tabList: [{ text: '全部', val: '' }, { text: '待发货', val: '20' }, { text: '待收货', val: '30' }, { text: '售后', val: '70,80' }, { text: '已完成', val: '40' }], params: { page: 1, //页数
         size: 3, //每页几条

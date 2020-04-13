@@ -1580,7 +1580,7 @@ radio-group label, checkbox-group label{
 }
 .search-bar .bar-back {
     margin-left: 30rpx;
-    margin-right: 24rpx;
+    margin-right: 10rpx;
     font-size: 52rpx;
     color: #FFFFFF;
 }

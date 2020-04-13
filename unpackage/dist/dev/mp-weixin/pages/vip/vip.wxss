@@ -1604,7 +1604,7 @@ page {
     border-radius: 50%;
 }
 .info .rate {
-    width: 80rpx;
+    width: 60rpx;
     height: 30rpx;
 }
 .info .arrow {

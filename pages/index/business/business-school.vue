@@ -5,61 +5,29 @@
 			<image src="/static/bussiness.png" class="bussiness"></image>
 		</view>
 		<view class="uni-flex uni-row linebar">
-			<view class="uni-flex rest content base">
-				<text class="active">商家入驻</text>
+			<view class="uni-flex rest content base" @click="setArticle(0, 'businessSettled', '商家入驻注意事项')">
+				<text :class="{active: tabIndex == 0}">商家入驻</text>
 			</view>
-			<view class="uni-flex rest content base">
-				<text class="">用户指南</text>
+			<view class="uni-flex rest content base" @click="setArticle(1, 'userGuide', '用户指南')">
+				<text :class="{active: tabIndex == 1}">用户指南</text>
 			</view>
-			<view class="uni-flex rest content base">
-				<text class="">新闻咨询</text>
+			<view class="uni-flex rest content base" @click="setArticle(2, 'newsInformation', '新闻资讯')">
+				<text :class="{active: tabIndex == 2}">新闻咨询</text>
 			</view>
-			<view class="uni-flex rest content base">
-				<text class="">企业动态</text>
-			</view>
-		</view>
-		<view class="info">
-			<view style="width: 650rpx;margin: 0 auto;">
-				<view class="title">商家入驻注意事项</view>
-				<view class="desc">
-					<text class="space">商家入驻注意事项商家入驻注意事项商家入驻注意事项商家 入驻注意事项...</text>
-				</view>
-				<view class="img">
-					<image src="/static/pointbg.png" style="width: 100%;height: 100%;"></image>
-				</view>
+			<view class="uni-flex rest content base" @click="setArticle(3, 'enterpriseDynamic', '企业动态')">
+				<text :class="{active: tabIndex == 3}">企业动态</text>
 			</view>
 		</view>
 		<view class="info">
 			<view style="width: 650rpx;margin: 0 auto;">
-				<view class="title">用户指南</view>
+				<view class="title">{{articleTitle}}</view>
 				<view class="desc">
-					<text class="space">商家入驻注意事项商家入驻注意事项商家入驻注意事项商家 入驻注意事项...</text>
+					<!-- <text class="space">商家入驻注意事项商家入驻注意事项商家入驻注意事项商家 入驻注意事项...</text> -->
+					<rich-text :nodes="article"></rich-text>
 				</view>
-				<view class="img">
+				<!-- <view class="img">
 					<image src="/static/pointbg.png" style="width: 100%;height: 100%;"></image>
-				</view>
-			</view>
-		</view>
-		<view class="info">
-			<view style="width: 650rpx;margin: 0 auto;">
-				<view class="title">新闻资讯</view>
-				<view class="desc">
-					<text class="space">商家入驻注意事项商家入驻注意事项商家入驻注意事项商家 入驻注意事项...</text>
-				</view>
-				<view class="img">
-					<image src="/static/pointbg.png" style="width: 100%;height: 100%;"></image>
-				</view>
-			</view>
-		</view>
-		<view class="info">
-			<view style="width: 650rpx;margin: 0 auto;">
-				<view class="title">企业动态</view>
-				<view class="desc">
-					<text class="space">商家入驻注意事项商家入驻注意事项商家入驻注意事项商家 入驻注意事项...</text>
-				</view>
-				<view class="img">
-					<image src="/static/pointbg.png" style="width: 100%;height: 100%;"></image>
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
@@ -67,6 +35,7 @@
 
 <script>
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
+	import interfaceurl from '@/utils/interface.js'
 	export default {
 		components: {
 			navigationBar
@@ -75,16 +44,38 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '商学院' //导航栏文字
 				},
-				list: [{},{},{},{}]
+				list: [{},{},{},{}],
+				tabIndex: 0, //选中的tab索引
+				articleKey: 'businessSettled', //文章参数
+				article: {
+					businessSettled: '', //商家入驻
+					userGuide: '', //入驻指南
+					newsInformation: '', //新闻资讯
+					enterpriseDynamic: '' //企业动态
+				}, //文章
+				articleTitle: '商家入驻注意事项' //标题
 			}
 		},
+		onLoad() {
+			this.getArticle();
+		},
 		methods: {
-			
+			setArticle(tabIndex, articleKey, articleTitle) {
+				this.tabIndex = tabIndex
+				this.articleKey = articleKey
+				this.articleTitle = articleTitle
+				this.getArticle();
+			},
+			getArticle() {
+				let that = this;
+				interfaceurl.checkAuth(interfaceurl.getArticleKey, {setting_name: that.articleKey}, false).then((res) => {
+					that.article = res.data[that.articleKey]
+					that.article = that.article.replace(/<img/gi, '<img width="100%!important" ')
+					//console.log(that.article)
+				});
+			}
 		}
 	}
 </script>

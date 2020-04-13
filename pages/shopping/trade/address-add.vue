@@ -50,9 +50,6 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
 					iconText: '添加收货地址' //导航栏文字
 				},
 				true_name: '',
