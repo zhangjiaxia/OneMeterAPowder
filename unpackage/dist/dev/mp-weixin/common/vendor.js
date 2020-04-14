@@ -8902,7 +8902,6 @@ var interfaceurl = (_interfaceurl = {
   //小程序接口,标记false的接口都是开放接口，其余的为权限接口
   //接口返回的价格单位都是分
 
-  //productPage(data) { return req.request({ url: `${baseUrl}/mp/product/page.do`, data, method: 'POST'  }, false) },
   /*登录*/
   //获取token
   getToken: function getToken(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/login/getToken"), data: data }, false);},
@@ -8995,7 +8994,11 @@ data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/getPh
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/surveyList"), data: data });}), _defineProperty(_interfaceurl, "teamPageList", function teamPageList(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/pageList"), data: data });}), _defineProperty(_interfaceurl, "teamAllList", function teamAllList(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/allList"), data: data });}), _defineProperty(_interfaceurl, "teamRankingList", function teamRankingList(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/rankingList"), data: data });}), _interfaceurl);var _default =
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/rankingList"), data: data });}), _defineProperty(_interfaceurl, "profitRecord", function profitRecord(
+
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/profitRecord"), data: data });}), _defineProperty(_interfaceurl, "cashOutSubmit", function cashOutSubmit(
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/submit"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "cashOutRecord", function cashOutRecord(
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/record"), data: data });}), _interfaceurl);var _default =
 
 
 interfaceurl;exports.default = _default;

@@ -6,6 +6,7 @@
 		},
 		onShow: function() {
 			store.commit('updateToken', uni.getStorageSync('token'))
+			store.commit('setUserInfos', uni.getStorageSync('userInfo'))
 			//console.log('App Show')
 		},
 		onHide: function() {

@@ -13,7 +13,7 @@
 		</view>
 		<view>
 			<view class="uni-flex vertical title">积分明细</view>
-			<view class="uni-flex uni-row detail" v-for="(item, index) in list" :key="index">
+			<view class="uni-flex uni-row detail" v-for="(item, index) in pointsList" :key="index">
 				<view class="uni-flex">
 					<image src="/static/head.png" class="icon"></image>
 				</view>
@@ -29,9 +29,9 @@
 				</view>
 			</view>
 		</view>
-		<view style="margin-bottom: 29rpx;">
+		<view style="margin-bottom: 29rpx;" v-if="pointsList.length > 0">
 			<view class="uni-flex vertical title" style="background: #F7F4F8;">2019年</view>
-			<view class="uni-flex uni-row detail" v-for="(item, index) in list" :key="index">
+			<view class="uni-flex uni-row detail" v-for="(item, index) in pointsList" :key="index">
 				<view class="uni-flex">
 					<image src="/static/head.png" class="icon"></image>
 				</view>
@@ -47,6 +47,7 @@
 				</view>
 			</view>
 		</view>
+		<view class="empty-text" v-if="pointsList.length == 0">暂无数据</view>
 	</view>
 </template>
 
@@ -63,15 +64,49 @@
 				navigationBarStyle: {
 					iconText: '我的积分' //导航栏文字
 				},
-				list: [{},{}],
+				params: {
+					page: 1, //页数
+					size: 10, //每页几条
+					type: 2 //1佣金,2积分
+				}, //分页参数
+				pointsData: {}, //积分数据
+				pointsList: [], //积分列表
 				userInfo: {} //获取用户授权信息
 			}
 		},
 		onLoad() {
 			this.userInfo = uni.getStorageSync('userInfo')
 		},
+		onShow() {
+			this.initData()
+		},
+		//到达页面底部时触发的事件
+		onReachBottom() {
+			if (this.pointsList.length >= this.pointsData.total) {
+				return;
+			}
+			this.params.page++;
+			this.getPoints()
+		},
 		methods: {
-			
+			initData() {
+				//重置分页参数
+				this.pointsData = {}
+				this.pointsList = []
+				this.params.page = 1
+				this.getPoints();
+			},
+			getPoints() {
+				let that = this;
+				interfaceurl.checkAuth(interfaceurl.profitRecord, this.params).then((res) => {
+					that.pointsData = res.data;
+					if(that.params.page == 1) {
+						that.pointsList = res.data.data
+					} else {
+						that.pointsList = that.pointsList.concat(res.data.data)
+					}
+				});
+			}
 		}
 	}
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false" @getHeight="getBarHeight"></navigationBar>
-		<view class="content" :style="{height: scrollHeight}">
+		<view class="category-content" :style="{height: scrollHeight}">
 			<scroll-view class="category-left" scroll-y="true">
 				<view v-for="(item,index) in topCagetogyList" :key="index" class="category-item" :class="{'category-item-active':item.cateId == id}" 
 					@click="selectTab(item)">
@@ -11,12 +11,12 @@
 			<view class="category-right">
 				<view class="shop-list">
 					<view class="classify" v-for="(item, index) in categoryList" :key="index">
-						<view class="goodstitle" style="margin-bottom: 20rpx;" 
+						<view class="goodstitle" style="margin-bottom: 20rpx;text-align: left;" 
 							@click="$turnPage('/pages/category/search/category-detail?cateId='+item.cateId, 'navigateTo')">
 							{{item.cateName}}
 						</view>
 						<view>
-							<view class="space" v-for="(subItem, i) in item.childList" :key="i" 
+							<view class="uni-flex content space" v-for="(subItem, i) in item.childList" :key="i" 
 								@click="$turnPage('/pages/category/search/category-detail?cateId='+subItem.cateId+'&category='+subItem.cateName, 'navigateTo')">
 								<image :src="subItem.iconImgUrl" class="goodsimg"></image>
 								<view class="goodstitle">{{subItem.cateName}}</view>
@@ -97,72 +97,74 @@
 
 <style lang="scss">
 	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
-	//@import '/common/uni.css';
+	@import '/common/uni.css';
 	/*自定义公共样式*/
-	//@import '/common/custom.css';
-.content{
-	height: 100%;
-	display: flex;
-}
-.swiper{
-	width: 100%;
-	height: 320upx;
-  margin-bottom: 20upx;
-}
-.banner-img{
-	width: 100%;
-	height: 100%;
-	border-radius: 10upx;
-}
-.category-left{
-	height: 100%;
-	width: 180upx;
-	background-color: #EEEEEE;
-}
-.category-right{
-	flex: 1;
-	height: 100%;
-	padding: 20upx;
-	padding-bottom: 130upx;
-	background: #ffffff;
-	box-sizing: border-box;
-	overflow: auto;
-}
-.category-item{
-	height: 100upx;
-	line-height: 100upx;
-	text-align: center;
-}
-.category-item-active{
-	background-color: #FFFFFF;
-	position: relative;
-	color: #333333;
-}
-.category-item-active:after{
-	content: '';
-	width: 6upx;
-	height: 60upx;
-	background-color: #0071CF;
-	position: absolute;
-	left: 0px;
-	top: 20upx;
-}
-.shop-list{
-	padding: 10upx;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-}
-.empty-text{
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-}
+	@import '/common/custom.css';
+	.swiper{
+		width: 100%;
+		height: 320upx;
+	  margin-bottom: 20upx;
+	}
+	.banner-img{
+		width: 100%;
+		height: 100%;
+		border-radius: 10upx;
+	}
+	.category-content {
+		height: 100%;
+		display: flex;
+	}
+	.category-left{
+		height: 100%;
+		width: 180upx;
+		background-color: #EEEEEE;
+	}
+	.category-right{
+		flex: 1;
+		height: 100%;
+		padding: 20upx;
+		padding-bottom: 130upx;
+		background: #ffffff;
+		box-sizing: border-box;
+		overflow: auto;
+	}
+	.category-item{
+		height: 100upx;
+		line-height: 100upx;
+		text-align: center;
+	}
+	.category-item-active{
+		background-color: #FFFFFF;
+		position: relative;
+		color: #333333;
+	}
+	.category-item-active:after{
+		content: '';
+		width: 6upx;
+		height: 60upx;
+		background-color: #0071CF;
+		position: absolute;
+		left: 0px;
+		top: 20upx;
+	}
+	.shop-list{
+		padding: 10upx;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.empty-text{
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+	}
 	.classify {
 		margin-bottom: 60rpx;
+		width: 100%;
 		.space {
 			float: left;
-			margin-right: 50rpx;
+			margin-left: 32rpx;
+			margin-bottom: 30rpx;
 		}
 		.goodsimg {
 			width: 120rpx;
@@ -171,6 +173,7 @@
 		.goodstitle {
 			color: #333333;
 			font-size: 24rpx;
+			text-align: center;
 		}
 	}
 </style>

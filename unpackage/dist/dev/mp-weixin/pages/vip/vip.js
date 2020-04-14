@@ -239,7 +239,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+
+
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -346,14 +352,16 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
-var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
+//
+//
+var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 256));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { authPage: authPage, navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['userInfos']), data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: 'VIP' //导航栏文字
       }, rankList: [], //佣金排名
       userInfo: {}, //获取用户信息
       userDetail: {}, //获取用户详情
       userNumber: {} //获取用户的粉丝和会员人数
-    };}, onShow: function onShow() {this.userInfo = uni.getStorageSync('userInfo');if (uni.getStorageSync('token')) {this.getUserDetail();this.getUserNumber();this.getRanking();}}, methods: { //获取用户详情
+    };}, watch: { userInfos: function userInfos(val) {//用户的授权信息存本地，全局变量是为了第一次授权时快速响应
+      if (val) {this.userInfo = uni.getStorageSync('userInfo');}} }, onShow: function onShow() {this.userInfo = uni.getStorageSync('userInfo');if (uni.getStorageSync('token')) {this.getUserDetail();this.getUserNumber();this.getRanking();}}, methods: { //获取用户详情
     getUserDetail: function getUserDetail() {var that = this;_interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {that.userDetail = res.data;});}, //获取用户的粉丝和会员人数
     getUserNumber: function getUserNumber() {var that = this;_interface.default.checkAuth(_interface.default.surveyList, {}).then(function (res) {that.userNumber = res.data;});}, //获取排名列表
     getRanking: function getRanking() {var that = this;_interface.default.checkAuth(_interface.default.teamRankingList, {}).then(function (res) {that.rankList = res.data;});} } };exports.default = _default;

@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -176,67 +176,65 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//引入自定义导航栏
-var _default = {
-  components: {
-    navigationBar: navigationBar },
-
-  data: function data() {
-    return {
-      //设置导航栏样式
-      navigationBarStyle: {
-        iconText: '我要提现' //导航栏文字
-      },
-      true_name: '',
-      bank: '',
-      bank_card: '',
-      amount: '0.00',
-      detail: {} };
-
-  },
-  onShow: function onShow() {
-    // this.getUserInfo()
-  },
-  methods: {
-    getUserInfo: function getUserInfo() {var _this = this;
-      apiUserInfo().
-      then(function (res) {
-        if (res.code == 0) {
-          _this.detail = res.data;
-        }
-      });
-    },
-    transferPage: function transferPage() {
-      uni.navigateTo({
-        url: '/pages/transfer/transfer' });
-
-    },
-    onSubmit: function onSubmit() {
-      if (!this.true_name) {
-        uni.showToast({
-          title: '请填写姓名',
-          icon: 'none',
-          duration: 2000 });
-
-        return;
-      }
-      if (!this.bank) {
-        uni.showToast({
-          title: '请填写开户行',
-          icon: 'none',
-          duration: 2000 });
-
-        return;
-      }
-      if (!this.bank_card) {
-        uni.showToast({
-          title: '请填写提现卡号',
-          icon: 'none',
-          duration: 2000 });
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { iconText: '我要提现' //导航栏文字
+      }, userDetail: {}, //获取用户详情
+      //提现参数
+      params: { name: '', //姓名
+        bank: '', //开户行
+        bank_card: '', //银行卡号
+        amount: 0 //提现金额
+      } };}, onShow: function onShow() {this.getUserDetail();}, methods: { //获取用户详情
+    getUserDetail: function getUserDetail() {var that = this;_interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {that.userDetail = res.data;});}, onSubmit: function onSubmit() {if (!this.params.name) {uni.showToast({ title: '请填写姓名', icon: 'none', duration: 2000 });return;}if (!this.params.bank) {uni.showToast({ title: '请填写开户行', icon: 'none', duration: 2000 });return;}if (!this.params.bank_card) {uni.showToast({ title: '请填写提现卡号', icon: 'none', duration: 2000 });
 
         return;
       }
-      if (!this.amount) {
+      if (!this.params.amount) {
         uni.showToast({
           title: '请填写提现金额',
           icon: 'none',
@@ -244,24 +242,29 @@ var _default = {
 
         return;
       }
-      apiCashApply({
-        name: this.true_name,
-        bank: this.bank,
-        bank_card: this.bank_card,
-        amount: this.amount }).
+      if (parseFloat(this.params.amount) > parseFloat(this.userDetail.profit)) {
+        uni.showToast({
+          title: '提现金额不能大于可提现佣金',
+          icon: 'none',
+          duration: 2000 });
 
-      then(function (res) {
-        if (res.code == 0) {
-          uni.showToast({
-            title: '提交成功',
-            duration: 2000 });
+        return;
+      }
+      if (parseFloat(this.params.amount) <= 100) {
+        uni.showToast({
+          title: '提现金额必须大于100',
+          icon: 'none',
+          duration: 2000 });
 
-          setTimeout(function () {
-            uni.navigateBack({
-              delta: 1 });
+        return;
+      }
+      var that = this;
+      _interface.default.checkAuth(_interface.default.cashOutSubmit, this.params).then(function (res) {
+        uni.showToast({
+          title: '提现申请已发送',
+          icon: 'none',
+          duration: 2000 });
 
-          }, 2000);
-        }
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

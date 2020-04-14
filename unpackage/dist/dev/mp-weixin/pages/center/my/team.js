@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -162,52 +162,60 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//引入自定义导航栏
-var _default = {
-  components: {
-    navigationBar: navigationBar },
-
-  data: function data() {
-    return {
-      //设置导航栏样式
-      navigationBarStyle: {
-        iconText: '我的团队' //导航栏文字
-      },
-      teamList: [{}, {}, {}, {}],
-      detail: {} };
-
-  },
-  onShow: function onShow() {
-    // this.getUserInfo()
-    // this.getTeamList()
-  },
-  methods: {
-    getUserInfo: function getUserInfo() {var _this = this;
-      apiUserInfo().
-      then(function (res) {
-        if (res.code == 0) {
-          _this.detail = res.data;
-        }
-      });
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { iconText: '我的团队' //导航栏文字
+      }, teamData: {}, //团队数据
+      teamList: [], //团队列表
+      params: { page: 1, //页数
+        size: 10, //每页几条
+        type: 1 //1:一级用户2:一级会员用户3二级用户4:二级会员用户
+      } //分页参数
+    };}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.teamList.length >= this.teamData.total) {return;}this.params.page++;this.getTeamList();}, methods: { //切换一级和二级粉丝
+    setType: function setType(type) {this.params.type = type;this.initData();}, initData: function initData() {//重置分页参数
+      this.teamData = {};this.teamList = [];this.params.page = 1;
+      this.getTeamList();
     },
-    getTeamList: function getTeamList() {var _this2 = this;
-      apiTeamList().
-      then(function (res) {
-        if (res.code == 0) {
-          _this2.teamList = res.data;
+    //获取一级粉丝和二级粉丝
+    getTeamList: function getTeamList() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.teamPageList, this.params, false).then(function (res) {
+        that.teamData = res.data;
+        if (that.params.page == 1) {
+          that.teamList = res.data.data;
+        } else {
+          that.teamList = that.teamList.concat(res.data.data);
         }
       });
     } } };exports.default = _default;

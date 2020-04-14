@@ -2,7 +2,7 @@
 	<view>
 		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		<view class="layout">
-			<view class="uni-flex uni-row vertical address" @click="$turnPage('/pages/shopping/trade/address-add', 'navigateTo')">
+			<view class="uni-flex uni-row vertical address" @click="$turnPage('/pages/shopping/trade/address', 'navigateTo')">
 				<view class="uni-flex">
 					<view class="icon-dizhi location"></view>
 				</view>

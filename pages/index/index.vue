@@ -181,19 +181,11 @@
 			// scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
 			const scene = decodeURIComponent(options.scene)
 			console.log(scene)
+			//绑定上下级关系
 			this.bindUser(scene)
-			
 			//计算弹窗距离顶部的距离
-			const systemInfo = uni.getSystemInfoSync();
-			this.systemInfo = systemInfo
-			let pxToRpxScale = 750 / systemInfo.windowWidth;
-			this.systemInfo.pxToRpxScale = pxToRpxScale
-			console.log('pixelRatio', systemInfo.pixelRatio)
-			console.log('pxToRpxScale', pxToRpxScale)
-			//滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
-			let scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale
-			//（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
-			this.panelTop = ((scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale) + 'rpx'
+			this.getPanelTop()
+			//获取首页数据
 			this.getBannerList()
 			this.getIconTypeList()
 			this.getSpecialAreaList(1)
@@ -223,6 +215,18 @@
 		},
 		methods: {
 			touch() {},
+			getPanelTop() {
+				const systemInfo = uni.getSystemInfoSync();
+				this.systemInfo = systemInfo
+				let pxToRpxScale = 750 / systemInfo.windowWidth;
+				this.systemInfo.pxToRpxScale = pxToRpxScale
+				// console.log('pixelRatio', systemInfo.pixelRatio)
+				// console.log('pxToRpxScale', pxToRpxScale)
+				//滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
+				let scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale
+				//（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
+				this.panelTop = ((scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale) + 'rpx'
+			},
 			//获取二维码携带的参数值并绑定下级
 			bindUser(scene) {
 				let that = this
@@ -250,7 +254,7 @@
 								uni.setStorageSync('token', loginResp.token)
 								that.$store.commit('updateToken', loginResp.token)
 								//如果存在分享id
-								if(scene) {
+								if(scene != 'undefined' && scene != '') {
 									let that = this;
 									interfaceurl.checkAuth(interfaceurl.bingUser, {scene_value: scene}, false).then((res) => {
 										console.log("绑定成功");
@@ -412,12 +416,13 @@
 				uni.showLoading({
 					title: '保存中...'
 				})
-				wx.downloadFile({
-					url: that.poster,
-					success: function(res) {
+				console.log(that.poster)
+				// wx.downloadFile({
+				// 	url: that.poster,
+				// 	success: function(res) {
 						//图片保存到本地
 						wx.saveImageToPhotosAlbum({
-							filePath: res.tempFilePath,
+							filePath: that.poster, //res.tempFilePath,
 							success: function(data) {
 								wx.hideLoading()
 								wx.showModal({
@@ -467,11 +472,11 @@
 								uni.hideLoading()
 							}
 						})
-					},
-					fail: function(err) {
-						console.log('保存海报downloadFile',err)
-					}
-				})
+					// },
+					// fail: function(err) {
+					// 	console.log('保存海报downloadFile',err)
+					// }
+				//})
 			},
 			previewImg() {
 				console.log('previewImg')
@@ -673,8 +678,6 @@
 		position: relative;
 		top: 10upx;
 	}
-
-
 
 	.search-icon {
 		font-size: 30rpx !important;

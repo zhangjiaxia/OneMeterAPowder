@@ -3,29 +3,31 @@
 		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
 		<view class="uni-flex topitem vertical">
 			<image src="/static/bg.png" class="bg"></image>
-			<view class="uni-flex uni-row info">
-				<view class="uni-flex">
-					<image :src="userInfo.avatarUrl || '/static/head.png'" class="head"></image>
-				</view>
-				<view class="uni-flex uni-column rest">
-					<view class="nick">
-						{{userInfo.nickName || '御翔绝瞬'}}
-						<image src="/static/VIPicon.png" class="vip" v-if="userDetail.is_vip==1"></image>
+			<authPage>
+				<view class="uni-flex uni-row info">
+					<view class="uni-flex">
+						<image :src="userInfo.avatarUrl || '/static/head.png'" class="head"></image>
 					</view>
-					<view v-if="userDetail.is_vip==1">
-						<image src="/static/silver.png" class="rate"></image>
+					<view class="uni-flex uni-column rest">
+						<view class="nick">
+							{{userInfo.nickName || '御翔绝瞬'}}
+							<image src="/static/VIPicon.png" class="vip" v-if="userDetail.is_vip==1"></image>
+						</view>
+						<view v-if="userDetail.is_vip==1">
+							<image src="/static/silver.png" class="rate"></image>
+						</view>
+						<view class="idnumber">ID:{{userDetail.invitation_code || ''}}</view>
+						<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
 					</view>
-					<view class="idnumber">ID:{{userDetail.invitation_code}}</view>
-					<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
 				</view>
-			</view>
+			</authPage>
 		</view>
 		<view class="uni-flex uni-row vertical commission">
 			<view class="uni-flex uni-column rest content">
 				<view class="money">我的佣金</view>
-				<view class="money">{{userDetail.total_profit}}</view>
+				<view class="money">{{userDetail.total_profit || 0}}</view>
 				<view class="tip">
-					（已到帐金额:<text class="active">{{userDetail.cash_out_profit}}元</text>）
+					（已到帐金额:<text class="active">{{userDetail.cash_out_profit || 0}}元</text>）
 				</view>
 			</view>
 			<view class="uni-flex">
@@ -34,7 +36,7 @@
 			<view class="uni-flex uni-column rest content">
 				<view class="money">待提现</view>
 				<view class="money">{{userDetail.frozen_profit}}</view>
-				<view class="tip">（提现中:<text class="active">{{userDetail.frozen_profit}}元</text>）</view>
+				<view class="tip">（提现中:<text class="active">{{userDetail.frozen_profit || 0}}元</text>）</view>
 			</view>
 		</view>
 		<view class="uni-flex uni-column commissiondetail">
@@ -42,19 +44,19 @@
 				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">一级粉丝</view>
 					<view class="number">
-						<text class="active">{{userNumber.firstUserNumber}}</text>人
+						<text class="active">{{userNumber.firstUserNumber || 0}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content vline">
 					<view class="title">一级VIP会员</view>
 					<view class="number">
-						<text class="active">{{userNumber.firstVipNumber}}</text>人
+						<text class="active">{{userNumber.firstVipNumber || 0}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 					<view class="title">佣金收益</view>
 					<view class="number">
-						<text class="active">{{userDetail.first_profit}}</text>元
+						<text class="active">{{userDetail.first_profit || 0}}</text>元
 					</view>
 				</view>
 			</view>
@@ -62,19 +64,19 @@
 				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">二级粉丝</view>
 					<view class="number">
-						<text class="active">{{userNumber.secondUserNumber}}</text>人
+						<text class="active">{{userNumber.secondUserNumber || 0}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content vline">
 					<view class="title">二级VIP会员</view>
 					<view class="number">
-						<text class="active">{{userNumber.secondVipNumber}}</text>人
+						<text class="active">{{userNumber.secondVipNumber || 0}}</text>人
 					</view>
 				</view>
 				<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 					<view class="title">佣金收益</view>
 					<view class="number">
-						<text class="active">{{userDetail.second_profit}}</text>元
+						<text class="active">{{userDetail.second_profit || 0}}</text>元
 					</view>
 				</view>
 			</view>
@@ -96,7 +98,7 @@
 						<text class="nick">{{item.nickname}}</text>
 					</view>
 					<view class="uni-flex vertical" style="margin-right: 19rpx;">
-						<text class="money active">{{item.total_profit}}</text>
+						<text class="money active">{{item.total_profit || 0}}</text>
 						<text class="mum">佣金</text>
 					</view>
 				</view>
@@ -107,11 +109,20 @@
 
 <script>
 	import interfaceurl from '@/utils/interface.js'
+	import authPage from '@/components/authorization-page.vue' //引入授权窗体
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
+	//引入store的内容
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from 'vuex'
 	export default {
 		components: {
+			authPage,
 			navigationBar
 		},
+		computed: mapState(['userInfos']),
 		data() {
 			return {
 				//设置导航栏样式
@@ -122,6 +133,14 @@
 				userInfo: {}, //获取用户信息
 				userDetail: {}, //获取用户详情
 				userNumber: {} //获取用户的粉丝和会员人数
+			}
+		},
+		watch:{
+			userInfos(val) {
+				//用户的授权信息存本地，全局变量是为了第一次授权时快速响应
+				if(val) {
+					this.userInfo = uni.getStorageSync('userInfo')
+				}
 			}
 		},
 		onShow() {

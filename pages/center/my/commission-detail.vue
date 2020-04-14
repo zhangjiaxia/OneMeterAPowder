@@ -13,7 +13,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="uni-flex uni-row info" v-for="(item, index) in list" :key="index">
+		<view class="uni-flex uni-row info" v-for="(item, index) in pointsList" :key="index">
 			<view class="uni-flex content rank">
 				{{index + 1}}
 			</view>
@@ -33,10 +33,12 @@
 				+58佣金
 			</view>
 		</view>
+		<view class="empty-text" v-if="pointsList.length == 0">暂无数据</view>
 	</view>
 </template>
 
 <script>
+	import interfaceurl from '@/utils/interface.js'
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
 		components: {
@@ -48,11 +50,45 @@
 				navigationBarStyle: {
 					iconText: '佣金明细' //导航栏文字
 				},
-				list: [{},{},{},{},{},{},{},{},{},{}]
+				params: {
+					page: 1, //页数
+					size: 10, //每页几条
+					type: 2 //1佣金,2积分
+				}, //分页参数
+				pointsData: {}, //积分数据
+				pointsList: [], //积分列表
 			}
 		},
+		onShow() {
+			this.initData()
+		},
+		//到达页面底部时触发的事件
+		onReachBottom() {
+			if (this.pointsList.length >= this.pointsData.total) {
+				return;
+			}
+			this.params.page++;
+			this.getPoints()
+		},
 		methods: {
-			
+			initData() {
+				//重置分页参数
+				this.pointsData = {}
+				this.pointsList = []
+				this.params.page = 1
+				this.getPoints();
+			},
+			getPoints() {
+				let that = this;
+				interfaceurl.checkAuth(interfaceurl.profitRecord, this.params).then((res) => {
+					that.pointsData = res.data;
+					if(that.params.page == 1) {
+						that.pointsList = res.data.data
+					} else {
+						that.pointsList = that.pointsList.concat(res.data.data)
+					}
+				});
+			}
 		}
 	}
 </script>

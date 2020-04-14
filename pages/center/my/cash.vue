@@ -9,24 +9,24 @@
 					</view>
 					<view>
 						<view>可提现佣金(元)</view>
-						<view class="amount">{{detail.brokerage || '0.00'}}元</view>
+						<view class="amount">{{userDetail.profit || '0.00'}}元</view>
 					</view>
 				</view>
 				<view class="form-item">
 					<view>收款人姓名</view>
-					<input class="form-input" placeholder="请输入收款人姓名" placeholder-style="color:#BFBFBF;" v-model="true_name" />
+					<input class="form-input" placeholder="请输入收款人姓名" placeholder-style="color:#BFBFBF;" v-model="params.name" />
 				</view>
 				<view class="form-item">
 					<view>提现金额</view>
-					<input class="form-input" placeholder="请填写提现金额" placeholder-style="color:#BFBFBF;" v-model="bank" />
+					<input class="form-input" placeholder="请填写提现金额" placeholder-style="color:#BFBFBF;" v-model="params.amount" />
 				</view>
 				<view class="form-item">
 					<view>银行卡号</view>
-					<input class="form-input" type="number" placeholder="请填写银行卡号" placeholder-style="color:#BFBFBF;" v-model="bank_card" />
+					<input class="form-input" type="number" placeholder="请填写银行卡号" placeholder-style="color:#BFBFBF;" v-model="params.bank_card" />
 				</view>
 				<view class="form-item">
 					<view>开户银行</view>
-					<input class="form-input" placeholder="请填写开户银行" placeholder-style="color:#BFBFBF;" v-model="bank" />
+					<input class="form-input" placeholder="请填写开户银行" placeholder-style="color:#BFBFBF;" v-model="params.bank" />
 				</view>
 				<!-- <view class="form-content">
 					<view>实际到账金额</view>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+	import interfaceurl from '@/utils/interface.js'
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
 		components: {
@@ -54,32 +55,29 @@
 				navigationBarStyle: {
 					iconText: '我要提现' //导航栏文字
 				},
-				true_name: '',
-				bank: '',
-				bank_card: '',
-				amount: '0.00',
-				detail: {}
+				userDetail: {}, //获取用户详情
+				//提现参数
+				params : {
+					name: '', //姓名
+					bank: '', //开户行
+					bank_card: '', //银行卡号
+					amount: 0 //提现金额
+				}
 			}
 		},
 		onShow() {
-			// this.getUserInfo()
+			this.getUserDetail()
 		},
 		methods: {
-			getUserInfo() {
-				apiUserInfo()
-					.then((res) => {
-						if (res.code == 0) {
-							this.detail = res.data
-						}
-					})
-			},
-			transferPage() {
-				uni.navigateTo({
-					url: '/pages/transfer/transfer'
+			//获取用户详情
+			getUserDetail() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
+					that.userDetail = res.data
 				});
 			},
 			onSubmit() {
-				if (!this.true_name) {
+				if (!this.params.name) {
 					uni.showToast({
 						title: '请填写姓名',
 						icon: 'none',
@@ -87,7 +85,7 @@
 					});
 					return
 				}
-				if (!this.bank) {
+				if (!this.params.bank) {
 					uni.showToast({
 						title: '请填写开户行',
 						icon: 'none',
@@ -95,7 +93,7 @@
 					});
 					return
 				}
-				if (!this.bank_card) {
+				if (!this.params.bank_card) {
 					uni.showToast({
 						title: '请填写提现卡号',
 						icon: 'none',
@@ -103,7 +101,7 @@
 					});
 					return
 				}
-				if (!this.amount) {
+				if (!this.params.amount) {
 					uni.showToast({
 						title: '请填写提现金额',
 						icon: 'none',
@@ -111,25 +109,30 @@
 					});
 					return
 				}
-				apiCashApply({
-						name: this.true_name,
-						bank: this.bank,
-						bank_card: this.bank_card,
-						amount: this.amount
-					})
-					.then((res) => {
-						if (res.code == 0) {
-							uni.showToast({
-								title: '提交成功',
-								duration: 2000
-							});
-							setTimeout(function() {
-								uni.navigateBack({
-									delta: 1
-								})
-							}, 2000)
-						}
-					})
+				if(parseFloat(this.params.amount) > parseFloat(this.userDetail.profit)) {
+					uni.showToast({
+						title: '提现金额不能大于可提现佣金',
+						icon: 'none',
+						duration: 2000
+					});
+					return
+				}
+				if (parseFloat(this.params.amount) <= 100) {
+					uni.showToast({
+						title: '提现金额必须大于100',
+						icon: 'none',
+						duration: 2000
+					});
+					return
+				}
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.cashOutSubmit, this.params).then((res) => {
+					uni.showToast({
+					    title: '提现申请已发送',
+					    icon: 'none',
+					    duration: 2000
+					});
+				});
 			}
 		}
 	}

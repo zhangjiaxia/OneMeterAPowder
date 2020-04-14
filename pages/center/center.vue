@@ -3,23 +3,25 @@
 		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
 		<view class="uni-flex topitem vertical">
 			<image src="/static/bg.png" class="bg"></image>
-			<view class="uni-flex uni-row info">
-				<view class="uni-flex">
-					<image :src="userInfo.avatarUrl || '/static/head.png'" class="head"></image>
-				</view>
-				<view class="uni-flex uni-column rest">
-					<view class="nick">{{userInfo.nickName || '御翔绝瞬'}}</view>
-					<view v-if="userDetail.is_vip==1">
-						<!-- <image src="/static/common.png" class="rate" style="margin-right: 10rpx;"></image> -->
-						<image src="/static/silver.png" class="rate"></image>
+			<authPage>
+				<view class="uni-flex uni-row info">
+					<view class="uni-flex">
+						<image :src="userInfo.avatarUrl || '/static/head.png'" class="head"></image>
 					</view>
-					<view class="idnumber">ID:{{userDetail.invitation_code}}</view>
-					<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
+					<view class="uni-flex uni-column rest">
+						<view class="nick">{{userInfo.nickName || '御翔绝瞬'}}</view>
+						<view v-if="userDetail.is_vip==1">
+							<!-- <image src="/static/common.png" class="rate" style="margin-right: 10rpx;"></image> -->
+							<image src="/static/silver.png" class="rate"></image>
+						</view>
+						<view class="idnumber">ID:{{userDetail.invitation_code}}</view>
+						<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
+					</view>
 				</view>
-			</view>
+			</authPage>
 		</view>
 		<authPage>
-			<view class="uni-flex uni-row vertical commission">
+			<view class="uni-flex uni-row vertical commission" @click="$turnPage('/pages/center/my/cash', 'navigateTo')">
 				<view class="uni-flex uni-column rest" style="margin-left: 50rpx;">
 					<view class="price">{{userDetail.profit}}</view>
 					<view class="canapply">可提佣金</view>

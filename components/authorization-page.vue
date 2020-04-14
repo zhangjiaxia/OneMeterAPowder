@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view style="position: relative;" v-if="!userInfos">
+		<view style="position: relative;" v-if="!userInfos.nickName">
 			<button class="auth" plain="true" open-type="getUserInfo" lang="zh_CN" @getuserinfo="bindGetUserInfo" @click.stop="prevent"></button>
 			<slot></slot>
 		</view>

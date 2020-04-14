@@ -160,7 +160,7 @@
 		margin-bottom: 20rpx;
 	}
 	.bottompoint {
-		width: 100vw;
+		width: 700rpx;
 		margin-top: 20rpx;
 		margin-bottom: 40rpx;
 	}

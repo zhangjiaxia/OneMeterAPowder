@@ -461,14 +461,18 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage 
   // 	}
   // },
   onLoad: function onLoad(options) {console.log('获取场景值'); // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
-    var scene = decodeURIComponent(options.scene);console.log(scene);this.bindUser(scene); //计算弹窗距离顶部的距离
-    var systemInfo = uni.getSystemInfoSync();this.systemInfo = systemInfo;var pxToRpxScale = 750 / systemInfo.windowWidth;this.systemInfo.pxToRpxScale = pxToRpxScale;console.log('pixelRatio', systemInfo.pixelRatio);console.log('pxToRpxScale', pxToRpxScale); //滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
-    var scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale; //（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
-    this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';this.getBannerList();this.getIconTypeList();this.getSpecialAreaList(1);this.getSpecialAreaList(2);this.tabIndex = 0;this.specialGoodsData = {};this.specialGoodsList = [];}, onShow: function onShow() {}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.isGoods == 0) {if (this.championList.length >= this.championData.total) {return;}this.params.page++;this.getChampionList();} else {if (this.specialGoodsList.length >= this.specialGoodsData.total) {return;}this.params.page++;this.getSpecialGoodsList();}}, methods: { touch: function touch() {}, //获取二维码携带的参数值并绑定下级
+    var scene = decodeURIComponent(options.scene);console.log(scene); //绑定上下级关系
+    this.bindUser(scene); //计算弹窗距离顶部的距离
+    this.getPanelTop(); //获取首页数据
+    this.getBannerList();this.getIconTypeList();this.getSpecialAreaList(1);this.getSpecialAreaList(2);this.tabIndex = 0;this.specialGoodsData = {};this.specialGoodsList = [];}, onShow: function onShow() {}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.isGoods == 0) {if (this.championList.length >= this.championData.total) {return;}this.params.page++;this.getChampionList();} else {if (this.specialGoodsList.length >= this.specialGoodsData.total) {return;}this.params.page++;this.getSpecialGoodsList();}}, methods: { touch: function touch() {}, getPanelTop: function getPanelTop() {var systemInfo = uni.getSystemInfoSync();this.systemInfo = systemInfo;var pxToRpxScale = 750 / systemInfo.windowWidth;this.systemInfo.pxToRpxScale = pxToRpxScale; // console.log('pixelRatio', systemInfo.pixelRatio)
+      // console.log('pxToRpxScale', pxToRpxScale)
+      //滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
+      var scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale; //（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
+      this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';}, //获取二维码携带的参数值并绑定下级
     bindUser: function bindUser(scene) {var that = this;var baseUrl = 'https://api-emi.bidou88.cn/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
             uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"), data: { code: res.code }, success: function success(res) {if (res.data.code != 0) {uni.showToast({ title: res.data.msg, icon: 'none', duration: 2000 });return;}console.log('授权成功');var loginResp = res.data.data;uni.setStorageSync('token', loginResp.token);that.$store.commit('updateToken', loginResp.token); //如果存在分享id
-                if (scene) {var _that = this;_interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {console.log("绑定成功");uni.setStorageSync("bind", scene);});}}, fail: function fail(res) {_interface.default.showErr(res);} });} else {uni.showToast({ title: '登录失败！' + res.errMsg, icon: 'none', duration: 2000 });}} });}, selectTab: function selectTab(index, isGoods) {this.tabIndex = index;this.isGoods = isGoods;this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');
+                if (scene != 'undefined' && scene != '') {var _that = this;_interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {console.log("绑定成功");uni.setStorageSync("bind", scene);});}}, fail: function fail(res) {_interface.default.showErr(res);} });} else {uni.showToast({ title: '登录失败！' + res.errMsg, icon: 'none', duration: 2000 });}} });}, selectTab: function selectTab(index, isGoods) {this.tabIndex = index;this.isGoods = isGoods;this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');
           break;
         case '2':
           this.$turnPage('/pages/index/business/original-equity', 'navigateTo');
@@ -596,66 +600,67 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage 
       uni.showLoading({
         title: '保存中...' });
 
-      wx.downloadFile({
-        url: that.poster,
-        success: function success(res) {
-          //图片保存到本地
-          wx.saveImageToPhotosAlbum({
-            filePath: res.tempFilePath,
-            success: function success(data) {
-              wx.hideLoading();
-              wx.showModal({
-                title: '提示',
-                content: '您的推广海报已存入手机相册，赶快分享给好友吧',
-                showCancel: false });
-
-            },
-            fail: function fail(err) {
-              if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
-              "saveImageToPhotosAlbum:fail auth deny") {
-                // 这边微信做过调整，必须要在按钮中触发，因此需要在弹框回调中进行调用
-                wx.showModal({
-                  title: '提示',
-                  content: '需要您授权保存相册',
-                  showCancel: false,
-                  success: function success(modalSuccess) {
-                    wx.openSetting({
-                      success: function success(settingdata) {
-                        console.log("settingdata", settingdata);
-                        if (settingdata.authSetting['scope.writePhotosAlbum']) {
-                          wx.showModal({
-                            title: '提示',
-                            content: '获取权限成功,再次点击图片即可保存',
-                            showCancel: false });
-
-                        } else {
-                          wx.showModal({
-                            title: '提示',
-                            content: '获取权限失败，将无法保存到相册哦~',
-                            showCancel: false });
-
-                        }
-                      },
-                      fail: function fail(failData) {
-                        console.log("failData", failData);
-                      },
-                      complete: function complete(finishData) {
-                        console.log("finishData", finishData);
-                      } });
-
-                  } });
-
-              }
-            },
-            complete: function complete(res) {
-              uni.hideLoading();
-            } });
+      console.log(that.poster);
+      // wx.downloadFile({
+      // 	url: that.poster,
+      // 	success: function(res) {
+      //图片保存到本地
+      wx.saveImageToPhotosAlbum({
+        filePath: that.poster, //res.tempFilePath,
+        success: function success(data) {
+          wx.hideLoading();
+          wx.showModal({
+            title: '提示',
+            content: '您的推广海报已存入手机相册，赶快分享给好友吧',
+            showCancel: false });
 
         },
         fail: function fail(err) {
-          console.log('保存海报downloadFile', err);
+          if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
+          "saveImageToPhotosAlbum:fail auth deny") {
+            // 这边微信做过调整，必须要在按钮中触发，因此需要在弹框回调中进行调用
+            wx.showModal({
+              title: '提示',
+              content: '需要您授权保存相册',
+              showCancel: false,
+              success: function success(modalSuccess) {
+                wx.openSetting({
+                  success: function success(settingdata) {
+                    console.log("settingdata", settingdata);
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      wx.showModal({
+                        title: '提示',
+                        content: '获取权限成功,再次点击图片即可保存',
+                        showCancel: false });
+
+                    } else {
+                      wx.showModal({
+                        title: '提示',
+                        content: '获取权限失败，将无法保存到相册哦~',
+                        showCancel: false });
+
+                    }
+                  },
+                  fail: function fail(failData) {
+                    console.log("failData", failData);
+                  },
+                  complete: function complete(finishData) {
+                    console.log("finishData", finishData);
+                  } });
+
+              } });
+
+          }
+        },
+        complete: function complete(res) {
+          uni.hideLoading();
         } });
 
+      // },
+      // fail: function(err) {
+      // 	console.log('保存海报downloadFile',err)
+      // }
+      //})
     },
     previewImg: function previewImg() {
       console.log('previewImg');

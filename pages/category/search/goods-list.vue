@@ -5,6 +5,8 @@
 			<image src="/static/bussiness.png" class="banner-img"></image>
 		</view>
 		<view>
+			<!-- :class="{'tab-hover': scrollTop < currentScrollTop}" 
+				:style="{top: scrollTop < currentScrollTop ? '64px': '0'}"-->
 			<scroll-view scroll-x="true" class="tab-list">
 				<view class="tab" v-for="(item, index) in categoryChildrenList" :key="index" @click="selectTab(item.cateId)">
 					<text class="tab-text" :class="{'tab-active': params.cateId == item.cateId}">{{item.cateName}}</text>
@@ -24,7 +26,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="empty-text" v-if="childrenGoodsList.length == 0">暂无商品数据</view>
+		<view class="empty-text" v-if="childrenGoodsList.length == 0 && !loading">暂无商品数据</view>
 	</view>
 </template>
 
@@ -41,7 +43,8 @@
 				navigationBarStyle: {
 					iconText: '美妆护肤' //导航栏文字
 				},
-				list: [],
+				currentScrollTop: 0, //当前页面的滚动高度
+				//scrollTop: 140, //判断tablist是否悬浮的标准
 				params: {
 					page: 1,
 					size: 10,
@@ -49,15 +52,20 @@
 				}, //二级分类下的商品
 				categoryChildrenList: [] ,//tab栏数据
 				childrenGoodsData: {}, //分类商品数据
-				childrenGoodsList: [] //分类商品列表
+				childrenGoodsList: [], //分类商品列表
+				loading: true //加载中
 			}
 		},
 		onLoad(options) {
+			//this.getScrollTop()
 			this.params.cateId = options.cateId
 			this.navigationBarStyle.iconText = options.cateName
 			this.getCategoryChildrenList();
-			this.initData();
 		},
+		// onPageScroll(e) {
+		// 	//console.log('滚动监听',e)
+		// 	this.currentScrollTop = e.scrollTop
+		// },
 		//到达页面底部时触发的事件
 		onReachBottom() {
 			if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {
@@ -67,12 +75,17 @@
 			this.getChildrenGoodsList()
 		},
 		methods: {
+			//获取tablist是否滚动的阈值
+			// getScrollTop() {
+				
+			// },
 			shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
 				this.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
 			},
 			initData() {
 				//重置分页参数
+				this.loading = true
 				this.childrenGoodsData = {}
 				this.childrenGoodsList = []
 				this.params.page = 1
@@ -87,13 +100,13 @@
 				interfaceurl.checkAuth(interfaceurl.categoryChildrenList, { cateId: this.params.cateId }, false).then((res) => {
 					that.categoryChildrenList = res.data
 					that.params.cateId = that.categoryChildrenList[0].cateId
+					this.initData();
 				});
 			},
 			getChildrenGoodsList() {
-				//uni.showLoading()
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.childrenGoodsList, this.params, false).then((res) => {
-					//uni.hideLoading()
+					that.loading = false
 					that.childrenGoodsData = res.data
 					if(that.params.page == 1) {
 						that.childrenGoodsList = res.data.data
@@ -115,6 +128,11 @@
 			width: 100%;
 			height: 270rpx;
 		}
+	}
+	.tab-hover {
+		position: fixed;
+		top: 0;
+		z-index: 200;
 	}
 	.tab-list {
 		height: 80rpx;
@@ -142,6 +160,7 @@
 		}
 	}
 	.space {
+		//-webkit-overflow-scrolling: touch;
 		width: 700rpx;
 		margin: 0rpx auto;
 		padding-top: 20rpx;

@@ -127,6 +127,7 @@ var _default = {
   },
   onShow: function onShow() {
     _store.default.commit('updateToken', uni.getStorageSync('token'));
+    _store.default.commit('setUserInfos', uni.getStorageSync('userInfo'));
     //console.log('App Show')
   },
   onHide: function onHide() {

@@ -178,7 +178,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
 //
 //
 //
@@ -211,17 +215,26 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '美妆护肤' //导航栏文字
-      }, list: [], params: { page: 1, size: 10, cateId: 5034 //分类ID,选中的tab分类ID
+      }, currentScrollTop: 0, //当前页面的滚动高度
+      //scrollTop: 140, //判断tablist是否悬浮的标准
+      params: { page: 1, size: 10, cateId: 5034 //分类ID,选中的tab分类ID
       }, //二级分类下的商品
       categoryChildrenList: [], //tab栏数据
       childrenGoodsData: {}, //分类商品数据
-      childrenGoodsList: [] //分类商品列表
-    };}, onLoad: function onLoad(options) {this.params.cateId = options.cateId;this.navigationBarStyle.iconText = options.cateName;this.getCategoryChildrenList();this.initData();}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {return;}this.params.page++;this.getChildrenGoodsList();}, methods: { shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);
-      this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');
-    },
-    initData: function initData() {
+      childrenGoodsList: [], //分类商品列表
+      loading: true //加载中
+    };}, onLoad: function onLoad(options) {//this.getScrollTop()
+    this.params.cateId = options.cateId;this.navigationBarStyle.iconText = options.cateName;this.getCategoryChildrenList();}, // onPageScroll(e) {
+  // 	//console.log('滚动监听',e)
+  // 	this.currentScrollTop = e.scrollTop
+  // },
+  //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {return;}this.params.page++;this.getChildrenGoodsList();}, methods: { //获取tablist是否滚动的阈值
+    // getScrollTop() {
+    // },
+    shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, initData: function initData() {
       //重置分页参数
+      this.loading = true;
       this.childrenGoodsData = {};
       this.childrenGoodsList = [];
       this.params.page = 1;
@@ -231,18 +244,18 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
       this.params.cateId = cateId;
       this.initData();
     },
-    getCategoryChildrenList: function getCategoryChildrenList() {
+    getCategoryChildrenList: function getCategoryChildrenList() {var _this = this;
       var that = this;
       _interface.default.checkAuth(_interface.default.categoryChildrenList, { cateId: this.params.cateId }, false).then(function (res) {
         that.categoryChildrenList = res.data;
         that.params.cateId = that.categoryChildrenList[0].cateId;
+        _this.initData();
       });
     },
     getChildrenGoodsList: function getChildrenGoodsList() {
-      //uni.showLoading()
       var that = this;
       _interface.default.checkAuth(_interface.default.childrenGoodsList, this.params, false).then(function (res) {
-        //uni.hideLoading()
+        that.loading = false;
         that.childrenGoodsData = res.data;
         if (that.params.page == 1) {
           that.childrenGoodsList = res.data.data;

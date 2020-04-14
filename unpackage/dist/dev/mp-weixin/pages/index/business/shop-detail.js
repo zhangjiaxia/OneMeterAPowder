@@ -340,17 +340,10 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
   // },
   onLoad: function onLoad(options) {
     //计算弹窗距离顶部的距离
-    var systemInfo = uni.getSystemInfoSync();
-    this.systemInfo = systemInfo;
-    var pxToRpxScale = 750 / systemInfo.windowWidth;
-    this.systemInfo.pxToRpxScale = pxToRpxScale;
-    //滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
-    var scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale;
-    //（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
-    this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';
+    this.getPanelTop();
     this.shareInfo.bgImg = this.goodsDetail.mainImgUrl;
-
     this.navigationBarStyle.iconText = this.goodsDetail.brandName;
+    //处理富文本图片自适应
     var item = this.deepCopy(this.goodsDetail);
     item.detailInfo = item.detailInfo.replace(/<img/gi, '<img width="100%!important" ');
     this.$store.commit('setGoodsDetail', item);
@@ -365,6 +358,16 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
   },
   methods: {
     touch: function touch() {},
+    getPanelTop: function getPanelTop() {
+      var systemInfo = uni.getSystemInfoSync();
+      this.systemInfo = systemInfo;
+      var pxToRpxScale = 750 / systemInfo.windowWidth;
+      this.systemInfo.pxToRpxScale = pxToRpxScale;
+      //滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
+      var scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale;
+      //（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
+      this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';
+    },
     chooseProps: function chooseProps(index, i) {
       this.propsCheck[index] = i;
       //更改库存
@@ -602,66 +605,65 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       uni.showLoading({
         title: '保存中...' });
 
-      wx.downloadFile({
-        url: that.poster,
-        success: function success(res) {
-          //图片保存到本地
-          wx.saveImageToPhotosAlbum({
-            filePath: res.tempFilePath,
-            success: function success(data) {
-              wx.hideLoading();
-              wx.showModal({
-                title: '提示',
-                content: '您的推广海报已存入手机相册，赶快分享给好友吧',
-                showCancel: false });
+      // wx.downloadFile({
+      // 	url: that.poster,
+      // 	success: function(res) {
+      //图片保存到本地
+      wx.saveImageToPhotosAlbum({
+        filePath: that.poster, //res.tempFilePath,
+        success: function success(data) {
+          wx.hideLoading();
+          wx.showModal({
+            title: '提示',
+            content: '您的推广海报已存入手机相册，赶快分享给好友吧',
+            showCancel: false });
 
-            },
-            fail: function fail(err) {
-              if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
-              "saveImageToPhotosAlbum:fail auth deny") {
-                // 这边微信做过调整，必须要在按钮中触发，因此需要在弹框回调中进行调用
-                wx.showModal({
-                  title: '提示',
-                  content: '需要您授权保存相册',
-                  showCancel: false,
-                  success: function success(modalSuccess) {
-                    wx.openSetting({
-                      success: function success(settingdata) {
-                        console.log("settingdata", settingdata);
-                        if (settingdata.authSetting['scope.writePhotosAlbum']) {
-                          wx.showModal({
-                            title: '提示',
-                            content: '获取权限成功,再次点击图片即可保存',
-                            showCancel: false });
+        },
+        fail: function fail(err) {
+          if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
+          "saveImageToPhotosAlbum:fail auth deny") {
+            // 这边微信做过调整，必须要在按钮中触发，因此需要在弹框回调中进行调用
+            wx.showModal({
+              title: '提示',
+              content: '需要您授权保存相册',
+              showCancel: false,
+              success: function success(modalSuccess) {
+                wx.openSetting({
+                  success: function success(settingdata) {
+                    console.log("settingdata", settingdata);
+                    if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                      wx.showModal({
+                        title: '提示',
+                        content: '获取权限成功,再次点击图片即可保存',
+                        showCancel: false });
 
-                        } else {
-                          wx.showModal({
-                            title: '提示',
-                            content: '获取权限失败，将无法保存到相册哦~',
-                            showCancel: false });
+                    } else {
+                      wx.showModal({
+                        title: '提示',
+                        content: '获取权限失败，将无法保存到相册哦~',
+                        showCancel: false });
 
-                        }
-                      },
-                      fail: function fail(failData) {
-                        console.log("failData", failData);
-                      },
-                      complete: function complete(finishData) {
-                        console.log("finishData", finishData);
-                      } });
-
+                    }
+                  },
+                  fail: function fail(failData) {
+                    console.log("failData", failData);
+                  },
+                  complete: function complete(finishData) {
+                    console.log("finishData", finishData);
                   } });
 
-              }
-            },
-            complete: function complete(res) {
-              uni.hideLoading();
-            } });
+              } });
 
+          }
+        },
+        complete: function complete(res) {
+          uni.hideLoading();
         } });
 
+      //}
+      //})
     },
     previewImg: function previewImg() {
-      console.log('previewImg');
       if (this.poster) {
         //预览图片，预览后可长按保存或者分享给朋友
         wx.previewImage({
@@ -675,6 +677,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       var canvasW = that.width; // 画布的真实宽度660canvasAttrs.width
       var canvasH = that.height; //画布的真实高度980canvasAttrs.height
       // 头像和二维码大小都需要在规定大小的基础上放大像素比的比例后面都会 *this.systemInfo.pixelRatio
+      var pixelRatio = this.systemInfo.pixelRatio;
       this.systemInfo.pixelRatio = this.systemInfo.pxToRpxScale;
       var qrcodeW = 160 / this.systemInfo.pixelRatio;
       var rate = this.systemInfo.pixelRatio;
@@ -736,20 +739,18 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       ctx.fillText("立即抢购", 365 / this.systemInfo.pixelRatio, 812 / this.systemInfo.pixelRatio);
       ctx.stroke();
       // 绘制二维码
-      //ctx.drawImage(this.shareInfo.qrcode, qrcodeX, qrcodeY, qrcodeW, qrcodeW)
       ctx.drawImage(this.shareInfo.qrcode, 60 / this.systemInfo.pixelRatio, 720 / this.systemInfo.pixelRatio, qrcodeW, qrcodeW);
       ctx.save();
       // 将前面绘制的各个图案一起画出来
       ctx.draw();
       setTimeout(function () {
-        //下面的13以及减26推测是因为在写样式的时候写了固定的zoom: 50%而没有用像素比缩放导致的黑边，所以在生成时进行了适当的缩小生成，这个大家可以自行尝试
         wx.canvasToTempFilePath({
           x: 0,
           y: 0,
           width: canvasW,
           height: canvasH,
-          destWidth: canvasW,
-          destHeight: canvasH,
+          destWidth: canvasW * pixelRatio,
+          destHeight: canvasH * pixelRatio,
           canvasId: 'canvasPoster',
           success: function success(res) {
             that.poster = res.tempFilePath;

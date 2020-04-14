@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -149,20 +149,56 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-//引入自定义导航栏
-var _default = {
-  components: {
-    navigationBar: navigationBar },
-
-  data: function data() {
-    return {
-      //设置导航栏样式
-      navigationBarStyle: {
-        iconText: '佣金明细' //导航栏文字
-      } };
-
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { iconText: '佣金明细' //导航栏文字
+      }, params: { page: 1, //页数
+        size: 10 //每页几条
+      }, //分页参数
+      withdrawData: {}, //提现数据
+      withdrawList: [] // 提现列表
+    };}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.withdrawList.length >= this.withdrawData.total) {return;
+    }
+    this.params.page++;
+    this.getWithdraw();
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    initData: function initData() {
+      //重置分页参数
+      this.withdrawData = {};
+      this.withdrawList = [];
+      this.params.page = 1;
+      this.getWithdraw();
+    },
+    getWithdraw: function getWithdraw() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.cashOutRecord, this.params).then(function (res) {
+        that.withdrawData = res.data;
+        if (that.params.page == 1) {
+          that.withdrawList = res.data.data;
+        } else {
+          that.withdrawList = that.withdrawList.concat(res.data.data);
+        }
+      });
+    } } };exports.default = _default;
 
 /***/ }),
 
