@@ -10,12 +10,15 @@
 			</scroll-view>
 			<view class="category-right">
 				<view class="shop-list">
+					<view class="banner" v-if="chooseItem.iconImgUrl">
+						<image :src="chooseItem.iconImgUrl" class="banner-img"></image>
+					</view>
 					<view class="classify" v-for="(item, index) in categoryList" :key="index">
 						<view class="goodstitle" style="margin-bottom: 20rpx;text-align: left;" 
 							@click="$turnPage('/pages/category/search/category-detail?cateId='+item.cateId, 'navigateTo')">
 							{{item.cateName}}
 						</view>
-						<view>
+						<view style="height: auto;overflow: auto;width: 550rpx;">
 							<view class="uni-flex content space" v-for="(subItem, i) in item.childList" :key="i" 
 								@click="$turnPage('/pages/category/search/category-detail?cateId='+subItem.cateId+'&category='+subItem.cateName, 'navigateTo')">
 								<image :src="subItem.iconImgUrl" class="goodsimg"></image>
@@ -51,6 +54,7 @@
 				bannerList: [],
 				id: 1,
 				//动态参数
+				chooseItem: {}, //当前选中的一级分类
 				topCagetogyList: [], //获取一级分类
 				categoryList: [] //获取二级和三级分类
 			}
@@ -70,6 +74,8 @@
 			getTopCagetogyList() {
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.firstList, {}, false).then((res) => {
+					that.chooseItem = res.data[0]
+					console.log('chooseItem', that.chooseItem)
 					that.topCagetogyList = res.data
 					that.id = that.topCagetogyList[0].cateId
 					that.getCategoryList()
@@ -88,6 +94,7 @@
 				});
 			},
 			selectTab(item) {
+				this.chooseItem = item
 				this.id = item.cateId
 				this.getCategoryList();
 			}
@@ -106,9 +113,11 @@
 	  margin-bottom: 20upx;
 	}
 	.banner-img{
-		width: 100%;
-		height: 100%;
+		width: 530rpx;
+		height: 175rpx;
 		border-radius: 10upx;
+		// width: 100%;
+		// height: 100%;
 	}
 	.category-content {
 		height: 100%;
@@ -148,7 +157,7 @@
 		top: 20upx;
 	}
 	.shop-list{
-		padding: 10upx;
+		// padding: 10upx;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
@@ -163,7 +172,7 @@
 		width: 100%;
 		.space {
 			float: left;
-			margin-left: 32rpx;
+			margin: 0 30rpx;
 			margin-bottom: 30rpx;
 		}
 		.goodsimg {

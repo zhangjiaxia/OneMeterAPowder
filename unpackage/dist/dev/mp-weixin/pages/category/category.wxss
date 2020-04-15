@@ -1580,8 +1580,8 @@ radio-group label, checkbox-group label{
   margin-bottom: 20rpx;
 }
 .banner-img {
-  width: 100%;
-  height: 100%;
+  width: 530rpx;
+  height: 175rpx;
   border-radius: 10rpx;
 }
 .category-content {
@@ -1626,7 +1626,6 @@ radio-group label, checkbox-group label{
   top: 20rpx;
 }
 .shop-list {
-  padding: 10rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -1647,7 +1646,7 @@ radio-group label, checkbox-group label{
 }
 .classify .space {
     float: left;
-    margin-left: 32rpx;
+    margin: 0 30rpx;
     margin-bottom: 30rpx;
 }
 .classify .goodsimg {

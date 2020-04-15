@@ -26,7 +26,7 @@
 						<image :src="item.goodsPhotoUrl" class="goodsimg"></image>
 					</view>
 					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">{{item.name}}</view>
+						<view class="title">{{item.name.substring(0,25) + '...'}}</view>
 						<view class="prop">
 							<text class="size" v-for="(subItem, i) in item.skuPropertyList" :key="i">{{subItem.val}}</text>
 							<!-- <text class="size">100ml*1瓶</text> -->

@@ -19,7 +19,7 @@
 					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
 				<view class="uni-flex uni-column rest info">
-					<view class="uni-flex title">{{item.name.substring(0,15) + '...'}}</view>
+					<view class="uni-flex title">{{item.name.substring(0,25) + '...'}}</view>
 					<view class="uni-flex subtitle rest">{{item.brandName}}</view>
 					<view class="uni-flex uni-row vertical money">
 						<view class="uni-flex rest vertical price">

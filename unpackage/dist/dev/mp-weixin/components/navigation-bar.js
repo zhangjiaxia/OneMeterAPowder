@@ -179,9 +179,7 @@ var _default2 =
     systems.tabBarHeight = systems.ktxScreentHeight - systems.ktxStatusHeight - systems.navigationHeight - systems.ktxWindowHeight; // 底部tabBar的高度
     this.lineHeight = systems.ktxStatusHeight + 'rpx';
     this.$emit('getHeight', systems);
-  },
-  methods: {
-    prevent: function prevent() {} } };exports.default = _default2;
+  } };exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

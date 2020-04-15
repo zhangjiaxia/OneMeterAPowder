@@ -98,6 +98,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.shopList, function(content, dex) {
+    var g0 = content.name.substring(0, 25)
+    return {
+      $orig: _vm.__get_orig(content),
+      g0: g0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -157,7 +173,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
 //
 //
 //
@@ -186,11 +208,8 @@ var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { background: '#0071CF', fontColor: '#FFFFFF', iconColor: '#FFFFFF', iconText: '类目详情' //导航栏文字
       }, shopList: [], loading: true };}, onLoad: function onLoad(options) {this.navigationBarStyle.iconText = options.category;this.getCagetogyList(options.cateId);}, onShow: function onShow() {}, methods: { //获取分类下的商品列表
-    getCagetogyList: function getCagetogyList(cateId) {var that = this;
-      var params = {
-        cateId: cateId, //5034
-        page: 1,
-        size: 10 };
+    getCagetogyList: function getCagetogyList(cateId) {var that = this;var params = { cateId: cateId, //5034
+        page: 1, size: 10 };
 
       _interface.default.checkAuth(_interface.default.categoryList, params, false).then(function (res) {
         that.loading = false;

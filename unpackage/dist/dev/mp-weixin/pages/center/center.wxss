@@ -1612,6 +1612,11 @@ page {
     font-size: 30rpx;
     color: #FFFFFF;
 }
+.info .nick .gold {
+      width: 40rpx;
+      height: 31rpx;
+      margin-left: 16rpx;
+}
 .info .idnumber {
     color: #FFFFFF;
     font-size: 20rpx;
@@ -1667,6 +1672,7 @@ page {
 .manage .title {
     font-size: 24rpx;
     color: #333333;
+    margin-top: 10rpx;
 }
 .manage .icon {
     width: 60rpx;
@@ -1674,5 +1680,12 @@ page {
 }
 .manage .icon-active {
     color: #0071CF;
+}
+.concact {
+  position: absolute;
+  width: 100rpx;
+  height: 110rpx;
+  top: 0;
+  opacity: 0;
 }
 

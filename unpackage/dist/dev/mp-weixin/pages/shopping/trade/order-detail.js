@@ -99,7 +99,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.orderDetail.skuList, function(item, index) {
-    var g0 = item.prodName.substring(0, 20)
+    var g0 = item.prodName.substring(0, 25)
     return {
       $orig: _vm.__get_orig(item),
       g0: g0

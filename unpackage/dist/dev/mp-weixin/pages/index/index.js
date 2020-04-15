@@ -112,7 +112,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.specialGoodsList, function(item, index) {
-    var g0 = item.name.substring(0, 20)
+    var g0 = item.name.substring(0, 10)
     return {
       $orig: _vm.__get_orig(item),
       g0: g0
@@ -120,7 +120,7 @@ var render = function() {
   })
 
   var l1 = _vm.__map(_vm.championList, function(item, index) {
-    var g1 = item.name.substring(0, 20)
+    var g1 = item.name.substring(0, 10)
     return {
       $orig: _vm.__get_orig(item),
       g1: g1
@@ -183,6 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -431,16 +432,17 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
+//
 var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 256));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入授权窗体
 var _default = { components: { navigationBar: navigationBar, authPage: authPage }, data: function data() {return { panelTop: '130rpx', //弹窗与顶部的距离
       shareModal: false, //是否显示分享弹窗
       //画布绘制所需的图片
-      shareInfo: { background: '/static/bg.png', bgImg: '/static/bussiness.png', qrcode: '' //动态生成的二维码
+      shareInfo: { bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png', qrcode: '' //动态生成的二维码
       }, //画布的宽高
       width: 0, height: 0, systemInfo: {}, //系统信息
       poster: '', //生成的海报
       //轮播图参数
-      indicatorDots: true, autoplay: false, interval: 3000, duration: 500, //invitation_code: '', //分销邀请码
+      indicatorDots: true, autoplay: true, interval: 3000, duration: 500, //invitation_code: '', //分销邀请码
       bannerList: ['/static/banner.png'], //轮播图
       iconTypeList: [], //小图标
       specialAreaPicList: [], //专区图片
@@ -472,9 +474,7 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage 
       this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';}, //获取二维码携带的参数值并绑定下级
     bindUser: function bindUser(scene) {var that = this;var baseUrl = 'https://api-emi.bidou88.cn/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
             uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"), data: { code: res.code }, success: function success(res) {if (res.data.code != 0) {uni.showToast({ title: res.data.msg, icon: 'none', duration: 2000 });return;}console.log('授权成功');var loginResp = res.data.data;uni.setStorageSync('token', loginResp.token);that.$store.commit('updateToken', loginResp.token); //如果存在分享id
-                if (scene != 'undefined' && scene != '') {var _that = this;_interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {console.log("绑定成功");uni.setStorageSync("bind", scene);});}}, fail: function fail(res) {_interface.default.showErr(res);} });} else {uni.showToast({ title: '登录失败！' + res.errMsg, icon: 'none', duration: 2000 });}} });}, selectTab: function selectTab(index, isGoods) {this.tabIndex = index;this.isGoods = isGoods;this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');
-          break;
-        case '2':
+                if (scene != 'undefined' && scene != '') {var _that = this;_interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {console.log("绑定成功");uni.setStorageSync("bind", scene);});}}, fail: function fail(res) {_interface.default.showErr(res);} });} else {uni.showToast({ title: '登录失败！' + res.errMsg, icon: 'none', duration: 2000 });}} });}, selectTab: function selectTab(index, isGoods) {this.tabIndex = index;this.isGoods = isGoods;this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');break;case '2':
           this.$turnPage('/pages/index/business/original-equity', 'navigateTo');
           break;
         case '3':
@@ -580,8 +580,18 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage 
           if (res.statusCode === 200) {
             //将下载的图片临时路径赋值给img_l,用于预览图片
             that.shareInfo.qrcode = res.tempFilePath;
-            console.log('that.drawBefore', that.shareInfo);
-            that.drawBefore();
+            wx.downloadFile({
+              url: that.shareInfo.bgImg, //网络链接
+              success: function success(res) {
+                // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+                if (res.statusCode === 200) {
+                  //将下载的图片临时路径赋值给img_l,用于预览图片
+                  that.shareInfo.bgImg = res.tempFilePath;
+                  console.log('that.drawBefore', that.shareInfo);
+                  that.drawBefore();
+                }
+              } });
+
           }
         } });
 

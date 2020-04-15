@@ -9,13 +9,19 @@
 						<image :src="userInfo.avatarUrl || '/static/head.png'" class="head"></image>
 					</view>
 					<view class="uni-flex uni-column rest">
-						<view class="nick">{{userInfo.nickName || '御翔绝瞬'}}</view>
-						<view v-if="userDetail.is_vip==1">
+						<view class="nick">
+							{{userInfo.nickName || '御翔绝瞬'}}
+							<image src="/static/goldactive.png" class="gold" v-if="userDetail.is_vip==1"></image>
+							<image src="/static/gold.png" class="gold"></image>
+						</view>
+						<view>
 							<!-- <image src="/static/common.png" class="rate" style="margin-right: 10rpx;"></image> -->
-							<image src="/static/silver.png" class="rate"></image>
+							<image src="/static/silver.png" class="rate" v-if="userDetail.is_vip==1"></image>
+							<image src="/static/coconel.png" class="rate" v-else></image>
 						</view>
 						<view class="idnumber">ID:{{userDetail.invitation_code}}</view>
-						<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
+						<!-- v-if="userDetail.is_vip==1"-->
+						<view class="time">会员到期时间：{{userDetail.vip_valid_date || '2021-4-16 21:56:40'}}</view>
 					</view>
 				</view>
 			</authPage>
@@ -43,22 +49,22 @@
 			<authPage>
 				<view class="uni-flex uni-row" style="height: 150rpx;padding-bottom: 28rpx;">
 					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=1', 'navigateTo')">
-						<image src="/static/waitPay.png" class="icon"></image>
+						<image src="/static/waitPay.png" style="width: 56rpx;height: 52rpx;"></image>
 						<!-- <view class="icon-daizhifu icon icon-active"></view> -->
 						<view class="title">待支付</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=2', 'navigateTo')">
-						<image src="/static/sendGoods.png" class="icon"></image>
+						<image src="/static/sendGoods.png" style="width: 58rpx;height: 53rpx;"></image>
 						<!-- <view class="icon-daifahuo icon icon-active"></view> -->
 						<view class="title">待发货</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=3', 'navigateTo')">
-						<image src="/static/waitGoods.png" class="icon"></image>
+						<image src="/static/waitGoods.png" style="width: 63rpx;height: 48rpx;"></image>
 						<!-- <view class="icon-daishouhuo icon icon-active"></view> -->
 						<view class="title">待收货</view>
 					</view>
 					<view class="uni-flex rest content">
-						<image src="/static/afterSale.png" class="icon"></image>
+						<image src="/static/afterSale.png" style="width: 57rpx;height: 52rpx;"></image>
 						<!-- <view class="icon-tubiaolunkuo- icon icon-active"></view> -->
 						<view class="title">售后</view>
 					</view>
@@ -71,15 +77,15 @@
 			</view>
 			<authPage>
 				<view class="uni-flex uni-row" style="height: 150rpx;">
-					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
-						<image src="/static/commission.png" class="icon"></image>
-						<!-- <view class="icon-tixianmingxi icon"></view> -->
-						<view class="title">佣金明细</view>
-					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/my-points', 'navigateTo')">
 						<image src="/static/commission.png" class="icon"></image>
 						<!-- <view class="icon-tixianmingxi icon"></view> -->
 						<view class="title">积分明细</view>
+					</view>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
+						<image src="/static/commissionsubsidiary.png" class="icon"></image>
+						<!-- <view class="icon-tixianmingxi icon"></view> -->
+						<view class="title">佣金明细</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/cash', 'navigateTo')">
 						<image src="/static/withdraw.png" class="icon"></image>
@@ -87,7 +93,7 @@
 						<view class="title">我要提现</view>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/income-record', 'navigateTo')">
-						<image src="/static/commission.png" class="icon"></image>
+						<image src="/static/withdrawdetail.png" class="icon"></image>
 						<!-- <view class="icon-tixianmingxi icon"></view> -->
 						<view class="title">提现明细</view>
 					</view>
@@ -103,10 +109,11 @@
 						<!-- <view class="icon-dizhi1 icon"></view> -->
 						<view class="title">收货地址</view>
 					</view>
-					<view class="uni-flex rest content">
+					<view class="uni-flex rest content" style="position: relative;">
 						<image src="/static/service.png" class="icon"></image>
 						<!-- <view class="icon-kefu icon"></view> -->
 						<view class="title">联系客服</view>
+						<button open-type='contact' class="concact">联系客服</button>
 					</view>
 					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/about', 'navigateTo')">
 						<image src="/static/about.png" class="icon"></image>
@@ -216,6 +223,11 @@
 		.nick {
 			font-size:30rpx;
 			color: #FFFFFF;
+			.gold {
+				width: 40rpx;
+				height: 31rpx;
+				margin-left: 16rpx;
+			}
 		}
 		.idnumber {
 			color: #FFFFFF;
@@ -272,6 +284,7 @@
 		.title {
 			font-size: 24rpx;
 			color: #333333;
+			margin-top: 10rpx;
 		}
 		.icon {
 			// font-size: 60rpx;
@@ -282,5 +295,12 @@
 		.icon-active {
 			color: #0071CF;
 		}
+	}
+	.concact {
+		position: absolute;
+		width: 100rpx;
+		height: 110rpx;
+		top: 0;
+		opacity: 0;
 	}
 </style>

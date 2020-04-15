@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/center/center",
     "pages/category/category",
     "pages/shopping/shopping",
-    "pages/vip/vip",
-    "pages/center/center"
+    "pages/vip/vip"
   ],
   "subPackages": [
     {

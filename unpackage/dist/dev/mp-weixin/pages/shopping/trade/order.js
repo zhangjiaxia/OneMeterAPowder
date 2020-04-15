@@ -100,7 +100,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   var l1 = _vm.__map(_vm.orderPageList, function(item, index) {
     var l0 = _vm.__map(item.skuList, function(subItem, i) {
-      var g0 = subItem.prodName.substring(0, 20)
+      var g0 = subItem.prodName.substring(0, 25)
       return {
         $orig: _vm.__get_orig(subItem),
         g0: g0

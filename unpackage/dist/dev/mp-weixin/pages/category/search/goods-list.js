@@ -178,11 +178,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
 //
 //
 //
@@ -215,24 +211,29 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '美妆护肤' //导航栏文字
-      }, currentScrollTop: 0, //当前页面的滚动高度
-      //scrollTop: 140, //判断tablist是否悬浮的标准
+      }, //五个分类对应的banner图
+      cateName: '', //上张页面传回来的分类名
+      bannerImgList: { "生活日用": 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/1c90d9d41ce5777f23c2da784c4aadd8.png', "美妆护肤": 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/847918c7e0a5dc326ae683adcfd87e0a.png', "酒水饮料": 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/c3d05fd1f37a81e92af837fc15c18236.png', "母婴玩具": 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/ecc90c9176516ddc4b7f402e35290111.png', "数码电器": 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/a4b34685e0e3f494f51978f2a864dab4.png' }, scrollTop: '', //定位到哪个位置
       params: { page: 1, size: 10, cateId: 5034 //分类ID,选中的tab分类ID
       }, //二级分类下的商品
       categoryChildrenList: [], //tab栏数据
       childrenGoodsData: {}, //分类商品数据
       childrenGoodsList: [], //分类商品列表
       loading: true //加载中
-    };}, onLoad: function onLoad(options) {//this.getScrollTop()
-    this.params.cateId = options.cateId;this.navigationBarStyle.iconText = options.cateName;this.getCategoryChildrenList();}, // onPageScroll(e) {
-  // 	//console.log('滚动监听',e)
-  // 	this.currentScrollTop = e.scrollTop
-  // },
-  //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {return;}this.params.page++;this.getChildrenGoodsList();}, methods: { //获取tablist是否滚动的阈值
-    // getScrollTop() {
-    // },
-    shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, initData: function initData() {
+    };}, onLoad: function onLoad(options) {this.params.cateId = options.cateId;this.navigationBarStyle.iconText = options.cateName;this.cateName = options.cateName;this.getCategoryChildrenList();}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.childrenGoodsList.length >= this.childrenGoodsData.total) {return;}
+    this.params.page++;
+    this.getChildrenGoodsList();
+  },
+  methods: {
+    setTop: function setTop(systems) {
+      this.scrollTop = systems.ktxStatusHeight + systems.navigationHeight + 'rpx';
+    },
+    shopDetailPage: function shopDetailPage(item) {
+      this.$store.commit('setGoodsDetail', item);
+      this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');
+    },
+    initData: function initData() {
       //重置分页参数
       this.loading = true;
       this.childrenGoodsData = {};

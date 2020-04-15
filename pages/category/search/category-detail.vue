@@ -6,11 +6,14 @@
 				<view class="shop-item" v-for="(content,dex) in shopList" @click="shopDetailPage(content)" :key="dex">
 					<image :src="content.mainImgUrl" class="shop-img"></image>
 					<view class="shop-item-content">
+						<view class="shop-item-title">{{content.name.substring(0,25) + '...'}}</view>
 						<view class="shop-item-bottom">
-							<text class="shop-item-price">￥{{content.retailPrice[0] || 0}}</text>
-							<text class="pay-btn">+</text>
+							<text class="shop-item-price">
+								<text style="font-size: 24rpx;">￥</text>
+								{{content.retailPrice[0] || 0}}
+							</text>
+							<!-- <text class="pay-btn">+</text> -->
 						</view>
-						<view class="shop-item-title">{{content.name}}</view>
 					</view>
 				</view>
 			</view>
@@ -102,17 +105,22 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+		width: 700rpx;
+		margin: 0 auto;
 	}
 
 	.shop-item {
-		width: 360rpx;
+		width: 340rpx;
 		margin-bottom: 20rpx;
 		background-color: #ffffff;
+		border-radius: 20rpx;
 	}
 
 	.shop-img {
 		width: 100%;
 		height: 300rpx;
+		border-top-left-radius: 20rpx;
+		border-top-right-radius: 20rpx;
 	}
 
 	.shop-item-content {
@@ -124,7 +132,7 @@
 	.shop-item-title {
 		font-size: 26rpx;
 		color: #333333;
-		font-weight: bold;
+		margin: 10rpx;
 	}
 
 	.shop-item-text {
@@ -142,13 +150,11 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 10rpx;
 	}
 
 	.shop-item-price {
-		font-weight: bold;
 		color: #0071CF;
-		font-size: 36rpx;
+		font-size: 30rpx;
 	}
 
 	.pay-btn {

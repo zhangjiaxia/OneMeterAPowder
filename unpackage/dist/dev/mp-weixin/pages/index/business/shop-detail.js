@@ -98,25 +98,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = Math.round(
+    _vm.isVip == 1
+      ? _vm.goodsDetail.vipPrice[0]
+      : _vm.goodsDetail.retailPrice[0]
+  )
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.shareModal = true
-      _vm.getQrcode()
-    }
-
-    _vm.e1 = function($event) {
       _vm.confirmModal = false
     }
 
-    _vm.e2 = function($event) {
+    _vm.e1 = function($event) {
       _vm.shareModal = false
     }
 
-    _vm.e3 = function($event) {
+    _vm.e2 = function($event) {
       _vm.confirmModal = false
       _vm.shareModal = false
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -273,6 +283,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
 var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 256));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
@@ -282,12 +304,14 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
 
 {
   components: {
+    //sharePoster,
     authPage: authPage,
     navigationBar: navigationBar },
 
   computed: (0, _vuex.mapState)(['goodsDetail']),
   data: function data() {
     return {
+      isVip: 0, //是否会员，0:否，1:是
       panelTop: '130rpx', //弹窗与顶部的距离
       shareModal: false, //是否显示分享弹窗
       //画布绘制所需的图片
@@ -341,7 +365,8 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
   onLoad: function onLoad(options) {
     //计算弹窗距离顶部的距离
     this.getPanelTop();
-    this.shareInfo.bgImg = this.goodsDetail.mainImgUrl;
+    //绘制到画布的图片尽量清晰
+    this.shareInfo.bgImg = this.goodsDetail.detailImgUrlList[0];
     this.navigationBarStyle.iconText = this.goodsDetail.brandName;
     //处理富文本图片自适应
     var item = this.deepCopy(this.goodsDetail);
@@ -351,9 +376,18 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     //this.getGoodsDetail()
   },
   onShow: function onShow() {
-    var value = wx.getStorageSync('userInfo');
+    var value = uni.getStorageSync('userInfo');
     if (value) {
       this.userInfo = value;
+      this.isVip = uni.getStorageSync('isVip');
+      //如果从本地获取的值不是vip，就请求用户信息看是否为vip会员
+      if (this.isVip != 1) {
+        var that = this;
+        _interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {
+          that.vip = res.data.is_vip;
+          uni.setStorageSync('isVip', 1);
+        });
+      }
     }
   },
   methods: {
@@ -367,6 +401,12 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       var scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale;
       //（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
       this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';
+    },
+    startShare: function startShare() {
+      this.shareModal = true;
+      //调用子组件的方法
+      //this.$refs.share.getQrcode();
+      this.getQrcode();
     },
     chooseProps: function chooseProps(index, i) {
       this.propsCheck[index] = i;
@@ -474,11 +514,6 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
 
       _interface.default.checkAuth(_interface.default.cartDirectBuy, params).then(function (res) {
         that.cartId = res.data.cartId;
-        uni.showToast({
-          title: '购物车添加成功',
-          icon: 'success',
-          duration: 2000 });
-
         //点击立即支付，加入购物车后跳转到确认订单页面
         _this.confrimOrderPage();
       });

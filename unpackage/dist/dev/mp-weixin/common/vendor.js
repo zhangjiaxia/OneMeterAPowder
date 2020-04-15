@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8255,7 +8255,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8276,14 +8276,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8359,7 +8359,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -24508,7 +24508,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/category": { "navigationBarTitleText": "类目", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/center": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/poster": { "navigationBarTitleText": "分享海报", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/about": { "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/team": { "navigationBarTitleText": "我的团队", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品", "navigationBarBackgroundColor": "#0071CF" } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/center": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/category": { "navigationBarTitleText": "类目", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则", "navigationBarBackgroundColor": "#0071CF" }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单", "navigationBarBackgroundColor": "#0071CF" }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/poster": { "navigationBarTitleText": "分享海报", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情", "navigationBarBackgroundColor": "#0071CF" }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/about": { "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分", "navigationBarBackgroundColor": "#0071CF" }, "pages/center/my/team": { "navigationBarTitleText": "我的团队", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/search": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#0071CF" }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品", "navigationBarBackgroundColor": "#0071CF" } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

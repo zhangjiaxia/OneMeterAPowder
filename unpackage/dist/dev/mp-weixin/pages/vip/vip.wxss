@@ -1581,7 +1581,7 @@ page {
   color: #0071CF;
 }
 .topitem {
-  height: 262rpx;
+  height: 220rpx;
   position: relative;
 }
 .topitem .bg {
@@ -1619,6 +1619,11 @@ page {
       width: 56rpx;
       height: 25rpx;
       margin-left: 20rpx;
+}
+.info .nick .gold {
+      width: 40rpx;
+      height: 31rpx;
+      margin-left: 16rpx;
 }
 .info .idnumber {
     font-size: 20rpx;

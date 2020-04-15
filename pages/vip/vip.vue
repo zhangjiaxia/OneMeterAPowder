@@ -11,13 +11,16 @@
 					<view class="uni-flex uni-column rest">
 						<view class="nick">
 							{{userInfo.nickName || '御翔绝瞬'}}
-							<image src="/static/VIPicon.png" class="vip" v-if="userDetail.is_vip==1"></image>
+							<image src="/static/goldactive.png" class="gold" v-if="userDetail.is_vip==1"></image>
+							<image src="/static/gold.png" class="gold"></image>
 						</view>
-						<view v-if="userDetail.is_vip==1">
-							<image src="/static/silver.png" class="rate"></image>
+						<view>
+							<image src="/static/silver.png" class="rate" v-if="userDetail.is_vip==1"></image>
+							<image src="/static/coconel.png" class="rate" v-else></image>
 						</view>
 						<view class="idnumber">ID:{{userDetail.invitation_code || ''}}</view>
-						<view class="time" v-if="userDetail.is_vip==1">会员到期时间：{{userDetail.vip_valid_date}}</view>
+						<!-- v-if="userDetail.is_vip==1"-->
+						<view class="time">会员到期时间：{{userDetail.vip_valid_date || '2021-4-16 21:56:40'}}</view>
 					</view>
 				</view>
 			</authPage>
@@ -88,9 +91,9 @@
 			<view class="empty-text" v-if="rankList.length == 0">暂无佣金排名数据</view>
 			<view class="ranklist" v-else>
 				<view class="uni-flex uni-row vertical item" :style="{'border-bottom': index == rankList.length - 1 ? 'none' : '1px solid #EEEEEE'}"
-					v-for="(item, index) in rankList" :key="index">
+					v-for="(item, index) in rankList" :key="index" v-if="index > 0">
 					<view class="uni-flex uni-column content" style="width: 140rpx;">
-						<view class="num">{{item.rankingNumber}}</view>
+						<view class="num">{{item.rankingNumber - 1}}</view>
 						<view class="me">{{index == 0 ? '我的排名' : '排名'}}</view>
 					</view>
 					<view class="uni-flex rest vertical">
@@ -189,7 +192,7 @@
 		color: #0071CF;
 	}
 	.topitem {
-		height: 262rpx;
+		height: 220rpx;
 		position: relative;
 		.bg {
 			height: 100%;
@@ -225,6 +228,11 @@
 				width: 56rpx;
 				height: 25rpx;
 				margin-left: 20rpx;
+			}
+			.gold {
+				width: 40rpx;
+				height: 31rpx;
+				margin-left: 16rpx;
 			}
 		}
 		.idnumber {

@@ -22,7 +22,9 @@
 		height: 100%;
 		font-size: 30upx;
 		color: #333333;
+		overflow-x: unset;
 	}
+
 	.container{
 	  min-height: 100%;
 	  background: #EEEEEE;

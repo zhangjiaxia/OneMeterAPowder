@@ -32,9 +32,11 @@ page {
   height: 270rpx;
 }
 .tab-hover {
-  position: fixed;
-  top: 0;
-  z-index: 200;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 128rpx;
+  z-index: 100;
+  margin-top: -10rpx;
 }
 .tab-list {
   height: 80rpx;

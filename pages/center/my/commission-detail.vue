@@ -13,7 +13,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="uni-flex uni-row info" v-for="(item, index) in pointsList" :key="index">
+		<view class="uni-flex uni-row info" v-for="(item, index) in list" :key="index">
 			<view class="uni-flex content rank">
 				{{index + 1}}
 			</view>
@@ -33,7 +33,7 @@
 				+58佣金
 			</view>
 		</view>
-		<view class="empty-text" v-if="pointsList.length == 0">暂无数据</view>
+		<!-- <view class="empty-text" v-if="pointsList.length == 0">暂无数据</view> -->
 	</view>
 </template>
 
@@ -50,6 +50,7 @@
 				navigationBarStyle: {
 					iconText: '佣金明细' //导航栏文字
 				},
+				list: [{},{},{},{},{},{}],
 				params: {
 					page: 1, //页数
 					size: 10, //每页几条

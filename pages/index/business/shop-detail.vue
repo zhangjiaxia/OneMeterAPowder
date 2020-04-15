@@ -8,11 +8,20 @@
 				</swiper-item>
 			</swiper>
 			<view class="shop-message">
-				<view class="shop-title">{{goodsDetail.name || ''}}</view>
-				<view class="shop-price">
-					￥{{goodsDetail.retailPrice[0] || '0.00'}}
-					<!-- <text class="original-price">￥239</text> -->
+				<view class="uni-flex uni-row vertical">
+					<view class="uni-flex rest shop-price">
+						<text v-if="isVip == 1" style="margin-right: 18rpx;">￥{{goodsDetail.vipPrice[0]}}</text>
+						<text :style="{'text-decoration': isVip == 1 ? 'line-through' : 'none', color: isVip == 1 ? '#999999' : '#0071CF'}">
+							￥{{goodsDetail.retailPrice[0] || '0.00'}}
+						</text>
+					</view>
+					<view class="uni-flex">
+						<text style="color: #0071CF;font-size: 24rpx;">
+							+{{Math.round(isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]) / 100}}积分
+						</text>
+					</view>
 				</view>
+				<view class="shop-title">{{goodsDetail.name || ''}}</view>
 				<view class="shop-postage">
 					全国包邮
 				</view>
@@ -45,13 +54,15 @@
 				<image src="/static/goods-desc.png" style="width: 100%;" mode="aspectFit"></image>
 			</view>
 			<view class="detail-bottom">
-				<view class="detail-bottom-left">
-					<view class="detail-bottom-item" @click="shareModal=true;getQrcode()">
-						<!-- <image src="/static/share-icon.png" class="share-icon"></image> -->
-						<view class="icon-fenxiang " style="font-size: 32rpx;"></view>
-						<view>分享</view>
-						<!-- <button type="primary" open-type="share" class="share-btn"></button> -->
-					</view>
+				<view class="uni-flex vertical detail-bottom-left">
+					<!-- <authPage> -->
+						<view class="detail-bottom-item" @click="startShare()">
+							<image src="/static/share-icon.png" class="share-icon"></image>
+							<!-- <view class="icon-fenxiang " style="font-size: 32rpx;"></view> -->
+							<view>分享</view>
+							<!-- <button type="primary" open-type="share" class="share-btn"></button> -->
+						</view>
+					<!-- </authPage> -->
 					<view class="detail-bottom-item" @click="shoppingPage">
 						<image src="/static/shopping-icon.png" class="share-icon"></image>
 						<!-- <view class="icon-fenxiang share-icon"></view> -->
@@ -104,7 +115,7 @@
 		<!--分享弹窗-->
 		<view class="uni-flex uni-column content share-panel" :style="{top: panelTop}" v-if="shareModal"
 		 @touchmove.stop.prevent="touch">
-			<!--将海报跟二维码通过画布组合到一起，展示在image中，下载图片-->
+			<!-- 将海报跟二维码通过画布组合到一起，展示在image中，下载图片 -->
 			<canvas class="canvas-poster" id="canvasPoster" style="width: 650rpx;height: 900rpx;" canvas-id="canvasPoster"></canvas>
 			<image :src="poster" class="poster" style="width: 650rpx;height: 900rpx;position: absolute;top: 0;" @click="previewImg" alt="" v-if="poster"></image>
 			<view class="uni-flex content share-btn" :style="{visibility: poster ? 'visible' : 'hidden'}" @click="saveImg">分享好友</view>
@@ -112,13 +123,14 @@
 				<image src="/static/close.png" class="share-img"></image>
 			</view>
 		</view>
-		
+		<!-- <sharePoster :isShow="shareModal" :bgImg="goodsDetail.detailImgUrlList[0]" ref="share"></sharePoster> -->
 		<!--弹窗时阻止滚动穿透-->
 		<view class="mask" v-show="confirmModal || shareModal" @click="confirmModal=false;shareModal=false;" @touchmove.stop.prevent="touch"></view>
 	</view>
 </template>
 
 <script>
+	//import sharePoster from '@/components/shop-business/share-poster.vue' //引入授权窗体
 	import authPage from '@/components/authorization-page.vue' //引入授权窗体
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	import interfaceurl from '@/utils/interface.js'
@@ -130,12 +142,14 @@
 	} from 'vuex'
 	export default {
 		components: {
+			//sharePoster,
 			authPage,
 			navigationBar
 		},
 		computed: mapState(['goodsDetail']),
 		data() {
 			return {
+				isVip: 0, //是否会员，0:否，1:是
 				panelTop: '130rpx', //弹窗与顶部的距离
 				shareModal: false, //是否显示分享弹窗
 				//画布绘制所需的图片
@@ -189,7 +203,8 @@
 		onLoad(options) {
 			//计算弹窗距离顶部的距离
 			this.getPanelTop();
-			this.shareInfo.bgImg = this.goodsDetail.mainImgUrl
+			//绘制到画布的图片尽量清晰
+			this.shareInfo.bgImg = this.goodsDetail.detailImgUrlList[0]
 			this.navigationBarStyle.iconText = this.goodsDetail.brandName
 			//处理富文本图片自适应
 			let item = this.deepCopy(this.goodsDetail)
@@ -199,9 +214,18 @@
 			//this.getGoodsDetail()
 		},
 		onShow() {
-			const value = wx.getStorageSync('userInfo')
+			const value = uni.getStorageSync('userInfo')
 			if (value) {
 				this.userInfo = value
+				this.isVip = uni.getStorageSync('isVip')
+				//如果从本地获取的值不是vip，就请求用户信息看是否为vip会员
+				if(this.isVip != 1) {
+					let that = this
+					interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
+						that.vip = res.data.is_vip
+						uni.setStorageSync('isVip', 1)
+					});
+				}
 			}
 		},
 		methods: {
@@ -215,6 +239,12 @@
 				let scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale
 				//（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
 				this.panelTop = ((scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale) + 'rpx'
+			},
+			startShare() {
+				this.shareModal = true;
+				//调用子组件的方法
+				//this.$refs.share.getQrcode();
+				this.getQrcode()
 			},
 			chooseProps(index, i) {
 				this.propsCheck[index] = i
@@ -322,11 +352,6 @@
 				}
 				interfaceurl.checkAuth(interfaceurl.cartDirectBuy, params).then((res) => {
 					that.cartId = res.data.cartId
-					uni.showToast({
-						title: '购物车添加成功',
-						icon: 'success',
-						duration: 2000
-					});
 					//点击立即支付，加入购物车后跳转到确认订单页面
 					this.confrimOrderPage()
 				});
@@ -643,9 +668,9 @@
 	}
 
 	.shop-price {
-		font-size: 32upx;
-		margin-top: 20upx;
-		color: #FF0000;
+		font-size: 36rpx;
+		// margin-top: 20rpx;
+		color: #0071CF;
 	}
 	
 	.original-price {
@@ -750,6 +775,7 @@
 		align-items: center;
 		justify-content: center;
 		color: #666666;
+		background: white;
 	}
 
 	.share-icon {
@@ -762,6 +788,7 @@
 		text-align: center;
 		font-size: 26upx;
 		position: relative;
+		line-height: 0.1;
 	}
 
 	.mask {

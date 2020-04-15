@@ -35,6 +35,7 @@
 					    signType: res.data.signType,
 					    paySign: res.data.paySign,
 					    success: (res) => {
+							uni.setStorageSync('isVip', 1)
 							uni.showToast({
 							    title: '会员充值成功',
 							    icon: 'none',

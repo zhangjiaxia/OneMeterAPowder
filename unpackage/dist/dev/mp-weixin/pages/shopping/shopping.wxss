@@ -1,4 +1,11 @@
 
+.uni-swipe_content {
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+	border-radius: 10rpx;
+}
 .container {
 	background: #F5F5F5;
 	padding-bottom: 130rpx;
@@ -138,6 +145,12 @@
 	font-size: 30rpx;
 }
 .empty-icon {
-	width: 130rpx;
+	width: 400rpx;
+	height: 332rpx;
+}
+.empty-space {
+	font-size: 24rpx;
+	color: #666666;
+	margin-top: 40rpx;
 }
 

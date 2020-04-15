@@ -6,14 +6,13 @@
 				<text v-if="isEdit" @click="handleEdit">取消</text>
 				<text v-else @click="handleEdit">编辑</text>
 			</view>
-			
 			<view style="margin-bottom: 20rpx;" v-for="(item,index) in shopList" :key="index" @click="shopDetailPage(item)">
 				<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="bindClick(item.cartId)">
 					<view class="shop-item">
 						<view class="icon-gou" :style="{color: item.selected ? '#0070CF' : '#999999'}" @click.stop="handleSelect(index)"></view>
 						<image :src="item.goodsPhotoUrl" class="shop-img"></image>
 						<view class="shop-item-content">
-							<view class="shop-item-title">{{item.name}}</view>
+							<view class="shop-item-title">{{item.name.substring(0,10) + '...'}}</view>
 							<view class="shop-item-spec">
 								<!-- <view>50ml</view> -->
 								<text class="shop-item-size" v-for="(thirdItem, x) in item.skuPropertyList" :key="x">{{thirdItem.val}}</text>
@@ -30,7 +29,6 @@
 					</view>
 				</uni-swipe-action>
 			</view>
-			
 		</view>
 		<view class="shopping-bottom" v-if="cartList.total > 0">
 			<view class="icon-gou radio-icon" :style="{color: isAll ? '#0070CF' : '#999999'}" @click="hadleSelectAll"></view>
@@ -46,9 +44,10 @@
 		<view class="empty-text" v-else>
 			<template v-if="!loading">
 				<image src="/static/empty.png" class="empty-icon" mode="widthFix"></image>
-				<view>购物车还是空的</view>
+				<view class="empty-space">您的购物车还是空的，快去逛一逛吧</view>
 			</template>
 		</view>
+		<!--商品推荐-->
 	</view>
 </template>
 
@@ -257,6 +256,14 @@
 </script>
 
 <style>
+	.uni-swipe_content {
+		position: relative;
+		width: 100%;
+		box-sizing: border-box;
+		overflow: hidden;
+		border-radius: 10rpx;
+	}
+
 	.container {
 		background: #F5F5F5;
 		padding-bottom: 130upx;
@@ -395,6 +402,13 @@
 	}
 
 	.empty-icon {
-		width: 130upx;
+		width: 400rpx;
+		height: 332rpx;
+	}
+	
+	.empty-space {
+		font-size: 24rpx;
+		color: #666666;
+		margin-top: 40rpx;
 	}
 </style>

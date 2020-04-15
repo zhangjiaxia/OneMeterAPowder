@@ -22,7 +22,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="tab-list" style="background: #F0EDF1;margin-bottom: 10rpx;">
+			<view class="tab-list" style="background: #F0EDF1;margin-bottom: -10rpx;">
 				<view class="advantage-item">
 					<text>VIP购物</text>
 				</view>
@@ -45,7 +45,8 @@
 				</view>
 			</view>
 			<view class="type-list">
-				<view class="type-item" :style="{'width': index == 0 || index == 1 ? '710rpx' : '350rpx','margin-left': index==3 ? '10rpx' : '0'}"
+				<!-- :style="{'width': index == 0 || index == 1 ? '710rpx' : '350rpx','margin-left': index==3 ? '10rpx' : '0'}"-->
+				<view class="type-item" :style="{'margin-right': index % 2 == 0 ? '10rpx' : '0'}"
 					v-for="(item, index) in specialAreaPicList" :key="index">
 					<image :src="item.specialImgUrl"></image>
 				</view>
@@ -63,7 +64,7 @@
 				<view style="width: 100%;">
 					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
-				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
+				<view class="title">{{item.name.substring(0,10) + '...'}}</view>
 				<view class="price">
 					<text style="font-size: 24rpx;">￥</text>
 					<text>{{item.retailPrice[0]}}</text>
@@ -74,7 +75,7 @@
 				<view style="width: 100%;">
 					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
-				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
+				<view class="title">{{item.name.substring(0,10) + '...'}}</view>
 				<view class="price">
 					<text style="font-size: 24rpx;">￥</text>
 					<text>{{item.retailPrice[0]}}</text>
@@ -137,8 +138,7 @@
 				shareModal: false, //是否显示分享弹窗
 				//画布绘制所需的图片
 				shareInfo: {
-					background: '/static/bg.png',
-					bgImg: '/static/bussiness.png',
+					bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png',
 					qrcode: '' //动态生成的二维码
 				},
 				//画布的宽高
@@ -148,7 +148,7 @@
 				poster: '', //生成的海报
 				//轮播图参数
 				indicatorDots: true,
-				autoplay: false,
+				autoplay: true,
 				interval: 3000,
 				duration: 500,
 				//invitation_code: '', //分销邀请码
@@ -396,8 +396,18 @@
 						if (res.statusCode === 200) {
 							//将下载的图片临时路径赋值给img_l,用于预览图片
 							that.shareInfo.qrcode = res.tempFilePath;
-							console.log('that.drawBefore', that.shareInfo)
-							that.drawBefore();
+							wx.downloadFile({
+								url: that.shareInfo.bgImg, //网络链接
+								success: function(res) {
+									// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+									if (res.statusCode === 200) {
+										//将下载的图片临时路径赋值给img_l,用于预览图片
+										that.shareInfo.bgImg = res.tempFilePath;
+										console.log('that.drawBefore', that.shareInfo)
+										that.drawBefore();
+									}
+								}
+							})
 						}
 					}
 				})
@@ -741,15 +751,12 @@
 
 	.type-item {
 		width: 350upx;
-		height: 220upx;
-		margin-bottom: 10upx;
 		display: inline-flex;
 	}
 
 	.type-item image {
-		width: 100%;
-		//height: 100%;
-		height: 220rpx;
+		width: 350rpx;
+		height: 175rpx;
 	}
 
 	.shop-item-bottom {
@@ -803,6 +810,9 @@
 	.category-item {
 		flex: 1;
 		text-align: center;
+		view {
+			line-height: 1.3;
+		}
 	}
 
 	.category-item-text {
@@ -812,13 +822,14 @@
 
 	.category-item-active {
 		color: #0071CF;
+		font-weight: bold;
 	}
 
 	.category-text-active {
 		background: #0071CF;
 		color: #FFFFFF;
 		border-radius: 40rpx;
-		padding: 2rpx;
+		padding: 4rpx 6rpx;
 	}
 
 	//商品列表

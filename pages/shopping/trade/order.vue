@@ -28,7 +28,7 @@
 						<image :src="subItem.goodsPhotoUrl" class="goodsimg"></image>
 					</view>
 					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">{{subItem.prodName.substring(0,20) + '...'}}</view>
+						<view class="title">{{subItem.prodName.substring(0,25) + '...'}}</view>
 						<view class="prop">
 							<text class="size" v-for="(thirdItem, x) in subItem.skuDetail.skuPropertyList" :key="x">{{thirdItem.val}}</text>
 							<!-- <text class="size">100ml*1瓶</text> -->
@@ -81,11 +81,11 @@
 					</view>
 				</view>
 			</view>
-			<view class="uni-flex uni-row horizontally vertical notice">
+			<!-- <view class="uni-flex uni-row horizontally vertical notice">
 				<view class="line"></view>
 				<text class="space">已经没有了哦</text>
 				<view class="line"></view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>

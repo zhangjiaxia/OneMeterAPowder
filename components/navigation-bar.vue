@@ -63,9 +63,6 @@
 			systems.tabBarHeight = systems.ktxScreentHeight - systems.ktxStatusHeight - systems.navigationHeight - systems.ktxWindowHeight // 底部tabBar的高度
 			this.lineHeight = systems.ktxStatusHeight + 'rpx';
 			this.$emit('getHeight', systems)
-		},
-		methods: {
-			prevent() {}
 		}
 	}
 </script>

@@ -58,15 +58,20 @@ page {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
+  width: 700rpx;
+  margin: 0 auto;
 }
 .shop-item {
-  width: 360rpx;
+  width: 340rpx;
   margin-bottom: 20rpx;
   background-color: #ffffff;
+  border-radius: 20rpx;
 }
 .shop-img {
   width: 100%;
   height: 300rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
 }
 .shop-item-content {
   padding: 0rpx 20rpx;
@@ -76,7 +81,7 @@ page {
 .shop-item-title {
   font-size: 26rpx;
   color: #333333;
-  font-weight: bold;
+  margin: 10rpx;
 }
 .shop-item-text {
   color: #999999;
@@ -98,12 +103,10 @@ page {
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  margin-bottom: 10rpx;
 }
 .shop-item-price {
-  font-weight: bold;
   color: #0071CF;
-  font-size: 36rpx;
+  font-size: 30rpx;
 }
 .pay-btn {
   display: inline-block;

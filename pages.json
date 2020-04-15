@@ -8,6 +8,13 @@
 			}
 		},
 		{
+			"path": "pages/center/center",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#0071CF"
+			}
+		},
+		{
 			"path":"pages/category/category",
 			"style":{
 				"navigationBarTitleText":"类目",
@@ -25,13 +32,6 @@
 			"path":"pages/vip/vip",
 			"style":{
 				"navigationBarTitleText":"VIP",
-				"navigationBarBackgroundColor": "#0071CF"
-			}
-		},
-		{
-			"path": "pages/center/center",
-			"style": {
-				"navigationBarTitleText": "我的",
 				"navigationBarBackgroundColor": "#0071CF"
 			}
 		}
