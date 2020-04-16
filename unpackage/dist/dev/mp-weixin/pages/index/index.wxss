@@ -1764,8 +1764,8 @@ page {
   bottom: 30rpx;
 }
 .share image {
-  width: 100%;
-  height: 100%;
+  width: 100rpx;
+  height: 100rpx;
 }
 .category-list {
   display: -webkit-box;

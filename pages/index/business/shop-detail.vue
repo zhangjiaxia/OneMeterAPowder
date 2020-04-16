@@ -9,7 +9,7 @@
 			</swiper>
 			<view class="shop-message">
 				<view class="uni-flex uni-row vertical">
-					<view class="uni-flex rest shop-price">
+					<view class="uni-flex vertical rest shop-price">
 						<text v-if="isVip == 1" style="margin-right: 18rpx;">￥{{goodsDetail.vipPrice[0]}}</text>
 						<text :style="{'text-decoration': isVip == 1 ? 'line-through' : 'none', color: isVip == 1 ? '#999999' : '#0071CF'}">
 							￥{{goodsDetail.retailPrice[0] || '0.00'}}
@@ -20,6 +20,11 @@
 							+{{Math.round(isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]) / 100}}积分
 						</text>
 					</view>
+				</view>
+				<view v-if="isVip != 1" @click="$turnPage('/pages/vip/rule/vip-index', 'navigateTo')">
+					<text style="font-size: 24rpx;color: red;">
+						(升级VIP会员可均省36%,立即充值)
+					</text>
 				</view>
 				<view class="shop-title">{{goodsDetail.name || ''}}</view>
 				<view class="shop-postage">
@@ -54,27 +59,40 @@
 				<image src="/static/goods-desc.png" style="width: 100%;" mode="aspectFit"></image>
 			</view>
 			<view class="detail-bottom">
-				<view class="uni-flex vertical detail-bottom-left">
-					<!-- <authPage> -->
-						<view class="detail-bottom-item" @click="startShare()">
+				<view class="uni-flex uni-row" style="width: 100%;">
+					<authPage>
+						<view class="uni-flex rest content detail-bottom-item" @click="startShare()">
 							<image src="/static/share-icon.png" class="share-icon"></image>
-							<!-- <view class="icon-fenxiang " style="font-size: 32rpx;"></view> -->
 							<view>分享</view>
-							<!-- <button type="primary" open-type="share" class="share-btn"></button> -->
 						</view>
-					<!-- </authPage> -->
-					<view class="detail-bottom-item" @click="shoppingPage">
+					</authPage>
+					<view class="uni-flex rest content detail-bottom-item" @click="shoppingPage">
 						<image src="/static/shopping-icon.png" class="share-icon"></image>
-						<!-- <view class="icon-fenxiang share-icon"></view> -->
 						<view>购物车</view>
 					</view>
+					<authPage>
+						<view class="uni-flex content shop-btn" @click="showPanel(true)">加入购物车</view>
+					</authPage>
+					<authPage>
+						<view class="uni-flex content pay-btn" @click="showPanel(false)">立即购买</view>
+					</authPage>
 				</view>
-				<authPage>
+				<!-- <view class="uni-flex vertical detail-bottom-left">
+					<view class="detail-bottom-item" @click="startShare()">
+						<image src="/static/share-icon.png" class="share-icon"></image>
+						<view>分享</view>
+					</view>
+					<view class="detail-bottom-item" @click="shoppingPage">
+						<image src="/static/shopping-icon.png" class="share-icon"></image>
+						<view>购物车</view>
+					</view>
+				</view> -->
+				<!-- <authPage>
 					<view class="shop-btn" @click="showPanel(true)">加入购物车</view>
 				</authPage>
 				<authPage>
 					<view class="pay-btn" @click="showPanel(false)">立即购买</view>
-				</authPage>
+				</authPage> -->
 			</view>
 		</view>
 		<!--购物车弹窗-->
@@ -84,7 +102,7 @@
 					<image :src="goodsDetail.mainImgUrl" class="modal-shop-img"></image>
 					<view class="modal-shop-content">
 						<view>{{goodsDetail.name}}</view>
-						<view class="shop-price">￥{{goodsDetail.retailPrice[0] || 0}}</view>
+						<view class="shop-price">￥{{isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]}}</view>
 						<view class="amount">库存 {{inventoryCount || 0}} 件</view>
 					</view>
 					<view class="icon-cha- modal-shop-close" @click="confirmModal=false;"></view>
@@ -223,7 +241,7 @@
 					let that = this
 					interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
 						that.vip = res.data.is_vip
-						uni.setStorageSync('isVip', 1)
+						uni.setStorageSync('isVip', that.vip)
 					});
 				}
 			}
@@ -746,9 +764,10 @@
 		position: fixed;
 		left: 0px;
 		bottom: 0px;
-		background: #f5f5f5;
 		box-sizing: border-box;
 		display: flex;
+		color: #666666;
+		background: white;
 	}
 
 	.shop-btn {
@@ -784,10 +803,11 @@
 	}
 
 	.detail-bottom-item {
-		width: 130upx;
+		width: 130rpx;
+		height: 100rpx;
 		text-align: center;
 		font-size: 26upx;
-		position: relative;
+		// position: relative;
 		line-height: 0.1;
 	}
 

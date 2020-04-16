@@ -308,7 +308,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
 //
 //
 //
@@ -442,7 +446,7 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage 
       width: 0, height: 0, systemInfo: {}, //系统信息
       poster: '', //生成的海报
       //轮播图参数
-      indicatorDots: true, autoplay: true, interval: 3000, duration: 500, //invitation_code: '', //分销邀请码
+      indicatorDots: true, autoplay: false, interval: 3000, duration: 500, //invitation_code: '', //分销邀请码
       bannerList: ['/static/banner.png'], //轮播图
       iconTypeList: [], //小图标
       specialAreaPicList: [], //专区图片
@@ -474,9 +478,7 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage 
       this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';}, //获取二维码携带的参数值并绑定下级
     bindUser: function bindUser(scene) {var that = this;var baseUrl = 'https://api-emi.bidou88.cn/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
             uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"), data: { code: res.code }, success: function success(res) {if (res.data.code != 0) {uni.showToast({ title: res.data.msg, icon: 'none', duration: 2000 });return;}console.log('授权成功');var loginResp = res.data.data;uni.setStorageSync('token', loginResp.token);that.$store.commit('updateToken', loginResp.token); //如果存在分享id
-                if (scene != 'undefined' && scene != '') {var _that = this;_interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {console.log("绑定成功");uni.setStorageSync("bind", scene);});}}, fail: function fail(res) {_interface.default.showErr(res);} });} else {uni.showToast({ title: '登录失败！' + res.errMsg, icon: 'none', duration: 2000 });}} });}, selectTab: function selectTab(index, isGoods) {this.tabIndex = index;this.isGoods = isGoods;this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');break;case '2':
-          this.$turnPage('/pages/index/business/original-equity', 'navigateTo');
-          break;
+                if (scene != 'undefined' && scene != '') {var _that = this;_interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {console.log("绑定成功");uni.setStorageSync("bind", scene);});}}, fail: function fail(res) {_interface.default.showErr(res);} });} else {uni.showToast({ title: '登录失败！' + res.errMsg, icon: 'none', duration: 2000 });}} });}, selectTab: function selectTab(index, isGoods) {this.tabIndex = index;this.isGoods = isGoods;this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, shopListPage: function shopListPage(item) {switch (item.link) {case '1':this.$turnPage('/pages/vip/rule/vip-mainrule', 'navigateTo');break;case '2':this.$turnPage('/pages/index/business/original-equity', 'navigateTo');break;
         case '3':
           this.$turnPage('/pages/vip/rule/vip-index', 'navigateTo');
           break;

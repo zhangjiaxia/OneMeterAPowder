@@ -1671,11 +1671,12 @@ radio-group label, checkbox-group label{
   position: fixed;
   left: 0px;
   bottom: 0px;
-  background: #f5f5f5;
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  color: #666666;
+  background: white;
 }
 .shop-btn {
   width: 230rpx;
@@ -1715,9 +1716,9 @@ radio-group label, checkbox-group label{
 }
 .detail-bottom-item {
   width: 130rpx;
+  height: 100rpx;
   text-align: center;
   font-size: 26rpx;
-  position: relative;
   line-height: 0.1;
 }
 .mask {

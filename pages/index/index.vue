@@ -82,12 +82,14 @@
 				</view>
 			</view>
 		</view>
-		<authPage>
+		<!-- <authPage> -->
 			<view class="share">
+				<authPage>
 				<image src="/static/share.png" @click="shareModal=true;getQrcode()"></image>
+				</authPage>
 				<!-- <button open-type="share" class="sharebtn"></button> @click="$turnPage('/pages/index/business/poster', 'navigateTo')" -->
 			</view>
-		</authPage>
+		<!-- </authPage> -->
 		<!--分享弹窗-->
 		<view class="uni-flex uni-column content share-panel" :style="{top: panelTop}" v-if="shareModal"
 		 @touchmove.stop.prevent="touch">
@@ -148,7 +150,7 @@
 				poster: '', //生成的海报
 				//轮播图参数
 				indicatorDots: true,
-				autoplay: true,
+				autoplay: false,
 				interval: 3000,
 				duration: 500,
 				//invitation_code: '', //分销邀请码
@@ -794,8 +796,8 @@
 	}
 
 	.share image {
-		width: 100%;
-		height: 100%;
+		width: 100upx;
+		height: 100upx;
 	}
 
 	.category-list {

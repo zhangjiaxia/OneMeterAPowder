@@ -37,10 +37,9 @@
 			};
 		},
 		computed: mapState(['token', 'userInfos']),
-		// mounted() {
-		// 	console.log('授权mounted',this.token)
-		// 	this.token = uni.getStorageSync('token');
-		// },
+		mounted() {
+			//console.log('授权mounted',this.userInfos)
+		},
 		methods: {
 			prevent() { }, //阻止父级元素跳转
 			bindGetUserInfo(res){
@@ -83,10 +82,10 @@
 </script>
 
 <style>
-.auth {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-}
+	.auth {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+	}
 </style>

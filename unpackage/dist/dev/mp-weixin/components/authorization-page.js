@@ -153,10 +153,9 @@ var _default = { props: { show: { type: Boolean }, //显示用户信息或手机
     };
   },
   computed: (0, _vuex.mapState)(['token', 'userInfos']),
-  // mounted() {
-  // 	console.log('授权mounted',this.token)
-  // 	this.token = uni.getStorageSync('token');
-  // },
+  mounted: function mounted() {
+    //console.log('授权mounted',this.userInfos)
+  },
   methods: {
     prevent: function prevent() {}, //阻止父级元素跳转
     bindGetUserInfo: function bindGetUserInfo(res) {
