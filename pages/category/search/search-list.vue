@@ -1,17 +1,19 @@
 <template>
 	<view>
-		<navigationBar custom="true">
-			<view class="uni-flex uni-row vertical search-bar">
-				<view class="icon-fanhui bar-back"
-					@click="$turnPage('1', 'navigateBack')">
-				</view>
-				<view class="">
-					<view class="uni-flex uni-row vertical search">
-						<input placeholder="女装" v-model="params.keyWord" @confirm="search"/>
+		<view class="bar-sticky">
+			<navigationBar custom="true">
+				<view class="uni-flex uni-row vertical search-bar">
+					<view class="icon-fanhui bar-back"
+						@click="$turnPage('1', 'navigateBack')">
+					</view>
+					<view class="">
+						<view class="uni-flex uni-row vertical search">
+							<input placeholder="女装" v-model="params.keyWord" @confirm="search"/>
+						</view>
 					</view>
 				</view>
-			</view>
-		</navigationBar>
+			</navigationBar>
+		</view>
 		<view class="goodslist">
 			<view class="uni-flex uni-row vertical goods"
 				v-for="(item, index) in searchList" :key="index" @click="shopDetailPage(item)">
@@ -19,7 +21,7 @@
 					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
 				<view class="uni-flex uni-column rest info">
-					<view class="uni-flex title">{{item.name.substring(0,25) + '...'}}</view>
+					<view class="uni-flex title">{{item.name.substring(0,20) + '...'}}</view>
 					<view class="uni-flex subtitle rest">{{item.brandName}}</view>
 					<view class="uni-flex uni-row vertical money">
 						<view class="uni-flex rest vertical price">
@@ -34,7 +36,8 @@
 				</view>
 			</view>
 		</view>
-		<view class="empty-text" v-if="searchList.length == 0">暂无商品数据</view>
+		<view class="empty-text" v-if="searchGoodsPage.total == 0">暂无商品数据</view>
+		<view class="empty-text" v-if="(searchList.length == searchGoodsPage.total) && searchList.length > 0">已经到底了</view>
 	</view>
 </template>
 

@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "添加收货地址",
-  "navigationBarBackgroundColor": "#0071CF",
   "usingComponents": {
     "mpvue-picker": "/components/mpvue-picker/mpvuePicker",
     "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker",

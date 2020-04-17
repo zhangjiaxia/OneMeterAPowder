@@ -1,15 +1,17 @@
 <template>
 	<view class="bar-sticky">
 		<view class="status-line" :style="{height: lineHeight, background: navigationBarStyle.background || normal.background}"></view>
-		<view class="bar-line container-in" :style="{background: navigationBarStyle.background || normal.background}">
-			<view class="bar-font bar-content" v-if="!custom">
-				<view class="icon-fanhui bar-back" :style="{color: navigationBarStyle.iconColor || normal.iconColor}" @click="$turnPage('1', 'navigateBack')"
-				 v-if="showBack">
+		<view class="bar-line" :style="{background: navigationBarStyle.background || normal.background}">
+			<view class="bar-line container-in" :style="{background: navigationBarStyle.background || normal.background}">
+				<view class="bar-font bar-content" v-if="!custom">
+					<view class="icon-fanhui bar-back" :style="{color: navigationBarStyle.iconColor || normal.iconColor}" @click="$turnPage('1', 'navigateBack')"
+					 v-if="showBack">
+					</view>
+					<view class="bar-title" :style="{color: navigationBarStyle.fontColor || normal.fontColor}">{{navigationBarStyle.iconText}}</view>
 				</view>
-				<view class="bar-title" :style="{color: navigationBarStyle.fontColor || normal.fontColor}">{{navigationBarStyle.iconText}}</view>
-			</view>
-			<view class="bar-font container-in" v-else>
-				<slot></slot>
+				<view class="bar-font container-in" v-else>
+					<slot></slot>
+				</view>
 			</view>
 		</view>
 	</view>

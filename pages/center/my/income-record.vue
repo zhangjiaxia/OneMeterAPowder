@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="record-item" v-for="(item, index) in withdrawList" :key="index">
 			<view>
 				<view class="record-item-top">
@@ -12,6 +14,7 @@
 			<view class="num">+500</view>
 		</view>
 		<view class="empty-text" v-if="withdrawList.length == 0">暂无数据</view>
+		<view class="empty-text" v-if="(withdrawList.length == withdrawData.total) && withdrawList.length > 0">已经到底了</view>
 	</view>
 </template>
 
@@ -26,7 +29,7 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					iconText: '佣金明细' //导航栏文字
+					iconText: '提现明细' //导航栏文字
 				},
 				params: {
 					page: 1, //页数

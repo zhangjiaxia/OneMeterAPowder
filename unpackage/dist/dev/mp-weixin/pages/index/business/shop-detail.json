@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "商品详情",
-  "navigationBarBackgroundColor": "#0071CF",
   "usingComponents": {
     "auth-page": "/components/authorization-page",
     "navigation-bar": "/components/navigation-bar"

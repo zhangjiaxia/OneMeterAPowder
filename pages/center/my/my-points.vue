@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="uni-flex uni-row content point">
 			<image src="/static/pointbg.png" class="pointbg"></image>
 			<view class="uni-flex uni-column">

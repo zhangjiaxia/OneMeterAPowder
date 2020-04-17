@@ -3,36 +3,31 @@
 		{
 			"path":"pages/index/index",
 			"style":{
-				"navigationBarTitleText":"一米一粉",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText":"一米一粉"
 			}
 		},
 		{
 			"path": "pages/center/center",
 			"style": {
-				"navigationBarTitleText": "我的",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "我的"
 			}
 		},
 		{
 			"path":"pages/category/category",
 			"style":{
-				"navigationBarTitleText":"类目",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText":"类目"
 			}
 		},
 		{
 			"path": "pages/shopping/shopping",
 			"style": {
-				"navigationBarTitleText": "购物车",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "购物车"
 			}
 		},
 		{
 			"path":"pages/vip/vip",
 			"style":{
-				"navigationBarTitleText":"VIP",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText":"VIP"
 			}
 		}
 	],
@@ -41,22 +36,19 @@
 		"pages": [{
 			"path" : "vip-index",
 			"style": {
-				"navigationBarTitleText": "会员权益",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "会员权益"
 			}
 		},
 		{
 			"path" : "vip-mainrule",
 			"style": {
-				"navigationBarTitleText": "佣金规则",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "佣金规则"
 			}
 		},
 		{
 			"path" : "vip-rule",
 			"style": {
-				"navigationBarTitleText": "VIP会员规则",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "VIP会员规则"
 			}
 		}]
 	},
@@ -65,43 +57,37 @@
 		"pages": [{
 			"path" : "address",
 			"style": {
-				"navigationBarTitleText": "收货地址",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "收货地址"
 			}
 		},
 		{
 			"path" : "address-add",
 			"style": {
-				"navigationBarTitleText": "添加收货地址",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "添加收货地址"
 			}
 		},
 		{
 			"path" : "confirm-order",
 			"style": {
-				"navigationBarTitleText": "确认订单",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "确认订单"
 			}
 		},
 		{
 			"path" : "invoice-info",
 			"style": {
-				"navigationBarTitleText": "发票信息",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "发票信息"
 			}
 		},
 		{
 			"path": "order",
 			"style": {
-				"navigationBarTitleText": "我的订单",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "我的订单"
 			}
 		},
 		{
 			"path": "order-detail",
 			"style": {
-				"navigationBarTitleText": "订单详情",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "订单详情"
 			}
 		}]
 	},
@@ -110,34 +96,29 @@
 		"pages": [{
 			"path": "poster",
 			"style": {
-				"navigationBarTitleText": "分享海报",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "分享海报"
 			}
 		},{
 			"path": "business-school",
 			"style": {
-				"navigationBarTitleText": "商学院",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "商学院"
 			}
 		},
 		{
 			"path": "Integral-stake",
 			"style": {
-				"navigationBarTitleText": "积分股权",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "积分股权"
 			}
 		},
 		{
 			"path": "shop-detail",
 			"style": {
-				"navigationBarTitleText": "商品详情",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "商品详情"
 			}
 		}, {
 			"path": "original-equity",
 			"style": {
-				"navigationBarTitleText": "原始股权",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "原始股权"
 			}
 		}]
 	},
@@ -146,43 +127,37 @@
 		"pages": [{
 			"path": "about",
 			"style": {
-				"navigationBarTitleText": "关于我们",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "关于我们"
 			}
 		},
 		{
 			"path": "cash",
 			"style": {
-				"navigationBarTitleText": "我要提现",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "我要提现"
 			}
 		},
 		{
 			"path": "commission-detail",
 			"style": {
-				"navigationBarTitleText": "佣金明细",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "佣金明细"
 			}
 		},
 		{
 			"path": "income-record",
 			"style": {
-				"navigationBarTitleText": "佣金明细",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "佣金明细"
 			}
 		},
 		{
 			"path": "my-points",
 			"style": {
-				"navigationBarTitleText": "我的积分",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "我的积分"
 			}
 		},
 		{
 			"path": "team",
 			"style": {
-				"navigationBarTitleText": "我的团队",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "我的团队"
 			}
 		}]
 	},
@@ -191,29 +166,25 @@
 		"pages": [{
 			"path": "category-detail",
 			"style": {
-				"navigationBarTitleText": "类目详情",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "类目详情"
 			}
 		},
 		{
 			"path": "goods-list",
 			"style": {
-				"navigationBarTitleText": "美妆护肤",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "美妆护肤"
 			}
 		},
 		{
 			"path": "search",
 			"style": {
-				"navigationBarTitleText": "搜索",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "搜索"
 			}
 		},
 		{
 			"path": "search-list",
 			"style": {
-				"navigationBarTitleText": "搜索商品",
-				"navigationBarBackgroundColor": "#0071CF"
+				"navigationBarTitleText": "搜索商品"
 			}
 		}]
 	}],

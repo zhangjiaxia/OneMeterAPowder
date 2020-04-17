@@ -1,6 +1,8 @@
 <template>
 	<view class="">
-		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
+		</view>
 		<view class="uni-flex topitem vertical">
 			<image src="/static/bg.png" class="bg"></image>
 			<authPage>
@@ -12,21 +14,21 @@
 						<view class="nick">
 							{{userInfo.nickName || '御翔绝瞬'}}
 							<image src="/static/goldactive.png" class="gold" v-if="userDetail.is_vip==1"></image>
-							<image src="/static/gold.png" class="gold"></image>
+							<image src="/static/gold.png" class="gold" v-else></image>
 						</view>
-						<view>
+						<view @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 							<image src="/static/silver.png" class="rate" v-if="userDetail.is_vip==1"></image>
 							<image src="/static/coconel.png" class="rate" v-else></image>
 						</view>
 						<view class="idnumber">ID:{{userDetail.invitation_code || ''}}</view>
 						<!-- v-if="userDetail.is_vip==1"-->
-						<view class="time">会员到期时间：{{userDetail.vip_valid_date || '2021-4-16 21:56:40'}}</view>
+						<view class="time">VIP会员到期时间：{{userDetail.vip_valid_date || '2021-4-16 21:56:40'}}</view>
 					</view>
 				</view>
 			</authPage>
 		</view>
 		<view class="uni-flex uni-row vertical commission">
-			<view class="uni-flex uni-column rest content">
+			<view class="uni-flex uni-column rest content" @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
 				<view class="money">我的佣金</view>
 				<view class="money">{{userDetail.total_profit || 0}}</view>
 				<view class="tip">
@@ -36,7 +38,7 @@
 			<view class="uni-flex">
 				<view class="line"></view>
 			</view>
-			<view class="uni-flex uni-column rest content">
+			<view class="uni-flex uni-column rest content" @click="$turnPage('/pages/center/my/cash', 'navigateTo')">
 				<view class="money">待提现</view>
 				<view class="money">{{userDetail.frozen_profit}}</view>
 				<view class="tip">（提现中:<text class="active">{{userDetail.frozen_profit || 0}}元</text>）</view>
@@ -50,7 +52,7 @@
 						<text class="active">{{userNumber.firstUserNumber || 0}}</text>人
 					</view>
 				</view>
-				<view class="uni-flex rest content vline">
+				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">一级VIP会员</view>
 					<view class="number">
 						<text class="active">{{userNumber.firstVipNumber || 0}}</text>人
@@ -70,7 +72,7 @@
 						<text class="active">{{userNumber.secondUserNumber || 0}}</text>人
 					</view>
 				</view>
-				<view class="uni-flex rest content vline">
+				<view class="uni-flex rest content vline" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
 					<view class="title">二级VIP会员</view>
 					<view class="number">
 						<text class="active">{{userNumber.secondVipNumber || 0}}</text>人

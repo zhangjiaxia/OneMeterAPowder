@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<image src="/static/vip-bac.png" class="bac" mode="widthFix"></image>
 		<view class="bottom-btn" @click="memberCard">立即加入一米一粉会员(299一年)</view>
 	</view>
@@ -67,8 +69,8 @@
 	vertical-align: top;
 }
 .bottom-btn{
-	height: 39px;
-	line-height: 39px;
+	height: 120rpx;
+	line-height: 120rpx;
 	background: #EEB950;
 	color: #ffffff;
 	text-align: center;

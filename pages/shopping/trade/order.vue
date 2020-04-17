@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="layout">
 			<view class="uni-flex vertical searchbar">
 				<view class="uni-flex">
@@ -14,23 +16,23 @@
 				</view>
 			</view>
 			<view class="order" v-for="(item, index) in orderPageList" :key="index" 
-				@click="$turnPage('/pages/shopping/trade/order-detail?id='+item.orderId, 'navigateTo')">
+				@click="$turnPage('/pages/shopping/trade/order-detail?id='+item.noId, 'navigateTo')">
 				<view class="uni-flex uni-row time">
 					<view class="uni-flex rest date">
-						{{item.confirmTime}}
+						{{item.update_time}}
 					</view>
 					<view class="uni-flex tip">
-						{{item.orderStatusName}}
+						{{item.status}}
 					</view>
 				</view>
-				<view class="uni-flex uni-row orderitem" v-for="(subItem, i) in item.skuList" :key="i">
+				<view class="uni-flex uni-row orderitem" v-for="(subItem, i) in item.cartList" :key="i">
 					<view class="uni-flex">
 						<image :src="subItem.goodsPhotoUrl" class="goodsimg"></image>
 					</view>
 					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">{{subItem.prodName.substring(0,25) + '...'}}</view>
+						<view class="title">{{subItem.name.substring(0,20) + '...'}}</view>
 						<view class="prop">
-							<text class="size" v-for="(thirdItem, x) in subItem.skuDetail.skuPropertyList" :key="x">{{thirdItem.val}}</text>
+							<text class="size" v-for="(thirdItem, x) in subItem.skuPropertyList" :key="x">{{thirdItem.val}}</text>
 							<!-- <text class="size">100ml*1瓶</text> -->
 						</view>
 					</view>
@@ -45,7 +47,7 @@
 					</view>
 					<view class="uni-flex totalspace">
 						<text class="total">合计:</text>
-						<text class="totalnum">￥{{item.payAmount}}</text>
+						<text class="totalnum">￥{{item.orderPrice}}</text>
 					</view>
 				</view>
 				<view class="uni-flex vertical btnop" v-if="item.orderStatus === 20">
@@ -81,6 +83,7 @@
 					</view>
 				</view>
 			</view>
+			<view class="empty-text" v-if="(orderPageList.length == orderPageData.total) && orderPageList.length > 0">已经到底了</view>
 			<!-- <view class="uni-flex uni-row horizontally vertical notice">
 				<view class="line"></view>
 				<text class="space">已经没有了哦</text>
@@ -163,13 +166,19 @@
 					that.orderCount = []
 					let num = 0;
 					for(var item of that.orderPageList) {
-						for(var subItem of item.skuList) {
+						for(var subItem of item.cartList) {
 							num += subItem.quantity
+							item.status = this.setStatus(item.status)
 						}
 						that.orderCount.push(num)
 						num = 0;
 					}
 				});
+			},
+			setStatus(status) {
+				if(status == 0) {
+					return '待支付'
+				}
 			},
 			selectTab(index, status) {
 				this.tabIndex = index

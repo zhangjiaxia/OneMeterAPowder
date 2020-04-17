@@ -4,7 +4,7 @@ import store from '@/store' //引入全局变量的token
 const isFormal = false //是否正式,false:测试，true:正式
 
 const baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开发用测试域名
-const baseUrlFormal = "https://shop.itaocow.com.cn"; //正式域名，提交文件时要切换到正式域名
+const baseUrlFormal = "https://shop.yimiefen.com/api"; //正式域名，提交文件时要切换到正式域名
 const baseUrl = isFormal ? baseUrlFormal : baseUrlTest;
 
 /**后台>http://admin-emi.bidou88.cn/

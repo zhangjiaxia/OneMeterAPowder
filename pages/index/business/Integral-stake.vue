@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="layout">
 			<view class="uni-flex uni-column vertical topitem">
 				<image src="/static/chartbg.png" class="chartbg"></image>

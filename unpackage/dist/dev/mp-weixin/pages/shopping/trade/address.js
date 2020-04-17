@@ -95,29 +95,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-swipe-action": function() {
-    return Promise.all(/*! import() | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then(__webpack_require__.bind(null, /*! @/components/uni-swipe-action/uni-swipe-action.vue */ 263))
+    return Promise.all(/*! import() | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then(__webpack_require__.bind(null, /*! @/components/uni-swipe-action/uni-swipe-action.vue */ 266))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.addressList, function(item, index) {
-    var g0 = JSON.stringify(item)
-    return {
-      $orig: _vm.__get_orig(item),
-      g0: g0
-    }
-  })
-
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        l0: l0
-      }
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -180,6 +164,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -208,7 +196,11 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var uniSwipeAction = function uniSwipeAction() {Promise.all(/*! require.ensure | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-swipe-action/uni-swipe-action.vue */ 263));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+//
+//
+//
+//
+var uniSwipeAction = function uniSwipeAction() {Promise.all(/*! require.ensure | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-swipe-action/uni-swipe-action.vue */ 266));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { uniSwipeAction: uniSwipeAction, navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '收货地址' //导航栏文字
       }, addressData: {}, //收货地址数据
@@ -219,14 +211,23 @@ var _default = { components: { uniSwipeAction: uniSwipeAction, navigationBar: na
       isOpened: false, //是否显示右滑删除
       //右滑删除
       options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }] };}, onLoad: function onLoad(options) {}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.addressList.length >= this.cartList.total) {return;}
-    this.params.page++;
-    this.getAddressList();
-  },
-  methods: {
+  onReachBottom: function onReachBottom() {if (this.addressList.length >= this.cartList.total) {return;}this.params.page++;this.getAddressList();}, methods: {
+    chooseAddress: function chooseAddress(address) {
+      var pages = getCurrentPages();
+      var parentPages = pages[pages.length - 2].route; //获取上级页面路径
+      //如果上级页面是订单结算页面，则实现点击选择某个地址返回上一页面
+      if (parentPages === 'pages/shopping/trade/confirm-order') {
+        //获取用户选择的某个收货地址，并跳转上一页面
+        this.$store.commit('setSelectAddress', address);
+        this.$turnPage('1', 'navigateBack');
+      }
+    },
     turn: function turn() {
       var isDefault = this.addressList.length > 0;
       this.$turnPage('/pages/shopping/trade/address-add?isDefault=' + isDefault, 'navigateTo');
+    },
+    edit: function edit(item) {
+      this.$turnPage('/pages/shopping/trade/address-add?item=' + JSON.stringify(item), 'navigateTo');
     },
     initData: function initData() {
       //重置分页参数

@@ -1,19 +1,21 @@
 <template>
 	<view class="container">
 		<view>
-			<navigationBar custom="true">
-				<view class="uni-flex uni-row content search-bar">
-					<view class="search-img">
-						<image src="/static/logo.png" class="icon-logo"></image>
-					</view>
-					<view class="">
-						<view class="uni-flex uni-row vertical search" @click="$turnPage('/pages/category/search/search', 'navigateTo')">
-							<view class="icon-search search-icon"></view>
-							<text>搜索</text>
+			<view class="bar-sticky">
+				<navigationBar custom="true">
+					<view class="uni-flex uni-row content search-bar">
+						<view class="search-img">
+							<image src="/static/logo.png" class="icon-logo"></image>
+						</view>
+						<view class="">
+							<view class="uni-flex uni-row vertical search" @click="$turnPage('/pages/category/search/search', 'navigateTo')">
+								<view class="icon-search search-icon"></view>
+								<text>搜索</text>
+							</view>
 						</view>
 					</view>
-				</view>
-			</navigationBar>
+				</navigationBar>
+			</view>
 			<view style="position: relative;height: 290rpx;">
 				<view class="bgColor"></view>
 				<swiper class="banner-swiper" :autoplay="autoplay" circular :interval="interval" :duration="duration">
@@ -57,14 +59,44 @@
 					<view><text class="category-item-text" :class="{'category-text-active':tabIndex == index}">{{item.specialTitle}}</text></view>
 				</view>
 			</view>
+			<view class="shop-list" v-if="specialGoodsList.length > 0 && isGoods == 1">
+				<view class="shop-item" v-for="(content,dex) in specialGoodsList" @click="shopDetailPage(content)" :key="dex">
+					<image :src="content.mainImgUrl" class="shop-img"></image>
+					<view class="shop-item-content">
+						<view class="shop-item-title">{{content.name.substring(0,20) + '...'}}</view>
+						<view class="shop-item-bottom">
+							<text class="shop-item-price">
+								<text style="font-size: 24rpx;">￥</text>
+								{{content.retailPrice[0] || 0}}
+							</text>
+							<!-- <text class="pay-btn">+</text> -->
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="shop-list" v-if="championList.length > 0 && isGoods == 0">
+				<view class="shop-item" v-for="(content,dex) in championList" @click="shopDetailPage(content)" :key="dex">
+					<image :src="content.mainImgUrl" class="shop-img"></image>
+					<view class="shop-item-content">
+						<view class="shop-item-title">{{content.name.substring(0,20) + '...'}}</view>
+						<view class="shop-item-bottom">
+							<text class="shop-item-price">
+								<text style="font-size: 24rpx;">￥</text>
+								{{content.retailPrice[0] || 0}}
+							</text>
+							<!-- <text class="pay-btn">+</text> -->
+						</view>
+					</view>
+				</view>
+			</view>
 		</view>
-		<view class="space">
+		<!-- <view class="space">
 			<view class="goods" :style="{'margin-right': index % 2 == 0 ? '20rpx' : '0'}" v-if="isGoods == 1" v-for="(item, index) in specialGoodsList"
 			 :key="index" @click="shopDetailPage(item)">
 				<view style="width: 100%;">
 					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
-				<view class="title">{{item.name.substring(0,10) + '...'}}</view>
+				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
 				<view class="price">
 					<text style="font-size: 24rpx;">￥</text>
 					<text>{{item.retailPrice[0]}}</text>
@@ -75,21 +107,27 @@
 				<view style="width: 100%;">
 					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
-				<view class="title">{{item.name.substring(0,10) + '...'}}</view>
+				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
 				<view class="price">
 					<text style="font-size: 24rpx;">￥</text>
 					<text>{{item.retailPrice[0]}}</text>
 				</view>
 			</view>
+		</view> -->
+		<view class="uni-flex content" style="width: 100%;" v-if="isGoods == 1">
+			<view class="empty-text" v-if="(specialGoodsList.length == specialGoodsData.total) && specialGoodsList.length > 0">已经到底了</view>
+			<view class="empty-text" v-if="specialGoodsList.length == 0">暂无数据</view>
 		</view>
-		<!-- <authPage> -->
-			<view class="share">
-				<authPage>
+		<view class="uni-flex content" style="width: 100%;" v-else>
+			<view class="empty-text" v-if="(championList.length == championData.total) && championList.length > 0">已经到底了</view>
+			<view class="empty-text" v-if="championList.length == 0">暂无数据</view>
+		</view>
+		<view class="share">
+			<authPage>
 				<image src="/static/share.png" @click="shareModal=true;getQrcode()"></image>
-				</authPage>
-				<!-- <button open-type="share" class="sharebtn"></button> @click="$turnPage('/pages/index/business/poster', 'navigateTo')" -->
-			</view>
-		<!-- </authPage> -->
+			</authPage>
+			<!-- <button open-type="share" class="sharebtn"></button> @click="$turnPage('/pages/index/business/poster', 'navigateTo')" -->
+		</view>
 		<!--分享弹窗-->
 		<view class="uni-flex uni-column content share-panel" :style="{top: panelTop}" v-if="shareModal"
 		 @touchmove.stop.prevent="touch">
@@ -102,7 +140,7 @@
 						<image src="/static/bussiness.png" class="share-mainimg"></image>
 					</view>
 				</view>
-				<view class="uni-flex vertical share-id">ID:242434 为您推荐了一米一粉商城</view>
+				<view class="uni-flex vertical share-id">ID:242434 为您推荐了每日有薪商城</view>
 				<view class="share-space">
 					<view class="uni-flex uni-row vertical" style="height: 191rpx;">
 						<view class="qrcode">
@@ -150,7 +188,7 @@
 				poster: '', //生成的海报
 				//轮播图参数
 				indicatorDots: true,
-				autoplay: false,
+				autoplay: true,
 				interval: 3000,
 				duration: 500,
 				//invitation_code: '', //分销邀请码
@@ -166,6 +204,11 @@
 					size: 10,
 					specialId: 0 //选择的专区索引
 				}, //专区商品参数
+				championParams: {
+					page: 1,
+					size: 10,
+					specialId: 0 //销量冠军索引
+				}, //专区商品参数
 				championData: {}, //销量冠军数据
 				championList: [], //销量冠军列表
 				isGoods: 1 //判断是否为销量冠军，0是，1不是
@@ -173,7 +216,7 @@
 		},
 		// onShareAppMessage(res) {
 		// 	return {
-		// 		title: '一米一粉',
+		// 		title: '每日有薪',
 		// 		path: '/pages/index/index?code=' + this.invitation_code,
 		// 		imageUrl: '/static/banner.png'
 		// 	}
@@ -202,11 +245,14 @@
 		//到达页面底部时触发的事件
 		onReachBottom() {
 			if (this.isGoods == 0) {
-				if (this.championList.length >= this.championData.total) {
-					return;
+				if(this.championList.length > 0) {
+					console.log(this.championList.length, this.championData.total)
+					if (this.championList.length >= this.championData.total) {
+						return;
+					}
+					this.championParams.page++;
+					this.getChampionList()
 				}
-				this.params.page++;
-				this.getChampionList()
 			} else {
 				if (this.specialGoodsList.length >= this.specialGoodsData.total) {
 					return;
@@ -343,12 +389,15 @@
 			},
 			initData() {
 				//重置分页参数
-				this.specialGoodsData = {}
-				this.specialGoodsList = []
-				this.params.page = 1
 				if (this.isGoods == 0) {
+					this.championData = {}
+					this.championList = []
+					this.championParams.page = 1
 					this.getChampionList();
 				} else {
+					this.specialGoodsData = {}
+					this.specialGoodsList = []
+					this.params.page = 1
 					this.getSpecialGoodsList();
 				}
 			},
@@ -368,12 +417,12 @@
 			//销量冠军
 			getChampionList() {
 				let that = this;
-				interfaceurl.checkAuth(interfaceurl.championList, this.params, false).then((res) => {
+				interfaceurl.checkAuth(interfaceurl.championList, this.championParams, false).then((res) => {
 					that.championData = res.data
-					if (that.params.page == 1) {
+					if (that.championParams.page == 1) {
 						that.championList = res.data.data
 					} else {
-						that.championList = that.specialGoodsList.concat(res.data.data)
+						that.championList = that.championList.concat(res.data.data)
 					}
 				});
 			},
@@ -533,7 +582,7 @@
 				  ctx.closePath()
 				  ctx.clip();
 				  ctx.fillStyle="#fff";
-				  ctx.fillRect(0,0,500,500);
+				  ctx.fillRect(0,0,800,800); //填充白色区域的范围
 				  ctx.stroke();
 				  ctx.restore();
 				//海报图片
@@ -553,7 +602,7 @@
 				ctx.setFillStyle('#333333') // 文字颜色：黑色
 				ctx.setFontSize(30 / this.systemInfo.pixelRatio) // 文字字号：22px
 				let userInfo = uni.getStorageSync('userInfo')
-				ctx.fillText(userInfo.nickName+" 为您推荐了一米一粉商城", 25 / this.systemInfo.pixelRatio, 680 / this.systemInfo.pixelRatio) //开始绘制文本的 x/y 坐标位置（相对于画布） 
+				ctx.fillText(userInfo.nickName+" 为您推荐了每日有薪商城", 25 / this.systemInfo.pixelRatio, 680 / this.systemInfo.pixelRatio) //开始绘制文本的 x/y 坐标位置（相对于画布） 
 				ctx.stroke(); //stroke() 方法会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色
 				//文字绘制
 				ctx.setFillStyle('#333333')
@@ -570,6 +619,7 @@
 				ctx.save()
 				// 将前面绘制的各个图案一起画出来
 				ctx.draw()
+				console.log('画布宽高',canvasW,canvasH)
 				setTimeout(() => {
 					wx.canvasToTempFilePath({
 						x: 0,
@@ -592,6 +642,13 @@
 </script>
 
 <style lang="scss">
+	//导航栏吸顶效果
+	.bar-sticky {
+		position: sticky;
+		position: -webkit-sticky;
+		top: 0;
+		z-index: 101;
+	}
 	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
 	@import '/common/uni.css';
 	/*自定义公共样式*/
@@ -835,42 +892,44 @@
 	}
 
 	//商品列表
-	.space {
-		width: 700rpx;
-		margin: 0rpx auto;
+	// .space {
+	// 	width: 700rpx;
+	// 	margin: 0rpx auto;
+	// 	height: auto;
+	// 	overflow: auto;
+	// 	.goods {
+	// 		width: 340rpx;
+	// 		background: #FFFFFF;
+	// 		border-radius: 20rpx;
+	// 		float: left;
+	// 		margin-bottom: 20rpx;
 
-		.goods {
-			width: 340rpx;
-			background: #FFFFFF;
-			border-radius: 20rpx;
-			float: left;
-			margin-bottom: 20rpx;
+	// 		.goodsimg {
+	// 			width: 340rpx;
+	// 			height: 340rpx;
+	// 			border-top-left-radius: 20rpx;
+	// 			border-top-right-radius: 20rpx;
+	// 		}
 
-			.goodsimg {
-				width: 340rpx;
-				height: 340rpx;
-				border-top-left-radius: 20rpx;
-				border-top-right-radius: 20rpx;
-			}
+	// 		.title {
+	// 			height: 60rpx;
+	// 			font-size: 24rpx;
+	// 			color: #333333;
+	// 			margin: 10rpx;
+	// 		}
 
-			.title {
-				font-size: 24rpx;
-				color: #333333;
-				margin: 10rpx;
-			}
+	// 		.price {
+	// 			font-size: 30rpx;
+	// 			color: #0071CF;
+	// 			margin-left: 10rpx;
+	// 			margin-bottom: 20rpx;
+	// 		}
 
-			.price {
-				font-size: 30rpx;
-				color: #0071CF;
-				margin-left: 10rpx;
-				margin-bottom: 20rpx;
-			}
-
-			view {
-				line-height: 1.2;
-			}
-		}
-	}
+	// 		view {
+	// 			line-height: 1.2;
+	// 		}
+	// 	}
+	// }
 
 	/*海报分享*/
 	.share-panel {
@@ -950,5 +1009,66 @@
 		opacity: 0.9;
 		/*避免其他页面元素使用定位引发的位置偏移*/
 		top: 0;
+	}
+	
+	//商品展示
+	.shop-list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		width: 700rpx;
+		margin: 0 auto;
+	}
+	
+	.shop-item {
+		width: 340rpx;
+		margin-bottom: 20rpx;
+		background-color: #ffffff;
+		border-radius: 20rpx;
+	}
+	
+	.shop-img {
+		width: 100%;
+		height: 300rpx;
+		border-top-left-radius: 20rpx;
+		border-top-right-radius: 20rpx;
+	}
+	
+	.shop-item-content {
+		// padding: 0rpx 20rpx;
+		padding-top: 10rpx;
+		padding-bottom: 20rpx;
+	}
+	
+	.shop-item-title {
+		height: 60rpx;
+		font-size: 26rpx;
+		color: #333333;
+		margin: 10rpx;
+	}
+	.shop-item-content view {
+		line-height: 1.2;
+	}
+	
+	.shop-item-text {
+		color: #999999;
+		margin-top: 20rpx;
+		font-size: 26rpx;
+		display: inline-block;
+		max-width: 260rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
+	.shop-item-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.shop-item-price {
+		color: #0071CF;
+		font-size: 30rpx;
 	}
 </style>

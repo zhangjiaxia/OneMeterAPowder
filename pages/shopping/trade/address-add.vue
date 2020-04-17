@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="form-item">
 			<view>收货人</view>
 			<input class="form-input" placeholder="请输入收货人姓名" placeholder-style="color:#BFBFBF;" v-model="saveParams.receiver" />
@@ -40,6 +42,12 @@
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	import cityData from '@/common/city.data.js';
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
+	//引入SDK核心类
+	var QQMapWX = require('@/utils/qqmap-wx-jssdk.min.js');//腾讯地图的js文件放到utils文件下面
+	// 实例化腾讯地图API核心类
+	var qqmapsdk = new QQMapWX({
+	    key: 'YJ7BZ-4MLCU-P7UVG-2LPHP-XLQQQ-CMFRJ' // 必填
+	});
 	export default {
 		components: {
 			mpvuePicker,
@@ -52,10 +60,6 @@
 				navigationBarStyle: {
 					iconText: '添加收货地址' //导航栏文字
 				},
-				true_name: '',
-				cellphone: '',
-				detail_address: '',
-				address_id: '',
 				//动态参数
 				themeColor: '#007AFF',
 				cityPickerValueDefault: [0, 0, 1],
@@ -77,7 +81,6 @@
 			}
 		},
 		onLoad(options) {
-			console.log('isDefault',options)
 			if(options.isDefault == 'false') {
 				this.forceDefault = true
 				this.saveParams.isDefault = 1
@@ -86,14 +89,12 @@
 			}
 			if(options.item) {
 				this.saveParams = JSON.parse(options.item)
-				// this.address_id = item.addressId
-				// this.true_name = item.receiver
-				// this.cellphone = item.receiverPhone
-				// this.detail_address = item.receiverAddr
+			} else {
+				this.getUserLocation()
 			}
 		},
 		onShow() {
-      
+			
 		},
 		methods: {
 			// 三级联动选择
@@ -152,6 +153,102 @@
 					//保存成功后关闭本页面跳到上一页
 					that.$turnPage('1', 'navigateBack')
 				});
+			},
+			// 判断用户是否拒绝地理位置信息授权，拒绝的话重新请求授权
+			getUserLocation: function () {
+			    let that = this;
+			    wx.getSetting({
+			      success: (res) => {
+			        //console.log(JSON.stringify(res))
+			        // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
+			        // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
+			        // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
+			        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+			          wx.showModal({
+			            title: '请求授权当前位置',
+			            content: '需要获取您的地理位置，请确认授权',
+			            success: function (res) {
+			              if (res.cancel) {
+			                wx.showToast({
+			                  title: '拒绝授权',
+			                  icon: 'none',
+			                  duration: 1000
+			                })
+			              } else if (res.confirm) {
+			                wx.openSetting({
+			                  success: function (dataAu) {
+			                    if (dataAu.authSetting["scope.userLocation"] == true) {
+			                      wx.showToast({
+			                        title: '授权成功',
+			                        icon: 'success',
+			                        duration: 1000
+			                      })
+			                      //再次授权，调用wx.getLocation的API
+			                      that.getLocation();
+			                    } else {
+			                      wx.showToast({
+			                        title: '授权失败',
+			                        icon: 'none',
+			                        duration: 1000
+			                      })
+			                    }
+			                  }
+			                })
+			              }
+			            }
+			          })
+			        } else if (res.authSetting['scope.userLocation'] == undefined) {
+			          //调用wx.getLocation的API
+			          that.getLocation();
+			        }
+			        else {
+			          //调用wx.getLocation的API
+			          that.getLocation();
+			        }
+			      }
+			    })
+			},
+			// 获取定位当前位置的经纬度
+			getLocation: function () {
+			    let that = this;
+			    wx.getLocation({
+			      type: 'wgs84',
+			      success: function (res) {
+					//console.log('getLocation', res)
+			        let latitude = res.latitude
+			        let longitude = res.longitude
+			        that.getLocal(latitude, longitude)
+			      },
+			      fail: function (res) {
+			        console.log('fail' + JSON.stringify(res))
+			      }
+			    })
+			},
+			// 获取当前地理位置
+			getLocal: function (latitude, longitude) {
+			    let that = this;
+			    qqmapsdk.reverseGeocoder({
+			      location: {
+			        latitude: latitude,
+			        longitude: longitude
+			      },
+			      success: function (res) {
+			        let province = res.result.ad_info.province
+			        let city = res.result.ad_info.city
+			        let district = res.result.ad_info.district;
+			        // 保存一下当前定位的位置留着后面重新定位的时候搜索附近地址用
+					that.saveParams.receiverAreaName = province + city + district
+					that.saveParams.receiverAddr = res.result.address_component.street_number
+					that.saveParams.regionId = res.result.ad_info.adcode
+					//console.log('getLocal', res)
+			      },
+			      fail: function (res) {
+			        console.log(res);
+			      },
+			      complete: function (res) {
+			        // console.log(res);
+			      }
+			    });
 			}
 		}
 	}

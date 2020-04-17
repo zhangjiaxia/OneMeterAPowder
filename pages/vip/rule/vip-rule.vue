@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view style="padding-top: 20rpx;">
 			<view v-if="isUpgrade == 'true'">
 				<view class="title">VIP会员升级规则</view>

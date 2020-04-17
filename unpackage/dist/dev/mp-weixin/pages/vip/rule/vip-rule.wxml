@@ -1,4 +1,4 @@
-<view><navigation-bar vue-id="94a4257c-1" navigationBarStyle="{{navigationBarStyle}}" bind:__l="__l"></navigation-bar><view style="padding-top:20rpx;"><block wx:if="{{isUpgrade=='true'}}"><view><view class="title">VIP会员升级规则</view><view class="space"><view class="section">1、一级VIP会员数量1名以上9名以下，普通会员升级为白银会员。
+<view><view class="bar-sticky"><navigation-bar vue-id="94a4257c-1" navigationBarStyle="{{navigationBarStyle}}" bind:__l="__l"></navigation-bar></view><view style="padding-top:20rpx;"><block wx:if="{{isUpgrade=='true'}}"><view><view class="title">VIP会员升级规则</view><view class="space"><view class="section">1、一级VIP会员数量1名以上9名以下，普通会员升级为白银会员。
 					待遇：享有对一级VIP会员的58元/名/每年的佣金收益，但无权享
 					有二级VIP会员的38元/名/年的佣金收益。</view><view class="section">2、一级VIP会员数量10名以上，白银会员升级为黄金会员。待
 					遇：享有对一级VIP会员的58元/名/每年的佣金收益及二级VIP会

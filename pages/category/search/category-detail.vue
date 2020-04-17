@@ -1,12 +1,14 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="content">
 			<view class="shop-list" v-if="shopList.length > 0">
 				<view class="shop-item" v-for="(content,dex) in shopList" @click="shopDetailPage(content)" :key="dex">
 					<image :src="content.mainImgUrl" class="shop-img"></image>
 					<view class="shop-item-content">
-						<view class="shop-item-title">{{content.name.substring(0,25) + '...'}}</view>
+						<view class="shop-item-title">{{content.name.substring(0,20) + '...'}}</view>
 						<view class="shop-item-bottom">
 							<text class="shop-item-price">
 								<text style="font-size: 24rpx;">￥</text>
@@ -22,6 +24,7 @@
 					<view>暂无数据</view>
 				</template>
 			</view>
+			<view class="empty-text" v-if="(shopList.length == shopData.total) && shopList.length > 0">已经到底了</view>
 		</view>
 	</view>
 </template>
@@ -42,29 +45,51 @@
 					iconColor: '#FFFFFF',
 					iconText: '类目详情' //导航栏文字
 				},
-				shopList: [],
+				params: {
+					cateId: '', //5034
+					page: 1,
+					size: 10
+				}, //分类详情参数
+				shopData: {}, //分类详情数据
+				shopList: [], //分类详情列表
 				loading: true
 			}
 		},
 		onLoad(options) {
 			this.navigationBarStyle.iconText = options.category
-			this.getCagetogyList(options.cateId)
+			this.params.cateId = options.cateId; //5034
+			this.getCagetogyList()
 		},
 		onShow() {
 
 		},
+		//到达页面底部时触发的事件
+		onReachBottom() {
+			if (this.shopList.length >= this.shopData.total) {
+				return;
+			}
+			this.params.page++;
+			this.getCagetogyList()
+		},
 		methods: {
+			initData() {
+				//重置分页参数
+				this.shopData = {}
+				this.shopList = []
+				this.params.page = 1
+				this.getCagetogyList();
+			},
 			//获取分类下的商品列表
-			getCagetogyList(cateId) {
+			getCagetogyList() {
 				let that = this;
-				let params = {
-					cateId: cateId, //5034
-					page: 1,
-					size: 10
-				}
-				interfaceurl.checkAuth(interfaceurl.categoryList, params, false).then((res) => {
+				interfaceurl.checkAuth(interfaceurl.categoryList, this.params, false).then((res) => {
 					that.loading = false
-					that.shopList = res.data.data
+					that.shopData = res.data
+					if(that.params.page == 1) {
+						that.shopList = res.data.data
+					} else {
+						that.shopList = that.shopList.concat(res.data.data)
+					}
 				});
 			},
 			shopDetailPage(item) {
@@ -130,6 +155,7 @@
 	}
 
 	.shop-item-title {
+		height: 60rpx;
 		font-size: 26rpx;
 		color: #333333;
 		margin: 10rpx;

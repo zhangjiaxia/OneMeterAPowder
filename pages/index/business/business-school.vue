@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view>
 			<image src="/static/bussiness.png" class="bussiness"></image>
 		</view>

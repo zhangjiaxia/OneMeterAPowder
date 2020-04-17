@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false" @getHeight="getBarHeight"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false" @getHeight="getBarHeight"></navigationBar>
+		</view>
 		<view class="category-content" :style="{height: scrollHeight}">
 			<scroll-view class="category-left" scroll-y="true">
 				<view v-for="(item,index) in topCagetogyList" :key="index" class="category-item" :class="{'category-item-active':item.cateId == id}" 

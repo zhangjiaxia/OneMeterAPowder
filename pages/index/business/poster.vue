@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<!--将海报跟二维码通过画布组合到一起，展示在image中，下载图片-->
 		<canvas class="canvas-poster" id="canvasPoster" :style="{width:width+'rpx',height: height+'rpx'}" canvas-id="canvasPoster"></canvas>
 		<image :src="poster" class="poster" :style="{width:width+'rpx',height: height+'rpx'}" @click="previewImg" alt="" v-if="poster"></image>

@@ -1,17 +1,19 @@
 <template>
 	<view>
-		<navigationBar custom="true">
-			<view class="uni-flex uni-row vertical search-bar">
-				<view class="icon-fanhui bar-back"
-					@click="$turnPage('1', 'navigateBack')">
-				</view>
-				<view class="">
-					<view class="uni-flex uni-row vertical search">
-						<input placeholder="女装" v-model="params.keyWord" @confirm="search"/>
+		<view class="bar-sticky">
+			<navigationBar custom="true">
+				<view class="uni-flex uni-row vertical search-bar">
+					<view class="icon-fanhui bar-back"
+						@click="$turnPage('1', 'navigateBack')">
+					</view>
+					<view class="">
+						<view class="uni-flex uni-row vertical search">
+							<input placeholder="女装" v-model="params.keyWord" @confirm="search"/>
+						</view>
 					</view>
 				</view>
-			</view>
-		</navigationBar>
+			</navigationBar>
+		</view>
 		<view class="container">
 			<view class="search-content">
 				<view class="search-title">热门搜索</view>

@@ -1,8 +1,10 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view style="padding-top: 20rpx;">
-			<view v-for="(item,index) in addressList" :key="index" class="swipelayout">
+			<view v-for="(item,index) in addressList" :key="index" class="swipelayout" @click="chooseAddress(item)">
 				<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="delAddress(item.addressId)">
 					<view class="uni-flex uni-row vertical addresslist">
 						<view class="uni-flex uni-column rest left">
@@ -15,10 +17,12 @@
 								<view class="uni-flex address">{{item.receiverAddr}}</view>
 							</view>
 						</view>
-						<view class="uni-flex right address" @click="$turnPage('/pages/shopping/trade/address-add?item='+JSON.stringify(item), 'navigateTo')">编辑</view>
+						<view class="uni-flex right address" @click.stop="edit(item)">编辑</view>
 					</view>
 				</uni-swipe-action>
 			</view>
+			<view class="empty-text" v-if="(addressList.length == addressData.total) && addressList.length > 0">已经到底了</view>
+			<view class="empty-text" v-if="addressList.length == 0">暂无数据</view>
 			<view class="uni-flex content">
 				<view class="uni-flex content addbtn" @click="turn">新建地址</view>
 			</view>
@@ -71,9 +75,22 @@
 			this.getAddressList()
 		},
 		methods: {
+			chooseAddress(address) {
+				var pages = getCurrentPages();
+				var parentPages = pages[pages.length - 2].route //获取上级页面路径
+				//如果上级页面是订单结算页面，则实现点击选择某个地址返回上一页面
+				if(parentPages === 'pages/shopping/trade/confirm-order') {
+					//获取用户选择的某个收货地址，并跳转上一页面
+					this.$store.commit('setSelectAddress', address)
+					this.$turnPage('1', 'navigateBack')
+				}
+			},
 			turn() {
 				let isDefault = this.addressList.length > 0
 				this.$turnPage('/pages/shopping/trade/address-add?isDefault='+isDefault, 'navigateTo')
+			},
+			edit(item) {
+				this.$turnPage('/pages/shopping/trade/address-add?item='+JSON.stringify(item), 'navigateTo')
 			},
 			initData() {
 				//重置分页参数

@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "积分股权",
-  "navigationBarBackgroundColor": "#0071CF",
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar"
   }

@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
+		</view>
 		<view class="content">
 			<view class="edit-status" v-if="cartList.total > 0">
 				<text v-if="isEdit" @click="handleEdit">取消</text>
@@ -12,7 +14,7 @@
 						<view class="icon-gou" :style="{color: item.selected ? '#0070CF' : '#999999'}" @click.stop="handleSelect(index)"></view>
 						<image :src="item.goodsPhotoUrl" class="shop-img"></image>
 						<view class="shop-item-content">
-							<view class="shop-item-title">{{item.name.substring(0,10) + '...'}}</view>
+							<view class="shop-item-title">{{item.name.substring(0,20) + '...'}}</view>
 							<view class="shop-item-spec">
 								<!-- <view>50ml</view> -->
 								<text class="shop-item-size" v-for="(thirdItem, x) in item.skuPropertyList" :key="x">{{thirdItem.val}}</text>
@@ -47,6 +49,7 @@
 				<view class="empty-space">您的购物车还是空的，快去逛一逛吧</view>
 			</template>
 		</view>
+		<view class="empty-text" v-if="(shopList.length == cartList.total) && shopList.length > 0">已经到底了</view>
 		<!--商品推荐-->
 	</view>
 </template>
@@ -248,6 +251,7 @@
 				})
 				//数据存储优先使用store
 				this.$store.commit('setSelectOrderGoods', shopList)
+				this.$store.commit('setSelectAddress', {})
 				//uni.setStorageSync('shopList', shopList)
 				this.$turnPage('/pages/shopping/trade/confirm-order', 'navigateTo')
 			}

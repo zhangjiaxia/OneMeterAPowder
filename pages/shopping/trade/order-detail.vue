@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="layout">
 			<view class="uni-flex uni-row vertical address">
 				<view class="uni-flex">
@@ -25,7 +27,7 @@
 						<image :src="item.goodsPhotoUrl" class="goodsimg"></image>
 					</view>
 					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">{{item.prodName.substring(0,25) + '...'}}</view>
+						<view class="title">{{item.prodName.substring(0,20) + '...'}}</view>
 						<view class="prop">
 							<text class="size" v-for="(subItem, i) in item.detail.skuPropertyList" :key="i">{{subItem.val}}</text>
 							<!-- <text class="size">100ml*1瓶</text> -->

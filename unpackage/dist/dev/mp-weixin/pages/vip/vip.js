@@ -244,6 +244,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
 
@@ -360,7 +362,9 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
 //
 //
 //
-var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 256));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { authPage: authPage, navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['userInfos']), data: function data() {return { //设置导航栏样式
+//
+//
+var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { authPage: authPage, navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['userInfos']), data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: 'VIP' //导航栏文字
       }, rankList: [], //佣金排名
       userInfo: {}, //获取用户信息

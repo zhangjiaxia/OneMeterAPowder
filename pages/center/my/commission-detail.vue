@@ -1,6 +1,8 @@
 <template>
 	<view class="">
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="uni-flex uni-row verticalbottom today">
 			<view class="uni-flex uni-row space">
 				<view class="uni-flex rest">
@@ -13,7 +15,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="uni-flex uni-row info" v-for="(item, index) in list" :key="index">
+		<view class="uni-flex uni-row info" v-for="(item, index) in pointsList" :key="index">
 			<view class="uni-flex content rank">
 				{{index + 1}}
 			</view>
@@ -33,7 +35,8 @@
 				+58佣金
 			</view>
 		</view>
-		<!-- <view class="empty-text" v-if="pointsList.length == 0">暂无数据</view> -->
+		<view class="empty-text" v-if="pointsList.length == 0">暂无数据</view>
+		<view class="empty-text" v-if="(pointsList.length == pointsData.total) && pointsList.length > 0">已经到底了</view>
 	</view>
 </template>
 

@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="container">
 			<swiper class="swiper" circular :autoplay="autoplay" :interval="interval" :duration="duration">
 				<swiper-item v-for="(item,index) in goodsDetail.detailImgUrlList" :key="index">
@@ -23,7 +25,7 @@
 				</view>
 				<view v-if="isVip != 1" @click="$turnPage('/pages/vip/rule/vip-index', 'navigateTo')">
 					<text style="font-size: 24rpx;color: red;">
-						(升级VIP会员可均省36%,立即充值)
+						(升级VIP会员可均省<text style="text-decoration: line-through;">36%</text>,点击立即充值)
 					</text>
 				</view>
 				<view class="shop-title">{{goodsDetail.name || ''}}</view>
@@ -126,7 +128,7 @@
 					</view>
 				</view>
 				<view class="modal-bottom" @click="handleConfirm">
-					<text class="">确认支付</text>
+					<text class="">{{cartOrOrder ? '加入购物车' : '确认支付'}}</text>
 				</view>
 			</view>
 		</view>
@@ -442,6 +444,7 @@
 				let shopList = []
 				shopList.push(shopItem)
 				this.$store.commit('setSelectOrderGoods', shopList)
+				this.$store.commit('setSelectAddress', {})
 				//uni.setStorageSync('shopList', shopList)
 				this.$turnPage('/pages/shopping/trade/confirm-order' ,'navigateTo')
 			},
@@ -597,7 +600,7 @@
 				  ctx.closePath()
 				  ctx.clip();
 				  ctx.fillStyle="#fff";
-				  ctx.fillRect(0,0,500,500);
+				  ctx.fillRect(0,0,800,800); //填充白色区域的范围
 				  ctx.stroke();
 				  ctx.restore();
 				//海报图片

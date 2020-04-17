@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="layout">
 			<view class="uni-flex uni-row vertical address" @click="$turnPage('/pages/shopping/trade/address', 'navigateTo')">
 				<view class="uni-flex">
@@ -26,7 +28,7 @@
 						<image :src="item.goodsPhotoUrl" class="goodsimg"></image>
 					</view>
 					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">{{item.name.substring(0,25) + '...'}}</view>
+						<view class="title">{{item.name.substring(0,20) + '...'}}</view>
 						<view class="prop">
 							<text class="size" v-for="(subItem, i) in item.skuPropertyList" :key="i">{{subItem.val}}</text>
 							<!-- <text class="size">100ml*1瓶</text> -->
@@ -44,6 +46,29 @@
 					<view class="uni-flex totalspace">
 						<text class="total">合计:</text>
 						<text class="totalnum">￥{{item.quantity * parseFloat(item.price) * 100 / 100}}</text>
+					</view>
+				</view>
+			</view>
+			<view class="uni-flex uni-column ordersettle">
+				<view class="uni-flex vertical space" style="border: none;">
+					<view class="uni-flex rest subbase">商品总价</view>
+					<view class="uni-flex subbase">￥{{totalFee}}</view>
+				</view>
+				<view class="uni-flex vertical space">
+					<view class="uni-flex rest base">订单总价</view>
+					<view class="uni-flex base">￥{{totalFee}}</view>
+				</view>
+				<view class="uni-flex vertical space">
+					<view class="uni-flex rest base">微信支付</view>
+					<view class="uni-flex base" style="color: #FC1E1E;">￥{{totalFee}}</view>
+				</view>
+				<view class="uni-flex vertical space" style="border: none;margin-bottom: 36rpx;" 
+					@click="$turnPage('/pages/shopping/trade/invoice-info', 'navigateTo')">
+					<view class="uni-flex rest base">发票信息</view>
+					<view class="uni-flex vertical subbase">
+						个人(普通发票)商品明细
+						<!-- <image src="/static/center/backGrey.png" class="back"></image> -->
+						<view class="icon-qianjin back"></view>
 					</view>
 				</view>
 			</view>
@@ -68,7 +93,7 @@
 		components: {
 			navigationBar
 		},
-		computed: mapState(['selectOrderGoods']),
+		computed: mapState(['selectOrderGoods', 'selectAddress']),
 		data() {
 			return {
 				//设置导航栏样式
@@ -91,7 +116,13 @@
 			this.totalFee = total.toFixed(2)
 		},
 		onShow() {
-			this.getDefaultAddress()
+			console.log('用户',this.selectAddress)
+			if(this.selectAddress && this.selectAddress.addressId) {
+				this.defaultAddress = this.selectAddress
+				console.log('用户选择了地址',this.defaultAddress)
+			} else {
+				this.getDefaultAddress()
+			}
 		},
 		methods: {
 			getDefaultAddress() {
@@ -260,11 +291,27 @@
 		font-size: 24rpx;
 		color: #999999;
 		.back {
-			width: 16rpx;
-			height: 25rpx;
+			// width: 16rpx;
+			// height: 25rpx;
+			font-size: 25rpx;
 			margin-left: 14rpx;
 		}
 	}
+	.ordersettle {
+		margin: 20rpx 0;
+		width:710rpx;
+		// height:300rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+		border-radius:15rpx;
+		.space {
+			margin-left: 19rpx;
+			margin-right: 29rpx;
+			height: 80rpx;
+			border-bottom: 1px solid #EEEEEE;
+		}
+	}
+	
 	.btnop {
 		height: 80rpx;
 		color: #FFFFFF;

@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="container">
 			<view class="content">
 				<view class="center">
@@ -27,6 +29,14 @@
 				<view class="form-item">
 					<view>开户银行</view>
 					<input class="form-input" placeholder="请填写开户银行" placeholder-style="color:#BFBFBF;" v-model="params.bank" />
+				</view>
+				<view class="form-item">
+					<view>身份证</view>
+					<input class="form-input" placeholder="请填写身份证号" placeholder-style="color:#BFBFBF;" v-model="params.id_card_number" />
+				</view>
+				<view class="form-item">
+					<view>联系电话</view>
+					<input class="form-input" placeholder="请填写联系电话" placeholder-style="color:#BFBFBF;" v-model="params.mobile" />
 				</view>
 				<!-- <view class="form-content">
 					<view>实际到账金额</view>
@@ -58,6 +68,8 @@
 				userDetail: {}, //获取用户详情
 				//提现参数
 				params : {
+					id_card_number: '', //身份证号
+					mobile: '', //手机号
 					name: '', //姓名
 					bank: '', //开户行
 					bank_card: '', //银行卡号
@@ -104,6 +116,22 @@
 				if (!this.params.amount) {
 					uni.showToast({
 						title: '请填写提现金额',
+						icon: 'none',
+						duration: 2000
+					});
+					return
+				}
+				if(!this.params.id_card_number) {
+					uni.showToast({
+						title: '请填写身份证号',
+						icon: 'none',
+						duration: 2000
+					});
+					return
+				}
+				if(!this.params.mobile) {
+					uni.showToast({
+						title: '请填写手机号',
 						icon: 'none',
 						duration: 2000
 					});

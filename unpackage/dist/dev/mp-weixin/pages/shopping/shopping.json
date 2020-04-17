@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "购物车",
-  "navigationBarBackgroundColor": "#0071CF",
   "usingComponents": {
     "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action",
     "navigation-bar": "/components/navigation-bar"

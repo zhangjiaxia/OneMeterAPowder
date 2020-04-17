@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "商学院",
-  "navigationBarBackgroundColor": "#0071CF",
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar"
   }

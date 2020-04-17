@@ -102,6 +102,10 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap98.json"
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于展示收货地址"
+    }
+  },
+  "usingComponents": {}
 }

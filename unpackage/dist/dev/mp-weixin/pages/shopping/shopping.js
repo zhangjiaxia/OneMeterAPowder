@@ -95,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-swipe-action": function() {
-    return Promise.all(/*! import() | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then(__webpack_require__.bind(null, /*! @/components/uni-swipe-action/uni-swipe-action.vue */ 263))
+    return Promise.all(/*! import() | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then(__webpack_require__.bind(null, /*! @/components/uni-swipe-action/uni-swipe-action.vue */ 266))
   }
 }
 var render = function() {
@@ -103,7 +103,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.shopList, function(item, index) {
-    var g0 = item.name.substring(0, 10)
+    var g0 = item.name.substring(0, 20)
     return {
       $orig: _vm.__get_orig(item),
       g0: g0
@@ -152,6 +152,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
 
 
 
@@ -258,7 +261,10 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var uniSwipeAction = function uniSwipeAction() {Promise.all(/*! require.ensure | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-swipe-action/uni-swipe-action.vue */ 263));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+//
+//
+//
+var uniSwipeAction = function uniSwipeAction() {Promise.all(/*! require.ensure | components/uni-swipe-action/uni-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-swipe-action/uni-swipe-action")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-swipe-action/uni-swipe-action.vue */ 266));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uniSwipeAction }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '购物车' //导航栏文字
       }, totalFee: '0.00', //总金额
@@ -275,10 +281,7 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
       options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }], loading: true //加载中
     };}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
   onReachBottom: function onReachBottom() {if (this.shopList.length >= this.cartList.total) {return;}this.params.page++;this.getCartPageList();}, methods: { shopDetailPage: function shopDetailPage(item) {var that = this;var params = { spuId: item.spuId };_interface.default.checkAuth(_interface.default.goodsDetail, params, false).then(function (res) {that.$store.commit('setGoodsDetail', res.data);that.$turnPage('/pages/index/business/shop-detail', 'navigateTo');});}, initData: function initData() {//重置分页参数
-      this.loading = true;this.isAll = true;this.cartList = {};this.shopList = [];this.params.page = 1;if (uni.getStorageSync('token')) {this.getCartPageList();}}, bindClick: function bindClick(id) {
-      this.delCartGame(id);
-    },
-    getCartPageList: function getCartPageList() {
+      this.loading = true;this.isAll = true;this.cartList = {};this.shopList = [];this.params.page = 1;if (uni.getStorageSync('token')) {this.getCartPageList();}}, bindClick: function bindClick(id) {this.delCartGame(id);}, getCartPageList: function getCartPageList() {
       var that = this;
       _interface.default.checkAuth(_interface.default.cartPageList, this.params).then(function (res) {
         that.loading = false;
@@ -401,6 +404,7 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
       });
       //数据存储优先使用store
       this.$store.commit('setSelectOrderGoods', shopList);
+      this.$store.commit('setSelectAddress', {});
       //uni.setStorageSync('shopList', shopList)
       this.$turnPage('/pages/shopping/trade/confirm-order', 'navigateTo');
     } } };exports.default = _default;

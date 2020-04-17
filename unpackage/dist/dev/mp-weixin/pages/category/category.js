@@ -167,6 +167,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -202,7 +204,9 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 249));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '类目' //导航栏文字
       }, scrollHeight: '0rpx', //设置滚动区域的高度
@@ -212,9 +216,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
       categoryList: [] //获取二级和三级分类
     };}, onLoad: function onLoad(options) {this.getTopCagetogyList();}, onShow: function onShow() {}, methods: { getBarHeight: function getBarHeight(systemInfo) {//滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
       this.scrollHeight = systemInfo.ktxWindowHeight - systemInfo.ktxStatusHeight - systemInfo.navigationHeight + 'rpx';}, //获取一级分类
-    getTopCagetogyList: function getTopCagetogyList() {var that = this;_interface.default.checkAuth(_interface.default.firstList, {}, false).then(function (res) {that.chooseItem = res.data[0];console.log('chooseItem', that.chooseItem);that.topCagetogyList = res.data;that.id = that.topCagetogyList[0].cateId;that.getCategoryList();});
-    },
-    //获取子分类
+    getTopCagetogyList: function getTopCagetogyList() {var that = this;_interface.default.checkAuth(_interface.default.firstList, {}, false).then(function (res) {that.chooseItem = res.data[0];console.log('chooseItem', that.chooseItem);that.topCagetogyList = res.data;that.id = that.topCagetogyList[0].cateId;that.getCategoryList();});}, //获取子分类
     getCategoryList: function getCategoryList() {
       var that = this;
       var params = {

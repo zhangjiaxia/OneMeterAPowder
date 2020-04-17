@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view class="uni-flex uni-row title">
 			<view class="uni-flex rest content" @click="setType(1)">
 				<view class="uni-flex content" :class="{fans: params.type == 1}">一级粉丝</view>
@@ -25,6 +27,7 @@
 			</view>
 		</view>
 		<view class="empty-text" v-if="teamList.length == 0">暂无团队数据</view>
+		<view class="empty-text" v-if="(teamList.length == teamData.total) && teamList.length > 0">已经到底了</view>
 	</view>
 </template>
 

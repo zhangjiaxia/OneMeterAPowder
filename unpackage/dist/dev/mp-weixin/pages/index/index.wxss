@@ -24,7 +24,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
 @font-face {
 	font-family: uniicons;
 	font-weight: normal;
@@ -1521,7 +1520,6 @@ radio-group label, checkbox-group label{
     -webkit-transform: translateY(50%);
             transform: translateY(50%);
 }
-/*自定义公共样式*/
 /*正中*/
 .content {
 	display: -webkit-box;
@@ -1569,11 +1567,19 @@ radio-group label, checkbox-group label{
 	        flex: 1;
 }
 /*隐藏滚动条,只能使用于在scroll-view中*/
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
 	width: 0;
 	height: 0;
 	background-color: transparent;
+} */
+.bar-sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 101;
 }
+/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
+/*自定义公共样式*/
 page {
   background: #F0EDF1;
 }
@@ -1802,37 +1808,6 @@ page {
   border-radius: 40rpx;
   padding: 4rpx 6rpx;
 }
-.space {
-  width: 700rpx;
-  margin: 0rpx auto;
-}
-.space .goods {
-    width: 340rpx;
-    background: #FFFFFF;
-    border-radius: 20rpx;
-    float: left;
-    margin-bottom: 20rpx;
-}
-.space .goods .goodsimg {
-      width: 340rpx;
-      height: 340rpx;
-      border-top-left-radius: 20rpx;
-      border-top-right-radius: 20rpx;
-}
-.space .goods .title {
-      font-size: 24rpx;
-      color: #333333;
-      margin: 10rpx;
-}
-.space .goods .price {
-      font-size: 30rpx;
-      color: #0071CF;
-      margin-left: 10rpx;
-      margin-bottom: 20rpx;
-}
-.space .goods view {
-      line-height: 1.2;
-}
 /*海报分享*/
 .share-panel {
   width: 650rpx;
@@ -1900,5 +1875,67 @@ page {
   opacity: 0.9;
   /*避免其他页面元素使用定位引发的位置偏移*/
   top: 0;
+}
+.shop-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  width: 700rpx;
+  margin: 0 auto;
+}
+.shop-item {
+  width: 340rpx;
+  margin-bottom: 20rpx;
+  background-color: #ffffff;
+  border-radius: 20rpx;
+}
+.shop-img {
+  width: 100%;
+  height: 300rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+.shop-item-content {
+  padding-top: 10rpx;
+  padding-bottom: 20rpx;
+}
+.shop-item-title {
+  height: 60rpx;
+  font-size: 26rpx;
+  color: #333333;
+  margin: 10rpx;
+}
+.shop-item-content view {
+  line-height: 1.2;
+}
+.shop-item-text {
+  color: #999999;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  display: inline-block;
+  max-width: 260rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shop-item-bottom {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.shop-item-price {
+  color: #0071CF;
+  font-size: 30rpx;
 }
 

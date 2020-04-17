@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<navigationBar :navigationBarStyle="navigationBarStyle" @getHeight="setTop"></navigationBar>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle" @getHeight="setTop"></navigationBar>
+		</view>
 		<view class="banner">
 			<image :src="bannerImgList[cateName]" class="banner-img"></image>
 		</view>
@@ -17,7 +19,7 @@
 				<view style="width: 100%;">
 					<image :src="item.mainImgUrl" class="goodsimg"></image>
 				</view>
-				<view class="title">{{item.name.substring(0,25) + '...'}}</view>
+				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
 				<view class="price">
 					<text style="font-size: 24rpx;">￥</text>
 					<text>{{item.retailPrice[0]}}</text>
@@ -25,6 +27,7 @@
 			</view>
 		</view>
 		<view class="empty-text" v-if="childrenGoodsList.length == 0 && !loading">暂无商品数据</view>
+		<view class="empty-text" v-if="(childrenGoodsList.length == childrenGoodsData.total) && childrenGoodsList.length > 0">已经到底了</view>
 	</view>
 </template>
 
@@ -37,6 +40,12 @@
 		},
 		data() {
 			return {
+				lineHeight: '20px',
+				normal: {
+					background: '#0071CF',
+					fontColor: '#FFFFFF',
+					iconColor: '#FFFFFF',
+				}, //公用样式,个性化样式可通过传值实现
 				//设置导航栏样式
 				navigationBarStyle: {
 					iconText: '美妆护肤' //导航栏文字
@@ -75,8 +84,24 @@
 			}
 			this.params.page++;
 			this.getChildrenGoodsList()
+			this.navigationBar();
 		},
 		methods: {
+			navigationBar() {
+				const systemInfo = uni.getSystemInfoSync();
+				// px转换到rpx的比例
+				let pxToRpxScale = 750 / systemInfo.windowWidth;
+				let systems = {
+					ktxStatusHeight: systemInfo.statusBarHeight * pxToRpxScale, // 状态栏的高度
+					navigationHeight: 44 * pxToRpxScale, // 导航栏的高度
+					ktxWindowWidth: systemInfo.windowWidth * pxToRpxScale, // window的宽度
+					ktxWindowHeight: systemInfo.windowHeight * pxToRpxScale, // window的高度
+					ktxScreentHeight: systemInfo.screenHeight * pxToRpxScale, // 屏幕的高度
+				}
+				// 底部tabBar的高度
+				systems.tabBarHeight = systems.ktxScreentHeight - systems.ktxStatusHeight - systems.navigationHeight - systems.ktxWindowHeight // 底部tabBar的高度
+				this.lineHeight = systems.ktxStatusHeight + 'rpx';
+			},
 			setTop(systems) {
 				this.scrollTop = (systems.ktxStatusHeight + systems.navigationHeight) + 'rpx'
 			},
@@ -183,6 +208,7 @@
 				border-top-right-radius: 20rpx;
 			}
 			.title {
+				height: 60rpx;
 				font-size: 24rpx;
 				color: #333333;
 				margin: 10rpx;
