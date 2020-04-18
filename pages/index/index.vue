@@ -3,7 +3,7 @@
 		<view>
 			<view class="bar-sticky">
 				<navigationBar custom="true">
-					<view class="uni-flex uni-row content search-bar">
+					<view class="uni-flex uni-row vertical search-bar">
 						<view class="search-img">
 							<image src="/static/logo.png" class="icon-logo"></image>
 						</view>
@@ -16,7 +16,7 @@
 					</view>
 				</navigationBar>
 			</view>
-			<view style="position: relative;height: 290rpx;">
+			<view style="position: relative;height: 290rpx;background: white;">
 				<view class="bgColor"></view>
 				<swiper class="banner-swiper" :autoplay="autoplay" circular :interval="interval" :duration="duration">
 					<swiper-item v-for="(item,index) in bannerList" :key="index">
@@ -24,7 +24,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="tab-list" style="background: #F0EDF1;margin-bottom: -10rpx;">
+			<view class="tab-list" style="background: #FFFFFF;margin-bottom: -10rpx;">
 				<view class="advantage-item">
 					<text>VIP购物</text>
 				</view>
@@ -47,7 +47,6 @@
 				</view>
 			</view>
 			<view class="type-list">
-				<!-- :style="{'width': index == 0 || index == 1 ? '710rpx' : '350rpx','margin-left': index==3 ? '10rpx' : '0'}"-->
 				<view class="type-item" :style="{'margin-right': index % 2 == 0 ? '10rpx' : '0'}"
 					v-for="(item, index) in specialAreaPicList" :key="index">
 					<image :src="item.specialImgUrl"></image>
@@ -59,8 +58,8 @@
 					<view><text class="category-item-text" :class="{'category-text-active':tabIndex == index}">{{item.specialTitle}}</text></view>
 				</view>
 			</view>
-			<view class="shop-list" v-if="specialGoodsList.length > 0 && isGoods == 1">
-				<view class="shop-item" v-for="(content,dex) in specialGoodsList" @click="shopDetailPage(content)" :key="dex">
+			<view class="shop-list">
+				<view class="shop-item" v-for="(content,dex) in tempList" @click="shopDetailPage(content)" :key="dex">
 					<image :src="content.mainImgUrl" class="shop-img"></image>
 					<view class="shop-item-content">
 						<view class="shop-item-title">{{content.name.substring(0,20) + '...'}}</view>
@@ -69,51 +68,11 @@
 								<text style="font-size: 24rpx;">￥</text>
 								{{content.retailPrice[0] || 0}}
 							</text>
-							<!-- <text class="pay-btn">+</text> -->
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="shop-list" v-if="championList.length > 0 && isGoods == 0">
-				<view class="shop-item" v-for="(content,dex) in championList" @click="shopDetailPage(content)" :key="dex">
-					<image :src="content.mainImgUrl" class="shop-img"></image>
-					<view class="shop-item-content">
-						<view class="shop-item-title">{{content.name.substring(0,20) + '...'}}</view>
-						<view class="shop-item-bottom">
-							<text class="shop-item-price">
-								<text style="font-size: 24rpx;">￥</text>
-								{{content.retailPrice[0] || 0}}
-							</text>
-							<!-- <text class="pay-btn">+</text> -->
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		<!-- <view class="space">
-			<view class="goods" :style="{'margin-right': index % 2 == 0 ? '20rpx' : '0'}" v-if="isGoods == 1" v-for="(item, index) in specialGoodsList"
-			 :key="index" @click="shopDetailPage(item)">
-				<view style="width: 100%;">
-					<image :src="item.mainImgUrl" class="goodsimg"></image>
-				</view>
-				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
-				<view class="price">
-					<text style="font-size: 24rpx;">￥</text>
-					<text>{{item.retailPrice[0]}}</text>
-				</view>
-			</view>
-			<view class="goods" :style="{'margin-right': index % 2 == 0 ? '20rpx' : '0'}" v-if="isGoods == 0" v-for="(item, index) in championList"
-			 :key="index" @click="shopDetailPage(item)">
-				<view style="width: 100%;">
-					<image :src="item.mainImgUrl" class="goodsimg"></image>
-				</view>
-				<view class="title">{{item.name.substring(0,20) + '...'}}</view>
-				<view class="price">
-					<text style="font-size: 24rpx;">￥</text>
-					<text>{{item.retailPrice[0]}}</text>
-				</view>
-			</view>
-		</view> -->
 		<view class="uni-flex content" style="width: 100%;" v-if="isGoods == 1">
 			<view class="empty-text" v-if="(specialGoodsList.length == specialGoodsData.total) && specialGoodsList.length > 0">已经到底了</view>
 			<view class="empty-text" v-if="specialGoodsList.length == 0">暂无数据</view>
@@ -124,42 +83,12 @@
 		</view>
 		<view class="share">
 			<authPage>
-				<image src="/static/share.png" @click="shareModal=true;getQrcode()"></image>
+				<image src="/static/share.png" @click="startShare"></image>
 			</authPage>
 			<!-- <button open-type="share" class="sharebtn"></button> @click="$turnPage('/pages/index/business/poster', 'navigateTo')" -->
 		</view>
 		<!--分享弹窗-->
-		<view class="uni-flex uni-column content share-panel" :style="{top: panelTop}" v-if="shareModal"
-		 @touchmove.stop.prevent="touch">
-			<!--将海报跟二维码通过画布组合到一起，展示在image中，下载图片-->
-			<canvas class="canvas-poster" id="canvasPoster" style="width: 650rpx;height: 900rpx;" canvas-id="canvasPoster"></canvas>
-			<image :src="poster" class="poster" style="width: 650rpx;height: 900rpx;position: absolute;top: 0;" @click="previewImg" alt="" v-if="poster"></image>
-			<!-- <view class="share-poster">
-				<view style="share-space">
-					<view class="uni-flex content" style="margin-top: 25rpx;">
-						<image src="/static/bussiness.png" class="share-mainimg"></image>
-					</view>
-				</view>
-				<view class="uni-flex vertical share-id">ID:242434 为您推荐了每日有薪商城</view>
-				<view class="share-space">
-					<view class="uni-flex uni-row vertical" style="height: 191rpx;">
-						<view class="qrcode">
-							<image src="/static/bg.png" class="share-qrcode"></image>
-						</view>
-						<view class="uni-flex uni-column rest content">
-							<view class="press">长按识别小程序二维码</view>
-							<view class="atonce">立即抢购</view>
-						</view>
-					</view>
-				</view>
-			</view> -->
-			<view class="uni-flex content share-btn" :style="{visibility: poster ? 'visible' : 'hidden'}" @click="saveImg">分享好友</view>
-			<view class="share-img" @click="shareModal=false;">
-				<image src="/static/close.png" class="share-img"></image>
-			</view>
-		</view>
-		<!--弹窗时阻止滚动穿透-->
-		<view class="mask" v-show="shareModal" @click="shareModal=false;" @touchmove.stop.prevent="touch"></view>
+		<sharePoster :bgImg="bgImg" ref="share"></sharePoster>
 	</view>
 </template>
 
@@ -167,32 +96,23 @@
 	import interfaceurl from '@/utils/interface.js'
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	import authPage from '@/components/authorization-page.vue' //引入授权窗体
+	import sharePoster from '@/components/shop-business/share-poster.vue' //引入授权窗体
 	export default {
 		components: {
 			navigationBar,
-			authPage
+			authPage,
+			sharePoster
 		},
 		data() {
 			return {
-				panelTop: '130rpx', //弹窗与顶部的距离
-				shareModal: false, //是否显示分享弹窗
-				//画布绘制所需的图片
-				shareInfo: {
-					bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png',
-					qrcode: '' //动态生成的二维码
-				},
-				//画布的宽高
-				width: 0,
-				height: 0,
-				systemInfo: {}, //系统信息
-				poster: '', //生成的海报
+				//海报分享背景图
+				bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png',
 				//轮播图参数
 				indicatorDots: true,
 				autoplay: true,
 				interval: 3000,
 				duration: 500,
-				//invitation_code: '', //分销邀请码
-				bannerList: ['/static/banner.png'], //轮播图
+				bannerList: [], //轮播图
 				iconTypeList: [], //小图标
 				specialAreaPicList: [], //专区图片
 				specialAreaTextList: [], //专区文字
@@ -211,16 +131,17 @@
 				}, //专区商品参数
 				championData: {}, //销量冠军数据
 				championList: [], //销量冠军列表
+				tempList: [], //临时存储专区或销量冠军列表，避免数据显示跳脱问题
 				isGoods: 1 //判断是否为销量冠军，0是，1不是
 			}
 		},
-		// onShareAppMessage(res) {
-		// 	return {
-		// 		title: '每日有薪',
-		// 		path: '/pages/index/index?code=' + this.invitation_code,
-		// 		imageUrl: '/static/banner.png'
-		// 	}
-		// },
+		onShareAppMessage(res) {
+			return {
+				title: '每日有薪',
+				path: '/pages/index/index?scene=',
+				imageUrl: '/static/banner.png'
+			}
+		},
 		onLoad(options) {
 			console.log('获取场景值')
 			// scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
@@ -228,8 +149,6 @@
 			console.log(scene)
 			//绑定上下级关系
 			this.bindUser(scene)
-			//计算弹窗距离顶部的距离
-			this.getPanelTop()
 			//获取首页数据
 			this.getBannerList()
 			this.getIconTypeList()
@@ -262,19 +181,6 @@
 			}
 		},
 		methods: {
-			touch() {},
-			getPanelTop() {
-				const systemInfo = uni.getSystemInfoSync();
-				this.systemInfo = systemInfo
-				let pxToRpxScale = 750 / systemInfo.windowWidth;
-				this.systemInfo.pxToRpxScale = pxToRpxScale
-				// console.log('pixelRatio', systemInfo.pixelRatio)
-				// console.log('pxToRpxScale', pxToRpxScale)
-				//滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
-				let scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale
-				//（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
-				this.panelTop = ((scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale) + 'rpx'
-			},
 			//获取二维码携带的参数值并绑定下级
 			bindUser(scene) {
 				let that = this
@@ -412,6 +318,7 @@
 					} else {
 						that.specialGoodsList = that.specialGoodsList.concat(res.data.data)
 					}
+					that.tempList = that.specialGoodsList
 				});
 			},
 			//销量冠军
@@ -424,231 +331,18 @@
 					} else {
 						that.championList = that.championList.concat(res.data.data)
 					}
+					that.tempList = that.championList
 				});
 			},
 			/*海报相关*/
-			//获取动态二维码（可携带参数）
-			getQrcode() {
-				if(this.poster) {
-					return;
-				}
-				let that = this;
-				interfaceurl.checkAuth(interfaceurl.getAppletCode, {}).then((res) => {
-					that.saveQrCode(res.data.url)
-				});
-			},
-			// 保存接口传回来的小程序二维码链接
-			saveQrCode(url) {
-				let that = this;
-				wx.downloadFile({
-					url: url, //网络链接
-					success: function(res) {
-						// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-						if (res.statusCode === 200) {
-							//将下载的图片临时路径赋值给img_l,用于预览图片
-							that.shareInfo.qrcode = res.tempFilePath;
-							wx.downloadFile({
-								url: that.shareInfo.bgImg, //网络链接
-								success: function(res) {
-									// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-									if (res.statusCode === 200) {
-										//将下载的图片临时路径赋值给img_l,用于预览图片
-										that.shareInfo.bgImg = res.tempFilePath;
-										console.log('that.drawBefore', that.shareInfo)
-										that.drawBefore();
-									}
-								}
-							})
-						}
-					}
-				})
-			},
-			drawBefore() {
-				let that = this;
-				var query = wx.createSelectorQuery()
-				query.select('#canvasPoster').boundingClientRect((res) => {
-					// 返回值包括画布的实际宽高
-					that.drawImage(res);
-				}).exec();
-			},
-			// 保存海报
-			saveImg(e) {
-				let that = this
-				uni.showLoading({
-					title: '保存中...'
-				})
-				console.log(that.poster)
-				// wx.downloadFile({
-				// 	url: that.poster,
-				// 	success: function(res) {
-						//图片保存到本地
-						wx.saveImageToPhotosAlbum({
-							filePath: that.poster, //res.tempFilePath,
-							success: function(data) {
-								wx.hideLoading()
-								wx.showModal({
-									title: '提示',
-									content: '您的推广海报已存入手机相册，赶快分享给好友吧',
-									showCancel: false,
-								})
-							},
-							fail: function(err) {
-								if (err.errMsg === "saveImageToPhotosAlbum:fail:auth denied" || err.errMsg ===
-									"saveImageToPhotosAlbum:fail auth deny") {
-									// 这边微信做过调整，必须要在按钮中触发，因此需要在弹框回调中进行调用
-									wx.showModal({
-										title: '提示',
-										content: '需要您授权保存相册',
-										showCancel: false,
-										success: modalSuccess => {
-											wx.openSetting({
-												success(settingdata) {
-													console.log("settingdata", settingdata)
-													if (settingdata.authSetting['scope.writePhotosAlbum']) {
-														wx.showModal({
-															title: '提示',
-															content: '获取权限成功,再次点击图片即可保存',
-															showCancel: false,
-														})
-													} else {
-														wx.showModal({
-															title: '提示',
-															content: '获取权限失败，将无法保存到相册哦~',
-															showCancel: false,
-														})
-													}
-												},
-												fail(failData) {
-													console.log("failData", failData)
-												},
-												complete(finishData) {
-													console.log("finishData", finishData)
-												}
-											})
-										}
-									})
-								}
-							},
-							complete(res) {
-								uni.hideLoading()
-							}
-						})
-					// },
-					// fail: function(err) {
-					// 	console.log('保存海报downloadFile',err)
-					// }
-				//})
-			},
-			previewImg() {
-				console.log('previewImg')
-				if (this.poster) {
-					//预览图片，预览后可长按保存或者分享给朋友
-					wx.previewImage({
-						urls: [this.poster]
-					})
-				}
-			},
-			drawImage(canvasAttrs) {
-				let that = this;
-				let ctx = wx.createCanvasContext('canvasPoster', this)
-				let canvasW = that.width // 画布的真实宽度660canvasAttrs.width
-				let canvasH = that.height //画布的真实高度980canvasAttrs.height
-				// 头像和二维码大小都需要在规定大小的基础上放大像素比的比例后面都会 / this.systemInfo.pixelRatio
-				this.systemInfo.pixelRatio = this.systemInfo.pxToRpxScale
-				let qrcodeW = 160 / this.systemInfo.pixelRatio
-				let rate = this.systemInfo.pixelRatio
-				let radius = 10 * rate
-				 // 白色背景,canvas给画布设置圆角
-				  ctx.beginPath();
-				  ctx.save();
-				  ctx.setLineWidth(1)
-				  ctx.setStrokeStyle('#fff')
-				  ctx.moveTo(0/rate,0/rate);           // 创建开始点
-				ctx.lineTo(650/rate,0/rate);          // 创建水平线
-				//ctx.arcTo(630*rate,0*rate,650*rate,20*rate,radius); // 创建弧
-				//ctx.lineTo(162.5*rate,5*rate); 
-				
-				ctx.lineTo(650/rate,900/rate);         // 创建垂直线
-				//ctx.arcTo(650*rate,880*rate,630*rate,900*rate,radius); // 创建弧
-				//ctx.lineTo(157.5*rate,225*rate); 
-				
-				ctx.lineTo(0/rate,900/rate);         // 创建水平线
-				//ctx.arcTo(20*rate,900*rate,0*rate,880*rate,radius); // 创建弧
-				//ctx.lineTo(0*rate,220*rate); 
-				
-				ctx.lineTo(0/rate,0/rate);         // 创建垂直线
-				//ctx.arcTo(0*rate,20*rate,20*rate,0*rate,radius); // 创建弧
-				//ctx.lineTo(5*rate,0*rate); 
-				  ctx.closePath()
-				  ctx.clip();
-				  ctx.fillStyle="#fff";
-				  ctx.fillRect(0,0,800,800); //填充白色区域的范围
-				  ctx.stroke();
-				  ctx.restore();
-				//海报图片
-				ctx.drawImage(this.shareInfo.bgImg, 25 / this.systemInfo.pixelRatio, 25 / this.systemInfo.pixelRatio, 600 / this.systemInfo
-					.pixelRatio, 600 / this.systemInfo.pixelRatio)
-				ctx.save()
-				ctx.beginPath();
-				ctx.setLineDash([2,3]);
-				ctx.strokeStyle = '#D3D1D2';
-				//设置开始坐标
-				ctx.moveTo(0,708 / this.systemInfo.pixelRatio);
-				//设置结束坐标
-				ctx.lineTo(650,708 / this.systemInfo.pixelRatio);
-				//绘制虚线
-				ctx.stroke();
-				//文字绘制
-				ctx.setFillStyle('#333333') // 文字颜色：黑色
-				ctx.setFontSize(30 / this.systemInfo.pixelRatio) // 文字字号：22px
-				let userInfo = uni.getStorageSync('userInfo')
-				ctx.fillText(userInfo.nickName+" 为您推荐了每日有薪商城", 25 / this.systemInfo.pixelRatio, 680 / this.systemInfo.pixelRatio) //开始绘制文本的 x/y 坐标位置（相对于画布） 
-				ctx.stroke(); //stroke() 方法会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色
-				//文字绘制
-				ctx.setFillStyle('#333333')
-				ctx.setFontSize(30 / this.systemInfo.pixelRatio)
-				ctx.fillText("长按识别小程序二维码", 264 / this.systemInfo.pixelRatio, 767 / this.systemInfo.pixelRatio)
-				ctx.stroke();
-				//文字绘制
-				ctx.setFillStyle('#666666')
-				ctx.setFontSize(24 / this.systemInfo.pixelRatio)
-				ctx.fillText("立即抢购", 365 / this.systemInfo.pixelRatio, 812 / this.systemInfo.pixelRatio)
-				ctx.stroke();
-				// 绘制二维码
-				ctx.drawImage(this.shareInfo.qrcode, 60 / this.systemInfo.pixelRatio, 720 / this.systemInfo.pixelRatio, qrcodeW, qrcodeW)
-				ctx.save()
-				// 将前面绘制的各个图案一起画出来
-				ctx.draw()
-				console.log('画布宽高',canvasW,canvasH)
-				setTimeout(() => {
-					wx.canvasToTempFilePath({
-						x: 0,
-						y: 0,
-						width: canvasW,
-						height: canvasH,
-						destWidth: canvasW,
-						destHeight: canvasH,
-						canvasId: 'canvasPoster',
-						success: (res) => {
-							that.poster = res.tempFilePath
-							console.log('that.poster', that.poster)
-							uni.hideLoading();
-						}
-					})
-				}, 200)
+			startShare() {
+				this.$refs.share.getQrcode()
 			}
 		}
 	}
 </script>
 
 <style lang="scss">
-	//导航栏吸顶效果
-	.bar-sticky {
-		position: sticky;
-		position: -webkit-sticky;
-		top: 0;
-		z-index: 101;
-	}
 	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
 	@import '/common/uni.css';
 	/*自定义公共样式*/
@@ -663,16 +357,18 @@
 		position: relative;
 
 		.search-img {
-			position: absolute;
-			left: 16rpx;
-			top: 8rpx;
+			// position: absolute;
+			// left: 16rpx;
+			// top: 8rpx;
+			position: relative;
+			top: 10rpx;
 		}
 
 		.icon-logo {
-			width: 154rpx;
-			height: 37rpx;
-			margin-left: 30rpx;
-			margin-right: 16rpx;
+			width: 60rpx;
+			height: 60rpx;
+			margin-left: 16rpx;
+			margin-right: 8rpx;
 		}
 
 		input {
@@ -684,9 +380,10 @@
 		}
 
 		.search {
-			width: 300upx;
-			height: 60upx;
-			background: #ffffff;
+			// margin-left: 96rpx;
+			width: 440upx;
+			height: 50upx;
+			background: #EEEEEE;
 			border-radius: 30upx;
 			display: flex;
 			justify-content: center;
@@ -699,7 +396,7 @@
 	.bgColor {
 		width: 100%;
 		height: 160rpx;
-		background: #0071CF;
+		background: #fff;
 		position: absolute;
 		z-index: 10;
 		top: 44;
@@ -823,12 +520,7 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 10upx;
-	}
-
-	.shop-item-price {
-		font-weight: bold;
-		color: #0071CF;
-		font-size: 36upx;
+		padding-left: 10rpx;
 	}
 
 	.pay-btn {
@@ -880,135 +572,15 @@
 	}
 
 	.category-item-active {
-		color: #0071CF;
+		color: #EB524B;
 		font-weight: bold;
 	}
 
 	.category-text-active {
-		background: #0071CF;
+		background: #EB524B;
 		color: #FFFFFF;
 		border-radius: 40rpx;
 		padding: 4rpx 6rpx;
-	}
-
-	//商品列表
-	// .space {
-	// 	width: 700rpx;
-	// 	margin: 0rpx auto;
-	// 	height: auto;
-	// 	overflow: auto;
-	// 	.goods {
-	// 		width: 340rpx;
-	// 		background: #FFFFFF;
-	// 		border-radius: 20rpx;
-	// 		float: left;
-	// 		margin-bottom: 20rpx;
-
-	// 		.goodsimg {
-	// 			width: 340rpx;
-	// 			height: 340rpx;
-	// 			border-top-left-radius: 20rpx;
-	// 			border-top-right-radius: 20rpx;
-	// 		}
-
-	// 		.title {
-	// 			height: 60rpx;
-	// 			font-size: 24rpx;
-	// 			color: #333333;
-	// 			margin: 10rpx;
-	// 		}
-
-	// 		.price {
-	// 			font-size: 30rpx;
-	// 			color: #0071CF;
-	// 			margin-left: 10rpx;
-	// 			margin-bottom: 20rpx;
-	// 		}
-
-	// 		view {
-	// 			line-height: 1.2;
-	// 		}
-	// 	}
-	// }
-
-	/*海报分享*/
-	.share-panel {
-		width: 650rpx;
-		position: fixed;
-		top: 136rpx;
-		z-index: 200;
-		left: 50rpx;
-
-		.share-poster {
-			width: 100%;
-			height: 900rpx;
-			border-radius: 20rpx;
-			background: rgba(255, 255, 255, 1);
-
-			.share-mainimg {
-				width: 600rpx;
-				height: 600rpx;
-			}
-
-			.share-space {
-				width: 600rpx;
-				margin: 0 auto;
-
-				.qrcode {
-					margin-left: 65rpx;
-					margin-right: -50rpx;
-
-					.share-qrcode {
-						width: 160rpx;
-						height: 160rpx;
-					}
-				}
-
-				.press {
-					font-size: 30rpx;
-					color: #333333;
-				}
-
-				.atonce {
-					font-size: 24rpx;
-					color: #666666;
-				}
-			}
-
-			.share-id {
-				height: 83rpx;
-				font-size: 30rpx;
-				color: #333333;
-				border-bottom: 1px dashed grey;
-				padding-left: 25rpx;
-			}
-		}
-
-		.share-btn {
-			width: 400rpx;
-			height: 80rpx;
-			background: rgba(0, 113, 207, 1);
-			border-radius: 40rpx;
-			color: #FFFFFF;
-			margin-top: 12rpx;
-			margin-bottom: 12rpx;
-		}
-
-		.share-img {
-			width: 64rpx;
-			height: 64rpx;
-		}
-	}
-
-	.mask {
-		background: #4B4B4B;
-		width: 100%;
-		height: 100%;
-		position: fixed;
-		z-index: 199;
-		opacity: 0.9;
-		/*避免其他页面元素使用定位引发的位置偏移*/
-		top: 0;
 	}
 	
 	//商品展示
@@ -1068,7 +640,7 @@
 	}
 	
 	.shop-item-price {
-		color: #0071CF;
+		color: #EB524B;
 		font-size: 30rpx;
 	}
 </style>

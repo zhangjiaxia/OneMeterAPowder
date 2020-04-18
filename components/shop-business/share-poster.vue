@@ -5,13 +5,32 @@
 			<!--将海报跟二维码通过画布组合到一起，展示在image中，下载图片-->
 			<canvas class="canvas-poster" id="canvasPoster" style="width: 650rpx;height: 900rpx;" canvas-id="canvasPoster"></canvas>
 			<image :src="poster" class="poster" style="width: 650rpx;height: 900rpx;position: absolute;top: 0;" @click="previewImg" alt="" v-if="poster"></image>
+			<!-- <view class="share-poster">
+				<view style="share-space">
+					<view class="uni-flex content" style="margin-top: 25rpx;">
+						<image src="/static/bussiness.png" class="share-mainimg"></image>
+					</view>
+				</view>
+				<view class="uni-flex vertical share-id">ID:242434 为您推荐了每日有薪商城</view>
+				<view class="share-space">
+					<view class="uni-flex uni-row vertical" style="height: 191rpx;">
+						<view class="qrcode">
+							<image src="/static/bg.png" class="share-qrcode"></image>
+						</view>
+						<view class="uni-flex uni-column rest content">
+							<view class="press">长按识别小程序二维码</view>
+							<view class="atonce">立即抢购</view>
+						</view>
+					</view>
+				</view>
+			</view> -->
 			<view class="uni-flex content share-btn" :style="{visibility: poster ? 'visible' : 'hidden'}" @click="saveImg">分享好友</view>
 			<view class="share-img" @click="shareModal=false;">
 				<image src="/static/close.png" class="share-img"></image>
 			</view>
 		</view>
 		<!--弹窗时阻止滚动穿透-->
-		<view class="mask" v-show="confirmModal || shareModal" @click="confirmModal=false;shareModal=false;"
+		<view class="mask" v-show="shareModal" @click="shareModal=false;"
 		 @touchmove.stop.prevent="touch"></view>
 	</view>
 </template>
@@ -20,10 +39,10 @@
 	import interfaceurl from '@/utils/interface.js'
 	export default {
 		props: {
-			isShow: {
+			confirmModal: {
 				type: Boolean,
 				default: false
-			}, //是否显示弹窗
+			}, //商品sku面板是否展示
 			bgImg: {
 				type: String,
 				default: ''
@@ -45,14 +64,9 @@
 				poster: '', //生成的海报
 			};
 		},
-		watch:{
-			isShow(val) {
-				console.log('监听',val)
-				this.shareModal = val
-			}
-		},
 		mounted() {
-			
+			//计算弹窗与顶部的距离
+			this.getPanelTop()
 		},
 		methods: {
 			touch() {},
@@ -69,6 +83,7 @@
 			/*海报相关*/
 			//获取动态二维码（可携带参数）
 			getQrcode() {
+				this.shareModal = true
 				if(this.poster) {
 					return;
 				}
@@ -94,7 +109,7 @@
 									if (res.statusCode === 200) {
 										//将下载的图片临时路径赋值给img_l,用于预览图片
 										that.shareInfo.bgImg = res.tempFilePath;
-										console.log('that.drawBefore', that.shareInfo)
+										//console.log('that.drawBefore', that.shareInfo)
 										that.drawBefore();
 									}
 								}
@@ -184,7 +199,6 @@
 				}
 			},
 			drawImage(canvasAttrs) {
-				console.log('drawImage')
 				let that = this;
 				let ctx = wx.createCanvasContext('canvasPoster', this)
 				let canvasW = that.width // 画布的真实宽度660canvasAttrs.width
@@ -219,7 +233,7 @@
 				  ctx.closePath()
 				  ctx.clip();
 				  ctx.fillStyle="#fff";
-				  ctx.fillRect(0,0,500,500);
+				  ctx.fillRect(0,0,800,800); //填充白色区域的范围
 				  ctx.stroke();
 				  ctx.restore();
 				//海报图片
@@ -256,8 +270,8 @@
 				ctx.save()
 				// 将前面绘制的各个图案一起画出来
 				ctx.draw()
-				console.log('画布绘制完毕')
-				//setTimeout(() => {
+				//需延迟保存画布，否则可能为空
+				setTimeout(() => {
 					wx.canvasToTempFilePath({
 						x: 0,
 						y: 0,
@@ -275,7 +289,7 @@
 							console.log(err)
 						}
 					}, this)
-				//}, 200)
+				}, 200)
 			}
 		}
 	}
@@ -287,7 +301,7 @@
 		width: 100%;
 		height: 100%;
 		position: fixed;
-		z-index: 1;
+		z-index: 200;
 		opacity: 0.9;
 		/*避免其他页面元素使用定位引发的位置偏移*/
 		top: 0;
@@ -298,7 +312,7 @@
 		width: 650rpx;
 		position: fixed;
 		top: 136rpx;
-		z-index: 200;
+		z-index: 210;
 		left: 50rpx;
 
 		.share-poster {

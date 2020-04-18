@@ -59,14 +59,14 @@
   ],
   "window": {
     "navigationStyle": "custom",
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#0071CF",
+    "selectedColor": "#E66066",
     "borderStyle": "white",
     "backgroundColor": "#FFFFFF",
     "list": [

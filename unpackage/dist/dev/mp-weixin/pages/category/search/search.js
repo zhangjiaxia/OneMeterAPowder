@@ -204,7 +204,7 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '搜索' //导航栏文字
       }, recordList: ['美食', '护肤', '生活百货', '巧克力'], searchList: ['美食', '护肤', '生活百货', '巧克力', '口红', '运动衫', '手表'], params: { page: 1, size: 10, keyWord: '' //搜索关键字

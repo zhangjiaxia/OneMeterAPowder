@@ -103,19 +103,19 @@
 			margin-left: 30rpx;
 			margin-right: 10rpx;
 			font-size: 52rpx;
-			color: #FFFFFF;
+			color: #000000;
 		}
 		input {
 			width:80%;
 			height:50rpx;
-			background:rgba(255,255,255,1);
+			background:#EEEEEE;
 			box-shadow:0px 2rpx 3rpx 0px rgba(255,255,255,0.2);
 			border-radius:25rpx;
 		}
 		.search {
 			width: 460upx;
 			height: 60upx;
-			background: #ffffff;
+			background: #EEEEEE;
 			border-radius: 30upx;
 			display: flex;
 			justify-content: center;
@@ -178,9 +178,9 @@
 		font-size: 36upx;
 	}
 
-	input {
-		caret-color: #FF585C;
-	}
+	// input {
+	// 	caret-color: #FF585C;
+	// }
 
 	.search-content {
 		padding: 0upx 30upx;

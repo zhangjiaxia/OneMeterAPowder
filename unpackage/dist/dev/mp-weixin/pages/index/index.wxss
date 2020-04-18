@@ -24,6 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
 @font-face {
 	font-family: uniicons;
 	font-weight: normal;
@@ -1520,6 +1521,7 @@ radio-group label, checkbox-group label{
     -webkit-transform: translateY(50%);
             transform: translateY(50%);
 }
+/*自定义公共样式*/
 /*正中*/
 .content {
 	display: -webkit-box;
@@ -1572,14 +1574,6 @@ radio-group label, checkbox-group label{
 	height: 0;
 	background-color: transparent;
 } */
-.bar-sticky {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  z-index: 101;
-}
-/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
-/*自定义公共样式*/
 page {
   background: #F0EDF1;
 }
@@ -1588,15 +1582,14 @@ page {
   position: relative;
 }
 .search-bar .search-img {
-    position: absolute;
-    left: 16rpx;
-    top: 8rpx;
+    position: relative;
+    top: 10rpx;
 }
 .search-bar .icon-logo {
-    width: 154rpx;
-    height: 37rpx;
-    margin-left: 30rpx;
-    margin-right: 16rpx;
+    width: 60rpx;
+    height: 60rpx;
+    margin-left: 16rpx;
+    margin-right: 8rpx;
 }
 .search-bar input {
     width: 330rpx;
@@ -1606,9 +1599,9 @@ page {
     border-radius: 25rpx;
 }
 .search-bar .search {
-    width: 300rpx;
-    height: 60rpx;
-    background: #ffffff;
+    width: 440rpx;
+    height: 50rpx;
+    background: #EEEEEE;
     border-radius: 30rpx;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1625,7 +1618,7 @@ page {
 .bgColor {
   width: 100%;
   height: 160rpx;
-  background: #0071CF;
+  background: #fff;
   position: absolute;
   z-index: 10;
   top: 44;
@@ -1744,11 +1737,7 @@ page {
   -webkit-align-items: center;
           align-items: center;
   margin-bottom: 10rpx;
-}
-.shop-item-price {
-  font-weight: bold;
-  color: #0071CF;
-  font-size: 36rpx;
+  padding-left: 10rpx;
 }
 .pay-btn {
   display: inline-block;
@@ -1799,82 +1788,14 @@ page {
   color: #999999;
 }
 .category-item-active {
-  color: #0071CF;
+  color: #EB524B;
   font-weight: bold;
 }
 .category-text-active {
-  background: #0071CF;
+  background: #EB524B;
   color: #FFFFFF;
   border-radius: 40rpx;
   padding: 4rpx 6rpx;
-}
-/*海报分享*/
-.share-panel {
-  width: 650rpx;
-  position: fixed;
-  top: 136rpx;
-  z-index: 200;
-  left: 50rpx;
-}
-.share-panel .share-poster {
-    width: 100%;
-    height: 900rpx;
-    border-radius: 20rpx;
-    background: white;
-}
-.share-panel .share-poster .share-mainimg {
-      width: 600rpx;
-      height: 600rpx;
-}
-.share-panel .share-poster .share-space {
-      width: 600rpx;
-      margin: 0 auto;
-}
-.share-panel .share-poster .share-space .qrcode {
-        margin-left: 65rpx;
-        margin-right: -50rpx;
-}
-.share-panel .share-poster .share-space .qrcode .share-qrcode {
-          width: 160rpx;
-          height: 160rpx;
-}
-.share-panel .share-poster .share-space .press {
-        font-size: 30rpx;
-        color: #333333;
-}
-.share-panel .share-poster .share-space .atonce {
-        font-size: 24rpx;
-        color: #666666;
-}
-.share-panel .share-poster .share-id {
-      height: 83rpx;
-      font-size: 30rpx;
-      color: #333333;
-      border-bottom: 1px dashed grey;
-      padding-left: 25rpx;
-}
-.share-panel .share-btn {
-    width: 400rpx;
-    height: 80rpx;
-    background: #0071cf;
-    border-radius: 40rpx;
-    color: #FFFFFF;
-    margin-top: 12rpx;
-    margin-bottom: 12rpx;
-}
-.share-panel .share-img {
-    width: 64rpx;
-    height: 64rpx;
-}
-.mask {
-  background: #4B4B4B;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 199;
-  opacity: 0.9;
-  /*避免其他页面元素使用定位引发的位置偏移*/
-  top: 0;
 }
 .shop-list {
   display: -webkit-box;
@@ -1935,7 +1856,7 @@ page {
           align-items: center;
 }
 .shop-item-price {
-  color: #0071CF;
+  color: #EB524B;
   font-size: 30rpx;
 }
 

@@ -1585,19 +1585,19 @@ page {
     margin-left: 30rpx;
     margin-right: 10rpx;
     font-size: 52rpx;
-    color: #FFFFFF;
+    color: #000000;
 }
 .search-bar input {
     width: 80%;
     height: 50rpx;
-    background: white;
+    background: #EEEEEE;
     box-shadow: 0px 2rpx 3rpx 0px rgba(255, 255, 255, 0.2);
     border-radius: 25rpx;
 }
 .search-bar .search {
     width: 460rpx;
     height: 60rpx;
-    background: #ffffff;
+    background: #EEEEEE;
     border-radius: 30rpx;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1670,9 +1670,6 @@ page {
 }
 .search-text {
   font-size: 36rpx;
-}
-input {
-  caret-color: #FF585C;
 }
 .search-content {
   padding: 0rpx 30rpx;

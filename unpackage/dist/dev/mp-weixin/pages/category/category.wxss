@@ -1620,7 +1620,7 @@ radio-group label, checkbox-group label{
   content: '';
   width: 6rpx;
   height: 60rpx;
-  background-color: #0071CF;
+  background-color: #EB524B;
   position: absolute;
   left: 0px;
   top: 20rpx;

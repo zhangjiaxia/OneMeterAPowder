@@ -15,12 +15,16 @@
 					</view>
 				</view>
 				<view class="form-item">
+					<view>提现金额</view>
+					<input class="form-input" placeholder="请填写提现金额" placeholder-style="color:#BFBFBF;" v-model="params.amount" />
+				</view>
+				<view class="form-item">
 					<view>收款人姓名</view>
 					<input class="form-input" placeholder="请输入收款人姓名" placeholder-style="color:#BFBFBF;" v-model="params.name" />
 				</view>
 				<view class="form-item">
-					<view>提现金额</view>
-					<input class="form-input" placeholder="请填写提现金额" placeholder-style="color:#BFBFBF;" v-model="params.amount" />
+					<view>身份证</view>
+					<input class="form-input" placeholder="请填写身份证号" placeholder-style="color:#BFBFBF;" v-model="params.id_card_number" />
 				</view>
 				<view class="form-item">
 					<view>银行卡号</view>
@@ -29,10 +33,6 @@
 				<view class="form-item">
 					<view>开户银行</view>
 					<input class="form-input" placeholder="请填写开户银行" placeholder-style="color:#BFBFBF;" v-model="params.bank" />
-				</view>
-				<view class="form-item">
-					<view>身份证</view>
-					<input class="form-input" placeholder="请填写身份证号" placeholder-style="color:#BFBFBF;" v-model="params.id_card_number" />
 				</view>
 				<view class="form-item">
 					<view>联系电话</view>

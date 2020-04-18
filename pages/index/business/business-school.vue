@@ -14,7 +14,7 @@
 				<text :class="{active: tabIndex == 1}">用户指南</text>
 			</view>
 			<view class="uni-flex rest content base" @click="setArticle(2, 'newsInformation', '新闻资讯')">
-				<text :class="{active: tabIndex == 2}">新闻咨询</text>
+				<text :class="{active: tabIndex == 2}">新闻资讯</text>
 			</view>
 			<view class="uni-flex rest content base" @click="setArticle(3, 'enterpriseDynamic', '企业动态')">
 				<text :class="{active: tabIndex == 3}">企业动态</text>

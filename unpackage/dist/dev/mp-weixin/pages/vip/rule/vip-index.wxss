@@ -4,8 +4,8 @@
 	vertical-align: top;
 }
 .bottom-btn{
-	height: 120rpx;
-	line-height: 120rpx;
+	height: 90rpx;
+	line-height: 90rpx;
 	background: #EEB950;
 	color: #ffffff;
 	text-align: center;

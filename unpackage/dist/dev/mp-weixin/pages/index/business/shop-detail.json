@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "商品详情",
   "usingComponents": {
+    "share-poster": "/components/shop-business/share-poster",
     "auth-page": "/components/authorization-page",
     "navigation-bar": "/components/navigation-bar"
   }

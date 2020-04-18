@@ -1588,7 +1588,8 @@ radio-group label, checkbox-group label{
     height: 30rpx;
     margin-right: 10rpx;
 }
-.space .common, .space .type {
+.space .common,
+  .space .type {
     margin: 20rpx 0;
     width: 150rpx;
     height: 50rpx;

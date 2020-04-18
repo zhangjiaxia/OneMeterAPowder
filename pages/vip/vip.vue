@@ -13,16 +13,16 @@
 					<view class="uni-flex uni-column rest">
 						<view class="nick">
 							{{userInfo.nickName || '御翔绝瞬'}}
-							<image src="/static/goldactive.png" class="gold" v-if="userDetail.is_vip==1"></image>
-							<image src="/static/gold.png" class="gold" v-else></image>
+							<image src="/static/VIPicon.png" class="gold" v-if="userDetail.is_vip==1"></image>
+							<image src="/static/goldactive.png" class="gold" v-if="userDetail.grade==3"></image>
 						</view>
 						<view @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
-							<image src="/static/silver.png" class="rate" v-if="userDetail.is_vip==1"></image>
-							<image src="/static/coconel.png" class="rate" v-else></image>
+							<text style="color: #FFFFFF;">{{userDetail.gradeName}}</text>
+							<!-- <image src="/static/silver.png" class="rate" v-if="userDetail.is_vip==1"></image>
+							<image src="/static/coconel.png" class="rate" v-else></image> -->
 						</view>
 						<view class="idnumber">ID:{{userDetail.invitation_code || ''}}</view>
-						<!-- v-if="userDetail.is_vip==1"-->
-						<view class="time">VIP会员到期时间：{{userDetail.vip_valid_date || '2021-4-16 21:56:40'}}</view>
+						<view class="time" v-if="userDetail.is_vip==1">VIP会员到期时间：{{userDetail.vip_valid_date || ''}}</view>
 					</view>
 				</view>
 			</authPage>

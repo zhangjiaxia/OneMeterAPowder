@@ -13,7 +13,7 @@
 			<view v-if="invoiceContent == '商品明细'">
 				<view class="uni-flex uni-row vertical">
 					<view class="uni-flex rest title">发票抬头</view>
-					<view class="uni-flex vertical tip">
+					<view class="uni-flex vertical tip" @click="getWxInvoice">
 						<view class="uni-flex">
 							<image src="/static/weixin.png" class="weixin"></image>
 						</view>
@@ -58,7 +58,8 @@
 					<view class="tip" style="margin-left: 12rpx;">发票内容将选项已根据税法调整，具体请以展示为准</view>
 				</view>
 				<view class="uni-flex uni-row">
-					<view class="uni-flex content common" :class="{base: invoiceContent == '不开发票'}" style="margin-right: 20rpx;" @click="setContent('不开发票')">不开发票</view>
+					<view class="uni-flex content common" :class="{base: invoiceContent == '不开发票'}" style="margin-right: 20rpx;"
+					 @click="setContent('不开发票')">不开发票</view>
 					<view class="uni-flex content common" :class="{base: invoiceContent == '商品明细'}" @click="setContent('商品明细')">商品明细</view>
 				</view>
 				<view class="tip">发票内容显示详细商品名称及价格信息。</view>
@@ -87,7 +88,7 @@
 			}
 		},
 		onShow() {
-			
+
 		},
 		methods: {
 			setTitle(invoiceTitle) {
@@ -98,6 +99,44 @@
 			},
 			setExpend() {
 				this.isExpend = !this.isExpend
+			},
+			getWxInvoice() {
+				//地址簿
+				wx.getSetting({
+					success(res) {
+						console.log(res)
+						if (res.authSetting['scope.address']) {
+							wx.chooseAddress({
+								success(res) {
+									console.log(res)
+								}
+							})
+						} else {
+							if (res.authSetting['scope.address'] == false) {
+								console.log("222")
+								wx.openSetting({
+									success(res) {
+										console.log(res.authSetting)
+									}
+								})
+							} else {
+								console.log("eee")
+								wx.chooseAddress({
+									success(res) {
+										console.log(res.userName)
+										console.log(res.postalCode)
+										console.log(res.provinceName)
+										console.log(res.cityName)
+										console.log(res.countyName)
+										console.log(res.detailInfo)
+										console.log(res.nationalCode)
+										console.log(res.telNumber)
+									}
+								})
+							}
+						}
+					}
+				})
 			}
 		}
 	}
@@ -108,69 +147,82 @@
 	@import '/common/uni.css';
 	/*自定义公共样式*/
 	@import '/common/custom.css';
+
 	.space {
 		padding-top: 30rpx;
 		width: 710rpx;
 		margin: 0 auto;
+
 		.title {
 			font-size: 30rpx;
 			color: #333333;
 		}
+
 		.weixin {
 			width: 30rpx;
 			height: 30rpx;
 			margin-right: 10rpx;
 		}
-		.common, .type {
+
+		.common,
+		.type {
 			margin: 20rpx 0;
-			width:150rpx;
-			height:50rpx;
-			border-radius:25rpx;
-			font-size:24rpx;
+			width: 150rpx;
+			height: 50rpx;
+			border-radius: 25rpx;
+			font-size: 24rpx;
 			background: #F5F5F5;
 			color: #333333;
 		}
+
 		.type {
-			width:100rpx;
+			width: 100rpx;
 		}
+
 		.base {
-			background:rgba(0,113,207,1);
+			background: rgba(0, 113, 207, 1);
 			color: #FFFFFF;
 		}
+
 		.tip {
 			color: #999999;
 			font-size: 24rpx;
 		}
+
 		.line {
-			width:100%;
-			height:4rpx;
-			background:rgba(221,221,221,1);
+			width: 100%;
+			height: 4rpx;
+			background: rgba(221, 221, 221, 1);
 			margin-top: 20rpx;
 			margin-bottom: 30rpx;
 		}
+
 		.input-view {
-			width:100%;
-			height:60rpx;
-			background:rgba(245,245,245,1);
-			border-radius:10rpx;
+			width: 100%;
+			height: 60rpx;
+			background: rgba(245, 245, 245, 1);
+			border-radius: 10rpx;
 			margin-bottom: 20rpx;
+
 			input {
 				margin-left: 20rpx;
 				width: 100%;
 			}
 		}
+
 		.expend {
 			color: #666666;
 			font-size: 20rpx;
 			text-align: center;
 		}
+
 		.confirm {
-			width:710rpx;
-			height:80rpx;
-			background:rgba(0,113,207,1);
-			border-radius:40rpx;
+			width: 710rpx;
+			height: 80rpx;
+			background: rgba(0, 113, 207, 1);
+			border-radius: 40rpx;
 			color: #FFFFFF;
-			font-size:30rpx;
+			font-size: 30rpx;
 			margin-top: 65rpx;
 			margin-bottom: 30rpx;
 		}

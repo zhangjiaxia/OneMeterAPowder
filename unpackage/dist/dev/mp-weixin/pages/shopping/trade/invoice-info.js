@@ -202,6 +202,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -272,13 +273,15 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 259));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '发票信息' //导航栏文字
       }, invoiceTitle: '个人', //发票抬头
       invoiceContent: '不开发票', //发票内容
       isExpend: false //是否展开
-    };}, onShow: function onShow() {}, methods: { setTitle: function setTitle(invoiceTitle) {this.invoiceTitle = invoiceTitle;}, setContent: function setContent(invoiceContent) {this.invoiceContent = invoiceContent;}, setExpend: function setExpend() {this.isExpend = !this.isExpend;} } };exports.default = _default;
+    };}, onShow: function onShow() {}, methods: { setTitle: function setTitle(invoiceTitle) {this.invoiceTitle = invoiceTitle;}, setContent: function setContent(invoiceContent) {this.invoiceContent = invoiceContent;}, setExpend: function setExpend() {this.isExpend = !this.isExpend;}, getWxInvoice: function getWxInvoice() {//地址簿
+      wx.getSetting({ success: function success(res) {console.log(res);if (res.authSetting['scope.address']) {wx.chooseAddress({ success: function success(res) {console.log(res);} });} else {if (res.authSetting['scope.address'] == false) {console.log("222");wx.openSetting({ success: function success(res) {console.log(res.authSetting);} });} else {console.log("eee");wx.chooseAddress({ success: function success(res) {console.log(res.userName);console.log(res.postalCode);console.log(res.provinceName);console.log(res.cityName);console.log(res.countyName);console.log(res.detailInfo);console.log(res.nationalCode);console.log(res.telNumber);} });}}} });} } };exports.default = _default;
 
 /***/ }),
 

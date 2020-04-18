@@ -28,9 +28,9 @@
 				type: Object,
 				default: function() {
 					return {
-						background: '#0071CF',
-						fontColor: '#FFFFFF',
-						iconColor: '#FFFFFF',
+						background: '#FFFFFF',
+						fontColor: '#000000',
+						iconColor: '#000000',
 						iconText: '一米一粉' //导航栏文字
 					}
 				}
@@ -43,9 +43,9 @@
 		data() {
 			return {
 				normal: {
-					background: '#0071CF',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
+					background: '#FFFFFF',
+					fontColor: '#000000',
+					iconColor: '#000000',
 				}, //公用样式,个性化样式可通过传值实现
 				lineHeight: '' //状态栏高度
 			};
