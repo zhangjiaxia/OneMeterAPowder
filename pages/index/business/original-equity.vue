@@ -14,8 +14,12 @@
 						<view class="nick">{{userInfo.nickName}}</view>
 						<view style="font-size: 18rpx;">(会员至2020-10-13到期)</view>
 					</view>
+					<view class="uni-flex uni-column rest content">
+						<view class="desc">法律保障</view>
+						<view class="desc">协议</view>
+					</view>
 				</view>
-				<view class="uni-flex uni-row info">
+				<!-- <view class="uni-flex uni-row info">
 					<view class="uni-flex uni-column rest content">
 						<view class="desc">VIP数据</view>
 						<view class="desc">明细</view>
@@ -25,9 +29,9 @@
 						<view class="desc">法律保障</view>
 						<view class="desc">协议</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
-			<view class="remark">PS：达到50个配送原始股，终生有效!</view>
+			<view class="remark">PS：升级成为合伙人，共享平台发展红利</view>
 			<view class="chart">
 				<view class="charttitle">市值曲线图</view>
 				<view>
@@ -95,16 +99,17 @@
 		width: 707rpx;
 		padding-top: 16rpx;
 		.topitem {
-			height: 287rpx;
+			height: 200rpx;
 		}
 		.chartbg {
 			width: 707rpx;
-			height: 287rpx;
+			height: 200rpx;
 			position: absolute;
 			z-index: -1;
 		}
 		.info {
 			width: 100%;
+			height: 100%;
 			color: #FFFFFF;
 			view {
 				line-height: 1.5;
@@ -165,7 +170,7 @@
 				width: 650rpx;
 				height: 330rpx;
 				margin-left: 20rpx;
-				border: 1px dashed;
+				// border: 1px dashed;
 			}
 		}
 		// .description {

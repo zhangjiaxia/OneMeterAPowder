@@ -1607,12 +1607,12 @@ radio-group label, checkbox-group label{
     font-size: 24rpx;
 }
 .space .active {
-    color: #0071CF;
+    color: #EB524B;
     margin-left: 20rpx;
 }
 .more {
   font-size: 20rpx;
-  color: #0071CF;
+  color: #EB524B;
   text-decoration: underline;
 }
 .remark {

@@ -1595,8 +1595,8 @@ page {
     margin: 0 10rpx;
 }
 .active {
-  color: #0071CF;
-  border-bottom: 1px solid #0071CF;
+  color: #EB524B;
+  border-bottom: 1px solid #EB524B;
 }
 .searchbar {
   width: 100%;
@@ -1630,7 +1630,7 @@ page {
     color: #999999;
 }
 .time .tip {
-    color: #1275BE;
+    color: #EB524B;
 }
 .orderitem {
   margin-bottom: 27rpx;
@@ -1692,10 +1692,10 @@ page {
     border-radius: 40rpx;
 }
 .btnop .btnright {
-    width: 160rpx;
+    padding: 0 20rpx;
     height: 50rpx;
     color: #FFFFFF;
-    background: #0171D2;
+    background: #EB524B;
     border-radius: 40rpx;
     margin-left: 16rpx;
     margin-right: 25rpx;

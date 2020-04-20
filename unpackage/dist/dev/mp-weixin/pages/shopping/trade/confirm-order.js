@@ -317,13 +317,31 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['selectOrderGoods', 'selectAddress']), data: function data() {return { //设置导航栏样式
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 269));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['selectOrderGoods', 'selectAddress']), data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '确认订单' //导航栏文字
       }, totalFee: 0, //订单总额
       defaultAddress: {}, //默认收货地址
-      cartId: '' //购物车ID参数，多个购物车用逗号隔开
-    };}, onLoad: function onLoad() {var _this = this;console.log('this.selectOrderGoods', this.selectOrderGoods);var total = 0;this.cartId = '';this.selectOrderGoods.forEach(function (item) {total = total + item.quantity * parseFloat(item.price);_this.cartId += item.cartId + ',';});this.totalFee = total.toFixed(2);}, onShow: function onShow() {console.log('用户', this.selectAddress);if (this.selectAddress && this.selectAddress.addressId) {this.defaultAddress = this.selectAddress;console.log('用户选择了地址', this.defaultAddress);} else {this.getDefaultAddress();}}, methods: { getDefaultAddress: function getDefaultAddress() {var that = this; //参数为空查询默认地址
-      _interface.default.checkAuth(_interface.default.addressInfo, { addressId: '' }).then(function (res) {that.defaultAddress = res.data;});}, submitOrder: function submitOrder() {var that = this;if (!that.defaultAddress || !that.defaultAddress.addressId) {uni.showToast({ title: '收货地址不能为空', icon: 'none', duration: 2000 });return;}if (this.cartId.length > 0) {this.cartId.substring(0, this.cartId.length - 1);}var params = { cartId: that.cartId, addressId: that.defaultAddress.addressId };_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');uni.hideLoading();}, fail: function fail(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');uni.hideLoading();}, complete: function complete() {} });});} } };exports.default = _default;
+      cartId: '', //购物车ID参数，多个购物车用逗号隔开
+      params: { invoiceType: 1, //发票类型:普通发票
+        invoiceContent: 0 //发票内容:0:不开,1:明细
+      } //下单支付的参数
+    };}, onLoad: function onLoad() {var _this = this;console.log('this.selectOrderGoods', this.selectOrderGoods);var total = 0;this.cartId = '';this.selectOrderGoods.forEach(function (item) {total = total + item.quantity * parseFloat(item.price);_this.cartId += item.cartId + ',';});this.totalFee = total.toFixed(2);}, onShow: function onShow() {console.log('用户', this.selectAddress);if (this.selectAddress && this.selectAddress.addressId) {this.defaultAddress = this.selectAddress;console.log('用户选择了地址', this.defaultAddress);} else {this.getDefaultAddress();}var pages = getCurrentPages();var currPage = pages[pages.length - 1]; //当前页面
+    this.params = currPage.data.params; //获取发票信息
+    console.log('mydata', currPage);}, methods: { getDefaultAddress: function getDefaultAddress() {var that = this; //参数为空查询默认地址
+      _interface.default.checkAuth(_interface.default.addressInfo, { addressId: '' }).then(function (res) {that.defaultAddress = res.data;});}, submitOrder: function submitOrder() {var that = this;if (!that.defaultAddress || !that.defaultAddress.addressId) {uni.showToast({ title: '收货地址不能为空', icon: 'none', duration: 2000 });return;}if (this.cartId.length > 0) {this.cartId.substring(0, this.cartId.length - 1);}that.params.cartId = that.cartId;that.params.addressId = that.defaultAddress.addressId; // let params = {
+      // 	cartId: that.cartId,
+      // 	addressId: that.defaultAddress.addressId,
+      // 	invoiceType: 1, //发票类型:普通发票
+      // 	invoiceContent: 0, //发票内容
+      // 	invoiceHeadType: '', //个人，公司
+      // 	invoiceHeadName: '', //invoiceHeadType = 1 必填姓名
+      // 	invoiceHeadCompanyName: '', //invoiceHeadType =2 必填公司名称
+      // 	registeredAddress: '', //注册地址
+      // 	workPhone: '', //单位电话
+      // 	bank: '', //开户银行
+      // 	bankAccounts: '' //银行账户
+      // }
+      _interface.default.checkAuth(_interface.default.orderPayment, this.params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');uni.hideLoading();}, fail: function fail(res) {that.$turnPage('/pages/shopping/trade/order', 'redirectTo');uni.hideLoading();}, complete: function complete() {} });});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

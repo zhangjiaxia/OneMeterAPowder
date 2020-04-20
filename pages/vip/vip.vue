@@ -93,9 +93,9 @@
 			<view class="empty-text" v-if="rankList.length == 0">暂无佣金排名数据</view>
 			<view class="ranklist" v-else>
 				<view class="uni-flex uni-row vertical item" :style="{'border-bottom': index == rankList.length - 1 ? 'none' : '1px solid #EEEEEE'}"
-					v-for="(item, index) in rankList" :key="index" v-if="index > 0">
+					v-for="(item, index) in rankList" :key="index">
 					<view class="uni-flex uni-column content" style="width: 140rpx;">
-						<view class="num">{{item.rankingNumber - 1}}</view>
+						<view class="num">{{item.rankingNumber}}</view>
 						<view class="me">{{index == 0 ? '我的排名' : '排名'}}</view>
 					</view>
 					<view class="uni-flex rest vertical">

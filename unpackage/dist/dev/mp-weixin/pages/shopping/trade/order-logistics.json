@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "物流信息",
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar",
+    "uni-steps": "/components/uni-steps/uni-steps"
+  }
+}

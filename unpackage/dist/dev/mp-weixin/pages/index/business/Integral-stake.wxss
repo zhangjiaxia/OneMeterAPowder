@@ -1654,7 +1654,6 @@ page {
       width: 650rpx;
       height: 330rpx;
       margin-left: 20rpx;
-      border: 1px dashed;
 }
 .layout .description {
     margin-top: 24rpx;

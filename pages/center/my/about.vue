@@ -1,9 +1,9 @@
 <template>
-	<view class="container">
+	<view class="container" style="background: #FFFFFF;">
 		<view class="bar-sticky">
 			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		</view>
-		<rich-text :nodes="article"></rich-text>
+		<view class="space"><rich-text :nodes="article"></rich-text></view>
 	</view>
 </template>
 
@@ -40,5 +40,9 @@
 </script>
 
 <style>
-
+.space {
+	width: 700rpx;
+	margin: 0 auto;
+	margin-top: 20rpx;
+}
 </style>

@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/center/center",
-    "pages/category/category",
     "pages/shopping/shopping",
+    "pages/index/index",
+    "pages/category/category",
     "pages/vip/vip"
   ],
   "subPackages": [
@@ -23,7 +23,8 @@
         "confirm-order",
         "invoice-info",
         "order",
-        "order-detail"
+        "order-detail",
+        "order-logistics"
       ]
     },
     {

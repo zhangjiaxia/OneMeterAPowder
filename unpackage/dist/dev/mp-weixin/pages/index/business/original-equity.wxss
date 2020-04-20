@@ -1583,16 +1583,17 @@ page {
   padding-top: 16rpx;
 }
 .layout .topitem {
-    height: 287rpx;
+    height: 200rpx;
 }
 .layout .chartbg {
     width: 707rpx;
-    height: 287rpx;
+    height: 200rpx;
     position: absolute;
     z-index: -1;
 }
 .layout .info {
     width: 100%;
+    height: 100%;
     color: #FFFFFF;
 }
 .layout .info view {
@@ -1654,7 +1655,6 @@ page {
       width: 650rpx;
       height: 330rpx;
       margin-left: 20rpx;
-      border: 1px dashed;
 }
 .query {
   margin: 0 auto;

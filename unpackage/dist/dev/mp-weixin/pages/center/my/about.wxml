@@ -1,1 +1,1 @@
-<view class="container"><view class="bar-sticky"><navigation-bar vue-id="4ca24feb-1" navigationBarStyle="{{navigationBarStyle}}" bind:__l="__l"></navigation-bar></view><rich-text nodes="{{article}}"></rich-text></view>
+<view class="container" style="background:#FFFFFF;"><view class="bar-sticky"><navigation-bar vue-id="4ca24feb-1" navigationBarStyle="{{navigationBarStyle}}" bind:__l="__l"></navigation-bar></view><view class="space"><rich-text nodes="{{article}}"></rich-text></view></view>

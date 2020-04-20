@@ -10,42 +10,42 @@
 				<view class="tip">为响应环保，每日有薪商城全面启用电子普通发票</view>
 				<view class="line"></view>
 			</view>
-			<view v-if="invoiceContent == '商品明细'">
+			<view v-if="params.invoiceContent == 1">
 				<view class="uni-flex uni-row vertical">
 					<view class="uni-flex rest title">发票抬头</view>
-					<view class="uni-flex vertical tip" @click="getWxInvoice">
+					<!-- <view class="uni-flex vertical tip" @click="getWxInvoice">
 						<view class="uni-flex">
 							<image src="/static/weixin.png" class="weixin"></image>
 						</view>
 						<view class="uni-flex">获取微信发票抬头</view>
-					</view>
+					</view> -->
 				</view>
 				<view class="uni-flex uni-row">
-					<view class="uni-flex content type" :class="{base: invoiceTitle == '个人'}" style="margin-right: 20rpx;" @click="setTitle('个人')">个人</view>
-					<view class="uni-flex content type" :class="{base: invoiceTitle == '公司'}" @click="setTitle('公司')">公司</view>
+					<view class="uni-flex content type" :class="{base: params.invoiceHeadType == 1}" style="margin-right: 20rpx;" @click="setTitle(1)">个人</view>
+					<view class="uni-flex content type" :class="{base: params.invoiceHeadType == 2}" @click="setTitle(2)">公司</view>
 				</view>
-				<view class="uni-flex vertical input-view" v-if="invoiceTitle == '个人'">
-					<input type="text" placeholder="可填写姓名" />
+				<view class="uni-flex vertical input-view" v-if="params.invoiceHeadType == 1">
+					<input type="text" placeholder="可填写姓名" v-model="params.invoiceHeadName" />
 				</view>
 				<view v-else>
 					<view class="uni-flex vertical input-view">
-						<input type="text" placeholder="请填写公司名称" />
+						<input type="text" placeholder="请填写公司名称" v-model="params.invoiceHeadCompanyName" />
 					</view>
 					<view class="uni-flex vertical input-view">
-						<input type="text" placeholder="请填写纳税人识别号" />
+						<input type="text" placeholder="请填写纳税人识别号" v-model="params.invoiceIdentifierNo" />
 					</view>
 					<view v-if="isExpend">
 						<view class="uni-flex vertical input-view">
-							<input type="text" placeholder="注册地址（选填）" />
+							<input type="text" placeholder="注册地址（选填）" v-model="params.registeredAddress" />
 						</view>
 						<view class="uni-flex vertical input-view">
-							<input type="text" placeholder="单位电话（选填）" />
+							<input type="text" placeholder="单位电话（选填）" v-model="params.workPhone" />
 						</view>
 						<view class="uni-flex vertical input-view">
-							<input type="text" placeholder="开户银行（选填）" />
+							<input type="text" placeholder="开户银行（选填）" v-model="params.bank" />
 						</view>
 						<view class="uni-flex vertical input-view">
-							<input type="text" placeholder="银行账户（选填）" />
+							<input type="text" placeholder="银行账户（选填）" v-model="params.bankAccounts" />
 						</view>
 					</view>
 					<view class="expend" @click="setExpend">{{isExpend ? '收起选填项' : '展开选填项'}}</view>
@@ -58,13 +58,13 @@
 					<view class="tip" style="margin-left: 12rpx;">发票内容将选项已根据税法调整，具体请以展示为准</view>
 				</view>
 				<view class="uni-flex uni-row">
-					<view class="uni-flex content common" :class="{base: invoiceContent == '不开发票'}" style="margin-right: 20rpx;"
-					 @click="setContent('不开发票')">不开发票</view>
-					<view class="uni-flex content common" :class="{base: invoiceContent == '商品明细'}" @click="setContent('商品明细')">商品明细</view>
+					<view class="uni-flex content common" :class="{base: params.invoiceContent == 0}" style="margin-right: 20rpx;"
+					 @click="setContent(0)">不开发票</view>
+					<view class="uni-flex content common" :class="{base: params.invoiceContent == 1}" @click="setContent(1)">商品明细</view>
 				</view>
 				<view class="tip">发票内容显示详细商品名称及价格信息。</view>
 			</view>
-			<view class="uni-flex content confirm">确认</view>
+			<view class="uni-flex content confirm" @click="valiSubmit">确认</view>
 		</view>
 	</view>
 </template>
@@ -82,23 +82,64 @@
 				navigationBarStyle: {
 					iconText: '发票信息' //导航栏文字
 				},
-				invoiceTitle: '个人', //发票抬头
+				invoiceHeadType: '个人', //发票抬头
 				invoiceContent: '不开发票', //发票内容
-				isExpend: false //是否展开
+				isExpend: false, //是否展开
+				params: {
+					invoiceType: 1, //发票类型:普通发票
+					invoiceContent: 0, //发票内容:0:不开,1:明细
+					invoiceHeadType: 1, //1:个人,2:公司
+					invoiceHeadName: '', //invoiceHeadType = 1 必填姓名
+					invoiceHeadCompanyName: '', //invoiceHeadType =2 必填公司名称
+					invoiceIdentifierNo: '', //纳税人识别号
+					registeredAddress: '', //注册地址
+					workPhone: '', //单位电话
+					bank: '', //开户银行
+					bankAccounts: '' //银行账户
+				}
 			}
 		},
 		onShow() {
 
 		},
 		methods: {
-			setTitle(invoiceTitle) {
-				this.invoiceTitle = invoiceTitle
+			setTitle(invoiceHeadType) {
+				this.params.invoiceHeadType = invoiceHeadType
 			},
 			setContent(invoiceContent) {
-				this.invoiceContent = invoiceContent
+				this.params.invoiceContent = invoiceContent
 			},
 			setExpend() {
 				this.isExpend = !this.isExpend
+			},
+			//校验数据成功后将数据返回上一页面
+			valiSubmit() {
+				let that = this
+				if(this.params.invoiceContent == 1) {
+					if(this.params.invoiceHeadType == 1 && this.params.invoiceHeadName =='') {
+						uni.showToast({
+							title: '发票抬头为个人时，必须填姓名',
+							icon: 'none',
+							duration: 2000
+						});
+						return;
+					}
+					if(this.params.invoiceHeadType == 2 && this.params.invoiceHeadCompanyName =='') {
+						uni.showToast({
+							title: '发票抬头为公司时，必须填公司名称',
+							icon: 'none',
+							duration: 2000
+						});
+						return;
+					}
+				}
+				var pages = getCurrentPages();
+				var prevPage = pages[pages.length - 2]; //上一个页面
+				//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+				prevPage.setData({
+					params: that.params
+				})
+				this.$turnPage('1', 'navigateBack')
 			},
 			getWxInvoice() {
 				//地址簿

@@ -10,7 +10,7 @@
 			<view class="title layout">一、用户等级升级条件、权益。</view>
 			<view class="wordspace" style="margin-bottom: 10rpx;">
 				<view class="subtitle">
-					1.白银会员
+					1.团长
 				</view>
 				<view class="base">
 					<text class="active">升级条件：</text>邀请一级VIP会员1名以上，即可直接升级。
@@ -23,7 +23,7 @@
 			</view>
 			<view class="wordspace">
 				<view class="subtitle">
-					2.黄金会员
+					2.店长
 				</view>
 				<view class="base">
 					<text class="active">升级条件：</text>邀请一级VIP会员10名以上，即可直接升级。
@@ -34,6 +34,19 @@
 					励。二级VIP会员每增加一名，获得38元/名/年佣金奖励（升级
 					前的不计入奖励）。一级VIP会员届满一年，续费再得58元/名/
 					年佣金奖励二级VIP会员届满一年，续费再得38元/名/年佣金奖励。          
+				</view>
+			</view>
+			<view class="wordspace" style="margin-bottom: 10rpx;">
+				<view class="subtitle">
+					3.运营商
+				</view>
+				<view class="base">
+					<text class="active">升级条件：</text>一次性缴纳1万元升级费，即可以直接升级运营商
+				</view>
+				<view class="base">
+				    <text class="active">享受权益：</text>
+					每邀请一级VIP会员一名，获得108元/名/年佣金
+					奖励；二级VIP会员每增加一名，获得88元/名/年佣金奖励。
 				</view>
 			</view>
 			<view class="more" @click="$turnPage('/pages/vip/rule/vip-rule?isUpgrade='+false, 'navigateTo')">查看更多VIP规则</view>
@@ -65,16 +78,27 @@
 				<view class="uni-flex rest content">无权限</view>
 			</view>
 			<view class="uni-flex uni-row rest split">
-				<view class="uni-flex rest content vsplit">白银用户</view>
+				<view class="uni-flex rest content vsplit">团长用户</view>
 				<view class="uni-flex rest content vsplit">≥1；≤9</view>
 				<view class="uni-flex rest content vsplit">58元/户/年</view>
 				<view class="uni-flex rest content">无权限</view>
 			</view>
-			<view class="uni-flex uni-row rest">
-				<view class="uni-flex rest content vsplit">黄金用户</view>
+			<view class="uni-flex uni-row rest split">
+				<view class="uni-flex rest content vsplit">店长用户</view>
 				<view class="uni-flex rest content vsplit">≥10</view>
 				<view class="uni-flex rest content vsplit">58元/户/年</view>
 				<view class="uni-flex rest content">38元/户/年</view>
+			</view>
+			<view class="uni-flex uni-row rest">
+				<view class="uni-flex rest content vsplit">运营商</view>
+				<view class="uni-flex rest content vsplit">
+					<view style="text-align: center;">
+						<view>升级费</view>
+						<view>10000元</view>
+					</view>
+				</view>
+				<view class="uni-flex rest content vsplit">108元/户/年</view>
+				<view class="uni-flex rest content">88元/户/年</view>
 			</view>
 		</view>
 		<view class="space">
@@ -147,13 +171,13 @@
 			font-size: 24rpx;
 		}
 		.active {
-			color: #0071CF;
+			color: #EB524B;
 			margin-left: 20rpx;
 		}
 	}
 	.more {
 		font-size: 20rpx;
-		color: #0071CF;
+		color: #EB524B;
 		text-decoration:underline;
 	}
 	.remark {

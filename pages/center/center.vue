@@ -40,7 +40,7 @@
 		</authPage>
 		<view class="uni-flex uni-column manage">
 			<authPage>
-				<view class="uni-flex uni-row vertical order" @click="$turnPage('/pages/shopping/trade/order?status=0', 'navigateTo')">
+				<view class="uni-flex uni-row vertical order" @click="$turnPage('/pages/shopping/trade/order?tabIndex=0', 'navigateTo')">
 					<view class="uni-flex rest orderManage">订单管理</view>
 					<view class="uni-flex">
 						<view class="icon-qianjin back"></view>
@@ -49,20 +49,20 @@
 			</authPage>
 			<authPage>
 				<view class="uni-flex uni-row" style="height: 150rpx;padding-bottom: 28rpx;">
-					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=1', 'navigateTo')">
-						<image src="/static/waitPay.png" style="width: 56rpx;height: 52rpx;"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?tabIndex=1', 'navigateTo')">
+						<image src="/static/waitPay.png" style="width: 44rpx;height: 46rpx;"></image>
 						<view class="title">待支付</view>
 					</view>
-					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=2', 'navigateTo')">
-						<image src="/static/sendGoods.png" style="width: 58rpx;height: 53rpx;"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?tabIndex=2', 'navigateTo')">
+						<image src="/static/sendGoods.png" style="width: 48rpx;height: 46rpx;"></image>
 						<view class="title">待发货</view>
 					</view>
-					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?status=3', 'navigateTo')">
-						<image src="/static/waitGoods.png" style="width: 63rpx;height: 48rpx;"></image>
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?tabIndex=3', 'navigateTo')">
+						<image src="/static/waitGoods.png" style="width: 57rpx;height: 46rpx;"></image>
 						<view class="title">待收货</view>
 					</view>
 					<view class="uni-flex rest content" style="position: relative;">
-						<image src="/static/afterSale.png" style="width: 57rpx;height: 52rpx;"></image>
+						<image src="/static/afterSale.png" style="width: 48rpx;height: 49rpx;"></image>
 						<view class="title">售后</view>
 						<button open-type='contact' class="concact">联系客服</button>
 					</view>
@@ -70,7 +70,7 @@
 			</authPage>
 		</view>
 		<view class="uni-flex uni-column manage">
-			<view class="uni-flex uni-row vertical order">
+			<view class="uni-flex uni-row vertical order" @click="$turnPage('/pages/shopping/trade/order-logistics', 'navigateTo')">
 				<view class="uni-flex rest orderManage">我的服务</view>
 			</view>
 			<authPage>
@@ -155,6 +155,40 @@
 					this.userInfo = uni.getStorageSync('userInfo')
 				}
 			}
+		},
+		onShareAppMessage: function( options ){
+		　　var that = this;
+		　　// 设置菜单中的转发按钮触发转发事件时的转发内容
+		　　var shareObj = {
+		　　　　title: that.userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
+		　　　　path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
+		　　　　imageUrl: that.bgImg, //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+		　　　　success: function(res){
+		　　　　　　// 转发成功之后的回调
+		　　　　　　if(res.errMsg == 'shareAppMessage:ok'){
+		　　　　　　}
+		　　　　},
+		　　　　fail: function(){
+		　　　　　　// 转发失败之后的回调
+		　　　　　　if(res.errMsg == 'shareAppMessage:fail cancel'){
+		　　　　　　　　// 用户取消转发
+		　　　　　　}else if(res.errMsg == 'shareAppMessage:fail'){
+		　　　　　　　　// 转发失败，其中 detail message 为详细失败信息
+		　　　　　　}
+		　　　　},
+		　　　　complete: function(){
+		　　　　　　// 转发结束之后的回调（转发成不成功都会执行）
+		　　　　}
+		　　};
+		　　// 来自页面内的按钮的转发
+		　　if( options.from == 'button' ){
+		　　　　var eData = options.target.dataset;
+		　　　　console.log( eData.name );     // shareBtn
+		　　　　// 此处可以修改 shareObj 中的内容
+		　　　　//shareObj.path = '/pages/btnname/btnname?btn_name='+eData.name;
+		　　}
+		　　// 返回shareObj
+		　　return shareObj;
 		},
 		onLoad() {
 			
@@ -248,7 +282,7 @@
 			line-height: 1.2;
 		}
 		.price {
-			color: #0071CF;
+			color: #EB524B;
 			font-weight: bold;
 			font-size: 36rpx;
 		}
@@ -259,7 +293,7 @@
 		.apply {
 			width:150rpx;
 			height:50rpx;
-			background:rgba(0,113,207,1);
+			background:#EB524B;
 			border-radius:25rpx;
 			color: #FFFFFF;
 			margin-right: 30rpx;

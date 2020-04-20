@@ -24,7 +24,10 @@
 					</view>
 				</view>
 			</view> -->
-			<view class="uni-flex content share-btn" :style="{visibility: poster ? 'visible' : 'hidden'}" @click="saveImg">分享好友</view>
+			<view class="uni-flex uni-row">
+				<button open-type="share" class="share-btn wx-chat"  :style="{visibility: poster ? 'visible' : 'hidden'}">分享微信好友</button>
+				<view class="uni-flex content share-btn" :style="{visibility: poster ? 'visible' : 'hidden'}" @click="saveImg">保存到相册</view>
+			</view>
 			<view class="share-img" @click="shareModal=false;">
 				<image src="/static/close.png" class="share-img"></image>
 			</view>
@@ -315,59 +318,65 @@
 		z-index: 210;
 		left: 50rpx;
 
-		.share-poster {
-			width: 100%;
-			height: 900rpx;
-			border-radius: 20rpx;
-			background: rgba(255, 255, 255, 1);
+		// .share-poster {
+		// 	width: 100%;
+		// 	height: 900rpx;
+		// 	border-radius: 20rpx;
+		// 	background: rgba(255, 255, 255, 1);
 
-			.share-mainimg {
-				width: 600rpx;
-				height: 600rpx;
-			}
+		// 	.share-mainimg {
+		// 		width: 600rpx;
+		// 		height: 600rpx;
+		// 	}
 
-			.share-space {
-				width: 600rpx;
-				margin: 0 auto;
+		// 	.share-space {
+		// 		width: 600rpx;
+		// 		margin: 0 auto;
 
-				.qrcode {
-					margin-left: 65rpx;
-					margin-right: -50rpx;
+		// 		.qrcode {
+		// 			margin-left: 65rpx;
+		// 			margin-right: -50rpx;
 
-					.share-qrcode {
-						width: 160rpx;
-						height: 160rpx;
-					}
-				}
+		// 			.share-qrcode {
+		// 				width: 160rpx;
+		// 				height: 160rpx;
+		// 			}
+		// 		}
 
-				.press {
-					font-size: 30rpx;
-					color: #333333;
-				}
+		// 		.press {
+		// 			font-size: 30rpx;
+		// 			color: #333333;
+		// 		}
 
-				.atonce {
-					font-size: 24rpx;
-					color: #666666;
-				}
-			}
+		// 		.atonce {
+		// 			font-size: 24rpx;
+		// 			color: #666666;
+		// 		}
+		// 	}
 
-			.share-id {
-				height: 83rpx;
-				font-size: 30rpx;
-				color: #333333;
-				border-bottom: 1px dashed grey;
-				padding-left: 25rpx;
-			}
-		}
+		// 	.share-id {
+		// 		height: 83rpx;
+		// 		font-size: 30rpx;
+		// 		color: #333333;
+		// 		border-bottom: 1px dashed grey;
+		// 		padding-left: 25rpx;
+		// 	}
+		// }
 
 		.share-btn {
-			width: 400rpx;
+			width: 300rpx;
 			height: 80rpx;
-			background: rgba(0, 113, 207, 1);
+			background: #17CA17;
 			border-radius: 40rpx;
 			color: #FFFFFF;
 			margin-top: 12rpx;
 			margin-bottom: 12rpx;
+			font-size: 30rpx;
+		}
+		
+		.wx-chat {
+			margin-right: 30rpx;
+			line-height: 80rpx;
 		}
 
 		.share-img {

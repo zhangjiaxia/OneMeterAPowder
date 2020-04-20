@@ -1718,6 +1718,6 @@ page {
 .btnop .confirm {
     height: 100%;
     width: 250rpx;
-    background: #0270CF;
+    background: #EB524B;
 }
 

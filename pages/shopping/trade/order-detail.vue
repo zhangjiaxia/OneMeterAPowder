@@ -21,15 +21,15 @@
 					<view class="icon-qianjin backGrey"></view>
 				</view>
 			</view>
-			<view class="order" v-for="(item, index) in orderDetail.skuList" :key="index">
+			<view class="order" v-for="(item, index) in orderDetail.cartList" :key="index">
 				<view class="uni-flex uni-row orderitem">
 					<view class="uni-flex">
 						<image :src="item.goodsPhotoUrl" class="goodsimg"></image>
 					</view>
 					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">{{item.prodName.substring(0,20) + '...'}}</view>
+						<view class="title">{{item.name.substring(0,20) + '...'}}</view>
 						<view class="prop">
-							<text class="size" v-for="(subItem, i) in item.detail.skuPropertyList" :key="i">{{subItem.val}}</text>
+							<text class="size" v-for="(subItem, i) in item.skuPropertyList" :key="i">{{subItem.val}}</text>
 							<!-- <text class="size">100ml*1瓶</text> -->
 						</view>
 					</view>
@@ -94,15 +94,15 @@
 			<view class="uni-flex uni-column ordersettle">
 				<view class="uni-flex vertical space" style="border: none;">
 					<view class="uni-flex rest subbase">商品总价</view>
-					<view class="uni-flex subbase">￥{{orderDetail.payAmount}}</view>
+					<view class="uni-flex subbase">￥{{orderDetail.orderPrice}}</view>
 				</view>
 				<view class="uni-flex vertical space">
 					<view class="uni-flex rest base">订单总价</view>
-					<view class="uni-flex base">￥{{orderDetail.payAmount}}</view>
+					<view class="uni-flex base">￥{{orderDetail.orderPrice}}</view>
 				</view>
 				<view class="uni-flex vertical space">
 					<view class="uni-flex rest base">微信支付</view>
-					<view class="uni-flex base" style="color: #FC1E1E;">￥{{orderDetail.payAmount}}</view>
+					<view class="uni-flex base" style="color: #FC1E1E;">￥{{orderDetail.payPrice}}</view>
 				</view>
 				<view class="uni-flex vertical space" style="border: none;margin-bottom: 36rpx;">
 					<view class="uni-flex rest base">发票信息</view>
@@ -116,18 +116,18 @@
 			<view class="uni-flex uni-column orderinfo">
 				<view class="uni-flex rest uni-row vertical">
 					<view class="uni-flex subbase numberleft">订单号</view>
-					<view class="uni-flex rest subbase">{{orderDetail.orderSn}}</view>
+					<view class="uni-flex rest subbase">{{orderDetail.orderNo}}</view>
 					<view class="uni-flex">
 						<text class="copy">复制</text>
 					</view>
 				</view>
 				<view class="uni-flex rest uni-row vertical">
 					<view class="uni-flex subbase timeleft">下单时间</view>
-					<view class="uni-flex rest subbase">{{orderDetail.confirmTime}}</view>
+					<view class="uni-flex rest subbase">{{orderDetail.update_time}}</view>
 				</view>
 			</view>
 		</view>
-		<view class="uni-flex content confirmpay">确认支付</view>
+		<!-- <view class="uni-flex content confirmpay">确认支付</view> -->
 	</view>
 </template>
 
@@ -155,9 +155,9 @@
 			//获取订单详情
 			getOrderDetail(id) {
 				let that = this;
-				interfaceurl.checkAuth(interfaceurl.orderDetail, {orderId: id}, false).then((res) => {
+				interfaceurl.checkAuth(interfaceurl.orderDetail, {noId: id}, false).then((res) => {
 					that.orderDetail = res.data
-					for(var item of that.orderDetail.skuList) {
+					for(var item of that.orderDetail.cartList) {
 						that.orderCount.push(item.quantity)
 					}
 				});

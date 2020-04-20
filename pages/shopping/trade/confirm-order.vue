@@ -102,7 +102,11 @@
 				},
 				totalFee: 0, //订单总额
 				defaultAddress: {}, //默认收货地址
-				cartId: '' //购物车ID参数，多个购物车用逗号隔开
+				cartId: '', //购物车ID参数，多个购物车用逗号隔开
+				params: {
+					invoiceType: 1, //发票类型:普通发票
+					invoiceContent: 0 //发票内容:0:不开,1:明细
+				} //下单支付的参数
 			}
 		},
 		onLoad() {
@@ -123,6 +127,10 @@
 			} else {
 				this.getDefaultAddress()
 			}
+			var pages = getCurrentPages();
+			var currPage = pages[pages.length - 1]; //当前页面
+			this.params = currPage.data.params; //获取发票信息
+			console.log('mydata', currPage)
 		},
 		methods: {
 			getDefaultAddress() {
@@ -145,11 +153,23 @@
 				if(this.cartId.length > 0) {
 					this.cartId.substring(0, this.cartId.length-1)
 				}
-				let params = {
-					cartId: that.cartId,
-					addressId: that.defaultAddress.addressId
-				}
-				interfaceurl.checkAuth(interfaceurl.orderPayment, params).then((res) => {
+				that.params.cartId = that.cartId
+				that.params.addressId = that.defaultAddress.addressId
+				
+				// let params = {
+				// 	cartId: that.cartId,
+				// 	addressId: that.defaultAddress.addressId,
+				// 	invoiceType: 1, //发票类型:普通发票
+				// 	invoiceContent: 0, //发票内容
+				// 	invoiceHeadType: '', //个人，公司
+				// 	invoiceHeadName: '', //invoiceHeadType = 1 必填姓名
+				// 	invoiceHeadCompanyName: '', //invoiceHeadType =2 必填公司名称
+				// 	registeredAddress: '', //注册地址
+				// 	workPhone: '', //单位电话
+				// 	bank: '', //开户银行
+				// 	bankAccounts: '' //银行账户
+				// }
+				interfaceurl.checkAuth(interfaceurl.orderPayment, this.params).then((res) => {
 					uni.requestPayment({
 					    timeStamp: res.data.timeStamp,
 					    nonceStr: res.data.nonceStr,
@@ -326,7 +346,7 @@
 		.confirm {
 			height: 100%;
 			width: 250rpx;
-			background: #0270CF;
+			background: #EB524B;
 		}
 	}
 </style>

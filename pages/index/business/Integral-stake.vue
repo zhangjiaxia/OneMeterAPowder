@@ -27,7 +27,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="remark">PS：达到50个配送原始股，终生有效!</view>
+			<!-- <view class="remark">PS：达到50个配送原始股，终生有效!</view> -->
 			<view class="uni-flex uni-row vertical place">
 				<view class="uni-flex rest rank">我的排名</view>
 				<view class="uni-flex ranking">
@@ -176,7 +176,7 @@
 				width: 650rpx;
 				height: 330rpx;
 				margin-left: 20rpx;
-				border: 1px dashed;
+				// border: 1px dashed;
 			}
 		}
 		.description {

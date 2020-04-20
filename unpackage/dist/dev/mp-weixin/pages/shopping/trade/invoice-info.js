@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -274,14 +274,45 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 269));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '发票信息' //导航栏文字
-      }, invoiceTitle: '个人', //发票抬头
+      }, invoiceHeadType: '个人', //发票抬头
       invoiceContent: '不开发票', //发票内容
-      isExpend: false //是否展开
-    };}, onShow: function onShow() {}, methods: { setTitle: function setTitle(invoiceTitle) {this.invoiceTitle = invoiceTitle;}, setContent: function setContent(invoiceContent) {this.invoiceContent = invoiceContent;}, setExpend: function setExpend() {this.isExpend = !this.isExpend;}, getWxInvoice: function getWxInvoice() {//地址簿
-      wx.getSetting({ success: function success(res) {console.log(res);if (res.authSetting['scope.address']) {wx.chooseAddress({ success: function success(res) {console.log(res);} });} else {if (res.authSetting['scope.address'] == false) {console.log("222");wx.openSetting({ success: function success(res) {console.log(res.authSetting);} });} else {console.log("eee");wx.chooseAddress({ success: function success(res) {console.log(res.userName);console.log(res.postalCode);console.log(res.provinceName);console.log(res.cityName);console.log(res.countyName);console.log(res.detailInfo);console.log(res.nationalCode);console.log(res.telNumber);} });}}} });} } };exports.default = _default;
+      isExpend: false, //是否展开
+      params: { invoiceType: 1, //发票类型:普通发票
+        invoiceContent: 0, //发票内容:0:不开,1:明细
+        invoiceHeadType: 1, //1:个人,2:公司
+        invoiceHeadName: '', //invoiceHeadType = 1 必填姓名
+        invoiceHeadCompanyName: '', //invoiceHeadType =2 必填公司名称
+        invoiceIdentifierNo: '', //纳税人识别号
+        registeredAddress: '', //注册地址
+        workPhone: '', //单位电话
+        bank: '', //开户银行
+        bankAccounts: '' //银行账户
+      } };}, onShow: function onShow() {}, methods: { setTitle: function setTitle(invoiceHeadType) {this.params.invoiceHeadType = invoiceHeadType;}, setContent: function setContent(invoiceContent) {this.params.invoiceContent = invoiceContent;}, setExpend: function setExpend() {this.isExpend = !this.isExpend;}, //校验数据成功后将数据返回上一页面
+    valiSubmit: function valiSubmit() {var that = this;if (this.params.invoiceContent == 1) {if (this.params.invoiceHeadType == 1 && this.params.invoiceHeadName == '') {uni.showToast({ title: '发票抬头为个人时，必须填姓名', icon: 'none', duration: 2000 });return;}if (this.params.invoiceHeadType == 2 && this.params.invoiceHeadCompanyName == '') {uni.showToast({ title: '发票抬头为公司时，必须填公司名称', icon: 'none', duration: 2000 });return;}}var pages = getCurrentPages();var prevPage = pages[pages.length - 2]; //上一个页面
+      //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+      prevPage.setData({ params: that.params });this.$turnPage('1', 'navigateBack');}, getWxInvoice: function getWxInvoice() {//地址簿
+      wx.getSetting({ success: function success(res) {console.log(res);if (res.authSetting['scope.address']) {wx.chooseAddress({ success: function success(res) {console.log(res);} });} else {if (res.authSetting['scope.address'] == false) {console.log("222");wx.openSetting({ success: function success(res) {console.log(res.authSetting);} });} else {console.log("eee");
+              wx.chooseAddress({
+                success: function success(res) {
+                  console.log(res.userName);
+                  console.log(res.postalCode);
+                  console.log(res.provinceName);
+                  console.log(res.cityName);
+                  console.log(res.countyName);
+                  console.log(res.detailInfo);
+                  console.log(res.nationalCode);
+                  console.log(res.telNumber);
+                } });
+
+            }
+          }
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

@@ -1636,7 +1636,7 @@ page {
     line-height: 1.2;
 }
 .commission .price {
-    color: #0071CF;
+    color: #EB524B;
     font-weight: bold;
     font-size: 36rpx;
 }
@@ -1647,7 +1647,7 @@ page {
 .commission .apply {
     width: 150rpx;
     height: 50rpx;
-    background: #0071cf;
+    background: #EB524B;
     border-radius: 25rpx;
     color: #FFFFFF;
     margin-right: 30rpx;

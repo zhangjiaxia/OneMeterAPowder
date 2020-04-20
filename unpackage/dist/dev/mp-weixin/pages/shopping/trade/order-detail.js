@@ -98,8 +98,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.orderDetail.skuList, function(item, index) {
-    var g0 = item.prodName.substring(0, 20)
+  var l0 = _vm.__map(_vm.orderDetail.cartList, function(item, index) {
+    var g0 = item.name.substring(0, 20)
     return {
       $orig: _vm.__get_orig(item),
       g0: g0
@@ -414,13 +414,13 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 269));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '订单详情' //导航栏文字
       }, orderDetail: {}, //订单详情
       orderCount: [] //每个订单的商品个数
     };}, onLoad: function onLoad(options) {this.getOrderDetail(options.id);}, methods: { //获取订单详情
-    getOrderDetail: function getOrderDetail(id) {var that = this;_interface.default.checkAuth(_interface.default.orderDetail, { orderId: id }, false).then(function (res) {that.orderDetail = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderDetail.skuList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;that.orderCount.push(item.quantity);}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}});} } };exports.default = _default;
+    getOrderDetail: function getOrderDetail(id) {var that = this;_interface.default.checkAuth(_interface.default.orderDetail, { noId: id }, false).then(function (res) {that.orderDetail = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderDetail.cartList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;that.orderCount.push(item.quantity);}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}});} } };exports.default = _default;
 
 /***/ }),
 
