@@ -317,7 +317,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
 //
 //
 //
-var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 269));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['selectOrderGoods', 'selectAddress']), data: function data() {return { //设置导航栏样式
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { navigationBar: navigationBar }, computed: (0, _vuex.mapState)(['selectOrderGoods', 'selectAddress']), data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '确认订单' //导航栏文字
       }, totalFee: 0, //订单总额
       defaultAddress: {}, //默认收货地址

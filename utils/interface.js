@@ -236,6 +236,7 @@ const interfaceurl = {
 	profitRecord(data) { return req.request({ url: `${baseUrl}/v1/user/profitRecord`, data }) },
 	cashOutSubmit(data) { return req.request({ url: `${baseUrl}/v1/cash_out/submit`, data, method: 'POST' }) },
 	cashOutRecord(data) { return req.request({ url: `${baseUrl}/v1/cash_out/record`, data }) },
+	profitTotal(data) { return req.request({ url: `${baseUrl}/v1/user/profitTotal`, data }) },
 }
 
 export default interfaceurl;

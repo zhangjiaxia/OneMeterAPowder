@@ -38,12 +38,12 @@
 					<image src="/static/chart.png" class="chartimg"></image>
 				</view>
 			</view>
-			<view class="uni-flex uni-row vertical place">
+			<!-- <view class="uni-flex uni-row vertical place">
 				<view class="uni-flex rest rank">我的排名</view>
 				<view class="uni-flex ranking">
 					2316名
 				</view>
-			</view>
+			</view> -->
 			<view class="query">
 				<view class="shareholder">股东名单查询</view>
 				<view class="uni-flex uni-row">
@@ -148,7 +148,7 @@
 			}
 			.ranking {
 				font-size: 40rpx;
-				color: #0071CF;
+				color: #FF162E;
 				font-weight:bolder;
 				margin-right: 30rpx;
 			}
@@ -194,6 +194,7 @@
 		background:rgba(255,255,255,1);
 		box-shadow:0px 4rpx 9rpx 0px rgba(185,214,243,0.23);
 		border-radius:15rpx;
+		margin-top: 20rpx;
 		.shareholder {
 			font-size: 30rpx;
 			color: #333333;
@@ -219,7 +220,7 @@
 		}
 		.search {
 			font-size: 30rpx;
-			color: #0071CF;
+			color: #FF162E;
 			margin-right: 30rpx;
 		}
 	}

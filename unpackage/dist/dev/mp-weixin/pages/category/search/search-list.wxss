@@ -1633,10 +1633,10 @@ radio-group label, checkbox-group label{
 }
 .goodslist .goods .info .money .price {
         font-size: 30rpx;
-        color: #0071CF;
+        color: #FF162E;
 }
 .goodslist .goods .info .money .add {
-        color: #0071CF;
+        color: #FF162E;
         font-size: 40rpx !important;
         margin-right: 30rpx;
 }

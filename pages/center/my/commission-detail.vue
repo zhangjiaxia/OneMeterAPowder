@@ -7,11 +7,11 @@
 			<view class="uni-flex uni-row space">
 				<view class="uni-flex rest">
 					<text class="key">今日获得佣金:</text>
-					<text class="val">58</text>
+					<text class="val">{{profitTotalData.todayProfitTotal}}</text>
 				</view>
 				<view class="uni-flex">
 					<view class="key">总共获得佣金:</view>
-					<view class="val">5800</view>
+					<view class="val">{{profitTotalData.profitTotal}}</view>
 				</view>
 			</view>
 		</view>
@@ -20,19 +20,19 @@
 				{{index + 1}}
 			</view>
 			<view class="uni-flex content">
-				<image src="/static/head.png" class="head"></image>
+				<image :src="item.headimgurl" class="head"></image>
 			</view>
 			<view class="uni-flex uni-column content rest">
 				<view class="uni-flex uni-column" style="margin-left: -100rpx;">
 					<view class="nick">
-						此心水墨
-						<text class="date">(一级粉丝)</text>
+						{{item.nickname}}
+						<text class="date">({{item.spread_level == 1 ? '一' : '二'}}级粉丝)</text>
 					</view>
-					<view class="date">2020-10-10 12:12:12</view>
+					<view class="date">{{item.update_time}}</view>
 				</view>
 			</view>
 			<view class="uni-flex content num">
-				+58佣金
+				+{{item.profit}}佣金
 			</view>
 		</view>
 		<view class="empty-text" v-if="pointsList.length == 0">暂无数据</view>
@@ -53,18 +53,19 @@
 				navigationBarStyle: {
 					iconText: '佣金明细' //导航栏文字
 				},
-				list: [{},{},{},{},{},{}],
 				params: {
 					page: 1, //页数
 					size: 10, //每页几条
-					type: 2 //1佣金,2积分
+					type: 1 //1佣金,2积分
 				}, //分页参数
 				pointsData: {}, //积分数据
 				pointsList: [], //积分列表
+				profitTotalData: {} //今日佣金
 			}
 		},
 		onShow() {
 			this.initData()
+			this.profitTotals()
 		},
 		//到达页面底部时触发的事件
 		onReachBottom() {
@@ -75,6 +76,13 @@
 			this.getPoints()
 		},
 		methods: {
+			profitTotals() {
+				let that = this;
+				//1佣金,2积分
+				interfaceurl.checkAuth(interfaceurl.profitTotal, {type: 1}).then((res) => {
+					that.profitTotalData = res.data
+				});
+			},
 			initData() {
 				//重置分页参数
 				this.pointsData = {}
@@ -114,7 +122,7 @@
 				font-size: 24rpx;
 			}
 			.val {
-				color: #0071CF;
+				color: #FF162E;
 				font-size: 24rpx;
 			}
 		}
@@ -143,7 +151,7 @@
 			font-size: 24rpx;
 		}
 		.num {
-			color: #0071CF;
+			color: #FF162E;
 			font-size: 30rpx;
 			margin-right: 30rpx;
 		}

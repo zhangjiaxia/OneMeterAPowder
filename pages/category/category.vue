@@ -153,7 +153,7 @@
 		content: '';
 		width: 6upx;
 		height: 60upx;
-		background-color: #EB524B;
+		background-color: #FF162E;
 		position: absolute;
 		left: 0px;
 		top: 20upx;

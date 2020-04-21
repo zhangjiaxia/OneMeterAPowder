@@ -1591,7 +1591,7 @@ page {
   border-radius: 15rpx;
 }
 .address .location {
-    color: #0071cf;
+    color: #FF162E;
     font-size: 66rpx !important;
     margin-left: 40rpx;
     margin-right: 30rpx;
@@ -1718,6 +1718,6 @@ page {
 .btnop .confirm {
     height: 100%;
     width: 250rpx;
-    background: #EB524B;
+    background: #FF162E;
 }
 

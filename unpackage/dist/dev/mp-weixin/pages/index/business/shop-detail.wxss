@@ -1574,6 +1574,30 @@ radio-group label, checkbox-group label{
 	height: 0;
 	background-color: transparent;
 } */
+.vip-upgrade {
+  height: 60rpx;
+  position: relative;
+}
+.vip-upgrade .vipbg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.vip-upgrade .vip {
+    width: 100%;
+    position: absolute;
+}
+.vip-upgrade .vip .vipdesc {
+      color: #FFFFFF;
+      font-size: 24rpx;
+      margin: 0 20rpx;
+}
+.vip-upgrade .vip .vipbtn {
+      width: 140rpx;
+      height: 40rpx;
+      background: #f0243d;
+      border-radius: 20rpx;
+}
 .container {
   background: #ffffff;
   padding-bottom: 130rpx;
@@ -1596,7 +1620,7 @@ radio-group label, checkbox-group label{
 }
 .shop-price {
   font-size: 36rpx;
-  color: #0071CF;
+  color: #FF162E;
 }
 .original-price {
   font-size: 24rpx;
@@ -1684,7 +1708,7 @@ radio-group label, checkbox-group label{
   color: #ffffff;
   line-height: 100rpx;
   text-align: center;
-  background: #59ADF3;
+  background: #333333;
 }
 .pay-btn {
   width: 230rpx;
@@ -1692,7 +1716,7 @@ radio-group label, checkbox-group label{
   color: #ffffff;
   line-height: 100rpx;
   text-align: center;
-  background: #0070CF;
+  background: #FF162E;
 }
 .detail-bottom-left {
   -webkit-box-flex: 1;
@@ -1840,7 +1864,7 @@ radio-group label, checkbox-group label{
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  background: #0070D1;
+  background: #FF162E;
   border-radius: 40rpx;
   color: #FFFFFF;
 }

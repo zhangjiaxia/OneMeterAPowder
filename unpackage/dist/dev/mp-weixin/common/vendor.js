@@ -2561,7 +2561,7 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 147:
+/***/ 155:
 /*!************************************************************!*\
   !*** D:/project/uniRiceNoodle/utils/base64-arraybuffer.js ***!
   \************************************************************/
@@ -9002,7 +9002,8 @@ data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/
 
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/profitRecord"), data: data });}), _defineProperty(_interfaceurl, "cashOutSubmit", function cashOutSubmit(
 data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/submit"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "cashOutRecord", function cashOutRecord(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/record"), data: data });}), _interfaceurl);var _default =
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/record"), data: data });}), _defineProperty(_interfaceurl, "profitTotal", function profitTotal(
+data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/profitTotal"), data: data });}), _interfaceurl);var _default =
 
 
 interfaceurl;exports.default = _default;
@@ -9105,7 +9106,7 @@ req;exports.default = _default;
 
 /***/ }),
 
-/***/ 288:
+/***/ 296:
 /*!***********************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mpother.js ***!
   \***********************************************************************/
@@ -9249,7 +9250,7 @@ req;exports.default = _default;
 
 /***/ }),
 
-/***/ 289:
+/***/ 297:
 /*!******************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/uni-swipe-action/mp.js ***!
   \******************************************************************/
@@ -9379,7 +9380,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 306:
+/***/ 314:
 /*!**********************************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/mpvue-citypicker/city-data/province.js ***!
   \**********************************************************************************/
@@ -9529,7 +9530,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 307:
+/***/ 315:
 /*!******************************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/mpvue-citypicker/city-data/city.js ***!
   \******************************************************************************/
@@ -11043,7 +11044,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 308:
+/***/ 316:
 /*!******************************************************************************!*\
   !*** D:/project/uniRiceNoodle/components/mpvue-citypicker/city-data/area.js ***!
   \******************************************************************************/
@@ -24514,7 +24515,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/center/center": { "navigationBarTitleText": "我的" }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车" }, "pages/index/index": { "navigationBarTitleText": "一米一粉" }, "pages/category/category": { "navigationBarTitleText": "类目" }, "pages/vip/vip": { "navigationBarTitleText": "VIP" }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益" }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则" }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则" }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址" }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址" }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单" }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息" }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单" }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情" }, "pages/shopping/trade/order-logistics": { "navigationBarTitleText": "物流信息" }, "pages/index/business/poster": { "navigationBarTitleText": "分享海报" }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院" }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权" }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情" }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权" }, "pages/center/my/about": { "navigationBarTitleText": "关于我们" }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现" }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细" }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细" }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分" }, "pages/center/my/team": { "navigationBarTitleText": "我的团队" }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情" }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤" }, "pages/category/search/search": { "navigationBarTitleText": "搜索" }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品" } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉" }, "pages/center/center": { "navigationBarTitleText": "我的" }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车" }, "pages/category/category": { "navigationBarTitleText": "类目" }, "pages/vip/vip": { "navigationBarTitleText": "VIP" }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益" }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则" }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则" }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址" }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址" }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单" }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息" }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单" }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情" }, "pages/shopping/trade/order-logistics": { "navigationBarTitleText": "物流信息" }, "pages/shopping/trade/order-refund": { "navigationBarTitleText": "申请退款" }, "pages/index/business/poster": { "navigationBarTitleText": "分享海报" }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院" }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权" }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情" }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权" }, "pages/center/my/about": { "navigationBarTitleText": "关于我们" }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现" }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细" }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细" }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分" }, "pages/center/my/team": { "navigationBarTitleText": "我的团队" }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情" }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤" }, "pages/category/search/search": { "navigationBarTitleText": "搜索" }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品" } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

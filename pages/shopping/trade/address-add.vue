@@ -24,7 +24,7 @@
 			</view>
 		<view class="default-address" v-if="!forceDefault">
 			<view>设为默认地址</view>
-			<switch :checked="saveParams.isDefault == 1 ? true : false" @change="switchChange" color="#0070D1" style="transform:scale(0.8)"/>
+			<switch :checked="saveParams.isDefault == 1 ? true : false" @change="switchChange" color="#FF162E" style="transform:scale(0.8)"/>
 		</view>
 		<view class="btn-container">
 			<view class="common-btn" @click="saveAddress">保存</view>
@@ -312,7 +312,7 @@
 	padding:0upx 30upx;
 }
 .common-btn{
-	background: #0070D1;
+	background: #FF162E;
 	color: #ffffff;
 	font-size: 34upx;
 	height: 90upx;

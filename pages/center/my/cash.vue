@@ -179,7 +179,7 @@
 
 	.center {
 		padding: 30upx;
-		background: #0071CF;
+		background: #FF162E;
 		color: #ffffff;
 		display: flex;
 		align-items: center;
@@ -272,7 +272,7 @@
 	}
 
 	.common-btn {
-		background: #0071CF;
+		background: #FF162E;
 		color: #ffffff;
 		font-size: 34upx;
 		height: 39px;

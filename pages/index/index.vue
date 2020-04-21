@@ -49,7 +49,7 @@
 			<view class="type-list">
 				<view class="type-item" :style="{'margin-right': index % 2 == 0 ? '10rpx' : '0'}"
 					v-for="(item, index) in specialAreaPicList" :key="index">
-					<image :src="item.specialImgUrl"></image>
+					<image :src="item.specialImgUrl" :style="{'width': index > 1 ? '350rpx' : '710rpx'}"></image>
 				</view>
 			</view>
 			<view class="category-list">
@@ -458,7 +458,7 @@
 
 	.search-container {
 		height: 230upx;
-		background: #0071CF;
+		background: #FF162E;
 		display: flex;
 		padding: 30upx;
 		box-sizing: border-box;
@@ -533,13 +533,13 @@
 	}
 
 	.type-item {
-		width: 350upx;
+		// width: 350upx;
 		display: inline-flex;
 	}
 
 	.type-item image {
 		width: 350rpx;
-		height: 175rpx;
+		height: 220rpx;
 	}
 
 	.shop-item-bottom {
@@ -557,9 +557,9 @@
 		line-height: 26upx;
 		border-radius: 100%;
 		text-align: center;
-		color: #0071CF;
+		color: #FF162E;
 		color: #ffffff;
-		background: #0071CF;
+		background: #FF162E;
 	}
 
 	.share {
@@ -599,12 +599,12 @@
 	}
 
 	.category-item-active {
-		color: #EB524B;
+		color: #FF162E;
 		font-weight: bold;
 	}
 
 	.category-text-active {
-		background: #EB524B;
+		background: #FF162E;
 		color: #FFFFFF;
 		border-radius: 40rpx;
 		padding: 4rpx 6rpx;
@@ -667,7 +667,7 @@
 	}
 	
 	.shop-item-price {
-		color: #EB524B;
+		color: #FF162E;
 		font-size: 30rpx;
 	}
 </style>

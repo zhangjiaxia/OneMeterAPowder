@@ -17,21 +17,21 @@
 			<view class="uni-flex vertical title">积分明细</view>
 			<view class="uni-flex uni-row detail" v-for="(item, index) in pointsList" :key="index">
 				<view class="uni-flex">
-					<image src="/static/head.png" class="icon"></image>
+					<image :src="item.headimgurl" class="icon"></image>
 				</view>
 				<view class="uni-flex uni-row rest">
 					<view class="uni-flex uni-column rest" style="margin-top: 28rpx;">
-						<view class="uni-flex name">江中食疗旗舰店消费500元</view>
+						<view class="uni-flex name">江中食疗旗舰店消费{{item.order_price}}元</view>
 						<view class="uni-flex reason">购物消费</view>
-						<view class="uni-flex reason">今天  12:15</view>
+						<view class="uni-flex reason">{{item.update_time}}</view>
 					</view>
 					<view class="uni-flex content jifen">
-						+500积分
+						+{{item.profit}}积分
 					</view>
 				</view>
 			</view>
 		</view>
-		<view style="margin-bottom: 29rpx;" v-if="pointsList.length > 0">
+		<!-- <view style="margin-bottom: 29rpx;" v-if="pointsList.length > 0">
 			<view class="uni-flex vertical title" style="background: #F7F4F8;">2019年</view>
 			<view class="uni-flex uni-row detail" v-for="(item, index) in pointsList" :key="index">
 				<view class="uni-flex">
@@ -48,8 +48,9 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="empty-text" v-if="pointsList.length == 0">暂无数据</view>
+		<view class="empty-text" v-if="(pointsList.length == pointsData.total) && pointsList.length > 0">已经到底了</view>
 	</view>
 </template>
 
@@ -172,7 +173,7 @@
 			color: #999999;
 		}
 		.jifen {
-			color: #0071CF;
+			color: #FF162E;
 			font-size: 36rpx;
 			margin-right: 30rpx;
 		}

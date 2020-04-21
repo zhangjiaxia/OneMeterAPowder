@@ -171,13 +171,13 @@
 			font-size: 24rpx;
 		}
 		.active {
-			color: #EB524B;
+			color: #FF162E;
 			margin-left: 20rpx;
 		}
 	}
 	.more {
 		font-size: 20rpx;
-		color: #EB524B;
+		color: #FF162E;
 		text-decoration:underline;
 	}
 	.remark {

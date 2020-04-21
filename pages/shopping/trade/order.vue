@@ -104,6 +104,7 @@
 				</view> -->
 			</view>
 			<view class="empty-text" v-if="(orderPageList.length == orderPageData.total) && orderPageList.length > 0">已经到底了</view>
+			<view class="empty-text" v-if="orderPageList.length == 0">暂无数据</view>
 		</view>
 	</view>
 </template>
@@ -155,7 +156,7 @@
 		onLoad(options) {
 			console.log('options')
 			this.tabIndex = options.tabIndex
-			this.params.status = this.tabList[this.tabIndex].val
+			this.params.status = options.tabIndex == 0 ? '' : parseInt(options.tabIndex) - 1 // this.tabList[this.tabIndex].val
 		},
 		onShow() {
 			this.initData()
@@ -200,19 +201,19 @@
 			setStatus(status) {
 				if(status == 0) {
 					return '待支付'
-				} else if(status == 20) {
+				} else if(status == 1) {
 					return '待发货'
-				} else if(status == 30) {
+				} else if(status == 2) {
 					return '待收货'
 				} else if(status == 40) {
 					return '已完成'
-				} else if(status == 70 || status == 80) {
+				} else if(status == 3) {
 					return '售后'
 				}
 			},
 			selectTab(index, status) {
 				this.tabIndex = index
-				this.params.status = status
+				this.params.status = index == 0 ? '' : parseInt(index) - 1
 				this.initData();
 			},
 			//删除订单(暂无)
@@ -366,8 +367,8 @@
 		}
 	}
 	.active {
-		color: #EB524B;
-		border-bottom: 1px solid #EB524B;
+		color: #FF162E;
+		border-bottom: 1px solid #FF162E;
 	}
 	.searchbar {
 		// margin-top: 20rpx;
@@ -403,7 +404,7 @@
 		}
 
 		.tip {
-			color: #EB524B;
+			color: #FF162E;
 		}
 	}
 	.orderitem {
@@ -471,7 +472,7 @@
 			padding: 0 20rpx;
 			height: 50rpx;
 			color: #FFFFFF;
-			background: #EB524B;
+			background: #FF162E;
 			border-radius: 40rpx;
 			margin-left: 16rpx;
 			margin-right: 25rpx;

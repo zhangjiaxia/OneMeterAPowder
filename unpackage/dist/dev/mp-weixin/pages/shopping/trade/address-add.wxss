@@ -342,7 +342,7 @@
 	padding:0rpx 30rpx;
 }
 .common-btn{
-	background: #0070D1;
+	background: #FF162E;
 	color: #ffffff;
 	font-size: 34rpx;
 	height: 90rpx;

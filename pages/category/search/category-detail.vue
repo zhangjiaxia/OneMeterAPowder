@@ -40,7 +40,7 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#0071CF',
+					background: '#FF162E',
 					fontColor: '#FFFFFF',
 					iconColor: '#FFFFFF',
 					iconText: '类目详情' //导航栏文字
@@ -179,7 +179,7 @@
 	}
 
 	.shop-item-price {
-		color: #0071CF;
+		color: #FF162E;
 		font-size: 30rpx;
 	}
 
@@ -190,8 +190,8 @@
 		line-height: 26rpx;
 		border-radius: 100%;
 		text-align: center;
-		color: #0071CF;
+		color: #FF162E;
 		color: #ffffff;
-		background: #0071CF;
+		background: #FF162E;
 	}
 </style>

@@ -155,7 +155,7 @@
 			}
 			.ranking {
 				font-size: 40rpx;
-				color: #0071CF;
+				color: #FF162E;
 				font-weight:bolder;
 				margin-right: 30rpx;
 			}

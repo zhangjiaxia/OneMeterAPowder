@@ -63,8 +63,8 @@ page {
       display: block;
 }
 .tab-list .tab .tab-active {
-      border-bottom: 4rpx solid #0071CF;
-      color: #0071CF;
+      border-bottom: 4rpx solid #FF162E;
+      color: #FF162E;
 }
 .space {
   width: 700rpx;
@@ -95,7 +95,7 @@ page {
 }
 .space .goods .price {
       font-size: 30rpx;
-      color: #0071CF;
+      color: #FF162E;
       margin-left: 10rpx;
       margin-bottom: 20rpx;
 }

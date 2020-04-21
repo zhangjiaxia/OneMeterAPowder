@@ -9,9 +9,9 @@
 					<view class="icon-qiandaisel record-icon"></view>
 					<text>佣金收入</text>
 				</view>
-				<view class="time">3月21日  12:15</view>
+				<view class="time">{{item.update_time || ''}}</view>
 			</view>
-			<view class="num">+500</view>
+			<view class="num">+{{item.amount}}</view>
 		</view>
 		<view class="empty-text" v-if="withdrawList.length == 0">暂无数据</view>
 		<view class="empty-text" v-if="(withdrawList.length == withdrawData.total) && withdrawList.length > 0">已经到底了</view>
@@ -98,6 +98,6 @@
 }
 .num{
 	font-size: 36upx;
-	color: #0071CF;
+	color: #FF162E;
 }
 </style>

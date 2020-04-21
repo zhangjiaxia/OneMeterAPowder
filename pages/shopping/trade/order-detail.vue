@@ -186,7 +186,7 @@
 		box-shadow:0px 2rpx 10rpx 0px rgba(0, 0, 0, 0.08);
 		border-radius:15rpx;
 		.location {
-			color: #0071cf;
+			color: #FF162E;
 			font-size: 66rpx !important;
 			margin-left: 40rpx;
 			margin-right: 30rpx;

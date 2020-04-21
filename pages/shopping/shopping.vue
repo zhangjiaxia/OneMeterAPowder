@@ -11,7 +11,7 @@
 			<view style="margin-bottom: 20rpx;" v-for="(item,index) in shopList" :key="index" @click="shopDetailPage(item)">
 				<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="bindClick(item.cartId)">
 					<view class="shop-item">
-						<view class="icon-gou" :style="{color: item.selected ? '#EB524B' : '#999999'}" @click.stop="handleSelect(index)"></view>
+						<view class="icon-gou" :style="{color: item.selected ? '#FF162E' : '#999999'}" @click.stop="handleSelect(index)"></view>
 						<image :src="item.goodsPhotoUrl" class="shop-img"></image>
 						<view class="shop-item-content">
 							<view class="shop-item-title">{{item.name.substring(0,20) + '...'}}</view>
@@ -33,7 +33,7 @@
 			</view>
 		</view>
 		<view class="shopping-bottom" v-if="cartList.total > 0">
-			<view class="icon-gou radio-icon" :style="{color: isAll ? '#EB524B' : '#999999'}" @click="hadleSelectAll"></view>
+			<view class="icon-gou radio-icon" :style="{color: isAll ? '#FF162E' : '#999999'}" @click="hadleSelectAll"></view>
 			<text @click="hadleSelectAll">全选</text>
 			<view class="total" v-if="isEdit"></view>
 			<view class="total" v-if="!isEdit">
@@ -401,7 +401,7 @@
 		text-align: center;
 		color: #ffffff;
 		border-radius: 30upx;
-		background: #EB524B;
+		background: #FF162E;
 		font-size: 30upx;
 	}
 

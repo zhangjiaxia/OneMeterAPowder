@@ -107,8 +107,8 @@
 		}
 		.fans {
 			height: 100%;
-			color: #0071CF;
-			border-bottom: 4rpx solid #0071CF;
+			color: #FF162E;
+			border-bottom: 4rpx solid #FF162E;
 		}
 	}
 	.line {

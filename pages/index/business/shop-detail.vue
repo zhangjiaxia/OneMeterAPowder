@@ -9,24 +9,30 @@
 					<image :src="item" class="banner-img"></image>
 				</swiper-item>
 			</swiper>
+			<view class="uni-flex vertical vip-upgrade" v-if="isVip != 1">
+				<image src="/static/rect.png" class="vipbg"></image>
+				<view class="uni-flex uni-row vip" @click="$turnPage('/pages/vip/rule/vip-index', 'navigateTo')">
+					<view class="uni-flex rest">
+						<text class="vipdesc">
+							现在升级vip会员，全场均省38%
+						</text>
+					</view>
+					<view class="uni-flex content vipbtn vipdesc">立即升级</view>
+				</view>
+			</view>
 			<view class="shop-message">
 				<view class="uni-flex uni-row vertical">
 					<view class="uni-flex vertical rest shop-price">
-						<text v-if="isVip == 1" style="margin-right: 18rpx;">￥{{goodsDetail.vipPrice[0]}}</text>
-						<text :style="{'text-decoration': isVip == 1 ? 'line-through' : 'none', color: isVip == 1 ? '#999999' : '#0071CF'}">
+						<text v-if="isVip == 1" style="margin-right: 18rpx;color: #FF162E;">￥{{goodsDetail.vipPrice[0]}}</text>
+						<text :style="{'text-decoration': isVip == 1 ? 'line-through' : 'none', color: isVip == 1 ? '#999999' : '#FF162E'}">
 							￥{{goodsDetail.retailPrice[0] || '0.00'}}
 						</text>
 					</view>
 					<view class="uni-flex">
-						<text style="color: #0071CF;font-size: 24rpx;">
+						<text style="color: #FF162E;font-size: 24rpx;">
 							+{{Math.round(isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]) / 100}}积分
 						</text>
 					</view>
-				</view>
-				<view v-if="isVip != 1" @click="$turnPage('/pages/vip/rule/vip-index', 'navigateTo')">
-					<text style="font-size: 24rpx;color: red;">
-						(升级VIP会员可均省<text style="text-decoration: line-through;">36%</text>,点击立即充值)
-					</text>
 				</view>
 				<view class="shop-title">{{goodsDetail.name || ''}}</view>
 				<view class="shop-postage">
@@ -432,6 +438,31 @@
 	@import '/common/uni.css';
 	/*自定义公共样式*/
 	@import '/common/custom.css';
+	.vip-upgrade {
+		height: 60rpx;
+		position: relative;
+		.vipbg {
+			height: 100%;
+			width: 100%;
+			position: absolute;
+		}
+		.vip {
+			width: 100%;
+			position: absolute;
+			.vipdesc{
+				color: #FFFFFF;
+				font-size: 24rpx;
+				margin: 0 20rpx;
+			}
+			.vipbtn {
+				width:140rpx;
+				height:40rpx;
+				background:rgba(240,36,61,1);
+				border-radius:20rpx;
+			}
+		}
+	}
+	
 	.container {
 		background: #ffffff;
 		padding-bottom: 130upx;
@@ -460,7 +491,7 @@
 	.shop-price {
 		font-size: 36rpx;
 		// margin-top: 20rpx;
-		color: #0071CF;
+		color: #FF162E;
 	}
 	
 	.original-price {
@@ -548,7 +579,7 @@
 		color: #ffffff;
 		line-height: 100upx;
 		text-align: center;
-		background: #59ADF3;
+		background: #333333;
 	}
 
 	.pay-btn {
@@ -557,7 +588,7 @@
 		color: #ffffff;
 		line-height: 100upx;
 		text-align: center;
-		background: #0070CF;
+		background: #FF162E;
 	}
 
 	.detail-bottom-left {
@@ -697,7 +728,7 @@
 		text-align: center;
 		display: flex;
 		justify-content: center;
-		background: #0070D1;
+		background: #FF162E;
 		border-radius: 40rpx;
 		color: #FFFFFF;
 	}

@@ -42,7 +42,7 @@
 			return {
 				lineHeight: '20px',
 				normal: {
-					background: '#0071CF',
+					background: '#FF162E',
 					fontColor: '#FFFFFF',
 					iconColor: '#FFFFFF',
 				}, //公用样式,个性化样式可通过传值实现
@@ -181,8 +181,8 @@
 				display: block;
 			}
 			.tab-active {
-				border-bottom: 4rpx solid #0071CF;
-				color: #0071CF;
+				border-bottom: 4rpx solid #FF162E;
+				color: #FF162E;
 			}
 		}
 	}
@@ -215,7 +215,7 @@
 			}
 			.price {
 				font-size: 30rpx;
-				color: #0071CF;
+				color: #FF162E;
 				margin-left: 10rpx;
 				margin-bottom: 20rpx;
 			}

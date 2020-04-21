@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<view class="bar-sticky">
+		<!-- <view class="bar-sticky">
 			<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
-		</view>
+		</view> -->
 		<view class="uni-flex topitem vertical">
 			<image src="/static/bg.png" class="bg"></image>
 			<authPage>
@@ -70,7 +70,8 @@
 			</authPage>
 		</view>
 		<view class="uni-flex uni-column manage">
-			<view class="uni-flex uni-row vertical order" @click="$turnPage('/pages/shopping/trade/order-logistics', 'navigateTo')">
+			<!-- @click="$turnPage('/pages/shopping/trade/order-refund', 'navigateTo')"-->
+			<view class="uni-flex uni-row vertical order">
 				<view class="uni-flex rest orderManage">我的服务</view>
 			</view>
 			<authPage>
@@ -282,7 +283,7 @@
 			line-height: 1.2;
 		}
 		.price {
-			color: #EB524B;
+			color: #FF162E;
 			font-weight: bold;
 			font-size: 36rpx;
 		}
@@ -293,7 +294,7 @@
 		.apply {
 			width:150rpx;
 			height:50rpx;
-			background:#EB524B;
+			background:#FF162E;
 			border-radius:25rpx;
 			color: #FFFFFF;
 			margin-right: 30rpx;
@@ -327,7 +328,7 @@
 			height: 60rpx;
 		}
 		.icon-active {
-			color: #0071CF;
+			color: #FF162E;
 		}
 	}
 	.concact {

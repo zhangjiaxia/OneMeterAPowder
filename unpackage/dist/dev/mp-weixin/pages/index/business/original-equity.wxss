@@ -1633,7 +1633,7 @@ page {
 }
 .layout .place .ranking {
       font-size: 40rpx;
-      color: #0071CF;
+      color: #FF162E;
       font-weight: bolder;
       margin-right: 30rpx;
 }
@@ -1664,6 +1664,7 @@ page {
   background: white;
   box-shadow: 0px 4rpx 9rpx 0px rgba(185, 214, 243, 0.23);
   border-radius: 15rpx;
+  margin-top: 20rpx;
 }
 .query .shareholder {
     font-size: 30rpx;
@@ -1690,7 +1691,7 @@ page {
 }
 .query .search {
     font-size: 30rpx;
-    color: #0071CF;
+    color: #FF162E;
     margin-right: 30rpx;
 }
 
