@@ -1648,7 +1648,7 @@ page {
 }
 .search-container {
   height: 230rpx;
-  background: #FF162E;
+  background: #ff0033;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -1745,9 +1745,9 @@ page {
   line-height: 26rpx;
   border-radius: 100%;
   text-align: center;
-  color: #FF162E;
+  color: #ff0033;
   color: #ffffff;
-  background: #FF162E;
+  background: #ff0033;
 }
 .share {
   width: 100rpx;
@@ -1787,11 +1787,11 @@ page {
   color: #999999;
 }
 .category-item-active {
-  color: #FF162E;
+  color: #ff0033;
   font-weight: bold;
 }
 .category-text-active {
-  background: #FF162E;
+  background: #ff0033;
   color: #FFFFFF;
   border-radius: 40rpx;
   padding: 4rpx 6rpx;
@@ -1855,7 +1855,7 @@ page {
           align-items: center;
 }
 .shop-item-price {
-  color: #FF162E;
+  color: #ff0033;
   font-size: 30rpx;
 }
 

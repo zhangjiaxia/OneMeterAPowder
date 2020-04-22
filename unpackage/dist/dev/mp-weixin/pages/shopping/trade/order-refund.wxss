@@ -1628,8 +1628,8 @@ page {
     line-height: 80rpx;
 }
 .opbar .active {
-    color: #FF162E;
-    border-bottom: 2rpx solid #FF162E;
+    color: #ff0033;
+    border-bottom: 2rpx solid #ff0033;
 }
 .options .bar {
   height: 100rpx;
@@ -1647,7 +1647,7 @@ page {
     font-size: 24rpx;
 }
 .options .bar .money {
-    color: #FF162E;
+    color: #ff0033;
     font-size: 30rpx;
     margin-right: 30rpx;
 }

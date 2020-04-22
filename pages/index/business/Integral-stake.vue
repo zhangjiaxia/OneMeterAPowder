@@ -12,7 +12,7 @@
 					</view>
 					<view class="uni-flex uni-column rest">
 						<view class="nick">{{userInfo.nickName}}</view>
-						<view class="nick">我的积分:5000分</view>
+						<view class="nick">我的积分:{{userDetail.total_integral || ''}}分</view>
 					</view>
 				</view>
 				<view class="uni-flex uni-row info">
@@ -28,35 +28,37 @@
 				</view>
 			</view>
 			<!-- <view class="remark">PS：达到50个配送原始股，终生有效!</view> -->
-			<view class="uni-flex uni-row vertical place">
+			<!--暂时隐藏排名-->
+			<!-- <view class="uni-flex uni-row vertical place">
 				<view class="uni-flex rest rank">我的排名</view>
 				<view class="uni-flex ranking">
 					2316名
-					<!-- <image src="" class=""></image> -->
 				</view>
-			</view>
-			<view class="chart">
-				<view class="charttitle">市值曲线图</view>
-				<view>
-					<image src="/static/chart.png" class="chartimg"></image>
+			</view> -->
+			<view style="margin: 0 auto;width: 690rpx;">
+				<view class="chart">
+					<view class="charttitle">市值曲线图</view>
+					<view>
+						<image src="/static/chart.png" class="chartimg"></image>
+					</view>
 				</view>
-			</view>
-			<view class="uni-flex uni-row description">
-				<view class="uni-flex" style="margin-right: 10rpx;">
-					<text class="star">*</text>
-					<text class="define">积分定义：</text>
+				<view class="uni-flex uni-row description">
+					<view class="uni-flex" style="margin-right: 10rpx;">
+						<text class="star">*</text>
+						<text class="define">积分定义：</text>
+					</view>
+					<view class="uni-flex rest">
+						<text class="define">指的是用户本身+用户自身邀请的粉丝（含一、二级粉丝）在本平台消费金额的总和，按1:1的比例转换的积分。</text>
+					</view>
 				</view>
-				<view class="uni-flex rest">
-					<text class="define">指的是用户本身+用户自身邀请的粉丝（含一、二级粉丝）在本平台消费金额的总和，按100:1的比例转换的积分。</text>
-				</view>
-			</view>
-			<view class="uni-flex uni-row description">
-				<view class="uni-flex" style="margin-right: 10rpx;">
-					<text class="star">*</text>
-					<text class="define">积分权益：</text>
-				</view>
-				<view class="uni-flex rest">
-					<text class="define">积分达1000分以上的用户有资格分享公司上市时增发的20%（暂定）股票，获得股份的具体数量以用户的积分为准，按比例分配。</text>
+				<view class="uni-flex uni-row description">
+					<view class="uni-flex" style="margin-right: 10rpx;">
+						<text class="star">*</text>
+						<text class="define">积分权益：</text>
+					</view>
+					<view class="uni-flex rest">
+						<text class="define">积分达1000分以上的用户有资格分享公司上市时增发的20%（暂定）股票，获得股份的具体数量以用户的积分为准，按比例分配。</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -64,6 +66,7 @@
 </template>
 
 <script>
+	import interfaceurl from '@/utils/interface.js'
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
 		components: {
@@ -76,7 +79,7 @@
 					iconText: '积分股权' //导航栏文字
 				},
 				teamList: [],
-				detail: {},
+				userDetail: {}, //获取用户详情
 				userInfo: {} //获取用户授权信息
 			}
 		},
@@ -84,10 +87,16 @@
 			this.userInfo = uni.getStorageSync('userInfo')
 		},
 		onShow() {
-		 
+			this.getUserDetail()
 		},
 		methods: {
-      
+			//获取用户详情
+			getUserDetail() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
+					that.userDetail = res.data
+				});
+			}
 		}
 	}
 </script>
@@ -155,7 +164,7 @@
 			}
 			.ranking {
 				font-size: 40rpx;
-				color: #FF162E;
+				color: #ff0033;
 				font-weight:bolder;
 				margin-right: 30rpx;
 			}

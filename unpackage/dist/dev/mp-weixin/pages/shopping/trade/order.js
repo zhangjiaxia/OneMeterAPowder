@@ -98,18 +98,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l1 = _vm.__map(_vm.orderPageList, function(item, index) {
-    var l0 = _vm.__map(item.cartList, function(subItem, i) {
-      var g0 = subItem.name.substring(0, 20)
+  var l3 = _vm.__map(_vm.orderPageList, function(item, index) {
+    var l0 = _vm.__map(item.cartList, function(yItem, y) {
+      var g0 = yItem.name.substring(0, 20)
       return {
-        $orig: _vm.__get_orig(subItem),
+        $orig: _vm.__get_orig(yItem),
         g0: g0
+      }
+    })
+
+    var l2 = _vm.__map(item.orderChildList, function(sub, m) {
+      var l1 = _vm.__map(sub.skuList, function(subItem, i) {
+        var g1 = subItem.prodName.substring(0, 20)
+        return {
+          $orig: _vm.__get_orig(subItem),
+          g1: g1
+        }
+      })
+
+      return {
+        $orig: _vm.__get_orig(sub),
+        l1: l1
       }
     })
 
     return {
       $orig: _vm.__get_orig(item),
-      l0: l0
+      l0: l0,
+      l2: l2
     }
   })
 
@@ -117,7 +133,7 @@ var render = function() {
     {},
     {
       $root: {
-        l1: l1
+        l3: l3
       }
     }
   )
@@ -155,6 +171,25 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -377,6 +412,25 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '我的订单' //导航栏文字
@@ -390,11 +444,14 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         status: '' }, //分页参数
       orderPageData: {}, //订单数据
       orderPageList: [], //订单列表
-      orderCount: [] //每个订单的商品个数
+      orderCount: [], //每个订单的商品个数
+      flowIndex: 0, //查看物流的索引
+      loading: true //加载中
     };}, onLoad: function onLoad(options) {console.log('options');this.tabIndex = options.tabIndex;this.params.status = options.tabIndex == 0 ? '' : parseInt(options.tabIndex) - 1; // this.tabList[this.tabIndex].val
   }, onShow: function onShow() {this.initData();}, onReachBottom: function onReachBottom() {if (this.orderPageList.length >= this.orderPageData.total) {return;}this.params.page++;this.getOrderPageList();}, methods: { initData: function initData() {//重置分页参数
-      this.orderPageData = {};this.orderPageList = [];this.params.page = 1;this.getOrderPageList();}, //查询订单列表
-    getOrderPageList: function getOrderPageList() {var _this = this;var that = this;_interface.default.checkAuth(_interface.default.orderPageList, this.params).then(function (res) {that.orderPageData = res.data;if (that.params.page == 1) {that.orderPageList = res.data.data;} else {that.orderPageList = that.orderPageList.concat(res.data.data);}that.orderCount = [];var num = 0;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderPageList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {for (var _iterator2 = item.cartList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var subItem = _step2.value;num += subItem.quantity;item.statusText = _this.setStatus(item.status);}} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}that.orderCount.push(num);num = 0;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}});}, setStatus: function setStatus(status) {if (status == 0) {return '待支付';} else if (status == 1) {return '待发货';} else if (status == 2) {return '待收货';} else if (status == 40) {return '已完成';} else if (status == 3) {return '售后';}}, selectTab: function selectTab(index, status) {this.tabIndex = index;this.params.status = index == 0 ? '' : parseInt(index) - 1;this.initData();}, //删除订单(暂无)
+      this.loading = true;this.orderPageData = {};this.orderPageList = [];this.params.page = 1;this.getOrderPageList();}, //查询订单列表
+    getOrderPageList: function getOrderPageList() {var _this = this;var that = this;_interface.default.checkAuth(_interface.default.orderPageList, this.params).then(function (res) {_this.loading = false;that.orderPageData = res.data;if (that.params.page == 1) {that.orderPageList = res.data.data;} else {that.orderPageList = that.orderPageList.concat(res.data.data);}that.orderCount = [];var num = 0;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderPageList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {for (var _iterator2 = item.cartList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var subItem = _step2.value;num += subItem.quantity;item.statusText = _this.setStatus(item.status);}} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}that.orderCount.push(num);num = 0;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}console.log(that.orderPageList);});}, //怡亚通的订单状态
+    setStatus: function setStatus(status) {switch (status) {case 0:return '待支付';case 1:return '待发货';case 2:return '部分发货';case 3:return '全部发货';case 4:return '部分收货';case 5:return '全部收货';case 6:return '部分退款';case 7:return '全部退款';case 8:return '部分关闭';case 9:return '全部关闭';case 10:return '已完成';default:return '';}}, selectTab: function selectTab(index, status) {this.tabIndex = index;this.params.status = index == 0 ? '' : parseInt(index) - 1;this.initData();}, //删除订单(暂无)
     delOrder: function delOrder() {var that = this;_interface.default.checkAuth(_interface.default.xxx, {}).then(function (res) {});}, //确认支付
     confirmPay: function confirmPay(item) {var that = this;var params = { cartId: item.cartIds, addressId: item.addressId, invoiceType: 1, //发票类型:普通发票
         invoiceContent: 0, //发票内容
@@ -405,20 +462,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         workPhone: '', //单位电话
         bank: '', //开户银行
         bankAccounts: '' //银行账户
-      };uni.showLoading();_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.initData();uni.hideLoading();
-          },
-          fail: function fail(res) {
-            uni.hideLoading();
-            uni.showToast({
-              title: '支付失败',
-              icon: 'none',
-              duration: 2000 });
-
-          },
-          complete: function complete() {
-
-          } });
-
+      };uni.showLoading();_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.initData();uni.hideLoading();}, fail: function fail(res) {uni.hideLoading();uni.showToast({ title: '支付失败', icon: 'none', duration: 2000 });}, complete: function complete() {} });
       });
     },
     //申请退款(取消订单)
@@ -448,8 +492,8 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
       });
     },
     //查看物流
-    queryFlow: function queryFlow(item) {
-      this.$turnPage('/pages/shopping/trade/order-logistics', 'navigateTo');
+    queryFlow: function queryFlow(orderSn) {
+      this.$turnPage('/pages/shopping/trade/order-logistics?orderSn=' + orderSn, 'navigateTo');
       // item.orderChildList.orderId
       // //跳转物流页面
       // let that = this

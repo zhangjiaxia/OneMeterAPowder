@@ -151,7 +151,7 @@
 			}
 			.default {
 				margin-right: 20rpx;
-				background:#FF162E;
+				background:#ff0033;
 				border-radius:15rpx;
 				color: #FFFFFF;
 				width: 70rpx;
@@ -170,7 +170,7 @@
 	.addbtn {
 		width: 600rpx;
 		height: 80rpx;
-		background: #FF162E;
+		background: #ff0033;
 		color: #FFFFFF;
 		border-radius: 40rpx;
 		position: absolute;

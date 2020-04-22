@@ -122,7 +122,7 @@
 				font-size: 24rpx;
 			}
 			.val {
-				color: #FF162E;
+				color: #ff0033;
 				font-size: 24rpx;
 			}
 		}
@@ -151,7 +151,7 @@
 			font-size: 24rpx;
 		}
 		.num {
-			color: #FF162E;
+			color: #ff0033;
 			font-size: 30rpx;
 			margin-right: 30rpx;
 		}

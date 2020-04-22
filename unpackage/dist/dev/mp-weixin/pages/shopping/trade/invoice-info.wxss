@@ -1602,7 +1602,7 @@ radio-group label, checkbox-group label{
     width: 100rpx;
 }
 .space .base {
-    background: #0071cf;
+    background: #ff0033;
     color: #FFFFFF;
 }
 .space .tip {
@@ -1635,7 +1635,7 @@ radio-group label, checkbox-group label{
 .space .confirm {
     width: 710rpx;
     height: 80rpx;
-    background: #0071cf;
+    background: #ff0033;
     border-radius: 40rpx;
     color: #FFFFFF;
     font-size: 30rpx;

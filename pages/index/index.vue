@@ -211,7 +211,7 @@
 			//获取二维码携带的参数值并绑定下级
 			bindUser(scene) {
 				let that = this
-				let baseUrl = 'https://api-emi.bidou88.cn/api'
+				let baseUrl = 'https://shop.yimiefen.com/api'
 				uni.login({
 				  success (res) {
 				    if (res.code) {
@@ -458,7 +458,7 @@
 
 	.search-container {
 		height: 230upx;
-		background: #FF162E;
+		background: #ff0033;
 		display: flex;
 		padding: 30upx;
 		box-sizing: border-box;
@@ -557,9 +557,9 @@
 		line-height: 26upx;
 		border-radius: 100%;
 		text-align: center;
-		color: #FF162E;
+		color: #ff0033;
 		color: #ffffff;
-		background: #FF162E;
+		background: #ff0033;
 	}
 
 	.share {
@@ -599,12 +599,12 @@
 	}
 
 	.category-item-active {
-		color: #FF162E;
+		color: #ff0033;
 		font-weight: bold;
 	}
 
 	.category-text-active {
-		background: #FF162E;
+		background: #ff0033;
 		color: #FFFFFF;
 		border-radius: 40rpx;
 		padding: 4rpx 6rpx;
@@ -667,7 +667,7 @@
 	}
 	
 	.shop-item-price {
-		color: #FF162E;
+		color: #ff0033;
 		font-size: 30rpx;
 	}
 </style>

@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/category/category",
     "pages/center/center",
     "pages/shopping/shopping",
-    "pages/category/category",
     "pages/vip/vip"
   ],
   "subPackages": [
@@ -68,7 +68,7 @@
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#E66066",
+    "selectedColor": "#ff0033",
     "borderStyle": "white",
     "backgroundColor": "#FFFFFF",
     "list": [

@@ -1633,7 +1633,7 @@ page {
 }
 .layout .place .ranking {
       font-size: 40rpx;
-      color: #FF162E;
+      color: #ff0033;
       font-weight: bolder;
       margin-right: 30rpx;
 }

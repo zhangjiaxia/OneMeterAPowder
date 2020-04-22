@@ -8,7 +8,7 @@
 				<view class="shop-item" v-for="(content,dex) in shopList" @click="shopDetailPage(content)" :key="dex">
 					<image :src="content.mainImgUrl" class="shop-img"></image>
 					<view class="shop-item-content">
-						<view class="shop-item-title">{{content.name.substring(0,20) + '...'}}</view>
+						<view class="shop-item-title">{{content.name.substring(0,15) + '...'}}</view>
 						<view class="shop-item-bottom">
 							<text class="shop-item-price">
 								<text style="font-size: 24rpx;">￥</text>
@@ -40,9 +40,9 @@
 			return {
 				//设置导航栏样式
 				navigationBarStyle: {
-					background: '#FF162E',
-					fontColor: '#FFFFFF',
-					iconColor: '#FFFFFF',
+					// background: '#ff0033',
+					// fontColor: '#FFFFFF',
+					// iconColor: '#FFFFFF',
 					iconText: '类目详情' //导航栏文字
 				},
 				params: {
@@ -179,7 +179,7 @@
 	}
 
 	.shop-item-price {
-		color: #FF162E;
+		color: #ff0033;
 		font-size: 30rpx;
 	}
 
@@ -190,8 +190,8 @@
 		line-height: 26rpx;
 		border-radius: 100%;
 		text-align: center;
-		color: #FF162E;
+		color: #ff0033;
 		color: #ffffff;
-		background: #FF162E;
+		background: #ff0033;
 	}
 </style>

@@ -278,13 +278,13 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
       }, //分页参数
       isOpened: false, //是否显示右滑删除
       //右滑删除
-      options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }], loading: true //加载中
+      options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }] //loading: true //加载中
     };}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
   onReachBottom: function onReachBottom() {if (this.shopList.length >= this.cartList.total) {return;}this.params.page++;this.getCartPageList();}, methods: { shopDetailPage: function shopDetailPage(item) {var that = this;var params = { spuId: item.spuId };_interface.default.checkAuth(_interface.default.goodsDetail, params, false).then(function (res) {that.$store.commit('setGoodsDetail', res.data);that.$turnPage('/pages/index/business/shop-detail', 'navigateTo');});}, initData: function initData() {//重置分页参数
-      this.loading = true;this.isAll = true;this.cartList = {};this.shopList = [];this.params.page = 1;if (uni.getStorageSync('token')) {this.getCartPageList();}}, bindClick: function bindClick(id) {this.delCartGame(id);}, getCartPageList: function getCartPageList() {
-      var that = this;
+      //this.loading = true
+      this.isAll = true;this.cartList = {};this.shopList = [];this.params.page = 1;if (uni.getStorageSync('token')) {this.getCartPageList();}}, bindClick: function bindClick(id) {this.delCartGame(id);}, getCartPageList: function getCartPageList() {var that = this;
       _interface.default.checkAuth(_interface.default.cartPageList, this.params).then(function (res) {
-        that.loading = false;
+        //that.loading = false;
         that.cartList = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
           for (var _iterator = that.cartList.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
             item.selected = true;

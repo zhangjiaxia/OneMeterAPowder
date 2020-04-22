@@ -221,7 +221,7 @@
 		}
 
 		.base {
-			background: rgba(0, 113, 207, 1);
+			background: #ff0033;
 			color: #FFFFFF;
 		}
 
@@ -260,7 +260,7 @@
 		.confirm {
 			width: 710rpx;
 			height: 80rpx;
-			background: rgba(0, 113, 207, 1);
+			background: #ff0033;
 			border-radius: 40rpx;
 			color: #FFFFFF;
 			font-size: 30rpx;

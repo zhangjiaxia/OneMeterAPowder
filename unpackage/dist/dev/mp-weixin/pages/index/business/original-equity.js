@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -191,29 +191,72 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//引入自定义导航栏
-var _default = {
-  components: {
-    navigationBar: navigationBar },
-
-  data: function data() {
-    return {
-      //设置导航栏样式
-      navigationBarStyle: {
-        iconText: '原始股权' //导航栏文字
-      },
-      teamList: [],
-      detail: {},
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
+var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { iconText: '原始股权' //导航栏文字
+      }, teamList: [], userDetail: {}, //获取用户详情
       userInfo: {} //获取用户授权信息
-    };
-  },
-  onLoad: function onLoad() {
-    this.userInfo = uni.getStorageSync('userInfo');
-  },
-  onShow: function onShow() {
-
-  },
-  methods: {} };exports.default = _default;
+    };}, onLoad: function onLoad() {this.userInfo = uni.getStorageSync('userInfo');this.getUserDetail();}, onShow: function onShow() {}, methods: { //获取用户详情
+    getUserDetail: function getUserDetail() {var that = this;_interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {that.userDetail = res.data;});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

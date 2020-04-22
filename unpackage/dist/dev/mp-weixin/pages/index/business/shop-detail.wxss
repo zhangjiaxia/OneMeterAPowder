@@ -1620,7 +1620,7 @@ radio-group label, checkbox-group label{
 }
 .shop-price {
   font-size: 36rpx;
-  color: #FF162E;
+  color: #ff0033;
 }
 .original-price {
   font-size: 24rpx;
@@ -1716,7 +1716,7 @@ radio-group label, checkbox-group label{
   color: #ffffff;
   line-height: 100rpx;
   text-align: center;
-  background: #FF162E;
+  background: #ff0033;
 }
 .detail-bottom-left {
   -webkit-box-flex: 1;
@@ -1864,7 +1864,7 @@ radio-group label, checkbox-group label{
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  background: #FF162E;
+  background: #ff0033;
   border-radius: 40rpx;
   color: #FFFFFF;
 }

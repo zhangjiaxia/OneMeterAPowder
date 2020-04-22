@@ -161,10 +161,10 @@
 				.money {
 					.price {
 						font-size: 30rpx;
-						color: #FF162E;
+						color: #ff0033;
 					}
 					.add {
-						color: #FF162E;
+						color: #ff0033;
 						font-size: 40rpx !important;
 						margin-right: 30rpx;
 					}

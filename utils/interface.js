@@ -1,7 +1,7 @@
 import req from './request.js' //引入请求api
 import store from '@/store' //引入全局变量的token
 
-const isFormal = false //是否正式,false:测试，true:正式
+const isFormal = true //是否正式,false:测试，true:正式
 
 const baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开发用测试域名
 const baseUrlFormal = "https://shop.yimiefen.com/api"; //正式域名，提交文件时要切换到正式域名
@@ -210,7 +210,6 @@ const interfaceurl = {
 	orderApplyRefund(data) { return req.request({ url: `${baseUrl}/v1/order/applyRefund`, data, method: 'POST' }) },
 	orderReturnRefund(data) { return req.request({ url: `${baseUrl}/v1/order/returnRefund`, data, method: 'POST' }) },
 	orderCancelApply(data) { return req.request({ url: `${baseUrl}/v1/order/cancelApply`, data, method: 'POST' }) },
-	orderExpressInfo(data) { return req.request({ url: `${baseUrl}/v1/order/returnOrderStatuts`, data }) },
 	orderReturnGoods(data) { return req.request({ url: `${baseUrl}/v1/order/returnGoods`, data, method: 'POST' }) },
 	/*收货地址*/
 	addressCreate(data) { return req.request({ url: `${baseUrl}/v1/address/create`, data, method: 'POST' }) },

@@ -8766,9 +8766,9 @@ internalMixin(Vue);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 24));
-var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 12));var _interfaceurl;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //引入全局变量的token
-
-var isFormal = false; //是否正式,false:测试，true:正式
+var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //引入请求api
+//引入全局变量的token
+var isFormal = true; //是否正式,false:测试，true:正式
 
 var baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开发用测试域名
 var baseUrlFormal = "https://shop.yimiefen.com/api"; //正式域名，提交文件时要切换到正式域名
@@ -8780,10 +8780,10 @@ var baseUrl = isFormal ? baseUrlFormal : baseUrlTest;
                                                        * 配置接口定义，请求方式默认为get，post方式需明确指定
                                                        * 根据指引》https://www.jianshu.com/p/edd9a1aac8bd
                                                        */
-var interfaceurl = (_interfaceurl = {
+var interfaceurl = {
   /**
-                                       * 错误弹窗
-                                       */
+                      * 错误弹窗
+                      */
   showErr: function showErr(err) {
     uni.hideLoading();
     var msg = _request.default.errPicker(err);
@@ -8976,34 +8976,33 @@ var interfaceurl = (_interfaceurl = {
   orderConfirm: function orderConfirm(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/confirm"), data: data, method: 'POST' });},
   orderApplyRefund: function orderApplyRefund(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/applyRefund"), data: data, method: 'POST' });},
   orderReturnRefund: function orderReturnRefund(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/returnRefund"), data: data, method: 'POST' });},
-  orderCancelApply: function orderCancelApply(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/cancelApply"), data: data, method: 'POST' });} }, _defineProperty(_interfaceurl, "orderExpressInfo", function orderExpressInfo(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/returnOrderStatuts"), data: data });}), _defineProperty(_interfaceurl, "orderReturnGoods", function orderReturnGoods(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/returnGoods"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "addressCreate", function addressCreate(
-
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/create"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "addressUpdate", function addressUpdate(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/update"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "addressPageList", function addressPageList(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/pageList"), data: data });}), _defineProperty(_interfaceurl, "addressDelete", function addressDelete(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/delete"), data: data, method: 'DELETE' });}), _defineProperty(_interfaceurl, "addressInfo", function addressInfo(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/info"), data: data });}), _defineProperty(_interfaceurl, "vipPayment", function vipPayment(
-
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/vip_payment/payment"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "bingUser", function bingUser(
-
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/bingUser"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "showDetail", function showDetail(
-
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/showDetail"), data: data });}), _defineProperty(_interfaceurl, "saveInfo", function saveInfo(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/saveInfo"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "getAppletCode", function getAppletCode(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/getAppletCode"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "getPhoneNumber", function getPhoneNumber(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/getPhoneNumber"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "surveyList", function surveyList(
-
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/surveyList"), data: data });}), _defineProperty(_interfaceurl, "teamPageList", function teamPageList(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/pageList"), data: data });}), _defineProperty(_interfaceurl, "teamAllList", function teamAllList(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/allList"), data: data });}), _defineProperty(_interfaceurl, "teamRankingList", function teamRankingList(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/rankingList"), data: data });}), _defineProperty(_interfaceurl, "profitRecord", function profitRecord(
-
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/profitRecord"), data: data });}), _defineProperty(_interfaceurl, "cashOutSubmit", function cashOutSubmit(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/submit"), data: data, method: 'POST' });}), _defineProperty(_interfaceurl, "cashOutRecord", function cashOutRecord(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/record"), data: data });}), _defineProperty(_interfaceurl, "profitTotal", function profitTotal(
-data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/profitTotal"), data: data });}), _interfaceurl);var _default =
+  orderCancelApply: function orderCancelApply(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/cancelApply"), data: data, method: 'POST' });},
+  orderReturnGoods: function orderReturnGoods(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/returnGoods"), data: data, method: 'POST' });},
+  /*收货地址*/
+  addressCreate: function addressCreate(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/create"), data: data, method: 'POST' });},
+  addressUpdate: function addressUpdate(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/update"), data: data, method: 'POST' });},
+  addressPageList: function addressPageList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/pageList"), data: data });},
+  addressDelete: function addressDelete(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/delete"), data: data, method: 'DELETE' });},
+  addressInfo: function addressInfo(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/info"), data: data });},
+  /*会员*/
+  vipPayment: function vipPayment(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/vip_payment/payment"), data: data, method: 'POST' });},
+  //绑定用户
+  bingUser: function bingUser(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/bingUser"), data: data, method: 'POST' });},
+  /*用户*/
+  showDetail: function showDetail(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/showDetail"), data: data });},
+  saveInfo: function saveInfo(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/saveInfo"), data: data, method: 'POST' });},
+  getAppletCode: function getAppletCode(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/getAppletCode"), data: data, method: 'POST' });},
+  getPhoneNumber: function getPhoneNumber(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/getPhoneNumber"), data: data, method: 'POST' });},
+  /*团队*/
+  surveyList: function surveyList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/surveyList"), data: data });},
+  teamPageList: function teamPageList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/pageList"), data: data });},
+  teamAllList: function teamAllList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/allList"), data: data });},
+  teamRankingList: function teamRankingList(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user_team/rankingList"), data: data });},
+  /*收益*/
+  profitRecord: function profitRecord(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/profitRecord"), data: data });},
+  cashOutSubmit: function cashOutSubmit(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/submit"), data: data, method: 'POST' });},
+  cashOutRecord: function cashOutRecord(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/cash_out/record"), data: data });},
+  profitTotal: function profitTotal(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/user/profitTotal"), data: data });} };var _default =
 
 
 interfaceurl;exports.default = _default;
@@ -9053,8 +9052,8 @@ var req = {
     var token = uni.getStorageSync('token');
     //let token = store.state.token
     //临时token，暂时这样写
-    token = 'MeterApi.KzkwK4yxXgtcqk5874VCJKYLpxYz0lEoJS3zq9PwR5F7KS8nUHjV6lvpKnfYABbQ2Jyh3omOgryf5JYi3uh90HUCTymDAQ8NtWNXjyCtClmvBh5jrG130B9uC5p5PFVhNu0IFEmE0csXjP4YAKf37NCY1gN3lEP8dekmc90C';var
-
+    //token = 'MeterApi.KzkwK4yxXgtcqk5874VCJKYLpxYz0lEoJS3zq9PwR5F7KS8nUHjV6lvpKnfYABbQ2Jyh3omOgryf5JYi3uh90HUCTymDAQ8NtWNXjyCtClmvBh5jrG130B9uC5p5PFVhNu0IFEmE0csXjP4YAKf37NCY1gN3lEP8dekmc90C'
+    var
     _success =
 
     options.success,_fail = options.fail;
@@ -24515,7 +24514,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉" }, "pages/center/center": { "navigationBarTitleText": "我的" }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车" }, "pages/category/category": { "navigationBarTitleText": "类目" }, "pages/vip/vip": { "navigationBarTitleText": "VIP" }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益" }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则" }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则" }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址" }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址" }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单" }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息" }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单" }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情" }, "pages/shopping/trade/order-logistics": { "navigationBarTitleText": "物流信息" }, "pages/shopping/trade/order-refund": { "navigationBarTitleText": "申请退款" }, "pages/index/business/poster": { "navigationBarTitleText": "分享海报" }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院" }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权" }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情" }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权" }, "pages/center/my/about": { "navigationBarTitleText": "关于我们" }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现" }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细" }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细" }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分" }, "pages/center/my/team": { "navigationBarTitleText": "我的团队" }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情" }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤" }, "pages/category/search/search": { "navigationBarTitleText": "搜索" }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品" } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "一米一粉", "usingComponents": { "navigation-bar": "/components/navigation-bar", "auth-page": "/components/authorization-page", "share-poster": "/components/shop-business/share-poster" }, "usingAutoImportComponents": {} }, "pages/center/center": { "navigationBarTitleText": "我的", "usingComponents": { "auth-page": "/components/authorization-page", "navigation-bar": "/components/navigation-bar", "share-poster": "/components/shop-business/share-poster" }, "usingAutoImportComponents": {} }, "pages/shopping/shopping": { "navigationBarTitleText": "购物车", "usingComponents": { "navigation-bar": "/components/navigation-bar", "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/category/category": { "navigationBarTitleText": "类目", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/vip/vip": { "navigationBarTitleText": "VIP", "usingComponents": { "auth-page": "/components/authorization-page", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-index": { "navigationBarTitleText": "会员权益", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-mainrule": { "navigationBarTitleText": "佣金规则", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/vip/rule/vip-rule": { "navigationBarTitleText": "VIP会员规则", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/address": { "navigationBarTitleText": "收货地址", "usingComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/shopping/trade/address-add": { "navigationBarTitleText": "添加收货地址", "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/confirm-order": { "navigationBarTitleText": "确认订单", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/invoice-info": { "navigationBarTitleText": "发票信息", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/order": { "navigationBarTitleText": "我的订单", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/order-detail": { "navigationBarTitleText": "订单详情", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/order-logistics": { "navigationBarTitleText": "物流信息", "usingComponents": { "navigation-bar": "/components/navigation-bar", "uni-steps": "/components/uni-steps/uni-steps" }, "usingAutoImportComponents": {} }, "pages/shopping/trade/order-refund": { "navigationBarTitleText": "申请退款", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/poster": { "navigationBarTitleText": "分享海报", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/business-school": { "navigationBarTitleText": "商学院", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/Integral-stake": { "navigationBarTitleText": "积分股权", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/shop-detail": { "navigationBarTitleText": "商品详情", "usingComponents": { "share-poster": "/components/shop-business/share-poster", "auth-page": "/components/authorization-page", "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/index/business/original-equity": { "navigationBarTitleText": "原始股权", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/about": { "navigationBarTitleText": "关于我们", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/cash": { "navigationBarTitleText": "我要提现", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/commission-detail": { "navigationBarTitleText": "佣金明细", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/income-record": { "navigationBarTitleText": "佣金明细", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/my-points": { "navigationBarTitleText": "我的积分", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/center/my/team": { "navigationBarTitleText": "我的团队", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/category-detail": { "navigationBarTitleText": "类目详情", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/goods-list": { "navigationBarTitleText": "美妆护肤", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/search": { "navigationBarTitleText": "搜索", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} }, "pages/category/search/search-list": { "navigationBarTitleText": "搜索商品", "usingComponents": { "navigation-bar": "/components/navigation-bar" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationStyle": "custom", "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

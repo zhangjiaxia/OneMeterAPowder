@@ -54,7 +54,7 @@
 			activeColor: {
 				// 激活状态颜色
 				type: String,
-				default: '#FF162E'
+				default: '#ff0033'
 			},
 			deactiveColor: {
 				// 未激活状态颜色

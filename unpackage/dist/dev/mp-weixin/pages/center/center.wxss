@@ -1636,7 +1636,7 @@ page {
     line-height: 1.2;
 }
 .commission .price {
-    color: #FF162E;
+    color: #ff0033;
     font-weight: bold;
     font-size: 36rpx;
 }
@@ -1647,7 +1647,7 @@ page {
 .commission .apply {
     width: 150rpx;
     height: 50rpx;
-    background: #FF162E;
+    background: #ff0033;
     border-radius: 25rpx;
     color: #FFFFFF;
     margin-right: 30rpx;
@@ -1679,7 +1679,7 @@ page {
     height: 60rpx;
 }
 .manage .icon-active {
-    color: #FF162E;
+    color: #ff0033;
 }
 .concact {
   position: absolute;

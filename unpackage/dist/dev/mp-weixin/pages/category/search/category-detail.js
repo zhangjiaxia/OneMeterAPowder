@@ -99,7 +99,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.shopList, function(content, dex) {
-    var g0 = content.name.substring(0, 20)
+    var g0 = content.name.substring(0, 15)
     return {
       $orig: _vm.__get_orig(content),
       g0: g0
@@ -212,17 +212,17 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
-      navigationBarStyle: { background: '#FF162E', fontColor: '#FFFFFF', iconColor: '#FFFFFF', iconText: '类目详情' //导航栏文字
+      navigationBarStyle: { // background: '#ff0033',
+        // fontColor: '#FFFFFF',
+        // iconColor: '#FFFFFF',
+        iconText: '类目详情' //导航栏文字
       }, params: { cateId: '', //5034
         page: 1, size: 10 }, //分类详情参数
       shopData: {}, //分类详情数据
       shopList: [], //分类详情列表
       loading: true };}, onLoad: function onLoad(options) {this.navigationBarStyle.iconText = options.category;this.params.cateId = options.cateId; //5034
     this.getCagetogyList();}, onShow: function onShow() {}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.shopList.length >= this.shopData.total) {return;}this.params.page++;this.getCagetogyList();},
-  methods: {
-    initData: function initData() {
-      //重置分页参数
+  onReachBottom: function onReachBottom() {if (this.shopList.length >= this.shopData.total) {return;}this.params.page++;this.getCagetogyList();}, methods: { initData: function initData() {//重置分页参数
       this.shopData = {};
       this.shopList = [];
       this.params.page = 1;

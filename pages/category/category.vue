@@ -20,7 +20,7 @@
 							@click="$turnPage('/pages/category/search/category-detail?cateId='+item.cateId, 'navigateTo')">
 							{{item.cateName}}
 						</view>
-						<view style="height: auto;overflow: auto;width: 550rpx;">
+						<view style="height: auto;overflow: auto;">
 							<view class="uni-flex content space" v-for="(subItem, i) in item.childList" :key="i" 
 								@click="$turnPage('/pages/category/search/category-detail?cateId='+subItem.cateId+'&category='+subItem.cateName, 'navigateTo')">
 								<image :src="subItem.iconImgUrl" class="goodsimg"></image>
@@ -133,7 +133,8 @@
 	.category-right{
 		flex: 1;
 		height: 100%;
-		padding: 20upx;
+		padding-top: 20rpx;
+		padding-left: 20rpx;
 		padding-bottom: 130upx;
 		background: #ffffff;
 		box-sizing: border-box;
@@ -153,7 +154,7 @@
 		content: '';
 		width: 6upx;
 		height: 60upx;
-		background-color: #FF162E;
+		background-color: #ff0033;
 		position: absolute;
 		left: 0px;
 		top: 20upx;
@@ -174,8 +175,9 @@
 		width: 100%;
 		.space {
 			float: left;
-			margin: 0 30rpx;
+			width: 180rpx;
 			margin-bottom: 30rpx;
+			// height: 204rpx;
 		}
 		.goodsimg {
 			width: 120rpx;

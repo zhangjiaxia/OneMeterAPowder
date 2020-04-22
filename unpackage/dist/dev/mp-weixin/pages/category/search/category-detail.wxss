@@ -106,7 +106,7 @@ page {
           align-items: center;
 }
 .shop-item-price {
-  color: #FF162E;
+  color: #ff0033;
   font-size: 30rpx;
 }
 .pay-btn {
@@ -116,8 +116,8 @@ page {
   line-height: 26rpx;
   border-radius: 100%;
   text-align: center;
-  color: #FF162E;
+  color: #ff0033;
   color: #ffffff;
-  background: #FF162E;
+  background: #ff0033;
 }
 

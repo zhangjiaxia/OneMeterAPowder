@@ -7,6 +7,12 @@
 			}
 		},
 		{
+			"path":"pages/category/category",
+			"style":{
+				"navigationBarTitleText":"类目"
+			}
+		},
+		{
 			"path": "pages/center/center",
 			"style": {
 				"navigationBarTitleText": "我的"
@@ -18,13 +24,6 @@
 				"navigationBarTitleText": "购物车"
 			}
 		},
-		{
-			"path":"pages/category/category",
-			"style":{
-				"navigationBarTitleText":"类目"
-			}
-		},
-		
 		{
 			"path":"pages/vip/vip",
 			"style":{
@@ -210,7 +209,7 @@
 	},
 	"tabBar": {
 	  "color": "#999999",
-	  "selectedColor": "#E66066",
+	  "selectedColor": "#ff0033",
 	  "borderStyle": "white",
 	  "backgroundColor": "#FFFFFF",
 	  "list": [{

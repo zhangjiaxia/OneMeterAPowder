@@ -173,7 +173,7 @@
 			color: #999999;
 		}
 		.jifen {
-			color: #FF162E;
+			color: #ff0033;
 			font-size: 36rpx;
 			margin-right: 30rpx;
 		}

@@ -98,6 +98,6 @@
 }
 .num{
 	font-size: 36upx;
-	color: #FF162E;
+	color: #ff0033;
 }
 </style>

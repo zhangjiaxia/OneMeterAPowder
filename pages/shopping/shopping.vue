@@ -11,7 +11,7 @@
 			<view style="margin-bottom: 20rpx;" v-for="(item,index) in shopList" :key="index" @click="shopDetailPage(item)">
 				<uni-swipe-action :options="options" :show="isOpened" :auto-close="true" @click.stop="bindClick(item.cartId)">
 					<view class="shop-item">
-						<view class="icon-gou" :style="{color: item.selected ? '#FF162E' : '#999999'}" @click.stop="handleSelect(index)"></view>
+						<view class="icon-gou" :style="{color: item.selected ? '#ff0033' : '#999999', 'margin-right': '10rpx'}" @click.stop="handleSelect(index)"></view>
 						<image :src="item.goodsPhotoUrl" class="shop-img"></image>
 						<view class="shop-item-content">
 							<view class="shop-item-title">{{item.name.substring(0,20) + '...'}}</view>
@@ -33,7 +33,7 @@
 			</view>
 		</view>
 		<view class="shopping-bottom" v-if="cartList.total > 0">
-			<view class="icon-gou radio-icon" :style="{color: isAll ? '#FF162E' : '#999999'}" @click="hadleSelectAll"></view>
+			<view class="icon-gou radio-icon" :style="{color: isAll ? '#ff0033' : '#999999'}" @click="hadleSelectAll"></view>
 			<text @click="hadleSelectAll">全选</text>
 			<view class="total" v-if="isEdit"></view>
 			<view class="total" v-if="!isEdit">
@@ -44,7 +44,7 @@
 			<view class="pay-btn" v-else @click="confrimOrderPage">结算</view>
 		</view>
 		<view class="empty-text" v-else>
-			<template v-if="!loading">
+			<template v-if="cartList.total == 0">
 				<image src="/static/empty.png" class="empty-icon" mode="widthFix"></image>
 				<view class="empty-space">您的购物车还是空的，快去逛一逛吧</view>
 			</template>
@@ -89,7 +89,7 @@
 						borderRadius: '0 10rpx 10rpx 0'
 					}
 				}],
-				loading: true //加载中
+				//loading: true //加载中
 			}
 		},
 		onShow() {
@@ -116,7 +116,7 @@
 			},
 			initData() {
 				//重置分页参数
-				this.loading = true
+				//this.loading = true
 				this.isAll = true
 				this.cartList = {}
 				this.shopList = []
@@ -131,7 +131,7 @@
 			getCartPageList() {
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.cartPageList, this.params).then((res) => {
-					that.loading = false;
+					//that.loading = false;
 					that.cartList = res.data
 					for (var item of that.cartList.data) {
 						item.selected = true
@@ -401,7 +401,7 @@
 		text-align: center;
 		color: #ffffff;
 		border-radius: 30upx;
-		background: #FF162E;
+		background: #ff0033;
 		font-size: 30upx;
 	}
 

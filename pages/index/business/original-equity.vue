@@ -12,7 +12,7 @@
 					</view>
 					<view class="uni-flex uni-column rest">
 						<view class="nick">{{userInfo.nickName}}</view>
-						<view style="font-size: 18rpx;">(会员至2020-10-13到期)</view>
+						<view style="font-size: 18rpx;">ID:{{userDetail.invitation_code || ''}}</view>
 					</view>
 					<view class="uni-flex uni-column rest content">
 						<view class="desc">法律保障</view>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+	import interfaceurl from '@/utils/interface.js'
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	export default {
 		components: {
@@ -70,18 +71,25 @@
 					iconText: '原始股权' //导航栏文字
 				},
 				teamList: [],
-				detail: {},
+				userDetail: {}, //获取用户详情
 				userInfo: {} //获取用户授权信息
 			}
 		},
 		onLoad() {
 			this.userInfo = uni.getStorageSync('userInfo')
+			this.getUserDetail()
 		},
 		onShow() {
 		 
 		},
 		methods: {
-      
+			//获取用户详情
+			getUserDetail() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
+					that.userDetail = res.data
+				});
+			}
 		}
 	}
 </script>
@@ -148,7 +156,7 @@
 			}
 			.ranking {
 				font-size: 40rpx;
-				color: #FF162E;
+				color: #ff0033;
 				font-weight:bolder;
 				margin-right: 30rpx;
 			}
@@ -220,7 +228,7 @@
 		}
 		.search {
 			font-size: 30rpx;
-			color: #FF162E;
+			color: #ff0033;
 			margin-right: 30rpx;
 		}
 	}

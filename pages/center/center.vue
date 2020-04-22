@@ -61,10 +61,10 @@
 						<image src="/static/waitGoods.png" style="width: 57rpx;height: 46rpx;"></image>
 						<view class="title">待收货</view>
 					</view>
-					<view class="uni-flex rest content" style="position: relative;">
+					<view class="uni-flex rest content" @click="$turnPage('/pages/shopping/trade/order?tabIndex=4', 'navigateTo')">
 						<image src="/static/afterSale.png" style="width: 48rpx;height: 49rpx;"></image>
 						<view class="title">售后</view>
-						<button open-type='contact' class="concact">联系客服</button>
+						<!-- <button open-type='contact' class="concact">联系客服</button> -->
 					</view>
 				</view>
 			</authPage>
@@ -283,7 +283,7 @@
 			line-height: 1.2;
 		}
 		.price {
-			color: #FF162E;
+			color: #ff0033;
 			font-weight: bold;
 			font-size: 36rpx;
 		}
@@ -294,7 +294,7 @@
 		.apply {
 			width:150rpx;
 			height:50rpx;
-			background:#FF162E;
+			background:#ff0033;
 			border-radius:25rpx;
 			color: #FFFFFF;
 			margin-right: 30rpx;
@@ -328,7 +328,7 @@
 			height: 60rpx;
 		}
 		.icon-active {
-			color: #FF162E;
+			color: #ff0033;
 		}
 	}
 	.concact {

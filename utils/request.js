@@ -32,7 +32,7 @@ const req = {
 		let token = uni.getStorageSync('token')
 		//let token = store.state.token
 		//临时token，暂时这样写
-		token = 'MeterApi.KzkwK4yxXgtcqk5874VCJKYLpxYz0lEoJS3zq9PwR5F7KS8nUHjV6lvpKnfYABbQ2Jyh3omOgryf5JYi3uh90HUCTymDAQ8NtWNXjyCtClmvBh5jrG130B9uC5p5PFVhNu0IFEmE0csXjP4YAKf37NCY1gN3lEP8dekmc90C'
+		//token = 'MeterApi.KzkwK4yxXgtcqk5874VCJKYLpxYz0lEoJS3zq9PwR5F7KS8nUHjV6lvpKnfYABbQ2Jyh3omOgryf5JYi3uh90HUCTymDAQ8NtWNXjyCtClmvBh5jrG130B9uC5p5PFVhNu0IFEmE0csXjP4YAKf37NCY1gN3lEP8dekmc90C'
 		const {
 			success,
 			fail,

@@ -1600,7 +1600,8 @@ radio-group label, checkbox-group label{
   -webkit-flex: 1;
           flex: 1;
   height: 100%;
-  padding: 20rpx;
+  padding-top: 20rpx;
+  padding-left: 20rpx;
   padding-bottom: 130rpx;
   background: #ffffff;
   box-sizing: border-box;
@@ -1620,7 +1621,7 @@ radio-group label, checkbox-group label{
   content: '';
   width: 6rpx;
   height: 60rpx;
-  background-color: #FF162E;
+  background-color: #ff0033;
   position: absolute;
   left: 0px;
   top: 20rpx;
@@ -1646,7 +1647,7 @@ radio-group label, checkbox-group label{
 }
 .classify .space {
     float: left;
-    margin: 0 30rpx;
+    width: 180rpx;
     margin-bottom: 30rpx;
 }
 .classify .goodsimg {

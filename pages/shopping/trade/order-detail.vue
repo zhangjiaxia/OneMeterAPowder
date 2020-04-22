@@ -186,7 +186,7 @@
 		box-shadow:0px 2rpx 10rpx 0px rgba(0, 0, 0, 0.08);
 		border-radius:15rpx;
 		.location {
-			color: #FF162E;
+			color: #ff0033;
 			font-size: 66rpx !important;
 			margin-left: 40rpx;
 			margin-right: 30rpx;
@@ -302,6 +302,7 @@
 		background:rgba(255,255,255,1);
 		box-shadow:0px 2rpx 10rpx 0px rgba(0, 0, 0, 0.08);
 		border-radius:15rpx;
+		margin-bottom: 20rpx;
 		.copy {
 			margin-right: 30rpx;
 			border: 1px dashed #999999;

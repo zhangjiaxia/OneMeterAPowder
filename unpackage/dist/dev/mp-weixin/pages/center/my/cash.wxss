@@ -9,7 +9,7 @@
 }
 .center {
 	padding: 30rpx;
-	background: #FF162E;
+	background: #ff0033;
 	color: #ffffff;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -120,7 +120,7 @@
 	padding: 0rpx 30rpx;
 }
 .common-btn {
-	background: #FF162E;
+	background: #ff0033;
 	color: #ffffff;
 	font-size: 34rpx;
 	height: 39px;

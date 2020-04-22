@@ -27,28 +27,54 @@
 						{{item.statusText}}
 					</view>
 				</view>
-				<view v-for="(subItem, i) in item.cartList" :key="i">
+				<view v-for="(yItem, y) in item.cartList" :key="y" v-if="item.status == 0">
 					<view class="uni-flex uni-row orderitem">
 						<view class="uni-flex">
-							<image :src="subItem.goodsPhotoUrl" class="goodsimg"></image>
+							<image :src="yItem.goodsPhotoUrl" class="goodsimg"></image>
 						</view>
 						<view class="uni-flex uni-column rest goodsinfo">
-							<view class="title">{{subItem.name.substring(0,20) + '...'}}</view>
+							<view class="title">{{yItem.name.substring(0,20) + '...'}}</view>
 							<view class="prop">
-								<text class="size" v-for="(thirdItem, x) in subItem.skuPropertyList" :key="x">{{thirdItem.val}}</text>
-								<!-- <text class="size">100ml*1瓶</text> -->
+								<text class="size" v-for="(thirdItem, n) in yItem.skuPropertyList" :key="n">{{thirdItem.val}}</text>
 							</view>
 						</view>
 						<view class="uni-flex uni-column goodsdata">
-							<view class="title">￥{{subItem.price}}</view>
-							<view class="horizontalright number">x{{subItem.quantity}}</view>
+							<view class="title">￥{{yItem.price}}</view>
+							<view class="horizontalright number">x{{yItem.quantity}}</view>
 						</view>
 					</view>
-					<view class="uni-flex vertical btnop" v-if="item.status === 70 || item.status === 80">
-						<view class="uni-flex rest horizontalright"></view>
-						<view class="uni-flex">
-							<view class="btnright content" @click.stop="applySalesRefund(item)" style="background: gray;margin-top: 10rpx;margin-bottom: 10rpx;">
-								申请退货退款
+				</view>
+				<view v-for="(sub, m) in item.orderChildList" :key="m" v-if="item.status != 0">
+					<view v-for="(subItem, i) in sub.skuList" :key="i">
+						<view class="uni-flex uni-row orderitem">
+							<view class="uni-flex">
+								<image :src="subItem.goodsPhotoUrl" class="goodsimg"></image>
+							</view>
+							<view class="uni-flex uni-column rest goodsinfo">
+								<view class="title">{{subItem.prodName.substring(0,20) + '...'}}</view>
+								<view class="prop">
+									<text class="size" v-for="(thirdItem, x) in subItem.detail.skuPropertyList" :key="x">{{thirdItem.val}}</text>
+								</view>
+							</view>
+							<view class="uni-flex uni-column goodsdata">
+								<view class="title">￥{{subItem.price}}</view>
+								<view class="horizontalright number">x{{subItem.quantity}}</view>
+							</view>
+						</view>
+						<view class="uni-flex vertical btnop" v-if="item.status === 5 || item.status === 6">
+							<view class="uni-flex rest horizontalright"></view>
+							<view class="uni-flex">
+								<view class="btnright content" @click.stop="applySalesRefund(item)" style="background: gray;margin-top: 10rpx;margin-bottom: 10rpx;">
+									申请退货退款
+								</view>
+							</view>
+						</view>
+						<view class="uni-flex vertical btnop" v-if="item.status === 2 || item.status === 3 || item.status === 4">
+							<view class="uni-flex rest horizontalright">
+								<view class="btnleft content" @click.stop="queryFlow(subItem.orderSn)">查看物流</view>
+							</view>
+							<view class="uni-flex">
+								<view class="btnright content" @click.stop="confirmTake(item.noId)">确认收货</view>
 							</view>
 						</view>
 					</view>
@@ -70,7 +96,7 @@
 						<view class="btnright content" @click.stop="confirmPay(item)">确认支付</view>
 					</view>
 				</view>
-				<view class="uni-flex vertical btnop" v-if="item.status === 20">
+				<view class="uni-flex vertical btnop" v-if="item.status === 1">
 					<view class="uni-flex rest horizontalright">
 						<view class="btnleft content" @click.stop="applyRefund(item.noId)">申请退款</view>
 					</view>
@@ -78,14 +104,7 @@
 						<view class="btnright content" @click.stop="$turnPage('/pages/shopping/trade/order-detail?id='+item.noId, 'navigateTo')">查看订单</view>
 					</view>
 				</view>
-				<view class="uni-flex vertical btnop" v-if="item.status === 30">
-					<view class="uni-flex rest horizontalright">
-						<view class="btnleft content" @click.stop="queryFlow(item.orderChildList)">查看物流</view>
-					</view>
-					<view class="uni-flex">
-						<view class="btnright content" @click.stop="confirmTake(item.noId)">确认收货</view>
-					</view>
-				</view>
+				
 				<!-- <view class="uni-flex vertical btnop" v-if="item.status === 70 || item.status === 80 || item.status === 40">
 					<view class="uni-flex rest horizontalright">
 						<view class="btnleft content">查看订单</view>
@@ -104,7 +123,7 @@
 				</view> -->
 			</view>
 			<view class="empty-text" v-if="(orderPageList.length == orderPageData.total) && orderPageList.length > 0">已经到底了</view>
-			<view class="empty-text" v-if="orderPageList.length == 0">暂无数据</view>
+			<view class="empty-text" v-if="orderPageList.length == 0 && !loading">暂无数据</view>
 		</view>
 	</view>
 </template>
@@ -150,7 +169,9 @@
 				}, //分页参数
 				orderPageData: {}, //订单数据
 				orderPageList: [], //订单列表
-				orderCount: [] //每个订单的商品个数
+				orderCount: [], //每个订单的商品个数
+				flowIndex: 0, //查看物流的索引
+				loading: true //加载中
 			}
 		},
 		onLoad(options) {
@@ -171,6 +192,7 @@
 		methods: {
 			initData() {
 				//重置分页参数
+				this.loading = true
 				this.orderPageData = {}
 				this.orderPageList = []
 				this.params.page = 1
@@ -180,6 +202,7 @@
 			getOrderPageList() {
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.orderPageList, this.params).then((res) => {
+					this.loading = false
 					that.orderPageData = res.data
 					if(that.params.page == 1) {
 						that.orderPageList = res.data.data
@@ -196,19 +219,24 @@
 						that.orderCount.push(num)
 						num = 0;
 					}
+					console.log(that.orderPageList)
 				});
 			},
+			//怡亚通的订单状态
 			setStatus(status) {
-				if(status == 0) {
-					return '待支付'
-				} else if(status == 1) {
-					return '待发货'
-				} else if(status == 2) {
-					return '待收货'
-				} else if(status == 40) {
-					return '已完成'
-				} else if(status == 3) {
-					return '售后'
+				switch(status) {
+				     case 0: return '待支付'
+				     case 1: return '待发货'
+					 case 2: return '部分发货'
+					 case 3: return '全部发货'
+					 case 4: return '部分收货'
+					 case 5: return '全部收货'
+					 case 6: return '部分退款'
+					 case 7: return '全部退款'
+					 case 8: return '部分关闭'
+					 case 9: return '全部关闭'
+					 case 10: return '已完成'
+				     default: return ''
 				}
 			},
 			selectTab(index, status) {
@@ -292,8 +320,8 @@
 				});
 			},
 			//查看物流
-			queryFlow(item) {
-				this.$turnPage('/pages/shopping/trade/order-logistics', 'navigateTo')
+			queryFlow(orderSn) {
+				this.$turnPage('/pages/shopping/trade/order-logistics?orderSn='+orderSn, 'navigateTo')
 				// item.orderChildList.orderId
 				// //跳转物流页面
 				// let that = this
@@ -367,8 +395,8 @@
 		}
 	}
 	.active {
-		color: #FF162E;
-		border-bottom: 1px solid #FF162E;
+		color: #ff0033;
+		border-bottom: 1px solid #ff0033;
 	}
 	.searchbar {
 		// margin-top: 20rpx;
@@ -404,7 +432,7 @@
 		}
 
 		.tip {
-			color: #FF162E;
+			color: #ff0033;
 		}
 	}
 	.orderitem {
@@ -472,7 +500,7 @@
 			padding: 0 20rpx;
 			height: 50rpx;
 			color: #FFFFFF;
-			background: #FF162E;
+			background: #ff0033;
 			border-radius: 40rpx;
 			margin-left: 16rpx;
 			margin-right: 25rpx;

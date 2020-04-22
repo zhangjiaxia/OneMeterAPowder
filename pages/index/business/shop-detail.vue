@@ -23,13 +23,13 @@
 			<view class="shop-message">
 				<view class="uni-flex uni-row vertical">
 					<view class="uni-flex vertical rest shop-price">
-						<text v-if="isVip == 1" style="margin-right: 18rpx;color: #FF162E;">￥{{goodsDetail.vipPrice[0]}}</text>
-						<text :style="{'text-decoration': isVip == 1 ? 'line-through' : 'none', color: isVip == 1 ? '#999999' : '#FF162E'}">
+						<text v-if="isVip == 1" style="margin-right: 18rpx;color: #ff0033;">￥{{goodsDetail.vipPrice[0]}}</text>
+						<text :style="{'text-decoration': isVip == 1 ? 'line-through' : 'none', color: isVip == 1 ? '#999999' : '#ff0033'}">
 							￥{{goodsDetail.retailPrice[0] || '0.00'}}
 						</text>
 					</view>
 					<view class="uni-flex">
-						<text style="color: #FF162E;font-size: 24rpx;">
+						<text style="color: #ff0033;font-size: 24rpx;">
 							+{{Math.round(isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]) / 100}}积分
 						</text>
 					</view>
@@ -491,7 +491,7 @@
 	.shop-price {
 		font-size: 36rpx;
 		// margin-top: 20rpx;
-		color: #FF162E;
+		color: #ff0033;
 	}
 	
 	.original-price {
@@ -588,7 +588,7 @@
 		color: #ffffff;
 		line-height: 100upx;
 		text-align: center;
-		background: #FF162E;
+		background: #ff0033;
 	}
 
 	.detail-bottom-left {
@@ -728,7 +728,7 @@
 		text-align: center;
 		display: flex;
 		justify-content: center;
-		background: #FF162E;
+		background: #ff0033;
 		border-radius: 40rpx;
 		color: #FFFFFF;
 	}

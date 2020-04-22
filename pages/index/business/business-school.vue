@@ -101,8 +101,8 @@
 			color: #333333;
 		}
 		.active {
-			color: #FF162E;
-			border-bottom: 1px solid #FF162E;
+			color: #ff0033;
+			border-bottom: 1px solid #ff0033;
 		}
 	}
 	.info {

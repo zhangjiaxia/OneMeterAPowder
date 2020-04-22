@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniSteps = function uniSteps() {__webpack_require__.e(/*! require.ensure | components/uni-steps/uni-steps */ "components/uni-steps/uni-steps").then((function () {return resolve(__webpack_require__(/*! @/components/uni-steps/uni-steps.vue */ 319));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -162,44 +162,46 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-//引入步骤条
-var _default = {
-  components: {
-    navigationBar: navigationBar,
-    uniSteps: uniSteps },
-
-  data: function data() {
-    return {
-      //设置导航栏样式
-      navigationBarStyle: {
-        iconText: '物流信息' //导航栏文字
-      },
-      options: [{
-        title: '买家下单', desc: '2018-11-11' },
-      {
-        title: '卖家发货', desc: '2018-11-12' },
-      {
-        title: '买家签收', desc: '2018-11-13' },
-      {
-        title: '交易完成', desc: '2018-11-14' }],
-      //步骤条数据
-      info: [] };
-
-  },
-  onLoad: function onLoad(options) {
-    var str = '{"code":0,"data":[{"deliveryList":[{"context":"商家已拣货完毕，待出货交给【韵达快递】，运单号【sssss】","operator":"和乐网","time":"2020-04-18 09:26:27","title":""},{"context":"您的订单已经提交","operator":"买家","time":"2020-04-16 16:27:13","title":""}],"deliveryName":"韵达快递","deliveryNo":"sssss","skuList":[{"code":"SL-ECP-78757","goodsPhotoUrl":"https:\\/\\/yd-imgs.380star.com\\/hl\\/upload\\/33239\\/store\\/2126\\/e15cf129-ae51-4884-8174-24e0b36748ac.png_middle.png","isReshipApply":"0","isReshipQuantity":"0","maxGoodsRefund":"0.00","price":"163.75","prodName":"芙丽芳丝保湿修护柔润乳液100ml 滋润型","quantity":1,"reshipSn":"R22020041815293804198448","reshipStatus":"7","reshipStatusName":"退款成功","skuId":"78757","spuId":"135240"}]}],"message":"success"}';
-    this.info = JSON.parse(str);
-    this.options = this.info.data[0].deliveryList;
-
-    //this.query(options.orderSn)
-  },
-  methods: {
-    query: function query(orderSn) {
-      var that = this;
-      interfaceurl.checkAuth(interfaceurl.orderExpressInfo, { orderSn: orderSn }).then(function (res) {
-        that.info = JSON.parse(str);
-        that.options = that.info.data[0].deliveryList;
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniSteps = function uniSteps() {__webpack_require__.e(/*! require.ensure | components/uni-steps/uni-steps */ "components/uni-steps/uni-steps").then((function () {return resolve(__webpack_require__(/*! @/components/uni-steps/uni-steps.vue */ 319));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入步骤条
+var _default = { components: { navigationBar: navigationBar, uniSteps: uniSteps }, data: function data() {return { //设置导航栏样式
+      navigationBarStyle: { iconText: '物流信息' //导航栏文字
+      }, options: [{ title: '买家下单', desc: '2018-11-11' }, { title: '卖家发货', desc: '2018-11-12' }, { title: '买家签收', desc: '2018-11-13' }, { title: '交易完成', desc: '2018-11-14' }], //步骤条数据
+      info: [] };}, onLoad: function onLoad(options) {console.log('orderSn', options); // let str = '{"code":0,"data":[{"deliveryList":[{"context":"商家已拣货完毕，待出货交给【韵达快递】，运单号【sssss】","operator":"和乐网","time":"2020-04-18 09:26:27","title":""},{"context":"您的订单已经提交","operator":"买家","time":"2020-04-16 16:27:13","title":""}],"deliveryName":"韵达快递","deliveryNo":"sssss","skuList":[{"code":"SL-ECP-78757","goodsPhotoUrl":"https:\\/\\/yd-imgs.380star.com\\/hl\\/upload\\/33239\\/store\\/2126\\/e15cf129-ae51-4884-8174-24e0b36748ac.png_middle.png","isReshipApply":"0","isReshipQuantity":"0","maxGoodsRefund":"0.00","price":"163.75","prodName":"芙丽芳丝保湿修护柔润乳液100ml 滋润型","quantity":1,"reshipSn":"R22020041815293804198448","reshipStatus":"7","reshipStatusName":"退款成功","skuId":"78757","spuId":"135240"}]}],"message":"success"}'
+    // this.info = JSON.parse(str)
+    // this.options = this.info.data[0].deliveryList
+    this.query(options.orderSn);}, methods: { query: function query(orderSn) {var that = this;_interface.default.checkAuth(_interface.default.orderExpressInfo, { orderSn: orderSn }).then(function (res) {
+        that.info = res.data[0];
+        that.options = that.info.deliveryList;
       });
     } } };exports.default = _default;
 

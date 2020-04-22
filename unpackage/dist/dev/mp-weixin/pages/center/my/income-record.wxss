@@ -33,6 +33,6 @@
 }
 .num{
 	font-size: 36rpx;
-	color: #FF162E;
+	color: #ff0033;
 }
 

@@ -65,7 +65,7 @@
 			<view class="uni-flex uni-row vertical item" v-for="(item, index) in optionsList[chooseType]" :key="index" @click="checkItem(chooseType, index)">
 				<view class="uni-flex rest font">{{item.text}}</view>
 				<view class="uni-flex">
-					<view class="icon-gou radio-icon" :style="{color: item.selected ? '#FF162E' : '#999999'}"></view>
+					<view class="icon-gou radio-icon" :style="{color: item.selected ? '#ff0033' : '#999999'}"></view>
 				</view>
 			</view>
 			<view class="uni-flex content cancel" @click="confirm">确定</view>
@@ -205,8 +205,8 @@
 			line-height: 80rpx;
 		}
 		.active {
-			color: #FF162E;
-			border-bottom: 2rpx solid #FF162E;
+			color: #ff0033;
+			border-bottom: 2rpx solid #ff0033;
 		}
 	}
 	.options {
@@ -225,7 +225,7 @@
 				font-size: 24rpx;
 			}
 			.money {
-				color: #FF162E;
+				color: #ff0033;
 				font-size: 30rpx;
 				margin-right: 30rpx;
 			}

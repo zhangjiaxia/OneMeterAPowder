@@ -382,7 +382,7 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
     this.bindUser(scene); //获取首页数据
     this.getBannerList();this.getIconTypeList();this.getSpecialAreaList(1);this.getSpecialAreaList(2);this.tabIndex = 0;this.specialGoodsData = {};this.specialGoodsList = [];}, onShow: function onShow() {}, //到达页面底部时触发的事件
   onReachBottom: function onReachBottom() {if (this.isGoods == 0) {if (this.championList.length > 0) {console.log(this.championList.length, this.championData.total);if (this.championList.length >= this.championData.total) {return;}this.championParams.page++;this.getChampionList();}} else {if (this.specialGoodsList.length >= this.specialGoodsData.total) {return;}this.params.page++;this.getSpecialGoodsList();}}, methods: { //获取二维码携带的参数值并绑定下级
-    bindUser: function bindUser(scene) {var that = this;var baseUrl = 'https://api-emi.bidou88.cn/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
+    bindUser: function bindUser(scene) {var that = this;var baseUrl = 'https://shop.yimiefen.com/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
             uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"), data: { code: res.code }, success: function success(res) {if (res.data.code != 0) {uni.showToast({
                     title: res.data.msg,
                     icon: 'none',

@@ -191,7 +191,7 @@
 		background: #F6F6F6;
 	}
 	.active {
-		color: #FF162E;
+		color: #ff0033;
 	}
 	.topitem {
 		height: 220rpx;
@@ -322,7 +322,7 @@
 				}
 				.money {
 					font-size: 24rpx;
-					color: #FF162E;
+					color: #ff0033;
 				}
 			}
 		}

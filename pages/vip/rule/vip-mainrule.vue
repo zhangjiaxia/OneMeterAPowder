@@ -33,7 +33,7 @@
 					每邀请一级VIP会员一名，获得58元/名/年佣金奖
 					励。二级VIP会员每增加一名，获得38元/名/年佣金奖励（升级
 					前的不计入奖励）。一级VIP会员届满一年，续费再得58元/名/
-					年佣金奖励二级VIP会员届满一年，续费再得38元/名/年佣金奖励。          
+					年佣金奖励。二级VIP会员届满一年，续费再得38元/名/年佣金奖励。          
 				</view>
 			</view>
 			<view class="wordspace" style="margin-bottom: 10rpx;">
@@ -171,13 +171,13 @@
 			font-size: 24rpx;
 		}
 		.active {
-			color: #FF162E;
+			color: #ff0033;
 			margin-left: 20rpx;
 		}
 	}
 	.more {
 		font-size: 20rpx;
-		color: #FF162E;
+		color: #ff0033;
 		text-decoration:underline;
 	}
 	.remark {

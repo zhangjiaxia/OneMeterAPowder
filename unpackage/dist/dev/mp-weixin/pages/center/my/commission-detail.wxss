@@ -1588,7 +1588,7 @@ radio-group label, checkbox-group label{
       font-size: 24rpx;
 }
 .today .space .val {
-      color: #FF162E;
+      color: #ff0033;
       font-size: 24rpx;
 }
 .info {
@@ -1616,7 +1616,7 @@ radio-group label, checkbox-group label{
     font-size: 24rpx;
 }
 .info .num {
-    color: #FF162E;
+    color: #ff0033;
     font-size: 30rpx;
     margin-right: 30rpx;
 }
