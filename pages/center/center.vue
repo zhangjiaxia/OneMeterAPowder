@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<!-- <view class="bar-sticky">
+		<view class="bar-sticky">
 			<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
-		</view> -->
+		</view>
 		<view class="uni-flex topitem vertical">
 			<image src="/static/bg.png" class="bg"></image>
 			<authPage>

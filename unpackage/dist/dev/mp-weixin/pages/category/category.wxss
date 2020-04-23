@@ -1602,7 +1602,6 @@ radio-group label, checkbox-group label{
   height: 100%;
   padding-top: 20rpx;
   padding-left: 20rpx;
-  padding-bottom: 130rpx;
   background: #ffffff;
   box-sizing: border-box;
   overflow: auto;

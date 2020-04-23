@@ -572,7 +572,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       var item = this.goodsDetail;
       var shopItem = {
         spuId: item.spuId,
-        price: item.retailPrice[0],
+        price: this.isVip != 1 ? item.retailPrice[0] : item.vipPrice[0],
         name: item.name,
         goodsPhotoUrl: item.mainImgUrl,
         quantity: this.shopNum,

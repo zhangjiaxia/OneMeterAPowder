@@ -49,6 +49,7 @@
 			<view class="type-list">
 				<view class="type-item" :style="{'margin-right': index % 2 == 0 ? '10rpx' : '0'}"
 					v-for="(item, index) in specialAreaPicList" :key="index">
+					<text class="text-item" :class="{'text-item-space': index > 1}">{{item.specialName}}</text>
 					<image :src="item.specialImgUrl" :style="{'width': index > 1 ? '350rpx' : '710rpx'}"></image>
 				</view>
 			</view>
@@ -535,6 +536,20 @@
 	.type-item {
 		// width: 350upx;
 		display: inline-flex;
+		position: relative;
+	}
+	
+	.text-item {
+		position: absolute;
+		top: 67rpx;
+		left: 37rpx;
+		color: #333333;
+		font-size: 36rpx;
+	}
+	
+	.text-item-space {
+		top: 26rpx;
+		left: 36rpx;
 	}
 
 	.type-item image {

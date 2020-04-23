@@ -1720,6 +1720,18 @@ page {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: inline-flex;
+  position: relative;
+}
+.text-item {
+  position: absolute;
+  top: 67rpx;
+  left: 37rpx;
+  color: #333333;
+  font-size: 36rpx;
+}
+.text-item-space {
+  top: 26rpx;
+  left: 36rpx;
 }
 .type-item image {
   width: 350rpx;

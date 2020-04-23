@@ -135,7 +135,6 @@
 		height: 100%;
 		padding-top: 20rpx;
 		padding-left: 20rpx;
-		padding-bottom: 130upx;
 		background: #ffffff;
 		box-sizing: border-box;
 		overflow: auto;

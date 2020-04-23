@@ -415,7 +415,7 @@
 				let item = this.goodsDetail
 				const shopItem = {
 					spuId: item.spuId,
-					price: item.retailPrice[0],
+					price: this.isVip != 1 ? item.retailPrice[0] : item.vipPrice[0],
 					name: item.name,
 					goodsPhotoUrl: item.mainImgUrl,
 					quantity: this.shopNum,
