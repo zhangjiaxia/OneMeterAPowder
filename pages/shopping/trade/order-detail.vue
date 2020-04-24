@@ -14,15 +14,14 @@
 						<view class="uni-flex nick">{{orderDetail.receiver}}</view>
 						<view class="uni-flex phone">{{orderDetail.receiverPhone}}</view>
 					</view>
-					<view class="uni-flex position">{{orderDetail.receiverAreaName}}</view>
+					<view class="uni-flex position">{{orderDetail.receiverAreaName}}{{orderDetail.receiverAddr}}</view>
 				</view>
-				<view class="uni-flex">
-					<!-- <image src="/static/center/backGrey.png" class="backGrey"></image> -->
+				<!-- <view class="uni-flex">
 					<view class="icon-qianjin backGrey"></view>
-				</view>
+				</view> -->
 			</view>
 			<view class="order" v-for="(item, index) in orderDetail.cartList" :key="index">
-				<view class="uni-flex uni-row orderitem">
+				<view class="uni-flex uni-row orderitem" @click="shopDetailPage(item)">
 					<view class="uni-flex">
 						<image :src="item.goodsPhotoUrl" class="goodsimg"></image>
 					</view>
@@ -34,7 +33,7 @@
 						</view>
 					</view>
 					<view class="uni-flex uni-column goodsdata">
-						<view class="title">￥{{item.price}}</view>
+						<view class="title">￥{{isVip ? item.vipPrice : item.price}}</view>
 						<view class="number">x{{item.quantity}}</view>
 					</view>
 				</view>
@@ -44,53 +43,10 @@
 					</view>
 					<view class="uni-flex totalspace">
 						<text class="total">合计:</text>
-						<text class="totalnum">￥{{item.quantity * item.price * 100 / 100}}</text>
+						<text class="totalnum">￥{{isVip ? (item.quantity * item.vipPrice * 100 / 100) : (item.quantity * item.price * 100 / 100)}}</text>
 					</view>
 				</view>
 			</view>
-			<!-- <view class="order">
-				<view class="uni-flex uni-row orderitem">
-					<view class="uni-flex">
-						<image src="/static/location.png" class="goodsimg"></image>
-					</view>
-					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">【现货直发】75%酒精杀菌免喷洗 喷雾100ml便携装</view>
-						<view class="prop">
-							<text class="size">100ml</text>
-							<text class="size">100ml*1瓶</text>
-						</view>
-					</view>
-					<view class="uni-flex uni-column goodsdata">
-						<view class="title">￥29</view>
-						<view class="number">x1</view>
-					</view>
-				</view>
-				<view class="uni-flex uni-row orderitem">
-					<view class="uni-flex">
-						<image src="/static/location.png" class="goodsimg"></image>
-					</view>
-					<view class="uni-flex uni-column rest goodsinfo">
-						<view class="title">【现货直发】75%酒精杀菌免喷洗 喷雾100ml便携装</view>
-						<view class="prop">
-							<text class="size">100ml</text>
-							<text class="size">100ml*1瓶</text>
-						</view>
-					</view>
-					<view class="uni-flex uni-column goodsdata">
-						<view class="title">￥29</view>
-						<view class="number">x1</view>
-					</view>
-				</view>
-				<view class="uni-flex settle">
-					<view class="uni-flex rest horizontalright totaldesc">
-						共1件商品
-					</view>
-					<view class="uni-flex totalspace">
-						<text class="total">合计:</text>
-						<text class="totalnum">￥29</text>
-					</view>
-				</view>
-			</view> -->
 			<view class="uni-flex uni-column ordersettle">
 				<view class="uni-flex vertical space" style="border: none;">
 					<view class="uni-flex rest subbase">商品总价</view>
@@ -145,11 +101,15 @@
 					iconText: '订单详情' //导航栏文字
 				},
 				orderDetail: {}, //订单详情
-				orderCount: [] //每个订单的商品个数
+				orderCount: [], //每个订单的商品个数
+				isVip: 0 //是否为会员
 			}
 		},
 		onLoad(options) {
 			this.getOrderDetail(options.id)
+		},
+		onShow() {
+			this.isVip = uni.getStorageSync('isVip')
 		},
 		methods: {
 			//获取订单详情
@@ -161,6 +121,11 @@
 						that.orderCount.push(item.quantity)
 					}
 				});
+			},
+			shopDetailPage(item) {
+				console.log('详情', item)
+				this.$store.commit('setGoodsDetail', item)
+				this.$turnPage('/pages/index/business/shop-detail?spuId='+item.spuId, 'navigateTo')
 			},
 		}
 	}

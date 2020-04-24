@@ -21,7 +21,7 @@
 						<view class="desc">明细</view>
 					</view>
 					<view class="uni-flex content">|</view>
-					<view class="uni-flex uni-column rest content" @click="$turnPage('/pages/center/my/my-points', 'navigateTo')">
+					<view class="uni-flex uni-column rest content" @click="$turnPage('/pages/center/my/my-points?total_integral='+userDetail.total_integral, 'navigateTo')">
 						<view class="desc">团队积分</view>
 						<view class="desc">明细</view>
 					</view>

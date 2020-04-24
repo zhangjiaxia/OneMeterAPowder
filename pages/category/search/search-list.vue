@@ -22,7 +22,7 @@
 				</view>
 				<view class="uni-flex uni-column rest info">
 					<view class="uni-flex title">{{item.name.substring(0,20) + '...'}}</view>
-					<view class="uni-flex subtitle rest">{{item.brandName}}</view>
+					<view class="uni-flex subtitle rest">{{item.brandName || ''}}</view>
 					<view class="uni-flex uni-row vertical money">
 						<view class="uni-flex rest vertical price">
 							<text style="font-size: 16rpx;">￥</text>
@@ -81,7 +81,7 @@
 			},
 			shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
-				this.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
+				this.$turnPage('/pages/index/business/shop-detail?spuId='+item.spuId, 'navigateTo')
 			},
 			initData() {
 				//重置分页参数

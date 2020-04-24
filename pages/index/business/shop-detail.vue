@@ -23,14 +23,16 @@
 			<view class="shop-message">
 				<view class="uni-flex uni-row vertical">
 					<view class="uni-flex vertical rest shop-price">
-						<text v-if="isVip == 1" style="margin-right: 18rpx;color: #ff0033;">￥{{goodsDetail.vipPrice[0]}}</text>
-						<text :style="{'text-decoration': isVip == 1 ? 'line-through' : 'none', color: isVip == 1 ? '#999999' : '#ff0033'}">
-							￥{{goodsDetail.retailPrice[0] || '0.00'}}
+						<text v-if="isVip == 1" style="margin-right: 18rpx;color: #ff0033;">
+							VIP <text style="font-size: 28rpx;margin-left: 20rpx;">￥</text>{{goodsDetail.vipPrice[0] || ''}}
+						</text>
+						<text :style="{color: isVip == 1 ? '#999999' : '#ff0033', 'font-size': '26rpx'}">
+							￥{{goodsDetail.retailPrice[0] || ''}}(零售价)
 						</text>
 					</view>
 					<view class="uni-flex">
 						<text style="color: #ff0033;font-size: 24rpx;">
-							+{{Math.round(isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]) / 100}}积分
+							+{{(isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]) || ''}}积分
 						</text>
 					</view>
 				</view>
@@ -123,7 +125,9 @@
 			</view>
 		</view>
 		<!--分享弹窗-->
-		<sharePoster :bgImg="goodsDetail.detailImgUrlList[0]" ref="share"></sharePoster>
+		<view v-if="goodsDetail.detailImgUrlList">
+			<sharePoster :bgImg="goodsDetail.detailImgUrlList[0]" ref="share"></sharePoster>
+		</view>
 		<!--弹窗时阻止滚动穿透-->
 		<view class="mask" v-show="confirmModal" @click="confirmModal=false;"
 		 @touchmove.stop.prevent="touch"></view>
@@ -147,7 +151,7 @@
 			authPage,
 			navigationBar
 		},
-		computed: mapState(['goodsDetail']),
+		//computed: mapState(['goodsDetail']),
 		data() {
 			return {
 				isVip: 0, //是否会员，0:否，1:是
@@ -176,10 +180,11 @@
 				skuPropertyList: [], //用户所选的商品sku
 				skuPropList: [{}, {}, {}, {}, {}], //商品属性
 				propsCheck: {}, //属性选择
-				//goodsDetail: {}, //商品详情，暂时
+				goodsDetail: {}, //商品详情，暂时
 				cartOrOrder: true, //加入购物车：true,下单：false
 				inventoryCount: 0, //各组sku的库存量
-				cartId: '' //购物车ID
+				cartId: '', //购物车ID
+				spuId: 0, //商品ID
 			}
 		},
 		onShareAppMessage: function( options ){
@@ -218,13 +223,18 @@
 		　　return shareObj;
 		},
 		onLoad(options) {
-			this.navigationBarStyle.iconText = this.goodsDetail.brandName
-			//处理富文本图片自适应
-			let item = this.deepCopy(this.goodsDetail)
-			item.detailInfo = item.detailInfo.replace(/<img/gi, '<img width="100%!important" ')
-			this.$store.commit('setGoodsDetail', item)
-			this.getData()
-			//this.getGoodsDetail()
+			this.spuId = options.spuId
+			this.getGoodsDetail()
+			// if(this.spuId > 0) {
+			// 	this.getGoodsDetail()
+			// } else {
+			// 	this.navigationBarStyle.iconText = this.goodsDetail.brandName
+			// 	//处理富文本图片自适应
+			// 	let item = this.deepCopy(this.goodsDetail)
+			// 	item.detailInfo = item.detailInfo.replace(/<img/gi, '<img width="100%!important" ')
+			// 	this.$store.commit('setGoodsDetail', item)
+			// 	this.getData()
+			// }
 		},
 		onShow() {
 			const value = uni.getStorageSync('userInfo')
@@ -253,16 +263,18 @@
 				let element = this.judgeCode()
 				this.inventoryCount = element ? element.inventoryCount : 0
 			},
-			// getGoodsDetail() {
-			// 	let that = this;
-			// 	let params = {
-			// 		spuId: 115199
-			// 	}
-			// 	interfaceurl.checkAuth(interfaceurl.goodsDetail, params, false).then((res) => {
-			// 		that.goodsDetail = res.data
-			// 		that.getData()
-			// 	});
-			// },
+			getGoodsDetail() {
+				let that = this;
+				let params = {
+					spuId: this.spuId //115199
+				}
+				interfaceurl.checkAuth(interfaceurl.goodsDetail, params, false).then((res) => {
+					that.goodsDetail = res.data
+					that.navigationBarStyle.iconText = that.goodsDetail.brandName
+					that.goodsDetail.detailInfo = that.goodsDetail.detailInfo.replace(/<img/gi, '<img width="100%!important" ')
+					that.getData()
+				});
+			},
 			//梳理商品详情数据
 			getData() {
 				let that = this

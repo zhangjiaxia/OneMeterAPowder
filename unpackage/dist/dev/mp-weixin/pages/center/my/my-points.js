@@ -170,43 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -253,10 +217,16 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
       }, //分页参数
       pointsData: {}, //积分数据
       pointsList: [], //积分列表
-      userInfo: {} //获取用户授权信息
-    };}, onLoad: function onLoad() {this.userInfo = uni.getStorageSync('userInfo');}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
+      userInfo: {}, //获取用户授权信息
+      total_integral: 0 //我的积分
+    };}, onLoad: function onLoad(options) {this.total_integral = options.total_integral;this.userInfo = uni.getStorageSync('userInfo');}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
   onReachBottom: function onReachBottom() {if (this.pointsList.length >= this.pointsData.total) {return;}this.params.page++;this.getPoints();}, methods: { initData: function initData() {//重置分页参数
-      this.pointsData = {};this.pointsList = [];this.params.page = 1;this.getPoints();}, getPoints: function getPoints() {var that = this;_interface.default.checkAuth(_interface.default.profitRecord, this.params).then(function (res) {that.pointsData = res.data;if (that.params.page == 1) {that.pointsList = res.data.data;} else {that.pointsList = that.pointsList.concat(res.data.data);}});} } };exports.default = _default;
+      this.pointsData = {};this.pointsList = [];this.params.page = 1;this.getPoints();}, getPoints: function getPoints() {var that = this;_interface.default.checkAuth(_interface.default.profitRecord, this.params).then(function (res) {that.pointsData = res.data;if (that.params.page == 1) {that.pointsList = res.data.data;
+        } else {
+          that.pointsList = that.pointsList.concat(res.data.data);
+        }
+      });
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

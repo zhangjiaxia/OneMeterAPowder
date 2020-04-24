@@ -280,6 +280,9 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
       this.showPanel = false;
       this.userChoose.status = this.optionsList["货物状态"].find(function (element) {return element.selected;}).text;
       this.userChoose.reason = this.optionsList["退款原因"].find(function (element) {return element.selected;}).text;
+    },
+    submit: function submit() {
+
     } } };exports.default = _default;
 
 /***/ }),

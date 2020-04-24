@@ -98,12 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var g0 = Math.round(
-    _vm.isVip == 1
-      ? _vm.goodsDetail.vipPrice[0]
-      : _vm.goodsDetail.retailPrice[0]
-  )
-
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.confirmModal = false
@@ -113,15 +107,6 @@ var render = function() {
       _vm.confirmModal = false
     }
   }
-
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        g0: g0
-      }
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -291,6 +276,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
 var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var sharePoster = function sharePoster() {__webpack_require__.e(/*! require.ensure | components/shop-business/share-poster */ "components/shop-business/share-poster").then((function () {return resolve(__webpack_require__(/*! @/components/shop-business/share-poster.vue */ 284));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 277));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
@@ -304,7 +293,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     authPage: authPage,
     navigationBar: navigationBar },
 
-  computed: (0, _vuex.mapState)(['goodsDetail']),
+  //computed: mapState(['goodsDetail']),
   data: function data() {
     return {
       isVip: 0, //是否会员，0:否，1:是
@@ -333,10 +322,11 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       skuPropertyList: [], //用户所选的商品sku
       skuPropList: [{}, {}, {}, {}, {}], //商品属性
       propsCheck: {}, //属性选择
-      //goodsDetail: {}, //商品详情，暂时
+      goodsDetail: {}, //商品详情，暂时
       cartOrOrder: true, //加入购物车：true,下单：false
       inventoryCount: 0, //各组sku的库存量
-      cartId: '' //购物车ID
+      cartId: '', //购物车ID
+      spuId: 0 //商品ID
     };
   },
   onShareAppMessage: function onShareAppMessage(options) {
@@ -375,13 +365,18 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     return shareObj;
   },
   onLoad: function onLoad(options) {
-    this.navigationBarStyle.iconText = this.goodsDetail.brandName;
-    //处理富文本图片自适应
-    var item = this.deepCopy(this.goodsDetail);
-    item.detailInfo = item.detailInfo.replace(/<img/gi, '<img width="100%!important" ');
-    this.$store.commit('setGoodsDetail', item);
-    this.getData();
-    //this.getGoodsDetail()
+    this.spuId = options.spuId;
+    this.getGoodsDetail();
+    // if(this.spuId > 0) {
+    // 	this.getGoodsDetail()
+    // } else {
+    // 	this.navigationBarStyle.iconText = this.goodsDetail.brandName
+    // 	//处理富文本图片自适应
+    // 	let item = this.deepCopy(this.goodsDetail)
+    // 	item.detailInfo = item.detailInfo.replace(/<img/gi, '<img width="100%!important" ')
+    // 	this.$store.commit('setGoodsDetail', item)
+    // 	this.getData()
+    // }
   },
   onShow: function onShow() {
     var value = uni.getStorageSync('userInfo');
@@ -410,16 +405,18 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       var element = this.judgeCode();
       this.inventoryCount = element ? element.inventoryCount : 0;
     },
-    // getGoodsDetail() {
-    // 	let that = this;
-    // 	let params = {
-    // 		spuId: 115199
-    // 	}
-    // 	interfaceurl.checkAuth(interfaceurl.goodsDetail, params, false).then((res) => {
-    // 		that.goodsDetail = res.data
-    // 		that.getData()
-    // 	});
-    // },
+    getGoodsDetail: function getGoodsDetail() {
+      var that = this;
+      var params = {
+        spuId: this.spuId //115199
+      };
+      _interface.default.checkAuth(_interface.default.goodsDetail, params, false).then(function (res) {
+        that.goodsDetail = res.data;
+        that.navigationBarStyle.iconText = that.goodsDetail.brandName;
+        that.goodsDetail.detailInfo = that.goodsDetail.detailInfo.replace(/<img/gi, '<img width="100%!important" ');
+        that.getData();
+      });
+    },
     //梳理商品详情数据
     getData: function getData() {
       var that = this;

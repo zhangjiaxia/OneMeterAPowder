@@ -278,11 +278,13 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
       }, //分页参数
       isOpened: false, //是否显示右滑删除
       //右滑删除
-      options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }] //loading: true //加载中
-    };}, onShow: function onShow() {this.initData();}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.shopList.length >= this.cartList.total) {return;}this.params.page++;this.getCartPageList();}, methods: { shopDetailPage: function shopDetailPage(item) {var that = this;var params = { spuId: item.spuId };_interface.default.checkAuth(_interface.default.goodsDetail, params, false).then(function (res) {that.$store.commit('setGoodsDetail', res.data);that.$turnPage('/pages/index/business/shop-detail', 'navigateTo');});}, initData: function initData() {//重置分页参数
+      options: [{ text: '删除', style: { backgroundColor: '#C7C6CD', color: '#ffffff', borderRadius: '0 10rpx 10rpx 0' } }], isVip: 0 //是否为会员
+      //loading: true //加载中
+    };}, onShow: function onShow() {this.initData();this.isVip = uni.getStorageSync('isVip');}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {if (this.shopList.length >= this.cartList.total) {return;}this.params.page++;this.getCartPageList();}, methods: { shopDetailPage: function shopDetailPage(item) {var that = this;var params = { spuId: item.spuId };_interface.default.checkAuth(_interface.default.goodsDetail, params, false).then(function (res) {that.$store.commit('setGoodsDetail', res.data);that.$turnPage('/pages/index/business/shop-detail?spuId=' + item.spuId, 'navigateTo');});}, initData: function initData() {//重置分页参数
       //this.loading = true
-      this.isAll = true;this.cartList = {};this.shopList = [];this.params.page = 1;if (uni.getStorageSync('token')) {this.getCartPageList();}}, bindClick: function bindClick(id) {this.delCartGame(id);}, getCartPageList: function getCartPageList() {var that = this;
+      this.isAll = true;this.cartList = {};this.shopList = [];this.params.page = 1;if (uni.getStorageSync('token')) {this.getCartPageList();}}, bindClick: function bindClick(id) {this.delCartGame(id);}, getCartPageList: function getCartPageList() {
+      var that = this;
       _interface.default.checkAuth(_interface.default.cartPageList, this.params).then(function (res) {
         //that.loading = false;
         that.cartList = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
@@ -337,12 +339,16 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
       }
       this.getTotalFee();
     },
-    getTotalFee: function getTotalFee() {
+    getTotalFee: function getTotalFee() {var _this = this;
       var total = 0;
       //console.log(this.shopList)
       this.shopList.forEach(function (item) {
         if (item.selected) {
-          total = total + item.quantity * parseFloat(item.price);
+          if (_this.isVip == 1) {
+            total = total + item.quantity * parseFloat(item.vipPrice);
+          } else {
+            total = total + item.quantity * parseFloat(item.price);
+          }
         }
       });
       this.totalFee = total.toFixed(2);
@@ -357,7 +363,7 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
 
       });
     },
-    reduceNum: function reduceNum(index) {var _this = this;
+    reduceNum: function reduceNum(index) {var _this2 = this;
       if (this.shopList[index].quantity <= 1) {
         this.shopList[index].quantity = 1;
       } else {
@@ -365,19 +371,20 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
       }
       clearInterval(this.timer);
       this.timer = setTimeout(function () {
-        _this.shoppingUpdate(_this.shopList[index]);
-      }, 1000);
-      this.getTotalFee();
-    },
-    addNum: function addNum(index) {var _this2 = this;
-      this.shopList[index].quantity = this.shopList[index].quantity + 1;
-      clearInterval(this.timer);
-      this.timer = setTimeout(function () {
         _this2.shoppingUpdate(_this2.shopList[index]);
       }, 1000);
       this.getTotalFee();
     },
+    addNum: function addNum(index) {var _this3 = this;
+      this.shopList[index].quantity = this.shopList[index].quantity + 1;
+      clearInterval(this.timer);
+      this.timer = setTimeout(function () {
+        _this3.shoppingUpdate(_this3.shopList[index]);
+      }, 1000);
+      this.getTotalFee();
+    },
     confrimOrderPage: function confrimOrderPage() {
+      var that = this;
       var arr = this.shopList.filter(function (item) {
         return item.selected == true;
       });
@@ -393,7 +400,7 @@ var _default = { components: { navigationBar: navigationBar, uniSwipeAction: uni
       arr.forEach(function (item) {
         var shopItem = {
           spuId: item.spuId,
-          price: item.price,
+          price: that.isVip == 1 ? item.vipPrice : item.price,
           name: item.name,
           goodsPhotoUrl: item.goodsPhotoUrl,
           quantity: item.quantity,

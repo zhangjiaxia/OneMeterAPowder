@@ -48,7 +48,8 @@
 			</view>
 			<view class="type-list">
 				<view class="type-item" :style="{'margin-right': index % 2 == 0 ? '10rpx' : '0'}"
-					v-for="(item, index) in specialAreaPicList" :key="index">
+					v-for="(item, index) in specialAreaPicList" :key="index" 
+					@click="$turnPage('/pages/category/search/category-detail?indexId=-1&category='+item.specialName+'&cateId='+item.specialId, 'navigateTo')">
 					<text class="text-item" :class="{'text-item-space': index > 1}">{{item.specialName}}</text>
 					<image :src="item.specialImgUrl" :style="{'width': index > 1 ? '350rpx' : '710rpx'}"></image>
 				</view>
@@ -60,7 +61,7 @@
 				</view>
 			</view>
 			<view class="shop-list">
-				<view class="shop-item" v-for="(content,dex) in tempList" @click="shopDetailPage(content)" :key="dex">
+				<view class="shop-item" v-for="(content,dex) in tempList" :key="dex" @click="shopDetailPage(content)">
 					<image :src="content.mainImgUrl" class="shop-img"></image>
 					<view class="shop-item-content">
 						<view class="shop-item-title">{{content.name.substring(0,20) + '...'}}</view>
@@ -265,7 +266,7 @@
 			},
 			shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
-				this.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
+				this.$turnPage('/pages/index/business/shop-detail?spuId='+item.spuId, 'navigateTo')
 			},
 			shopListPage(item) {
 				switch (item.link) {

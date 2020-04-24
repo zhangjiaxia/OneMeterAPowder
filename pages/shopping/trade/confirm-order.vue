@@ -106,12 +106,13 @@
 				params: {
 					invoiceType: 1, //发票类型:普通发票
 					invoiceContent: 0 //发票内容:0:不开,1:明细
-				} //下单支付的参数
+				}, //下单支付的参数
+				isVip: 0 //是否为会员
 			}
 		},
 		onLoad() {
 			console.log('this.selectOrderGoods',this.selectOrderGoods)
-			let total = 0;
+			let total = 0
 			this.cartId = ''
 			this.selectOrderGoods.forEach((item) => {
 				total = total + item.quantity * parseFloat(item.price)
@@ -120,6 +121,7 @@
 			this.totalFee = total.toFixed(2)
 		},
 		onShow() {
+			this.isVip = uni.getStorageSync('isVip')
 			console.log('用户',this.selectAddress)
 			if(this.selectAddress && this.selectAddress.addressId) {
 				this.defaultAddress = this.selectAddress

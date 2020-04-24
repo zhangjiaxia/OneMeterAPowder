@@ -20,7 +20,7 @@
 								<text class="shop-item-size" v-for="(thirdItem, x) in item.skuPropertyList" :key="x">{{thirdItem.val}}</text>
 							</view>
 							<view class="shop-item-bottom">
-								<text class="color-price" style="margin-left: 0px;">￥{{item.price}}</text>
+								<text class="color-price" style="margin-left: 0px;">￥{{isVip == 1 ? item.vipPrice : item.price}}</text>
 								<view class="shop-num">
 									<text class="reduct-btn" @click.stop="reduceNum(index)">-</text>
 									<text class="num">{{item.quantity}}</text>
@@ -89,11 +89,13 @@
 						borderRadius: '0 10rpx 10rpx 0'
 					}
 				}],
+				isVip: 0 //是否为会员
 				//loading: true //加载中
 			}
 		},
 		onShow() {
 			this.initData();
+			this.isVip = uni.getStorageSync('isVip')
 		},
 		//到达页面底部时触发的事件
 		onReachBottom() {
@@ -111,7 +113,7 @@
 				}
 				interfaceurl.checkAuth(interfaceurl.goodsDetail, params, false).then((res) => {
 					that.$store.commit('setGoodsDetail', res.data)
-					that.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
+					that.$turnPage('/pages/index/business/shop-detail?spuId='+item.spuId, 'navigateTo')
 				});
 			},
 			initData() {
@@ -189,7 +191,11 @@
 				//console.log(this.shopList)
 				this.shopList.forEach((item) => {
 					if (item.selected) {
-						total = total + item.quantity * parseFloat(item.price)
+						if(this.isVip == 1) {
+							total = total + item.quantity * parseFloat(item.vipPrice)
+						} else {
+							total = total + item.quantity * parseFloat(item.price)
+						}
 					}
 				})
 				this.totalFee = total.toFixed(2)
@@ -225,6 +231,7 @@
 				this.getTotalFee()
 			},
 			confrimOrderPage() {
+				let that = this
 				const arr = this.shopList.filter((item) => {
 					return item.selected == true
 				})
@@ -240,7 +247,7 @@
 				arr.forEach((item) => {
 					const shopItem = {
 						spuId: item.spuId,
-						price: item.price,
+						price: that.isVip == 1 ? item.vipPrice : item.price,
 						name: item.name,
 						goodsPhotoUrl: item.goodsPhotoUrl,
 						quantity: item.quantity,

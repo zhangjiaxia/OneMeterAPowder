@@ -10,7 +10,7 @@
 					<image :src="userInfo.avatarUrl" class="head"></image>
 				</view>
 				<view class="uni-flex horizontally nick">{{userInfo.nickName}}</view>
-				<view class="uni-flex horizontally num">我的积分：5000</view>
+				<view class="uni-flex horizontally num">我的积分：{{total_integral}}</view>
 			</view>
 		</view>
 		<view>
@@ -21,8 +21,8 @@
 				</view>
 				<view class="uni-flex uni-row rest">
 					<view class="uni-flex uni-column rest" style="margin-top: 28rpx;">
-						<view class="uni-flex name">江中食疗旗舰店消费{{item.order_price}}元</view>
-						<view class="uni-flex reason">购物消费</view>
+						<view class="uni-flex name">购物消费{{item.order_price}}元</view>
+						<!-- <view class="uni-flex reason">购物消费</view> -->
 						<view class="uni-flex reason">{{item.update_time}}</view>
 					</view>
 					<view class="uni-flex content jifen">
@@ -31,24 +31,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- <view style="margin-bottom: 29rpx;" v-if="pointsList.length > 0">
-			<view class="uni-flex vertical title" style="background: #F7F4F8;">2019年</view>
-			<view class="uni-flex uni-row detail" v-for="(item, index) in pointsList" :key="index">
-				<view class="uni-flex">
-					<image src="/static/head.png" class="icon"></image>
-				</view>
-				<view class="uni-flex uni-row rest">
-					<view class="uni-flex uni-column rest" style="margin-top: 28rpx;">
-						<view class="uni-flex name">江中食疗旗舰店消费500元</view>
-						<view class="uni-flex reason">购物消费</view>
-						<view class="uni-flex reason">今天  12:15</view>
-					</view>
-					<view class="uni-flex content jifen">
-						+500积分
-					</view>
-				</view>
-			</view>
-		</view> -->
 		<view class="empty-text" v-if="pointsList.length == 0">暂无数据</view>
 		<view class="empty-text" v-if="(pointsList.length == pointsData.total) && pointsList.length > 0">已经到底了</view>
 	</view>
@@ -74,10 +56,12 @@
 				}, //分页参数
 				pointsData: {}, //积分数据
 				pointsList: [], //积分列表
-				userInfo: {} //获取用户授权信息
+				userInfo: {}, //获取用户授权信息
+				total_integral: 0 //我的积分
 			}
 		},
-		onLoad() {
+		onLoad(options) {
+			this.total_integral = options.total_integral
 			this.userInfo = uni.getStorageSync('userInfo')
 		},
 		onShow() {

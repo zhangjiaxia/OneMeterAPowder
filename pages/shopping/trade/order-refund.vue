@@ -57,7 +57,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="uni-flex content submit space">提交</view>
+			<view class="uni-flex content submit space" @click="submit">提交</view>
 		</view>
 		<!--底部弹窗:货物状态，退款原因-->
 		<view class="panels" v-if="showPanel">
@@ -142,6 +142,9 @@
 				this.showPanel=false
 				this.userChoose.status = this.optionsList["货物状态"].find(element => element.selected).text;
 				this.userChoose.reason = this.optionsList["退款原因"].find(element => element.selected).text;
+			},
+			submit() {
+				
 			}
 		}
 	}

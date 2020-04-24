@@ -107,7 +107,7 @@
 			},
 			shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
-				this.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
+				this.$turnPage('/pages/index/business/shop-detail?spuId='+item.spuId, 'navigateTo')
 			},
 			initData() {
 				//重置分页参数

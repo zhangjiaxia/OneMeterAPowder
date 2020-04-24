@@ -76,7 +76,7 @@
 			</view>
 			<authPage>
 				<view class="uni-flex uni-row" style="height: 150rpx;">
-					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/my-points', 'navigateTo')">
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/my-points?total_integral='+userDetail.total_integral, 'navigateTo')">
 						<image src="/static/commission.png" class="icon"></image>
 						<view class="title">积分明细</view>
 					</view>

@@ -147,51 +147,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -370,57 +326,15 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入自定义导航栏
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '订单详情' //导航栏文字
       }, orderDetail: {}, //订单详情
-      orderCount: [] //每个订单的商品个数
-    };}, onLoad: function onLoad(options) {this.getOrderDetail(options.id);}, methods: { //获取订单详情
-    getOrderDetail: function getOrderDetail(id) {var that = this;_interface.default.checkAuth(_interface.default.orderDetail, { noId: id }, false).then(function (res) {that.orderDetail = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderDetail.cartList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;that.orderCount.push(item.quantity);}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}});} } };exports.default = _default;
+      orderCount: [], //每个订单的商品个数
+      isVip: 0 //是否为会员
+    };}, onLoad: function onLoad(options) {this.getOrderDetail(options.id);}, onShow: function onShow() {this.isVip = uni.getStorageSync('isVip');}, methods: { //获取订单详情
+    getOrderDetail: function getOrderDetail(id) {var that = this;_interface.default.checkAuth(_interface.default.orderDetail, { noId: id }, false).then(function (res) {that.orderDetail = res.data;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderDetail.cartList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;that.orderCount.push(item.quantity);}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}});}, shopDetailPage: function shopDetailPage(item) {console.log('详情', item);this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail?spuId=' + item.spuId, 'navigateTo');} } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

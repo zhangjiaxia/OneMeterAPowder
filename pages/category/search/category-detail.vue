@@ -4,8 +4,8 @@
 			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		</view>
 		<view class="content">
-			<view class="shop-list" v-if="shopList.length > 0">
-				<view class="shop-item" v-for="(content,dex) in shopList" @click="shopDetailPage(content)" :key="dex">
+			<view class="shop-list" v-if="tempList.length > 0">
+				<view class="shop-item" v-for="(content,dex) in tempList" @click="shopDetailPage(content)" :key="dex">
 					<image :src="content.mainImgUrl" class="shop-img"></image>
 					<view class="shop-item-content">
 						<view class="shop-item-title">{{content.name.substring(0,15) + '...'}}</view>
@@ -19,12 +19,14 @@
 					</view>
 				</view>
 			</view>
-			<view class="empty-text" v-else>
-				<template v-if="!loading">
-					<view>暂无数据</view>
-				</template>
+			<view class="uni-flex content" style="width: 100%;" v-if="indexId == '-1'">
+				<view class="empty-text" v-if="(specialGoodsList.length == specialGoodsData.total) && specialGoodsList.length > 0">已经到底了</view>
+				<view class="empty-text" v-if="specialGoodsData.total == 0">暂无数据</view>
 			</view>
-			<view class="empty-text" v-if="(shopList.length == shopData.total) && shopList.length > 0">已经到底了</view>
+			<view class="uni-flex content" style="width: 100%;" v-else>
+				<view class="empty-text" v-if="(shopList.length == shopData.total) && shopList.length > 0">已经到底了</view>
+				<view class="empty-text" v-if="shopData.total == 0">暂无数据</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -52,32 +54,63 @@
 				}, //分类详情参数
 				shopData: {}, //分类详情数据
 				shopList: [], //分类详情列表
-				loading: true
+				loading: true,
+				specialParams: {
+					specialId: '',
+					page: 1,
+					size: 10
+				}, //专区特卖的分页参数
+				specialGoodsData: {}, //专区商品数据
+				specialGoodsList: [], //专区商品列表
+				tempList: [], //临时存储专区或分类详情列表，避免数据显示跳脱问题
+				indexId: '-1' //判断是否是首页跳转
 			}
 		},
 		onLoad(options) {
+			console.log(options)
+			this.indexId = options.indexId
 			this.navigationBarStyle.iconText = options.category
-			this.params.cateId = options.cateId; //5034
-			this.getCagetogyList()
+			if(options.indexId == '-1') {
+				this.specialParams.specialId = options.cateId
+				this.getSpecialGoodsList()
+			} else {
+				this.params.cateId = options.cateId //5034
+				this.getCagetogyList()
+			}
 		},
 		onShow() {
 
 		},
 		//到达页面底部时触发的事件
 		onReachBottom() {
-			if (this.shopList.length >= this.shopData.total) {
-				return;
+			if(this.indexId == '-1') {
+				if (this.specialGoodsList.length >= this.specialGoodsData.total) {
+					return;
+				}
+				this.specialParams.page++;
+				this.getSpecialGoodsList()
+			} else {
+				if (this.shopList.length >= this.shopData.total) {
+					return;
+				}
+				this.params.page++;
+				this.getCagetogyList()
 			}
-			this.params.page++;
-			this.getCagetogyList()
 		},
 		methods: {
 			initData() {
 				//重置分页参数
-				this.shopData = {}
-				this.shopList = []
-				this.params.page = 1
-				this.getCagetogyList();
+				if(this.indexId == '-1') {
+					this.specialGoodsData = {}
+					this.specialGoodsList = []
+					this.specialParams.page = 1
+					this.getSpecialGoodsList()
+				} else {
+					this.shopData = {}
+					this.shopList = []
+					this.params.page = 1
+					this.getCagetogyList()
+				}
 			},
 			//获取分类下的商品列表
 			getCagetogyList() {
@@ -90,12 +123,27 @@
 					} else {
 						that.shopList = that.shopList.concat(res.data.data)
 					}
+					that.tempList = that.shopList
 				});
 			},
 			shopDetailPage(item) {
 				this.$store.commit('setGoodsDetail', item)
-				this.$turnPage('/pages/index/business/shop-detail', 'navigateTo')
-			}
+				this.$turnPage('/pages/index/business/shop-detail?spuId='+item.spuId, 'navigateTo')
+			},
+			//获取专区商品列表
+			getSpecialGoodsList() {
+				let that = this;
+				interfaceurl.checkAuth(interfaceurl.specialGoodsList, this.specialParams, false).then((res) => {
+					that.specialGoodsData = res.data
+					if (that.specialParams.page == 1) {
+						that.specialGoodsList = res.data.data
+					} else {
+						that.specialGoodsList = that.specialGoodsList.concat(res.data.data)
+					}
+					that.tempList = that.specialGoodsList
+					console.log('getSpecialGoodsList',that.tempList)
+				});
+			},
 		}
 	}
 </script>
@@ -106,7 +154,6 @@
 	}
 
 	.content {
-		padding: 0rpx 10rpx;
 		padding-top: 10rpx;
 	}
 

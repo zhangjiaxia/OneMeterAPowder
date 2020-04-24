@@ -98,7 +98,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.shopList, function(content, dex) {
+  var l0 = _vm.__map(_vm.tempList, function(content, dex) {
     var g0 = content.name.substring(0, 15)
     return {
       $orig: _vm.__get_orig(content),
@@ -179,7 +179,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
 //
 //
 //
@@ -220,13 +224,42 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         page: 1, size: 10 }, //分类详情参数
       shopData: {}, //分类详情数据
       shopList: [], //分类详情列表
-      loading: true };}, onLoad: function onLoad(options) {this.navigationBarStyle.iconText = options.category;this.params.cateId = options.cateId; //5034
-    this.getCagetogyList();}, onShow: function onShow() {}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.shopList.length >= this.shopData.total) {return;}this.params.page++;this.getCagetogyList();}, methods: { initData: function initData() {//重置分页参数
-      this.shopData = {};
-      this.shopList = [];
-      this.params.page = 1;
+      loading: true, specialParams: { specialId: '', page: 1, size: 10 }, //专区特卖的分页参数
+      specialGoodsData: {}, //专区商品数据
+      specialGoodsList: [], //专区商品列表
+      tempList: [], //临时存储专区或分类详情列表，避免数据显示跳脱问题
+      indexId: '-1' //判断是否是首页跳转
+    };}, onLoad: function onLoad(options) {console.log(options);this.indexId = options.indexId;this.navigationBarStyle.iconText = options.category;if (options.indexId == '-1') {this.specialParams.specialId = options.cateId;this.getSpecialGoodsList();} else {this.params.cateId = options.cateId; //5034
+      this.getCagetogyList();}}, onShow: function onShow() {}, //到达页面底部时触发的事件
+  onReachBottom: function onReachBottom() {
+    if (this.indexId == '-1') {
+      if (this.specialGoodsList.length >= this.specialGoodsData.total) {
+        return;
+      }
+      this.specialParams.page++;
+      this.getSpecialGoodsList();
+    } else {
+      if (this.shopList.length >= this.shopData.total) {
+        return;
+      }
+      this.params.page++;
       this.getCagetogyList();
+    }
+  },
+  methods: {
+    initData: function initData() {
+      //重置分页参数
+      if (this.indexId == '-1') {
+        this.specialGoodsData = {};
+        this.specialGoodsList = [];
+        this.specialParams.page = 1;
+        this.getSpecialGoodsList();
+      } else {
+        this.shopData = {};
+        this.shopList = [];
+        this.params.page = 1;
+        this.getCagetogyList();
+      }
     },
     //获取分类下的商品列表
     getCagetogyList: function getCagetogyList() {
@@ -239,11 +272,26 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         } else {
           that.shopList = that.shopList.concat(res.data.data);
         }
+        that.tempList = that.shopList;
       });
     },
     shopDetailPage: function shopDetailPage(item) {
       this.$store.commit('setGoodsDetail', item);
-      this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');
+      this.$turnPage('/pages/index/business/shop-detail?spuId=' + item.spuId, 'navigateTo');
+    },
+    //获取专区商品列表
+    getSpecialGoodsList: function getSpecialGoodsList() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.specialGoodsList, this.specialParams, false).then(function (res) {
+        that.specialGoodsData = res.data;
+        if (that.specialParams.page == 1) {
+          that.specialGoodsList = res.data.data;
+        } else {
+          that.specialGoodsList = that.specialGoodsList.concat(res.data.data);
+        }
+        that.tempList = that.specialGoodsList;
+        console.log('getSpecialGoodsList', that.tempList);
+      });
     } } };exports.default = _default;
 
 /***/ }),

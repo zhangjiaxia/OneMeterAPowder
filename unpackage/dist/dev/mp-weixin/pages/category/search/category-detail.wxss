@@ -28,7 +28,6 @@ page {
   background: #F0F0F0;
 }
 .content {
-  padding: 0rpx 10rpx;
   padding-top: 10rpx;
 }
 .shop-title {

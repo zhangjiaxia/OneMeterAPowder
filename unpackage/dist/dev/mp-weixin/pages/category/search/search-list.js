@@ -241,7 +241,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
       searchList: [], //商品搜索列表
       params: { page: 1, size: 10, keyWord: '' //搜索关键字
       } };}, onLoad: function onLoad(options) {this.params.keyWord = options.keyword;this.initData();}, //到达页面底部时触发的事件
-  onReachBottom: function onReachBottom() {if (this.searchList.length >= this.searchGoodsPage.total) {return;}this.params.page++;this.getPageGoodsList();}, methods: { search: function search() {this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail', 'navigateTo');}, initData: function initData() {//重置分页参数
+  onReachBottom: function onReachBottom() {if (this.searchList.length >= this.searchGoodsPage.total) {return;}this.params.page++;this.getPageGoodsList();}, methods: { search: function search() {this.initData();}, shopDetailPage: function shopDetailPage(item) {this.$store.commit('setGoodsDetail', item);this.$turnPage('/pages/index/business/shop-detail?spuId=' + item.spuId, 'navigateTo');}, initData: function initData() {//重置分页参数
       this.specialGoodsData = {};this.specialGoodsList = [];this.params.page = 1;this.getPageGoodsList();}, getPageGoodsList: function getPageGoodsList() {var that = this;_interface.default.checkAuth(_interface.default.pageGoodsList, this.params).then(function (res) {that.searchGoodsPage = res.data;
         if (that.params.page == 1) {
           that.searchList = res.data.data;

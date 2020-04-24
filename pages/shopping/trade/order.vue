@@ -39,7 +39,7 @@
 							</view>
 						</view>
 						<view class="uni-flex uni-column goodsdata">
-							<view class="title">￥{{yItem.price}}</view>
+							<view class="title">￥{{isVip ? yItem.vipPrice : yItem.price}}</view>
 							<view class="horizontalright number">x{{yItem.quantity}}</view>
 						</view>
 					</view>
@@ -171,7 +171,8 @@
 				orderPageList: [], //订单列表
 				orderCount: [], //每个订单的商品个数
 				flowIndex: 0, //查看物流的索引
-				loading: true //加载中
+				loading: true, //加载中
+				isVip: 0 //是否为会员
 			}
 		},
 		onLoad(options) {
@@ -180,6 +181,7 @@
 			this.params.status = options.tabIndex == 0 ? '' : parseInt(options.tabIndex) - 1 // this.tabList[this.tabIndex].val
 		},
 		onShow() {
+			this.isVip = uni.getStorageSync('isVip')
 			this.initData()
 		},
 		onReachBottom() {

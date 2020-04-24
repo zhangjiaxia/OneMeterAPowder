@@ -324,8 +324,9 @@ var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.
       cartId: '', //购物车ID参数，多个购物车用逗号隔开
       params: { invoiceType: 1, //发票类型:普通发票
         invoiceContent: 0 //发票内容:0:不开,1:明细
-      } //下单支付的参数
-    };}, onLoad: function onLoad() {var _this = this;console.log('this.selectOrderGoods', this.selectOrderGoods);var total = 0;this.cartId = '';this.selectOrderGoods.forEach(function (item) {total = total + item.quantity * parseFloat(item.price);_this.cartId += item.cartId + ',';});this.totalFee = total.toFixed(2);}, onShow: function onShow() {console.log('用户', this.selectAddress);if (this.selectAddress && this.selectAddress.addressId) {this.defaultAddress = this.selectAddress;console.log('用户选择了地址', this.defaultAddress);} else {this.getDefaultAddress();}var pages = getCurrentPages();var currPage = pages[pages.length - 1]; //当前页面
+      }, //下单支付的参数
+      isVip: 0 //是否为会员
+    };}, onLoad: function onLoad() {var _this = this;console.log('this.selectOrderGoods', this.selectOrderGoods);var total = 0;this.cartId = '';this.selectOrderGoods.forEach(function (item) {total = total + item.quantity * parseFloat(item.price);_this.cartId += item.cartId + ',';});this.totalFee = total.toFixed(2);}, onShow: function onShow() {this.isVip = uni.getStorageSync('isVip');console.log('用户', this.selectAddress);if (this.selectAddress && this.selectAddress.addressId) {this.defaultAddress = this.selectAddress;console.log('用户选择了地址', this.defaultAddress);} else {this.getDefaultAddress();}var pages = getCurrentPages();var currPage = pages[pages.length - 1]; //当前页面
     this.params = currPage.data.params; //获取发票信息
     console.log('mydata', currPage);}, methods: { getDefaultAddress: function getDefaultAddress() {var that = this; //参数为空查询默认地址
       _interface.default.checkAuth(_interface.default.addressInfo, { addressId: '' }).then(function (res) {that.defaultAddress = res.data;});}, submitOrder: function submitOrder() {var that = this;if (!that.defaultAddress || !that.defaultAddress.addressId) {uni.showToast({ title: '收货地址不能为空', icon: 'none', duration: 2000 });return;}if (this.cartId.length > 0) {this.cartId.substring(0, this.cartId.length - 1);}that.params.cartId = that.cartId;that.params.addressId = that.defaultAddress.addressId; // let params = {
