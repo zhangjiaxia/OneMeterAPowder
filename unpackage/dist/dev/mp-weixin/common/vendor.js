@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8259,7 +8259,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8280,14 +8280,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8363,7 +8363,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8774,7 +8774,7 @@ var baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开�
 var baseUrlFormal = "https://shop.yimiefen.com/api"; //正式域名，提交文件时要切换到正式域名
 var baseUrl = isFormal ? baseUrlFormal : baseUrlTest;
 
-/**后台>http://admin-emi.bidou88.cn/
+/**后台>http://admin-emi.bidou88.cn/(测试)http://admin-shop.yimiefen.com/（正式）
                                                        * 后台账号：  密码： 123123123
                                                        * 后台接口》http://www.sosoapi.com/pass/apidoc/share/show.htm?shareKey=1c34a46bb3e1e626daace5f5d09d83b4
                                                        * 配置接口定义，请求方式默认为get，post方式需明确指定
@@ -8978,6 +8978,7 @@ var interfaceurl = {
   orderReturnRefund: function orderReturnRefund(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/returnRefund"), data: data, method: 'POST' });},
   orderCancelApply: function orderCancelApply(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/cancelApply"), data: data, method: 'POST' });},
   orderReturnGoods: function orderReturnGoods(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/returnGoods"), data: data, method: 'POST' });},
+  orderDelete: function orderDelete(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/order/delete"), data: data, method: 'delete' });},
   /*收货地址*/
   addressCreate: function addressCreate(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/create"), data: data, method: 'POST' });},
   addressUpdate: function addressUpdate(data) {return _request.default.request({ url: "".concat(baseUrl, "/v1/address/update"), data: data, method: 'POST' });},
@@ -21928,7 +21929,7 @@ var areaData = [
 
 [{
   "label": "普兰县",
-  "value": "542521" },
+  "value": "542520" },
 
 {
   "label": "札达县",

@@ -90,10 +90,18 @@
 				</view>
 				<view class="uni-flex vertical btnop" v-if="item.status === 0">
 					<view class="uni-flex rest horizontalright">
-						<!-- <view class="btnleft content" @click.stop="delOrder">删除订单</view> -->
+						<view class="btnleft content" @click.stop="delOrder(item)">删除订单</view>
 					</view>
 					<view class="uni-flex">
 						<view class="btnright content" @click.stop="confirmPay(item)">确认支付</view>
+					</view>
+				</view>
+				<view class="uni-flex vertical btnop" v-if="item.status === 9">
+					<view class="uni-flex rest horizontalright">
+						<!-- <view class="btnleft content" @click.stop="delOrder(item)">删除订单</view> -->
+					</view>
+					<view class="uni-flex">
+						<view class="btnright content" @click.stop="delOrder(item)">删除订单</view>
 					</view>
 				</view>
 				<view class="uni-flex vertical btnop" v-if="item.status === 1">
@@ -247,10 +255,10 @@
 				this.initData();
 			},
 			//删除订单(暂无)
-			delOrder() {
+			delOrder(item) {
 				let that = this
-				interfaceurl.checkAuth(interfaceurl.xxx, {}).then((res) => {
-					
+				interfaceurl.checkAuth(interfaceurl.orderDelete, {noId: item.noId}).then((res) => {
+					that.initData()
 				});
 			},
 			//确认支付

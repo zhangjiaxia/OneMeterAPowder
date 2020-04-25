@@ -253,6 +253,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
 
@@ -379,15 +380,16 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
 //
 //
 //
+//
 var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 277));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var sharePoster = function sharePoster() {__webpack_require__.e(/*! require.ensure | components/shop-business/share-poster */ "components/shop-business/share-poster").then((function () {return resolve(__webpack_require__(/*! @/components/shop-business/share-poster.vue */ 284));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { authPage: authPage, navigationBar: navigationBar, sharePoster: sharePoster }, computed: (0, _vuex.mapState)(['userInfos']), data: function data() {return { //海报分享背景图
       bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png', //设置导航栏样式
       navigationBarStyle: { iconText: '我的' //导航栏文字
       }, userInfo: {}, //获取用户信息
       userDetail: {} //获取用户详情
     };}, watch: { userInfos: function userInfos(val) {//用户的授权信息存本地，全局变量是为了第一次授权时快速响应
-      if (val) {this.userInfo = uni.getStorageSync('userInfo');}} }, onShareAppMessage: function onShareAppMessage(options) {var that = this; // 设置菜单中的转发按钮触发转发事件时的转发内容
+      if (val) {this.userInfo = uni.getStorageSync('userInfo');}} }, onShareAppMessage: function onShareAppMessage(options) {var that = this;var code = uni.getStorageSync('code'); // 设置菜单中的转发按钮触发转发事件时的转发内容
     var shareObj = { title: that.userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
-      path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
+      path: '/pages/index/index?code=' + code, // 默认是当前页面，必须是以‘/’开头的完整路径
       imageUrl: that.bgImg, //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: function success(res) {// 转发成功之后的回调
         if (res.errMsg == 'shareAppMessage:ok') {}}, fail: function fail() {// 转发失败之后的回调
@@ -397,8 +399,7 @@ var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | c
       } }; // 来自页面内的按钮的转发
     if (options.from == 'button') {var eData = options.target.dataset;console.log(eData.name); // shareBtn
       // 此处可以修改 shareObj 中的内容
-      //shareObj.path = '/pages/btnname/btnname?btn_name='+eData.name;
-    } // 返回shareObj
+      shareObj.path = shareObj.path = '/pages/index/index?code=' + code;} // 返回shareObj
     return shareObj;}, onLoad: function onLoad() {}, onShow: function onShow() {var token = uni.getStorageSync('token');this.userInfo = this.userInfos.nickName ? this.userInfos : uni.getStorageSync('userInfo');if (token) {this.getUserDetail();}}, methods: { //获取用户详情
     getUserDetail: function getUserDetail() {var that = this;_interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {that.userDetail = res.data;});}, /*海报相关*/startShare: function startShare() {this.$refs.share.getQrcode();} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

@@ -332,10 +332,11 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
   onShareAppMessage: function onShareAppMessage(options) {
     var that = this;
     var userInfo = uni.getStorageSync('userInfo');
+    var code = uni.getStorageSync('code');
     // 设置菜单中的转发按钮触发转发事件时的转发内容
     var shareObj = {
       title: userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
-      path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
+      path: '/pages/index/index?code=' + code, // 默认是当前页面，必须是以‘/’开头的完整路径
       imageUrl: that.goodsDetail.detailImgUrlList[0], //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: function success(res) {
         // 转发成功之后的回调
@@ -359,7 +360,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       var eData = options.target.dataset;
       console.log(eData.name); // shareBtn
       // 此处可以修改 shareObj 中的内容
-      //shareObj.path = '/pages/btnname/btnname?btn_name='+eData.name;
+      shareObj.path = '/pages/index/index?code=' + code;
     }
     // 返回shareObj
     return shareObj;

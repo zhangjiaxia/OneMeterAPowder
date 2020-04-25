@@ -13,7 +13,8 @@
 					<view class="uni-flex uni-column rest">
 						<view class="nick">
 							{{userInfo.nickName || '御翔绝瞬'}}
-							<image src="/static/VIPicon.png" class="gold" v-if="userDetail.is_vip==1"></image>
+							<!-- <image src="/static/VIPicon.png" class="gold" v-if="userDetail.is_vip==1"></image> -->
+							<text v-if="userDetail.is_vip==1" style="color: orange;margin-left: 20rpx;font-weight: bold;font-size: 30rpx;">VIP</text>
 							<image src="/static/goldactive.png" class="gold" v-if="userDetail.grade==3"></image>
 						</view>
 						<view @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">

@@ -1736,6 +1736,7 @@ page {
 .type-item image {
   width: 350rpx;
   height: 220rpx;
+  border-radius: 20rpx;
 }
 .shop-item-bottom {
   display: -webkit-box;

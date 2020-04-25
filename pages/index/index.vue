@@ -139,10 +139,12 @@
 		onShareAppMessage: function( options ){
 		　　var that = this;
 			let userInfo = uni.getStorageSync('userInfo')
+			let code = uni.getStorageSync('code')
+			console.log('onShareAppMessage', code)
 		　　// 设置菜单中的转发按钮触发转发事件时的转发内容
 		　　var shareObj = {
 		　　　　title: userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
-		　　　　path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
+		　　　　path: '/pages/index/index?code=' + code, // 默认是当前页面，必须是以‘/’开头的完整路径
 		　　　　imageUrl: that.bgImg, //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
 		　　　　success: function(res){
 		　　　　　　// 转发成功之后的回调
@@ -166,16 +168,20 @@
 		　　　　var eData = options.target.dataset;
 		　　　　console.log( eData.name );     // shareBtn
 		　　　　// 此处可以修改 shareObj 中的内容
-		　　　　//shareObj.path = '/pages/btnname/btnname?btn_name='+eData.name;
+		　　　　shareObj.path = '/pages/index/index?code=' + code
 		　　}
 		　　// 返回shareObj
 		　　return shareObj;
 		},
 		onLoad(options) {
-			console.log('获取场景值')
+			console.log('获取场景值',options)
 			// scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
-			const scene = decodeURIComponent(options.scene)
-			console.log(scene)
+			var scene = decodeURIComponent(options.scene)
+			var code = options.code
+			if(scene == 'undefined' || scene == '') {
+				console.log('场景值为空,改用分享值' + code)
+				scene = code
+			}
 			//绑定上下级关系
 			this.bindUser(scene)
 			//获取首页数据
@@ -212,6 +218,7 @@
 		methods: {
 			//获取二维码携带的参数值并绑定下级
 			bindUser(scene) {
+				console.log('scene', scene)
 				let that = this
 				let baseUrl = 'https://shop.yimiefen.com/api'
 				uni.login({
@@ -236,13 +243,18 @@
 								let loginResp = res.data.data;
 								uni.setStorageSync('token', loginResp.token)
 								that.$store.commit('updateToken', loginResp.token)
+								//获取到用户token后再获取用户邀请码保存
+								interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
+									uni.setStorageSync('code', res.data.invitation_code)
+								});
 								//如果存在分享id
 								if(scene != 'undefined' && scene != '') {
-									let that = this;
+									console.log('存在分享值', scene)
+									let that = this
 									interfaceurl.checkAuth(interfaceurl.bingUser, {scene_value: scene}, false).then((res) => {
-										console.log("绑定成功");
+										console.log("绑定成功")
 										uni.setStorageSync("bind", scene)
-									});
+									})
 								}
 							},
 							fail(res) {
@@ -556,6 +568,7 @@
 	.type-item image {
 		width: 350rpx;
 		height: 220rpx;
+		border-radius: 20rpx;
 	}
 
 	.shop-item-bottom {

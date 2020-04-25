@@ -301,7 +301,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -453,7 +469,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
       this.loading = true;this.orderPageData = {};this.orderPageList = [];this.params.page = 1;this.getOrderPageList();}, //查询订单列表
     getOrderPageList: function getOrderPageList() {var _this = this;var that = this;_interface.default.checkAuth(_interface.default.orderPageList, this.params).then(function (res) {_this.loading = false;that.orderPageData = res.data;if (that.params.page == 1) {that.orderPageList = res.data.data;} else {that.orderPageList = that.orderPageList.concat(res.data.data);}that.orderCount = [];var num = 0;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {for (var _iterator = that.orderPageList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {for (var _iterator2 = item.cartList[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var subItem = _step2.value;num += subItem.quantity;item.statusText = _this.setStatus(item.status);}} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}that.orderCount.push(num);num = 0;}} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}console.log(that.orderPageList);});}, //怡亚通的订单状态
     setStatus: function setStatus(status) {switch (status) {case 0:return '待支付';case 1:return '待发货';case 2:return '部分发货';case 3:return '全部发货';case 4:return '部分收货';case 5:return '全部收货';case 6:return '部分退款';case 7:return '全部退款';case 8:return '部分关闭';case 9:return '全部关闭';case 10:return '已完成';default:return '';}}, selectTab: function selectTab(index, status) {this.tabIndex = index;this.params.status = index == 0 ? '' : parseInt(index) - 1;this.initData();}, //删除订单(暂无)
-    delOrder: function delOrder() {var that = this;_interface.default.checkAuth(_interface.default.xxx, {}).then(function (res) {});}, //确认支付
+    delOrder: function delOrder(item) {var that = this;_interface.default.checkAuth(_interface.default.orderDelete, { noId: item.noId }).then(function (res) {that.initData();});}, //确认支付
     confirmPay: function confirmPay(item) {var that = this;var params = { cartId: item.cartIds, addressId: item.addressId, invoiceType: 1, //发票类型:普通发票
         invoiceContent: 0, //发票内容
         invoiceHeadType: '', //个人，公司
@@ -463,16 +479,8 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         workPhone: '', //单位电话
         bank: '', //开户银行
         bankAccounts: '' //银行账户
-      };uni.showLoading();_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.initData();uni.hideLoading();}, fail: function fail(res) {uni.hideLoading();uni.showToast({ title: '支付失败', icon: 'none', duration: 2000 });}, complete: function complete() {} });
-
-      });
-    },
-    //申请退款(取消订单)
-    applyRefund: function applyRefund(orderId) {
-      var that = this;
-      var params = {
-        orderId: orderId,
-        reason: '' //申请原因
+      };uni.showLoading();_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.initData();uni.hideLoading();}, fail: function fail(res) {uni.hideLoading();uni.showToast({ title: '支付失败', icon: 'none', duration: 2000 });}, complete: function complete() {} });});}, //申请退款(取消订单)
+    applyRefund: function applyRefund(orderId) {var that = this;var params = { orderId: orderId, reason: '' //申请原因
       };
       _interface.default.checkAuth(_interface.default.orderApplyRefund, params).then(function (res) {
         uni.showToast({

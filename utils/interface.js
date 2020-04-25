@@ -7,7 +7,7 @@ const baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开
 const baseUrlFormal = "https://shop.yimiefen.com/api"; //正式域名，提交文件时要切换到正式域名
 const baseUrl = isFormal ? baseUrlFormal : baseUrlTest;
 
-/**后台>http://admin-emi.bidou88.cn/
+/**后台>http://admin-emi.bidou88.cn/(测试)http://admin-shop.yimiefen.com/（正式）
  * 后台账号：  密码： 123123123
  * 后台接口》http://www.sosoapi.com/pass/apidoc/share/show.htm?shareKey=1c34a46bb3e1e626daace5f5d09d83b4
  * 配置接口定义，请求方式默认为get，post方式需明确指定
@@ -211,6 +211,7 @@ const interfaceurl = {
 	orderReturnRefund(data) { return req.request({ url: `${baseUrl}/v1/order/returnRefund`, data, method: 'POST' }) },
 	orderCancelApply(data) { return req.request({ url: `${baseUrl}/v1/order/cancelApply`, data, method: 'POST' }) },
 	orderReturnGoods(data) { return req.request({ url: `${baseUrl}/v1/order/returnGoods`, data, method: 'POST' }) },
+	orderDelete(data) { return req.request({ url: `${baseUrl}/v1/order/delete`, data, method: 'delete' }) },
 	/*收货地址*/
 	addressCreate(data) { return req.request({ url: `${baseUrl}/v1/address/create`, data, method: 'POST' }) },
 	addressUpdate(data) { return req.request({ url: `${baseUrl}/v1/address/update`, data, method: 'POST' }) },

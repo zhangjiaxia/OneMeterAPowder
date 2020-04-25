@@ -367,9 +367,9 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
       championList: [], //销量冠军列表
       tempList: [], //临时存储专区或销量冠军列表，避免数据显示跳脱问题
       isGoods: 1 //判断是否为销量冠军，0是，1不是
-    };}, onShareAppMessage: function onShareAppMessage(options) {var that = this;var userInfo = uni.getStorageSync('userInfo'); // 设置菜单中的转发按钮触发转发事件时的转发内容
+    };}, onShareAppMessage: function onShareAppMessage(options) {var that = this;var userInfo = uni.getStorageSync('userInfo');var code = uni.getStorageSync('code');console.log('onShareAppMessage', code); // 设置菜单中的转发按钮触发转发事件时的转发内容
     var shareObj = { title: userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
-      path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
+      path: '/pages/index/index?code=' + code, // 默认是当前页面，必须是以‘/’开头的完整路径
       imageUrl: that.bgImg, //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: function success(res) {// 转发成功之后的回调
         if (res.errMsg == 'shareAppMessage:ok') {}}, fail: function fail() {// 转发失败之后的回调
@@ -379,15 +379,22 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
       } }; // 来自页面内的按钮的转发
     if (options.from == 'button') {var eData = options.target.dataset;console.log(eData.name); // shareBtn
       // 此处可以修改 shareObj 中的内容
-      //shareObj.path = '/pages/btnname/btnname?btn_name='+eData.name;
-    } // 返回shareObj
-    return shareObj;}, onLoad: function onLoad(options) {console.log('获取场景值'); // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
-    var scene = decodeURIComponent(options.scene);console.log(scene); //绑定上下级关系
+      shareObj.path = '/pages/index/index?code=' + code;} // 返回shareObj
+    return shareObj;}, onLoad: function onLoad(options) {console.log('获取场景值', options); // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
+    var scene = decodeURIComponent(options.scene);var code = options.code;if (scene == 'undefined' || scene == '') {console.log('场景值为空,改用分享值' + code);scene = code;} //绑定上下级关系
     this.bindUser(scene); //获取首页数据
     this.getBannerList();this.getIconTypeList();this.getSpecialAreaList(1);this.getSpecialAreaList(2);this.tabIndex = 0;this.specialGoodsData = {};this.specialGoodsList = [];}, onShow: function onShow() {}, //到达页面底部时触发的事件
   onReachBottom: function onReachBottom() {if (this.isGoods == 0) {if (this.championList.length > 0) {console.log(this.championList.length, this.championData.total);if (this.championList.length >= this.championData.total) {return;}this.championParams.page++;this.getChampionList();}} else {if (this.specialGoodsList.length >= this.specialGoodsData.total) {return;}this.params.page++;this.getSpecialGoodsList();}}, methods: { //获取二维码携带的参数值并绑定下级
-    bindUser: function bindUser(scene) {var that = this;var baseUrl = 'https://shop.yimiefen.com/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
-            uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"), data: { code: res.code }, success: function success(res) {if (res.data.code != 0) {uni.showToast({ title: res.data.msg, icon: 'none',
+    bindUser: function bindUser(scene) {console.log('scene', scene);var that = this;var baseUrl = 'https://shop.yimiefen.com/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
+            uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"),
+              data: {
+                code: res.code },
+
+              success: function success(res) {
+                if (res.data.code != 0) {
+                  uni.showToast({
+                    title: res.data.msg,
+                    icon: 'none',
                     duration: 2000 });
 
                   return;
@@ -396,8 +403,13 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
                 var loginResp = res.data.data;
                 uni.setStorageSync('token', loginResp.token);
                 that.$store.commit('updateToken', loginResp.token);
+                //获取到用户token后再获取用户邀请码保存
+                _interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {
+                  uni.setStorageSync('code', res.data.invitation_code);
+                });
                 //如果存在分享id
                 if (scene != 'undefined' && scene != '') {
+                  console.log('存在分享值', scene);
                   var _that = this;
                   _interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {
                     console.log("绑定成功");

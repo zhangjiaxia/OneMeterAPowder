@@ -13,7 +13,8 @@
 					<view class="uni-flex uni-column rest">
 						<view class="nick">
 							{{userInfo.nickName || '御翔绝瞬'}}
-							<image src="/static/VIPicon.png" class="gold" v-if="userDetail.is_vip==1"></image>
+							<!-- <image src="/static/VIPicon.png" class="gold" v-if="userDetail.is_vip==1"></image> -->
+							<text v-if="userDetail.is_vip==1" style="color: orange;margin-left: 20rpx;font-weight: bold;font-size: 30rpx;">VIP</text>
 							<image src="/static/goldactive.png" class="gold" v-if="userDetail.grade==3"></image>
 						</view>
 						<view @click="$turnPage('/pages/center/my/commission-detail', 'navigateTo')">
@@ -159,10 +160,11 @@
 		},
 		onShareAppMessage: function( options ){
 		　　var that = this;
+			let code = uni.getStorageSync('code')
 		　　// 设置菜单中的转发按钮触发转发事件时的转发内容
 		　　var shareObj = {
 		　　　　title: that.userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
-		　　　　path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
+		　　　　path: '/pages/index/index?code=' + code, // 默认是当前页面，必须是以‘/’开头的完整路径
 		　　　　imageUrl: that.bgImg, //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
 		　　　　success: function(res){
 		　　　　　　// 转发成功之后的回调
@@ -186,7 +188,7 @@
 		　　　　var eData = options.target.dataset;
 		　　　　console.log( eData.name );     // shareBtn
 		　　　　// 此处可以修改 shareObj 中的内容
-		　　　　//shareObj.path = '/pages/btnname/btnname?btn_name='+eData.name;
+		　　　　shareObj.path = shareObj.path = '/pages/index/index?code=' + code
 		　　}
 		　　// 返回shareObj
 		　　return shareObj;

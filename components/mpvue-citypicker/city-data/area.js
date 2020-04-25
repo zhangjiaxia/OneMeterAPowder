@@ -10875,7 +10875,7 @@ var areaData = [
     ],
     [{
         "label": "普兰县",
-        "value": "542521"
+        "value": "542520"
       },
       {
         "label": "札达县",
