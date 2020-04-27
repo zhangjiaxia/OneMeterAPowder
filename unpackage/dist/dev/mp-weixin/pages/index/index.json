@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "一米一粉",
+  "navigationBarTitleText": "每日有薪",
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar",
     "auth-page": "/components/authorization-page",

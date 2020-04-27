@@ -147,7 +147,7 @@ var _default2 =
           background: '#FFFFFF',
           fontColor: '#000000',
           iconColor: '#000000',
-          iconText: '一米一粉' //导航栏文字
+          iconText: '每日有薪' //导航栏文字
         };
       } },
     //原生头部自定义样式

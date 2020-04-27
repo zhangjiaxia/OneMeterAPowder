@@ -24,15 +24,15 @@
 				<view class="uni-flex uni-row vertical">
 					<view class="uni-flex vertical rest shop-price">
 						<text v-if="isVip == 1" style="margin-right: 18rpx;color: #ff0033;">
-							VIP <text style="font-size: 28rpx;margin-left: 20rpx;">￥</text>{{goodsDetail.vipPrice[0] || ''}}
+							VIP <text style="font-size: 28rpx;margin-left: 20rpx;">￥</text>{{skuChooseItem.vipPrice || ''}}
 						</text>
 						<text :style="{color: isVip == 1 ? '#999999' : '#ff0033', 'font-size': '26rpx'}">
-							￥{{goodsDetail.retailPrice[0] || ''}}(零售价)
+							￥{{skuChooseItem.retailPrice || ''}}(零售价)
 						</text>
 					</view>
 					<view class="uni-flex">
 						<text style="color: #ff0033;font-size: 24rpx;">
-							+{{(isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]) || ''}}积分
+							+{{(isVip == 1 ? skuChooseItem.vipPrice : skuChooseItem.retailPrice) || ''}}积分
 						</text>
 					</view>
 				</view>
@@ -96,7 +96,7 @@
 					<image :src="goodsDetail.mainImgUrl" class="modal-shop-img"></image>
 					<view class="modal-shop-content">
 						<view>{{goodsDetail.name}}</view>
-						<view class="shop-price">￥{{isVip == 1 ? goodsDetail.vipPrice[0] : goodsDetail.retailPrice[0]}}</view>
+						<view class="shop-price">￥{{isVip == 1 ? skuChooseItem.vipPrice : skuChooseItem.retailPrice}}</view>
 						<view class="amount">库存 {{inventoryCount || 0}} 件</view>
 					</view>
 					<view class="icon-cha- modal-shop-close" @click="confirmModal=false;"></view>
@@ -183,6 +183,7 @@
 				goodsDetail: {}, //商品详情，暂时
 				cartOrOrder: true, //加入购物车：true,下单：false
 				inventoryCount: 0, //各组sku的库存量
+				skuChooseItem: {}, //用户当前所选的商品sku
 				cartId: '', //购物车ID
 				spuId: 0, //商品ID
 			}
@@ -263,6 +264,7 @@
 				//更改库存
 				let element = this.judgeCode()
 				this.inventoryCount = element ? element.inventoryCount : 0
+				this.skuChooseItem = element ? element : {}
 			},
 			getGoodsDetail() {
 				let that = this;
@@ -298,6 +300,7 @@
 				//console.log(props,propsCheck)
 				let element = that.judgeCode()
 				that.inventoryCount = element ? element.inventoryCount : 0
+				this.skuChooseItem = element ? element : {}
 			},
 			deepCopy(obj) {
 				var result = Array.isArray(obj) ? [] : {};
@@ -426,9 +429,10 @@
 			},
 			confrimOrderPage() {
 				let item = this.goodsDetail
+				let that = this
 				const shopItem = {
 					spuId: item.spuId,
-					price: this.isVip != 1 ? item.retailPrice[0] : item.vipPrice[0],
+					price: this.isVip != 1 ? that.skuChooseItem.retailPrice : that.skuChooseItem.vipPrice,
 					name: item.name,
 					goodsPhotoUrl: item.mainImgUrl,
 					quantity: this.shopNum,

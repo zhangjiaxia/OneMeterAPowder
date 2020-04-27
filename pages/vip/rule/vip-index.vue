@@ -3,8 +3,10 @@
 		<view class="bar-sticky">
 			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		</view>
-		<image src="/static/vip-bac.png" class="bac" mode="widthFix"></image>
-		<view class="bottom-btn" @click="memberCard">立即加入一米一粉会员(299一年)</view>
+		<!-- <image src="/static/vip-bac.png" class="bac" mode="widthFix"></image> -->
+		<image src="https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200427/ad9c83c0be8fb7b8232a7c2c1d084a8d.png" class="bac" mode="widthFix"></image>
+		<!-- <view class="bottom-btn" @click="memberCard">立即加入每日有薪会员(299一年)</view> -->
+		<view class="pic-btn" @click="memberCard"></view>
 	</view>
 </template>
 
@@ -77,5 +79,13 @@
 	position: sticky;
 	bottom: 0;
 	width: 100%;
+}
+.pic-btn {
+	width: 630rpx;
+	height: 130rpx;
+	/* background: black; */
+	position: absolute;
+	bottom: 112rpx;
+	left: 60rpx;
 }
 </style>

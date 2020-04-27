@@ -248,7 +248,7 @@
 									uni.setStorageSync('code', res.data.invitation_code)
 								});
 								//如果存在分享id
-								if(scene != 'undefined' && scene != '') {
+								if(scene != undefined && scene != 'undefined' && scene != '') {
 									console.log('存在分享值', scene)
 									let that = this
 									interfaceurl.checkAuth(interfaceurl.bingUser, {scene_value: scene}, false).then((res) => {

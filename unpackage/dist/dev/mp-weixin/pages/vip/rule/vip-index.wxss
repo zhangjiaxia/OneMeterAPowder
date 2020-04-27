@@ -14,4 +14,12 @@
 	bottom: 0;
 	width: 100%;
 }
+.pic-btn {
+	width: 630rpx;
+	height: 130rpx;
+	/* background: black; */
+	position: absolute;
+	bottom: 112rpx;
+	left: 60rpx;
+}
 

@@ -408,7 +408,7 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
                   uni.setStorageSync('code', res.data.invitation_code);
                 });
                 //如果存在分享id
-                if (scene != 'undefined' && scene != '') {
+                if (scene != undefined && scene != 'undefined' && scene != '') {
                   console.log('存在分享值', scene);
                   var _that = this;
                   _interface.default.checkAuth(_interface.default.bingUser, { scene_value: scene }, false).then(function (res) {

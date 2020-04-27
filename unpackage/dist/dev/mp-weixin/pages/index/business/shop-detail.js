@@ -325,6 +325,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       goodsDetail: {}, //商品详情，暂时
       cartOrOrder: true, //加入购物车：true,下单：false
       inventoryCount: 0, //各组sku的库存量
+      skuChooseItem: {}, //用户当前所选的商品sku
       cartId: '', //购物车ID
       spuId: 0 //商品ID
     };
@@ -405,6 +406,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       //更改库存
       var element = this.judgeCode();
       this.inventoryCount = element ? element.inventoryCount : 0;
+      this.skuChooseItem = element ? element : {};
     },
     getGoodsDetail: function getGoodsDetail() {
       var that = this;
@@ -440,6 +442,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       //console.log(props,propsCheck)
       var element = that.judgeCode();
       that.inventoryCount = element ? element.inventoryCount : 0;
+      this.skuChooseItem = element ? element : {};
     },
     deepCopy: function deepCopy(obj) {
       var result = Array.isArray(obj) ? [] : {};
@@ -568,9 +571,10 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     },
     confrimOrderPage: function confrimOrderPage() {
       var item = this.goodsDetail;
+      var that = this;
       var shopItem = {
         spuId: item.spuId,
-        price: this.isVip != 1 ? item.retailPrice[0] : item.vipPrice[0],
+        price: this.isVip != 1 ? that.skuChooseItem.retailPrice : that.skuChooseItem.vipPrice,
         name: item.name,
         goodsPhotoUrl: item.mainImgUrl,
         quantity: this.shopNum,
