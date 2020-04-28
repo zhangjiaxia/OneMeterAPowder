@@ -217,7 +217,18 @@ var _default = { props: { confirmModal: { type: Boolean, default: false }, //商
     this.getPanelTop();}, methods: { touch: function touch() {}, getPanelTop: function getPanelTop() {var systemInfo = uni.getSystemInfoSync();this.systemInfo = systemInfo;var pxToRpxScale = 750 / systemInfo.windowWidth;this.systemInfo.pxToRpxScale = pxToRpxScale; //滚动区域等于窗体高度（不包含底部tab高度）-状态栏高度-导航栏高度
       var scrollHeight = (systemInfo.windowHeight - systemInfo.statusBarHeight - 44) * pxToRpxScale; //（滚动区域高度-弹窗高度）/2+状态栏高度+导航栏高度
       this.panelTop = (scrollHeight - 1068) / 2 + (systemInfo.statusBarHeight + 44) * pxToRpxScale + 'rpx';}, /*海报相关*/ //获取动态二维码（可携带参数）
-    getQrcode: function getQrcode() {this.shareModal = true;if (this.poster) {return;}var that = this;_interface.default.checkAuth(_interface.default.getAppletCode, {}).then(function (res) {that.saveQrCode(res.data.url);
+    getQrcode: function getQrcode() {this.shareModal = true;if (this.poster) {return;}uni.showLoading();var qrcode = uni.getStorageSync('qrcode'); //如果动态二维码存在，就直接下载文件，省去网络请求那一步
+      if (qrcode) {
+        this.saveQrCode(qrcode);
+      } else {
+        this.requestQrcode();
+      }
+    },
+    requestQrcode: function requestQrcode() {
+      var that = this;
+      _interface.default.checkAuth(_interface.default.getAppletCode, {}).then(function (res) {
+        uni.setStorageSync('qrcode', res.data.url);
+        that.saveQrCode(res.data.url);
       });
     },
     // 保存接口传回来的小程序二维码链接
@@ -230,18 +241,35 @@ var _default = { props: { confirmModal: { type: Boolean, default: false }, //商
           if (res.statusCode === 200) {
             //将下载的图片临时路径赋值给img_l,用于预览图片
             that.shareInfo.qrcode = res.tempFilePath;
-            wx.downloadFile({
-              url: that.shareInfo.bgImg, //网络链接
-              success: function success(res) {
-                // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-                if (res.statusCode === 200) {
-                  //将下载的图片临时路径赋值给img_l,用于预览图片
-                  that.shareInfo.bgImg = res.tempFilePath;
-                  //console.log('that.drawBefore', that.shareInfo)
-                  that.drawBefore();
-                }
-              } });
+            that.saveBgImg();
+            // wx.downloadFile({
+            // 	url: that.shareInfo.bgImg, //网络链接
+            // 	success: function(res) {
+            // 		// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+            // 		if (res.statusCode === 200) {
+            // 			//将下载的图片临时路径赋值给img_l,用于预览图片
+            // 			that.shareInfo.bgImg = res.tempFilePath;
+            // 			//console.log('that.drawBefore', that.shareInfo)
+            // 			that.drawBefore();
+            // 		}
+            // 	}
+            // })
+          }
+        } });
 
+    },
+    //保存背景图
+    saveBgImg: function saveBgImg() {
+      var that = this;
+      wx.downloadFile({
+        url: that.shareInfo.bgImg, //网络链接
+        success: function success(res) {
+          // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+          if (res.statusCode === 200) {
+            //将下载的图片临时路径赋值给img_l,用于预览图片
+            that.shareInfo.bgImg = res.tempFilePath;
+            //console.log('that.drawBefore', that.shareInfo)
+            that.drawBefore();
           }
         } });
 

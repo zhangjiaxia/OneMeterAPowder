@@ -254,6 +254,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -349,8 +351,11 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
 //
 //
 //
+//
+//
 var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var authPage = function authPage() {__webpack_require__.e(/*! require.ensure | components/authorization-page */ "components/authorization-page").then((function () {return resolve(__webpack_require__(/*! @/components/authorization-page.vue */ 277));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var sharePoster = function sharePoster() {__webpack_require__.e(/*! require.ensure | components/shop-business/share-poster */ "components/shop-business/share-poster").then((function () {return resolve(__webpack_require__(/*! @/components/shop-business/share-poster.vue */ 284));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);}; //引入授权窗体
-var _default = { components: { navigationBar: navigationBar, authPage: authPage, sharePoster: sharePoster }, data: function data() {return { //海报分享背景图
+var _default = { components: { navigationBar: navigationBar, authPage: authPage, sharePoster: sharePoster }, data: function data() {return { isShow: false, //是否显示分享窗体
+      //海报分享背景图
       bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png', //轮播图参数
       indicatorDots: true, autoplay: true, interval: 3000, duration: 500, bannerList: [], //轮播图
       iconTypeList: [], //小图标
@@ -386,9 +391,7 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
     this.getBannerList();this.getIconTypeList();this.getSpecialAreaList(1);this.getSpecialAreaList(2);this.tabIndex = 0;this.specialGoodsData = {};this.specialGoodsList = [];}, onShow: function onShow() {}, //到达页面底部时触发的事件
   onReachBottom: function onReachBottom() {if (this.isGoods == 0) {if (this.championList.length > 0) {console.log(this.championList.length, this.championData.total);if (this.championList.length >= this.championData.total) {return;}this.championParams.page++;this.getChampionList();}} else {if (this.specialGoodsList.length >= this.specialGoodsData.total) {return;}this.params.page++;this.getSpecialGoodsList();}}, methods: { //获取二维码携带的参数值并绑定下级
     bindUser: function bindUser(scene) {console.log('scene', scene);var that = this;var baseUrl = 'https://shop.yimiefen.com/api';uni.login({ success: function success(res) {if (res.code) {//这里直接用原生请求就行了
-            uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"),
-              data: {
-                code: res.code },
+            uni.request({ url: "".concat(baseUrl, "/v1/login/getToken"), data: { code: res.code },
 
               success: function success(res) {
                 if (res.data.code != 0) {
@@ -406,6 +409,10 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
                 //获取到用户token后再获取用户邀请码保存
                 _interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {
                   uni.setStorageSync('code', res.data.invitation_code);
+                });
+                //获取到用户token后，预先获取用户动态二维码
+                _interface.default.checkAuth(_interface.default.getAppletCode, {}).then(function (res) {
+                  uni.setStorageSync('qrcode', res.data.url);
                 });
                 //如果存在分享id
                 if (scene != undefined && scene != 'undefined' && scene != '') {
@@ -537,6 +544,7 @@ var _default = { components: { navigationBar: navigationBar, authPage: authPage,
     },
     /*海报相关*/
     startShare: function startShare() {
+      this.isShow = true;
       this.$refs.share.getQrcode();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

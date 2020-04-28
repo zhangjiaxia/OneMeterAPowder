@@ -89,7 +89,9 @@
 			</authPage>
 		</view>
 		<!--分享弹窗-->
-		<sharePoster :bgImg="bgImg" ref="share"></sharePoster>
+		<!-- <view v-show="isShow"> -->
+			<sharePoster :bgImg="bgImg" ref="share"></sharePoster>
+		<!-- </view> -->
 	</view>
 </template>
 
@@ -106,6 +108,7 @@
 		},
 		data() {
 			return {
+				isShow: false, //是否显示分享窗体
 				//海报分享背景图
 				bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png',
 				//轮播图参数
@@ -247,6 +250,10 @@
 								interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
 									uni.setStorageSync('code', res.data.invitation_code)
 								});
+								//获取到用户token后，预先获取用户动态二维码
+								interfaceurl.checkAuth(interfaceurl.getAppletCode, {}).then((res) => {
+									uni.setStorageSync('qrcode', res.data.url)
+								});
 								//如果存在分享id
 								if(scene != undefined && scene != 'undefined' && scene != '') {
 									console.log('存在分享值', scene)
@@ -377,6 +384,7 @@
 			},
 			/*海报相关*/
 			startShare() {
+				this.isShow = true
 				this.$refs.share.getQrcode()
 			}
 		}

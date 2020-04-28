@@ -90,8 +90,19 @@
 				if(this.poster) {
 					return;
 				}
+				uni.showLoading()
+				let qrcode = uni.getStorageSync('qrcode')
+				//如果动态二维码存在，就直接下载文件，省去网络请求那一步
+				if(qrcode) {
+					this.saveQrCode(qrcode)
+				} else {
+					this.requestQrcode()
+				}
+			},
+			requestQrcode() {
 				let that = this;
 				interfaceurl.checkAuth(interfaceurl.getAppletCode, {}).then((res) => {
+					uni.setStorageSync('qrcode', res.data.url)
 					that.saveQrCode(res.data.url)
 				});
 			},
@@ -105,18 +116,35 @@
 						if (res.statusCode === 200) {
 							//将下载的图片临时路径赋值给img_l,用于预览图片
 							that.shareInfo.qrcode = res.tempFilePath;
-							wx.downloadFile({
-								url: that.shareInfo.bgImg, //网络链接
-								success: function(res) {
-									// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-									if (res.statusCode === 200) {
-										//将下载的图片临时路径赋值给img_l,用于预览图片
-										that.shareInfo.bgImg = res.tempFilePath;
-										//console.log('that.drawBefore', that.shareInfo)
-										that.drawBefore();
-									}
-								}
-							})
+							that.saveBgImg()
+							// wx.downloadFile({
+							// 	url: that.shareInfo.bgImg, //网络链接
+							// 	success: function(res) {
+							// 		// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+							// 		if (res.statusCode === 200) {
+							// 			//将下载的图片临时路径赋值给img_l,用于预览图片
+							// 			that.shareInfo.bgImg = res.tempFilePath;
+							// 			//console.log('that.drawBefore', that.shareInfo)
+							// 			that.drawBefore();
+							// 		}
+							// 	}
+							// })
+						}
+					}
+				})
+			},
+			//保存背景图
+			saveBgImg() {
+				let that = this;
+				wx.downloadFile({
+					url: that.shareInfo.bgImg, //网络链接
+					success: function(res) {
+						// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+						if (res.statusCode === 200) {
+							//将下载的图片临时路径赋值给img_l,用于预览图片
+							that.shareInfo.bgImg = res.tempFilePath;
+							//console.log('that.drawBefore', that.shareInfo)
+							that.drawBefore();
 						}
 					}
 				})

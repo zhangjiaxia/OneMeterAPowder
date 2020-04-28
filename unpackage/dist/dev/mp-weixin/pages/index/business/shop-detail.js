@@ -296,6 +296,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
   //computed: mapState(['goodsDetail']),
   data: function data() {
     return {
+      isShow: false, //是否显示分享窗体
       isVip: 0, //是否会员，0:否，1:是
       //设置导航栏样式
       navigationBarStyle: {
@@ -338,7 +339,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     var shareObj = {
       title: userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
       path: '/pages/index/index?code=' + code, // 默认是当前页面，必须是以‘/’开头的完整路径
-      imageUrl: that.goodsDetail.detailImgUrlList[0], //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+      imageUrl: that.goodsDetail.shareImg, //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: function success(res) {
         // 转发成功之后的回调
         if (res.errMsg == 'shareAppMessage:ok') {
@@ -398,6 +399,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
   methods: {
     touch: function touch() {},
     startShare: function startShare() {
+      this.isShow = true;
       //调用子组件的方法
       this.$refs.share.getQrcode();
     },
@@ -415,6 +417,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       };
       _interface.default.checkAuth(_interface.default.goodsDetail, params, false).then(function (res) {
         that.goodsDetail = res.data;
+        that.goodsDetail.shareImg = that.goodsDetail.detailImgUrlList[0];
         that.navigationBarStyle.iconText = that.goodsDetail.brandName;
         that.goodsDetail.detailInfo = that.goodsDetail.detailInfo.replace(/<img/gi, '<img width="100%!important" ');
         that.getData();

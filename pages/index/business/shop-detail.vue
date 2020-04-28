@@ -125,8 +125,8 @@
 			</view>
 		</view>
 		<!--分享弹窗-->
-		<view v-if="goodsDetail.detailImgUrlList">
-			<sharePoster :bgImg="goodsDetail.detailImgUrlList[0]" ref="share"></sharePoster>
+		<view v-if="goodsDetail.shareImg">
+			<sharePoster :bgImg="goodsDetail.shareImg" ref="share"></sharePoster>
 		</view>
 		<!--弹窗时阻止滚动穿透-->
 		<view class="mask" v-show="confirmModal" @click="confirmModal=false;"
@@ -154,6 +154,7 @@
 		//computed: mapState(['goodsDetail']),
 		data() {
 			return {
+				isShow: false, //是否显示分享窗体
 				isVip: 0, //是否会员，0:否，1:是
 				//设置导航栏样式
 				navigationBarStyle: {
@@ -185,7 +186,7 @@
 				inventoryCount: 0, //各组sku的库存量
 				skuChooseItem: {}, //用户当前所选的商品sku
 				cartId: '', //购物车ID
-				spuId: 0, //商品ID
+				spuId: 0 //商品ID
 			}
 		},
 		onShareAppMessage: function( options ){
@@ -196,7 +197,7 @@
 		　　var shareObj = {
 		　　　　title: userInfo.nickName + ' 为您推荐好货', // 默认是小程序的名称(可以写slogan等)
 		　　　　path: '/pages/index/index?code=' + code, // 默认是当前页面，必须是以‘/’开头的完整路径
-		　　　　imageUrl: that.goodsDetail.detailImgUrlList[0], //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+		　　　　imageUrl: that.goodsDetail.shareImg, //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
 		　　　　success: function(res){
 		　　　　　　// 转发成功之后的回调
 		　　　　　　if(res.errMsg == 'shareAppMessage:ok'){
@@ -256,6 +257,7 @@
 		methods: {
 			touch() {},
 			startShare() {
+				this.isShow = true
 				//调用子组件的方法
 				this.$refs.share.getQrcode();
 			},
@@ -273,6 +275,7 @@
 				}
 				interfaceurl.checkAuth(interfaceurl.goodsDetail, params, false).then((res) => {
 					that.goodsDetail = res.data
+					that.goodsDetail.shareImg = that.goodsDetail.detailImgUrlList[0]
 					that.navigationBarStyle.iconText = that.goodsDetail.brandName
 					that.goodsDetail.detailInfo = that.goodsDetail.detailInfo.replace(/<img/gi, '<img width="100%!important" ')
 					that.getData()

@@ -12,7 +12,7 @@
 					</view>
 					<view class="uni-flex uni-column rest">
 						<view class="nick">
-							{{userInfo.nickName || '御翔绝瞬'}}
+							{{userInfo.nickName || '登录/注册'}}
 							<!-- <image src="/static/VIPicon.png" class="gold" v-if="userDetail.is_vip==1"></image> -->
 							<text v-if="userDetail.is_vip==1" style="color: orange;margin-left: 20rpx;font-weight: bold;font-size: 30rpx;">VIP</text>
 							<image src="/static/goldactive.png" class="gold" v-if="userDetail.grade==3"></image>
@@ -116,7 +116,9 @@
 			</authPage>
 		</view>
 		<!--海报分享-->
-		<sharePoster :bgImg="bgImg" ref="share"></sharePoster>
+		<!-- <view v-show="isShow"> -->
+			<sharePoster :bgImg="bgImg" ref="share"></sharePoster>
+		<!-- </view> -->
 	</view>
 </template>
 
@@ -140,6 +142,7 @@
 		computed: mapState(['userInfos']),
 		data() {
 			return {
+				isShow: false, //是否显示分享窗体
 				//海报分享背景图
 				bgImg: 'https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200415/adca2eb7dab97a2c39a53f1515128588.png',
 				//设置导航栏样式
@@ -147,7 +150,7 @@
 					iconText: '我的' //导航栏文字
 				},
 				userInfo: {}, //获取用户信息
-				userDetail: {}, //获取用户详情
+				userDetail: {} //获取用户详情
 			}
 		},
 		watch:{
@@ -157,6 +160,9 @@
 					this.userInfo = uni.getStorageSync('userInfo')
 				}
 			}
+		},
+		onLoad() {
+			//this.$refs.share.getQrcode()
 		},
 		onShareAppMessage: function( options ){
 		　　var that = this;
@@ -193,9 +199,6 @@
 		　　// 返回shareObj
 		　　return shareObj;
 		},
-		onLoad() {
-			
-		},
 		onShow() {
 			let token = uni.getStorageSync('token')
 			this.userInfo = this.userInfos.nickName ? this.userInfos : uni.getStorageSync('userInfo')
@@ -213,6 +216,7 @@
 			},
 			/*海报相关*/
 			startShare() {
+				this.isShow = true
 				this.$refs.share.getQrcode()
 			}
 		}
