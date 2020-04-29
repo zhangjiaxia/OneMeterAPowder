@@ -1574,6 +1574,24 @@ radio-group label, checkbox-group label{
 	height: 0;
 	background-color: transparent;
 } */
+.more-rule {
+  position: absolute;
+  width: 240rpx;
+  height: 50rpx;
+  top: 1440rpx;
+  right: 38rpx;
+  opacity: 0;
+  background: black;
+}
+.more-vip {
+  position: absolute;
+  width: 130rpx;
+  height: 50rpx;
+  top: 1660rpx;
+  right: 38rpx;
+  opacity: 0;
+  background: black;
+}
 /*隐藏滚动条,只能使用于在scroll-view中*/
 ::-webkit-scrollbar {
   width: 0;

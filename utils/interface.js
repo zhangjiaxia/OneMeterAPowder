@@ -93,7 +93,7 @@ const interfaceurl = {
 						uni.setStorageSync('token', loginResp.token)
 						store.commit('updateToken', loginResp.token)
 						//首次授权登录需要保存用户信息
-						if(detail.userInfo) {
+						if(detail && detail.userInfo) {
 							interfaceurl.checkAuth(interfaceurl.saveInfo, {
 							    nickName: detail.userInfo.nickName,
 								gender: detail.userInfo.gender,

@@ -19,7 +19,7 @@
 	height: 130rpx;
 	/* background: black; */
 	position: absolute;
-	bottom: 112rpx;
+	bottom: 120rpx;
 	left: 60rpx;
 }
 

@@ -483,6 +483,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
     applyRefund: function applyRefund(orderId) {var that = this;var params = { orderId: orderId, reason: '' //申请原因
       };
       _interface.default.checkAuth(_interface.default.orderApplyRefund, params).then(function (res) {
+        that.initData();
         uni.showToast({
           title: '申请退款成功',
           icon: 'none',
@@ -494,6 +495,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
     confirmTake: function confirmTake(orderId) {
       var that = this;
       _interface.default.checkAuth(_interface.default.orderConfirm, { orderId: orderId }).then(function (res) {
+        that.initData();
         uni.showToast({
           title: '确认收货成功',
           icon: 'none',
@@ -521,6 +523,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         type: 0 //0：退货退款，1：仅退款
       };
       _interface.default.checkAuth(_interface.default.orderReturnRefund, params).then(function (res) {
+        that.initData();
         uni.showToast({
           title: '申请退货退款成功',
           icon: 'none',
@@ -538,6 +541,7 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         type: 0 //0：退货退款，1：仅退款
       };
       _interface.default.checkAuth(_interface.default.orderCancelApply, params).then(function (res) {
+        that.initData();
         uni.showToast({
           title: '取消退货退款成功',
           icon: 'none',

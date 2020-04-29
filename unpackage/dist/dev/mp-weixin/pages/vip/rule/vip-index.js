@@ -173,10 +173,9 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
           paySign: res.data.paySign,
           success: function success(res) {
             uni.setStorageSync('isVip', 1);
-            uni.showToast({
-              title: '会员充值成功',
-              icon: 'none',
-              duration: 2000 });
+            uni.showModal({
+              showCancel: false,
+              content: '您的VIP充值已成功' });
 
             // that.$turnPage('/pages/shopping/trade/order', 'redirectTo')
           },

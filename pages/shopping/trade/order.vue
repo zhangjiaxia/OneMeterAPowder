@@ -74,7 +74,7 @@
 								<view class="btnleft content" @click.stop="queryFlow(subItem.orderSn)">查看物流</view>
 							</view>
 							<view class="uni-flex">
-								<view class="btnright content" @click.stop="confirmTake(item.noId)">确认收货</view>
+								<view class="btnright content" @click.stop="confirmTake(sub.orderId)">确认收货</view>
 							</view>
 						</view>
 					</view>
@@ -311,6 +311,7 @@
 					reason: '' //申请原因
 				}
 				interfaceurl.checkAuth(interfaceurl.orderApplyRefund, params).then((res) => {
+					that.initData()
 					uni.showToast({
 					    title: '申请退款成功',
 					    icon: 'none',
@@ -322,6 +323,7 @@
 			confirmTake(orderId) {
 				let that = this
 				interfaceurl.checkAuth(interfaceurl.orderConfirm, {orderId: orderId}).then((res) => {
+					that.initData()
 					uni.showToast({
 					    title: '确认收货成功',
 					    icon: 'none',
@@ -349,6 +351,7 @@
 					type: 0 //0：退货退款，1：仅退款
 				}
 				interfaceurl.checkAuth(interfaceurl.orderReturnRefund, params).then((res) => {
+					that.initData()
 					uni.showToast({
 					    title: '申请退货退款成功',
 					    icon: 'none',
@@ -366,6 +369,7 @@
 					type: 0 //0：退货退款，1：仅退款
 				}
 				interfaceurl.checkAuth(interfaceurl.orderCancelApply, params).then((res) => {
+					that.initData()
 					uni.showToast({
 					    title: '取消退货退款成功',
 					    icon: 'none',

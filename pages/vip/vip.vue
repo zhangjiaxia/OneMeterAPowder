@@ -104,8 +104,9 @@
 						<text class="nick">{{item.nickname}}</text>
 					</view>
 					<view class="uni-flex vertical" style="margin-right: 19rpx;">
-						<text class="money active">{{item.total_profit || 0}}</text>
-						<text class="mum">佣金</text>
+						<!-- <text class="mum">佣金</text> -->
+						<image src="/static/money.png" style="width: 72rpx;height: 67.5rpx;"></image>
+						<!-- <text class="money active">{{item.total_profit || 0}}</text> -->
 					</view>
 				</view>
 			</view>

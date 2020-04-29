@@ -3,6 +3,17 @@
 		<view class="bar-sticky">
 			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		</view>
+		<view style="position: relative;">
+			<image src="https://early-education.oss-cn-beijing.aliyuncs.com/meter_power/default/20200429/4a60f202545b5573c60eb13217913bca.png"
+				style="width: 750rpx;height: 2657rpx;"></image>
+			<view class="more-rule" @click="$turnPage('/pages/vip/rule/vip-rule?isUpgrade='+false, 'navigateTo')">查看更多VIP规则</view>
+			<view class="more-vip" @click="$turnPage('/pages/vip/rule/vip-rule?isUpgrade='+true, 'navigateTo')">查看更多</view>
+		</view>
+	</view>
+	<!-- <view>
+		<view class="bar-sticky">
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
+		</view>
 		<view>
 			<image src="/static/rule.png" class="ruleimg"></image>
 		</view>
@@ -110,7 +121,7 @@
 				<view class="point">3.提现手续费1%；</view>
 			</view>
 		</view>
-	</view>
+	</view> -->
 </template>
 
 <script>
@@ -139,6 +150,24 @@
 	@import '/common/uni.css';
 	/*自定义公共样式*/
 	@import '/common/custom.css';
+	.more-rule {
+		position: absolute;
+		width: 240rpx;
+		height: 50rpx;
+		top: 1440rpx;
+		right: 38rpx;
+		opacity: 0;
+		background: black;
+	}
+	.more-vip {
+		position: absolute;
+		width: 130rpx;
+		height: 50rpx;
+		top: 1660rpx;
+		right: 38rpx;
+		opacity: 0;
+		background: black;
+	}
 	/*隐藏滚动条,只能使用于在scroll-view中*/
 	::-webkit-scrollbar {
 		width: 0;
