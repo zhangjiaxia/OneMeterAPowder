@@ -98,11 +98,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.subOrderRefund.skuList, function(item, index) {
+    var g0 = item.prodName.substring(0, 20)
+    return {
+      $orig: _vm.__get_orig(item),
+      g0: g0
+    }
+  })
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.showPanel = false
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -136,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -214,9 +231,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));
 
-var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
 {
+  computed: (0, _vuex.mapState)(['subOrderRefund']),
   components: {
     navigationBar: navigationBar },
 
@@ -233,7 +256,7 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
           text: '未收到货',
           selected: true },
         {
-          text: '未收到货',
+          text: '已收到货',
           selected: false }],
 
         "退款原因": [{
@@ -252,9 +275,19 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
       //面板数据
       userChoose: {
         status: '',
-        reason: '' }
+        reason: '' },
       //用户选填的值
+      type: 1, //携带退款类型:1、退款(子订单)，2、退货退款
+      refundMoney: 0 //退款金额
     };
+  },
+  onLoad: function onLoad(options) {
+    console.log(options, this.subOrderRefund);
+    this.type = options.type;
+    this.refundMoney = 0;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
+      for (var _iterator = this.subOrderRefund.skuList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
+        this.refundMoney += item.price * item.quantity;
+      }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
   },
   onShow: function onShow() {
 
@@ -266,24 +299,61 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
       this.showPanel = true;
     },
     checkItem: function checkItem(chooseType, index) {
-      var i = 0;var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
-        for (var _iterator = this.optionsList[chooseType][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var item = _step.value;
+      var i = 0;var _iteratorNormalCompletion2 = true;var _didIteratorError2 = false;var _iteratorError2 = undefined;try {
+        for (var _iterator2 = this.optionsList[chooseType][Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {var item = _step2.value;
           if (i == index) {
             item.selected = true;
           } else {
             item.selected = false;
           }
           i++;
-        }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
+        }} catch (err) {_didIteratorError2 = true;_iteratorError2 = err;} finally {try {if (!_iteratorNormalCompletion2 && _iterator2.return != null) {_iterator2.return();}} finally {if (_didIteratorError2) {throw _iteratorError2;}}}
     },
     confirm: function confirm() {
       this.showPanel = false;
-      this.userChoose.status = this.optionsList["货物状态"].find(function (element) {return element.selected;}).text;
+      this.userChoose.status = this.type == '1' ? '未收到货' : '已收到货';
       this.userChoose.reason = this.optionsList["退款原因"].find(function (element) {return element.selected;}).text;
     },
     submit: function submit() {
+      if (!this.userChoose.reason) {
+        uni.showToast({
+          title: '退款原因不能为空',
+          icon: 'none',
+          duration: 2000 });
 
+        return;
+      }
+      var that = this;
+      if (this.type == '1') {
+        var params = {
+          orderId: that.subOrderRefund.orderId,
+          reason: that.userChoose.reason //申请原因
+        };
+        _interface.default.checkAuth(_interface.default.orderApplyRefund, params).then(function (res) {
+          uni.showToast({
+            title: '申请退款成功',
+            icon: 'none',
+            duration: 2000 });
+
+          that.$turnPage('1', 'navigateBack');
+        });
+      } else {
+        var _params = {
+          orderId: that.subOrderRefund.orderId,
+          reason: that.userChoose.reason,
+          code: that.subOrderRefund.skuList[0].code, //申请的sku(用户购买的东西)
+          type: 0 //0：退货退款，1：仅退款
+        };
+        _interface.default.checkAuth(_interface.default.orderReturnRefund, _params).then(function (res) {
+          uni.showToast({
+            title: '申请退货退款成功',
+            icon: 'none',
+            duration: 2000 });
+
+        });
+      }
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

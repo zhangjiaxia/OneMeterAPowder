@@ -309,7 +309,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
 //
 //
 //
@@ -480,20 +482,22 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
         bank: '', //开户银行
         bankAccounts: '' //银行账户
       };uni.showLoading();_interface.default.checkAuth(_interface.default.orderPayment, params).then(function (res) {uni.requestPayment({ timeStamp: res.data.timeStamp, nonceStr: res.data.nonceStr, package: res.data.package, signType: res.data.signType, paySign: res.data.paySign, success: function success(res) {that.initData();uni.hideLoading();}, fail: function fail(res) {uni.hideLoading();uni.showToast({ title: '支付失败', icon: 'none', duration: 2000 });}, complete: function complete() {} });});}, //申请退款(取消订单)
-    applyRefund: function applyRefund(orderId) {var that = this;var params = { orderId: orderId, reason: '' //申请原因
-      };
-      _interface.default.checkAuth(_interface.default.orderApplyRefund, params).then(function (res) {
-        that.initData();
-        uni.showToast({
-          title: '申请退款成功',
-          icon: 'none',
-          duration: 2000 });
-
-      });
-    },
-    //确认收货
-    confirmTake: function confirmTake(orderId) {
-      var that = this;
+    applyRefund: function applyRefund(sub) {//跳转退货退款页面，携带退款类型:1、退款(子订单)，2、退货退款
+      this.$store.commit('setSubOrderRefund', sub);this.$turnPage('/pages/shopping/trade/order-refund?type=1', 'navigateTo'); // let that = this
+      // let params = {
+      // 	orderId: orderId,
+      // 	reason: '' //申请原因
+      // }
+      // interfaceurl.checkAuth(interfaceurl.orderApplyRefund, params).then((res) => {
+      // 	that.initData()
+      // 	uni.showToast({
+      // 	    title: '申请退款成功',
+      // 	    icon: 'none',
+      // 	    duration: 2000
+      // 	});
+      // });
+    }, //确认收货
+    confirmTake: function confirmTake(orderId) {var that = this;
       _interface.default.checkAuth(_interface.default.orderConfirm, { orderId: orderId }).then(function (res) {
         that.initData();
         uni.showToast({
@@ -514,22 +518,30 @@ var _default = { components: { navigationBar: navigationBar }, data: function da
       // });
     },
     //申请退货退款
-    applySalesRefund: function applySalesRefund(item) {
-      var that = this;
-      var params = {
-        orderId: item.item.noId,
-        reason: '',
-        code: '', //申请的sku(用户购买的东西)
-        type: 0 //0：退货退款，1：仅退款
-      };
-      _interface.default.checkAuth(_interface.default.orderReturnRefund, params).then(function (res) {
-        that.initData();
-        uni.showToast({
-          title: '申请退货退款成功',
-          icon: 'none',
-          duration: 2000 });
+    applySalesRefund: function applySalesRefund(subItem, sub) {
+      var orderChildList = {
+        orderId: sub.orderId,
+        skuList: [] };
 
-      });
+      orderChildList.skuList.push(subItem);
+      //跳转退货退款页面，携带退款类型:1、退款(子订单)，2、退货退款(子订单下的某项商品)
+      this.$store.commit('setSubOrderRefund', orderChildList);
+      this.$turnPage('/pages/shopping/trade/order-refund?type=2', 'navigateTo');
+      // let that = this
+      // let params = {
+      // 	orderId: item.item.noId,
+      // 	reason: '',
+      // 	code: '', //申请的sku(用户购买的东西)
+      // 	type: 0 //0：退货退款，1：仅退款
+      // }
+      // interfaceurl.checkAuth(interfaceurl.orderReturnRefund, params).then((res) => {
+      // 	that.initData()
+      // 	uni.showToast({
+      // 	    title: '申请退货退款成功',
+      // 	    icon: 'none',
+      // 	    duration: 2000
+      // 	});
+      // });
     },
     //取消退货退款
     cancelSalesRefund: function cancelSalesRefund(item) {

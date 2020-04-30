@@ -64,7 +64,7 @@
 						<view class="uni-flex vertical btnop" v-if="item.status === 5 || item.status === 6">
 							<view class="uni-flex rest horizontalright"></view>
 							<view class="uni-flex">
-								<view class="btnright content" @click.stop="applySalesRefund(item)" style="background: gray;margin-top: 10rpx;margin-bottom: 10rpx;">
+								<view class="btnright content" @click.stop="applySalesRefund(subItem, sub)" style="background: gray;margin-top: 10rpx;margin-bottom: 10rpx;">
 									申请退货退款
 								</view>
 							</view>
@@ -76,6 +76,14 @@
 							<view class="uni-flex">
 								<view class="btnright content" @click.stop="confirmTake(sub.orderId)">确认收货</view>
 							</view>
+						</view>
+					</view>
+					<view class="uni-flex vertical btnop" v-if="item.status === 1">
+						<view class="uni-flex rest horizontalright">
+							<view class="btnleft content" style="margin-right: 20rpx;margin-bottom: 20rpx;" @click.stop="applyRefund(sub)">申请退款</view>
+						</view>
+						<view class="uni-flex">
+							<!-- <view class="btnright content" @click.stop="$turnPage('/pages/shopping/trade/order-detail?id='+item.noId, 'navigateTo')">查看订单</view> -->
 						</view>
 					</view>
 				</view>
@@ -104,14 +112,7 @@
 						<view class="btnright content" @click.stop="delOrder(item)">删除订单</view>
 					</view>
 				</view>
-				<view class="uni-flex vertical btnop" v-if="item.status === 1">
-					<view class="uni-flex rest horizontalright">
-						<view class="btnleft content" @click.stop="applyRefund(item.noId)">申请退款</view>
-					</view>
-					<view class="uni-flex">
-						<view class="btnright content" @click.stop="$turnPage('/pages/shopping/trade/order-detail?id='+item.noId, 'navigateTo')">查看订单</view>
-					</view>
-				</view>
+				
 				
 				<!-- <view class="uni-flex vertical btnop" v-if="item.status === 70 || item.status === 80 || item.status === 40">
 					<view class="uni-flex rest horizontalright">
@@ -304,20 +305,23 @@
 				});
 			},
 			//申请退款(取消订单)
-			applyRefund(orderId) {
-				let that = this
-				let params = {
-					orderId: orderId,
-					reason: '' //申请原因
-				}
-				interfaceurl.checkAuth(interfaceurl.orderApplyRefund, params).then((res) => {
-					that.initData()
-					uni.showToast({
-					    title: '申请退款成功',
-					    icon: 'none',
-					    duration: 2000
-					});
-				});
+			applyRefund(sub) {
+				//跳转退货退款页面，携带退款类型:1、退款(子订单)，2、退货退款
+				this.$store.commit('setSubOrderRefund', sub)
+				this.$turnPage('/pages/shopping/trade/order-refund?type=1', 'navigateTo')
+				// let that = this
+				// let params = {
+				// 	orderId: orderId,
+				// 	reason: '' //申请原因
+				// }
+				// interfaceurl.checkAuth(interfaceurl.orderApplyRefund, params).then((res) => {
+				// 	that.initData()
+				// 	uni.showToast({
+				// 	    title: '申请退款成功',
+				// 	    icon: 'none',
+				// 	    duration: 2000
+				// 	});
+				// });
 			},
 			//确认收货
 			confirmTake(orderId) {
@@ -342,22 +346,30 @@
 				// });
 			},
 			//申请退货退款
-			applySalesRefund(item) {
-				let that = this
-				let params = {
-					orderId: item.item.noId,
-					reason: '',
-					code: '', //申请的sku(用户购买的东西)
-					type: 0 //0：退货退款，1：仅退款
+			applySalesRefund(subItem, sub) {
+				let orderChildList = {
+					orderId: sub.orderId,
+					skuList: []
 				}
-				interfaceurl.checkAuth(interfaceurl.orderReturnRefund, params).then((res) => {
-					that.initData()
-					uni.showToast({
-					    title: '申请退货退款成功',
-					    icon: 'none',
-					    duration: 2000
-					});
-				});
+				orderChildList.skuList.push(subItem)
+				//跳转退货退款页面，携带退款类型:1、退款(子订单)，2、退货退款(子订单下的某项商品)
+				this.$store.commit('setSubOrderRefund', orderChildList)
+				this.$turnPage('/pages/shopping/trade/order-refund?type=2', 'navigateTo')
+				// let that = this
+				// let params = {
+				// 	orderId: item.item.noId,
+				// 	reason: '',
+				// 	code: '', //申请的sku(用户购买的东西)
+				// 	type: 0 //0：退货退款，1：仅退款
+				// }
+				// interfaceurl.checkAuth(interfaceurl.orderReturnRefund, params).then((res) => {
+				// 	that.initData()
+				// 	uni.showToast({
+				// 	    title: '申请退货退款成功',
+				// 	    icon: 'none',
+				// 	    duration: 2000
+				// 	});
+				// });
 			},
 			//取消退货退款
 			cancelSalesRefund(item) {

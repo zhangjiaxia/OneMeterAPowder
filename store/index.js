@@ -13,7 +13,8 @@ export default new Vuex.Store({
 		userInfos: {}, //用户授权信息
 		goodsDetail: {}, //商品详情
 		selectOrderGoods: [], //用户选择下单的商品
-		selectAddress: {} //用户选择的收货地址
+		selectAddress: {}, //用户选择的收货地址
+		subOrderRefund: {} //用户选择的退款子订单
     },
 	//数据修改，非异步
     mutations: {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
 		},
 		setSelectAddress(state, newValue) {
 			state.selectAddress = newValue
+		},
+		setSubOrderRefund(state, newValue) {
+			state.subOrderRefund = newValue
 		}
     },
 	//异步方法，如果需要修改state中的数据，必须调用mutations里的方法

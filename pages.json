@@ -7,15 +7,15 @@
 			}
 		},
 		{
-			"path":"pages/category/category",
-			"style":{
-				"navigationBarTitleText":"类目"
-			}
-		},
-		{
 			"path": "pages/center/center",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path":"pages/category/category",
+			"style":{
+				"navigationBarTitleText":"类目"
 			}
 		},
 		{

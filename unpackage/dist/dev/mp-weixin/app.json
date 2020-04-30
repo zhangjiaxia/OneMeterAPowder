@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/category/category",
     "pages/center/center",
+    "pages/category/category",
     "pages/shopping/shopping",
     "pages/vip/vip"
   ],
@@ -109,6 +109,5 @@
       "desc": "用于展示收货地址"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap62.json"
+  "usingComponents": {}
 }

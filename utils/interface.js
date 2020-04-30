@@ -1,7 +1,7 @@
 import req from './request.js' //引入请求api
 import store from '@/store' //引入全局变量的token
 
-const isFormal = true //是否正式,false:测试，true:正式
+const isFormal = false //是否正式,false:测试，true:正式
 
 const baseUrlTest = "https://api-emi.bidou88.cn/api"; //测试域名，平时开发用测试域名
 const baseUrlFormal = "https://shop.yimiefen.com/api"; //正式域名，提交文件时要切换到正式域名
@@ -53,8 +53,9 @@ const interfaceurl = {
 					duration: 2000
 				});
 			} else {
+				let resp = res.msg == '退款单状态异常，请刷新重试' ? '订单已提交成功,请勿重复提交订单' : res.msg
 				uni.showToast({
-					title: res.msg,
+					title: resp,
 					icon: 'none',
 					duration: 2000
 				});

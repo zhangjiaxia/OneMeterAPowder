@@ -1,44 +1,43 @@
 <template>
 	<view>
 		<view class="bar-sticky">
-			<navigationBar :navigationBarStyle="navigationBarStyle" :showBack="false"></navigationBar>
+			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		</view>
 		<view>
-			<view class="uni-flex uni-row vertical orderitem">
+			<view class="uni-flex uni-row vertical orderitem" v-for="(item, index) in subOrderRefund.skuList" :key="index">
 				<view class="uni-flex">
-					<image src="/static/bussiness.png" class="goodsimg"></image>
+					<image :src="item.goodsPhotoUrl" class="goodsimg"></image>
 				</view>
 				<view class="uni-flex uni-column rest goodsinfo">
-					<view class="title">【现货直发】75%酒精杀菌免喷洗 喷雾100ml便携装</view>
+					<view class="title">{{item.prodName.substring(0,20) + '...'}}</view>
 					<view class="prop">
-						<text class="size">100ml</text>
-						<text class="size">100ml*1瓶</text>
+						<text class="size" v-for="(thirdItem, x) in item.detail.skuPropertyList" :key="x">{{thirdItem.val}}</text>
 					</view>
 				</view>
 				<view class="uni-flex uni-column goodsdata">
-					<view class="title">￥29</view>
-					<view class="horizontalright number">x1</view>
+					<view class="title">￥{{item.price}}</view>
+					<view class="horizontalright number">x{{item.quantity}}</view>
 				</view>
 			</view>
 			<view class="uni-flex uni-row vertical opbar">
 				<view class="uni-flex rest content">
-					<text class="base active">我要退款</text>
+					<text class="base" :class="{active: type == '1'}">我要退款</text>
 				</view>
 				<view class="uni-flex">
 					<view class="vline"></view>
 				</view>
 				<view class="uni-flex rest content">
-					<text class="base">退货退款</text>
+					<text class="base" :class="{active: type == '2'}">退货退款</text>
 				</view>
 			</view>
 			<view class="options">
-				<view class="uni-flex uni-row vertical bar" @click="setChooseType('货物状态')">
+				<view class="uni-flex uni-row vertical bar"><!-- @click="setChooseType('货物状态')"-->
 					<view class="uni-flex rest left">货物状态</view>
-					<view class="uni-flex vertical right">
-						{{userChoose.status || '请选择'}}
-						<view class="uni-flex">
+					<view class="uni-flex vertical right" style="margin-right: 30rpx;">
+						<!-- {{userChoose.status || '请选择'}} -->{{type == '1' ? '未收到货' : '已收到货'}}
+						<!-- <view class="uni-flex">
 							<view class="icon-qianjin back"></view>
-						</view>
+						</view> -->
 					</view>
 				</view>
 				<view class="uni-flex uni-row vertical bar" @click="setChooseType('退款原因')">
@@ -53,7 +52,7 @@
 				<view class="uni-flex uni-row vertical bar">
 					<view class="uni-flex rest left">退款金额</view>
 					<view class="uni-flex vertical money">
-						￥299
+						￥{{refundMoney}}
 					</view>
 				</view>
 			</view>
@@ -78,7 +77,14 @@
 <script>
 	import navigationBar from '@/components/navigation-bar.vue' //引入自定义导航栏
 	import interfaceurl from '@/utils/interface.js'
+	//引入store的内容
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from 'vuex'
 	export default {
+		computed: mapState(['subOrderRefund']),
 		components: {
 			navigationBar
 		},
@@ -95,7 +101,7 @@
 						text: '未收到货',
 						selected: true
 					},{
-						text: '未收到货',
+						text: '已收到货',
 						selected: false
 					}],
 					"退款原因": [{
@@ -115,7 +121,17 @@
 				userChoose: {
 					status: '',
 					reason: ''
-				} //用户选填的值
+				}, //用户选填的值
+				type: 1, //携带退款类型:1、退款(子订单)，2、退货退款
+				refundMoney: 0 //退款金额
+			}
+		},
+		onLoad(options) {
+			console.log(options, this.subOrderRefund)
+			this.type = options.type
+			this.refundMoney = 0
+			for(var item of this.subOrderRefund.skuList) {
+				this.refundMoney += item.price * item.quantity
 			}
 		},
 		onShow() {
@@ -140,11 +156,47 @@
 			},
 			confirm() {
 				this.showPanel=false
-				this.userChoose.status = this.optionsList["货物状态"].find(element => element.selected).text;
+				this.userChoose.status = this.type == '1' ? '未收到货' : '已收到货';
 				this.userChoose.reason = this.optionsList["退款原因"].find(element => element.selected).text;
 			},
 			submit() {
-				
+				if(!this.userChoose.reason) {
+					uni.showToast({
+					    title: '退款原因不能为空',
+					    icon: 'none',
+					    duration: 2000
+					});
+					return
+				}
+				let that = this
+				if(this.type == '1') {
+					let params = {
+						orderId: that.subOrderRefund.orderId,
+						reason: that.userChoose.reason //申请原因
+					}
+					interfaceurl.checkAuth(interfaceurl.orderApplyRefund, params).then((res) => {
+						uni.showToast({
+						    title: '申请退款成功',
+						    icon: 'none',
+						    duration: 2000
+						});
+						that.$turnPage('1', 'navigateBack')
+					});
+				} else {
+					let params = {
+						orderId: that.subOrderRefund.orderId,
+						reason: that.userChoose.reason,
+						code: that.subOrderRefund.skuList[0].code, //申请的sku(用户购买的东西)
+						type: 0 //0：退货退款，1：仅退款
+					}
+					interfaceurl.checkAuth(interfaceurl.orderReturnRefund, params).then((res) => {
+						uni.showToast({
+						    title: '申请退货退款成功',
+						    icon: 'none',
+						    duration: 2000
+						});
+					});
+				}
 			}
 		}
 	}
