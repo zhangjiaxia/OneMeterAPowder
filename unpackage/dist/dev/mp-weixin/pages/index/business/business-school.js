@@ -169,6 +169,76 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.ensure | components/navigation-bar */ "components/navigation-bar").then((function () {return resolve(__webpack_require__(/*! @/components/navigation-bar.vue */ 270));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
@@ -179,37 +249,13 @@ var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interfac
       //设置导航栏样式
       navigationBarStyle: {
         iconText: '商学院' //导航栏文字
-      },
-      list: [{}, {}, {}, {}],
-      tabIndex: 0, //选中的tab索引
-      articleKey: 'businessSettled', //文章参数
-      article: {
-        businessSettled: '', //商家入驻
-        userGuide: '', //入驻指南
-        newsInformation: '', //新闻资讯
-        enterpriseDynamic: '' //企业动态
-      }, //文章
-      articleTitle: '商家入驻注意事项' //标题
-    };
+      } };
+
   },
   onLoad: function onLoad() {
-    this.getArticle();
+
   },
-  methods: {
-    setArticle: function setArticle(tabIndex, articleKey, articleTitle) {
-      this.tabIndex = tabIndex;
-      this.articleKey = articleKey;
-      this.articleTitle = articleTitle;
-      this.getArticle();
-    },
-    getArticle: function getArticle() {
-      var that = this;
-      _interface.default.checkAuth(_interface.default.getArticleKey, { setting_name: that.articleKey }, false).then(function (res) {
-        that.article = res.data[that.articleKey];
-        that.article = that.article.replace(/<img/gi, '<img width="100%!important" ');
-        //console.log(that.article)
-      });
-    } } };exports.default = _default;
+  methods: {} };exports.default = _default;
 
 /***/ }),
 

@@ -3,54 +3,57 @@
 		<view class="bar-sticky">
 			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		</view>
+		<image src="/static/chartbg.png" class="chartbg"></image>
 		<view class="layout">
 			<view class="uni-flex uni-column vertical topitem">
-				<image src="/static/chartbg.png" class="chartbg"></image>
 				<view class="uni-flex uni-row vertical info" style="margin: 16rpx 0;">
 					<view class="uni-flex">
 						<image :src="userInfo.avatarUrl" class="head"></image>
 					</view>
 					<view class="uni-flex uni-column rest">
 						<view class="nick">{{userInfo.nickName}}</view>
-						<view style="font-size: 18rpx;">ID:{{userDetail.invitation_code || ''}}</view>
+						<view class="nick">ID:{{userDetail.invitation_code || ''}}</view>
 					</view>
-					<view class="uni-flex uni-column rest content">
-						<view class="desc">法律保障</view>
-						<view class="desc">协议</view>
+					<view class="uni-flex uni-column rest content desc">
+						<view>法律保障协议</view>
 					</view>
 				</view>
-				<!-- <view class="uni-flex uni-row info">
-					<view class="uni-flex uni-column rest content">
-						<view class="desc">VIP数据</view>
-						<view class="desc">明细</view>
-					</view>
-					<view class="uni-flex content">|</view>
-					<view class="uni-flex uni-column rest content">
-						<view class="desc">法律保障</view>
-						<view class="desc">协议</view>
-					</view>
-				</view> -->
+				<view class="remark">升级成为合伙人，共享平台发展红利</view>
 			</view>
-			<view class="remark">PS：升级成为合伙人，共享平台发展红利</view>
-			<view class="chart">
-				<view class="charttitle">市值曲线图</view>
-				<view>
-					<image src="/static/chart.png" class="chartimg"></image>
-				</view>
-			</view>
-			<!-- <view class="uni-flex uni-row vertical place">
-				<view class="uni-flex rest rank">我的排名</view>
-				<view class="uni-flex ranking">
-					2316名
-				</view>
-			</view> -->
-			<view class="query">
-				<view class="shareholder">股东名单查询</view>
-				<view class="uni-flex uni-row">
-					<view class="uni-flex rest keyword">
-						<input type="text" placeholder="请输入身份证号码、ID搜索" placeholder-class="inputkey" />
+		</view>
+		<view class="uni-flex uni-row content">
+			<image src="/static/chart.png" class="chartimg"></image>
+		</view>
+		<view class="layout" style="padding-top: 0rpx;">
+			<view class="uni-flex uni-column bottom-item">
+				<image src="/static/oldbg.png" class="oldimg"></image>
+				<view class="uni-flex content title">原始股权用户福利</view>
+				<view class="uni-flex uni-row vertical bar">
+					<view class="uni-flex content num">
+						<text>1</text>
 					</view>
-					<view class="uni-flex search">查询</view>
+					<view class="uni-flex">
+						<text class="base">200人共享</text> <text class="active">10%</text> 
+						<text class="base">原始股权</text>
+					</view>
+				</view>
+				<view class="uni-flex uni-row vertical bar">
+					<view class="uni-flex content num">
+						<text>2</text>
+					</view>
+					<view class="uni-flex">
+						<text class="base">小投入</text> <text class="active">大回报</text> 
+						<text class="base">享原始股权红利</text>
+					</view>
+				</view>
+				<view class="uni-flex uni-row vertical bar">
+					<view class="uni-flex content num">
+						<text>3</text>
+					</view>
+					<view class="uni-flex">
+						<text class="base">平台将利润回馈用户</text> 
+						<text class="active">共创财富</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -100,46 +103,58 @@
 	/*自定义公共样式*/
 	@import '/common/custom.css';
 	page {
-		background: #EFEFEF;
+		background: #EFF1F2;
+	}
+	.chartimg {
+		width: 729rpx;
+		height: 443rpx;
+	}
+	.chartbg {
+		width: 750rpx;
+		height: 289rpx;
+		position: absolute;
+		z-index: -1;
 	}
 	.layout {
 		margin: 0 auto;
-		width: 707rpx;
-		padding-top: 16rpx;
+		width: 687rpx;
+		padding-top: 40rpx;
 		.topitem {
-			height: 200rpx;
-		}
-		.chartbg {
-			width: 707rpx;
-			height: 200rpx;
-			position: absolute;
-			z-index: -1;
+			height: 260rpx;
+			background: #FFFFFF;
+			border-radius: 10rpx;
 		}
 		.info {
 			width: 100%;
 			height: 100%;
-			color: #FFFFFF;
+			color: #333333;
 			view {
 				line-height: 1.5;
 			}
 			.head {
-				width: 120rpx;
-				height: 120rpx;
+				width: 118rpx;
+				height: 118rpx;
 				margin-left: 50rpx;
 				margin-right: 20rpx;
 				border-radius: 50%;
 			}
 			.nick {
-				font-size:30rpx;
+				font-size:32rpx;
 			}
 			.desc {
-				border-bottom: 1px solid #FFFFFF;
+				width: 260rpx;
+				height: 80rpx;
+				color: #FFFFFF;
+				background:linear-gradient(90deg,#FC7322,#FFA01A);
+				margin-right: 30rpx;
+				border-radius: 80rpx;
 			}
 		}
 		.remark {
-			font-size: 22rpx;
-			color: #0684ED;
+			font-size: 30rpx;
+			color: #5873E4;
 			margin-left: 40rpx;
+			margin-bottom: 10rpx;
 		}
 		.place {
 			margin: 22rpx auto;
@@ -161,75 +176,48 @@
 				margin-right: 30rpx;
 			}
 		}
-		.chart {
-			margin: 0 auto;
-			width:690rpx;
-			height:400rpx;
-			background:rgba(255,255,255,1);
-			box-shadow:0px 4rpx 9rpx 0px rgba(185,214,243,0.23);
-			border-radius:15rpx;
-			.charttitle {
-				font-size: 30rpx;
-				color: #333333;
-				margin-left: 30rpx;
-				margin-bottom: 6rpx;
-			}
-			.chartimg {
-				width: 650rpx;
-				height: 330rpx;
-				margin-left: 20rpx;
-				// border: 1px dashed;
-			}
-		}
-		// .description {
-		// 	margin-top: 24rpx;
-		// 	width: 666rpx;
-		// 	.star {
-		// 		color: #FF0000;
-		// 		font-size: 30rpx;
-		// 	}
-		// 	.define {
-		// 		color: #AAAAAA;
-		// 		font-size: 24rpx;
-		// 	}
-		// }
 	}
-	.query {
-		margin: 0 auto;
-		padding-top: 10rpx;
-		width:690rpx;
-		height:160rpx;
-		background:rgba(255,255,255,1);
-		box-shadow:0px 4rpx 9rpx 0px rgba(185,214,243,0.23);
-		border-radius:15rpx;
-		margin-top: 20rpx;
-		.shareholder {
-			font-size: 30rpx;
-			color: #333333;
-			margin-left: 29rpx;
-			margin-bottom: 10rpx;
+	.oldimg {
+		width: 686rpx;
+		height: 550rpx;
+		position: absolute;
+		z-index: -1;
+	}
+	.bottom-item {
+		font-size: 34rpx;
+		.title {
+			font-size:38rpx;
+			color: #FFFFFF;
+			margin-top: 30rpx;
+			margin-bottom: 34rpx;
 		}
-		.keyword {
-			background: #F0EDF1;
-			width: 550rpx;
-			height: 50rpx;
-			border-radius: 40rpx;
-			margin-left: 29rpx;
-			margin-right: 23rpx;
-		}
-		input {
-			width: 100%;
-			height: 100%;
-			margin-left: 31rpx;
-		}
-		.inputkey {
-			color: #999999;
-			font-size: 24rpx;
-		}
-		.search {
-			font-size: 30rpx;
-			color: #ff0033;
-			margin-right: 30rpx;
+		.bar {
+			width:640rpx;
+			height:120rpx;
+			background:rgba(255,255,255,1);
+			border-radius:8rpx;
+			margin: 0 auto;
+			margin-bottom: 20rpx;
+			.num {
+				width:80rpx;
+				height:80rpx;
+				border-radius: 50%;
+				background:linear-gradient(135deg,#FFADAF,#FF5055);
+				margin-left: 30rpx;
+				margin-right: 44rpx;
+				text {
+					color: #FFFFFF;
+					font-size: 42rpx;
+					font-weight: bold;
+					box-shadow:0px 4px 22px 0px rgba(114,114,114,0.3);
+				}
+			}
+			.base {
+				color: #333333;
+			}
+			.active {
+				color: #F86826;
+			}
 		}
 	}
 </style>

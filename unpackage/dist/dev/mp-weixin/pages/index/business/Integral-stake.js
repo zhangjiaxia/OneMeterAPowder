@@ -198,7 +198,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _interface = _interopRequireDefault(__webpack_require__(/*! @/utils/interface.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -269,9 +283,11 @@ var navigationBar = function navigationBar() {__webpack_require__.e(/*! require.
 var _default = { components: { navigationBar: navigationBar }, data: function data() {return { //设置导航栏样式
       navigationBarStyle: { iconText: '积分股权' //导航栏文字
       }, teamList: [], userDetail: {}, //获取用户详情
-      userInfo: {} //获取用户授权信息
-    };}, onLoad: function onLoad() {this.userInfo = uni.getStorageSync('userInfo');}, onShow: function onShow() {this.getUserDetail();}, methods: { //获取用户详情
-    getUserDetail: function getUserDetail() {var that = this;_interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {that.userDetail = res.data;});} } };exports.default = _default;
+      userInfo: {}, //获取用户授权信息
+      rankList: [] //佣金排名
+    };}, onLoad: function onLoad() {this.userInfo = uni.getStorageSync('userInfo');}, onShow: function onShow() {this.getUserDetail();this.getRanking();}, methods: { //获取用户详情
+    getUserDetail: function getUserDetail() {var that = this;_interface.default.checkAuth(_interface.default.showDetail, {}).then(function (res) {that.userDetail = res.data;});}, //获取排名列表
+    getRanking: function getRanking() {var that = this;_interface.default.checkAuth(_interface.default.teamRankingList, {}).then(function (res) {that.rankList = res.data;});} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

@@ -139,7 +139,7 @@
 		"pages": [{
 			"path": "about",
 			"style": {
-				"navigationBarTitleText": "关于我们"
+				"navigationBarTitleText": ""
 			}
 		},
 		{

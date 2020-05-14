@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "关于我们",
+  "navigationBarTitleText": "",
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar"
   }

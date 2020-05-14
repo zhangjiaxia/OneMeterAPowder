@@ -108,7 +108,7 @@
 						<view class="title">联系客服</view>
 						<button open-type='contact' class="concact">联系客服</button>
 					</view>
-					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/about', 'navigateTo')">
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/about?title=关于我们&type=aboutUs', 'navigateTo')">
 						<image src="/static/about.png" class="icon"></image>
 						<view class="title">关于我们</view>
 					</view>

@@ -1587,96 +1587,100 @@ radio-group label, checkbox-group label{
 page {
   background: #EFEFEF;
 }
-.layout {
-  margin: 0 auto;
-  width: 707rpx;
-  padding-top: 16rpx;
+.chartimg {
+  width: 729rpx;
+  height: 443rpx;
 }
-.layout .topitem {
-  height: 287rpx;
-}
-.layout .chartbg {
-  width: 707rpx;
-  height: 287rpx;
+.chartbg {
+  width: 750rpx;
+  height: 289rpx;
   position: absolute;
   z-index: -1;
 }
+.layout {
+  margin: 0 auto;
+  width: 687rpx;
+}
+.layout .topitem {
+  height: 270rpx;
+  background: #FFFFFF;
+  border-radius: 10rpx;
+}
+.layout .topitem .desc {
+  width: 300rpx;
+  height: 80rpx;
+  color: #FFFFFF;
+  background: -webkit-gradient(linear, left top, right top, from(#FC7322), to(#FFA01A));
+  background: -webkit-linear-gradient(left, #FC7322, #FFA01A);
+  background: linear-gradient(90deg, #FC7322, #FFA01A);
+  border-radius: 80rpx;
+}
 .layout .info {
   width: 100%;
-  color: #FFFFFF;
+  height: 100%;
+  color: #333333;
 }
 .layout .info view {
   line-height: 1.5;
 }
 .layout .info .head {
-  width: 120rpx;
-  height: 120rpx;
+  width: 118rpx;
+  height: 118rpx;
   margin-left: 50rpx;
   margin-right: 20rpx;
   border-radius: 50%;
 }
 .layout .info .nick {
-  font-size: 30rpx;
+  font-size: 32rpx;
 }
-.layout .info .desc {
-  border-bottom: 1px solid #FFFFFF;
+.layout .defined .key {
+  color: #313131;
+  font-size: 35rpx;
+  margin-left: 33rpx;
+  margin-bottom: 22rpx;
 }
-.layout .remark {
-  font-size: 22rpx;
-  color: #0684ED;
-  margin-left: 40rpx;
-}
-.layout .place {
-  margin-top: 12rpx;
-  margin-bottom: 20rpx;
-  width: 690rpx;
-  height: 100rpx;
-  background: white;
-  -webkit-box-shadow: 0px 4rpx 9rpx 0px rgba(185, 214, 243, 0.23);
-          box-shadow: 0px 4rpx 9rpx 0px rgba(185, 214, 243, 0.23);
-  border-radius: 15rpx;
-}
-.layout .place .rank {
+.layout .defined .val {
   color: #333333;
-  font-size: 36rpx;
-  font-weight: bolder;
-  margin-left: 30rpx;
+  font-size: 29rpx;
+  font-weight: lighter;
+  background: #FFFFFF;
+  padding: 30rpx;
+  padding-top: 20rpx;
+  margin-bottom: 57rpx;
 }
-.layout .place .ranking {
-  font-size: 40rpx;
-  color: #ff0033;
-  font-weight: bolder;
-  margin-right: 30rpx;
+.layout .rankbar {
+  height: 82rpx;
+  color: #FFFFFF;
+  font-size: 32rpx;
 }
-.layout .chart {
-  width: 690rpx;
-  height: 400rpx;
-  background: white;
-  -webkit-box-shadow: 0px 4rpx 9rpx 0px rgba(185, 214, 243, 0.23);
-          box-shadow: 0px 4rpx 9rpx 0px rgba(185, 214, 243, 0.23);
-  border-radius: 15rpx;
+.layout .ranklist {
+  background: #FFFFFF;
 }
-.layout .chart .charttitle {
+.layout .ranklist .item {
+  height: 120rpx;
+  border-bottom: 1px solid #EEEEEE;
+}
+.layout .ranklist .item .num {
   font-size: 30rpx;
   color: #333333;
-  margin-left: 30rpx;
-  margin-bottom: 6rpx;
 }
-.layout .chart .chartimg {
-  width: 650rpx;
-  height: 330rpx;
-  margin-left: 20rpx;
+.layout .ranklist .item .me {
+  font-size: 28rpx;
+  color: #999999;
 }
-.layout .description {
-  margin-top: 24rpx;
-  width: 666rpx;
+.layout .ranklist .item .head {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-left: 50rpx;
 }
-.layout .description .star {
-  color: #FF0000;
-  font-size: 30rpx;
-}
-.layout .description .define {
-  color: #AAAAAA;
+.layout .ranklist .item .nick {
+  color: #333333;
   font-size: 24rpx;
+  margin-left: 30rpx;
+}
+.layout .ranklist .item .money {
+  font-size: 24rpx;
+  color: #ff0033;
 }
 

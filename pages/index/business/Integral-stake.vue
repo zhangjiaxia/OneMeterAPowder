@@ -3,61 +3,68 @@
 		<view class="bar-sticky">
 			<navigationBar :navigationBarStyle="navigationBarStyle"></navigationBar>
 		</view>
-		<view class="layout">
+		<image src="/static/stakeimg.png" class="chartbg"></image>
+		<view class="layout" style="padding-top: 40rpx;">
 			<view class="uni-flex uni-column vertical topitem">
-				<image src="/static/chartbg.png" class="chartbg"></image>
 				<view class="uni-flex uni-row vertical info" style="margin: 16rpx 0;">
 					<view class="uni-flex">
 						<image :src="userInfo.avatarUrl" class="head"></image>
 					</view>
 					<view class="uni-flex uni-column rest">
 						<view class="nick">{{userInfo.nickName}}</view>
-						<view class="nick">我的积分:{{userDetail.total_integral || ''}}分</view>
+						<view class="nick">
+							我的积分:<text style="color: #EC524A;">{{userDetail.total_integral || ''}}</text>分
+						</view>
 					</view>
 				</view>
-				<view class="uni-flex uni-row info">
-					<view class="uni-flex uni-column rest content" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
-						<view class="desc">团队成员</view>
-						<view class="desc">明细</view>
+				<view class="uni-flex uni-row" style="width: 100%;margin-bottom: 24rpx;">
+					<view class="uni-flex rest content" @click="$turnPage('/pages/center/my/team', 'navigateTo')">
+						<view class="desc content">团队成员明细</view>
 					</view>
-					<view class="uni-flex content">|</view>
-					<view class="uni-flex uni-column rest content" @click="$turnPage('/pages/center/my/my-points?total_integral='+userDetail.total_integral, 'navigateTo')">
-						<view class="desc">团队积分</view>
-						<view class="desc">明细</view>
+					<view class="uni-flex rest content">
+						<view class="desc content">团队积分明细</view>
 					</view>
 				</view>
 			</view>
-			<!-- <view class="remark">PS：达到50个配送原始股，终生有效!</view> -->
-			<!--暂时隐藏排名-->
-			<!-- <view class="uni-flex uni-row vertical place">
-				<view class="uni-flex rest rank">我的排名</view>
-				<view class="uni-flex ranking">
-					2316名
+		</view>
+		<view class="uni-flex uni-row content">
+			<image src="/static/chart.png" class="chartimg"></image>
+		</view>
+		<view class="layout">
+			<view class="uni-flex uni-column defined">
+				<view class="uni-flex key">积分定义</view>
+				<view class="uni-flex val">
+					指的是用户本身+用户自身邀请的粉丝（含一、二级粉丝）在本平台消费金额的总和，按1:1的比例转换的积分。
 				</view>
-			</view> -->
-			<view style="margin: 0 auto;width: 690rpx;">
-				<view class="chart">
-					<view class="charttitle">市值曲线图</view>
-					<view>
-						<image src="/static/chart.png" class="chartimg"></image>
-					</view>
+			</view>
+			<view class="uni-flex uni-column defined">
+				<view class="uni-flex key">积分权益</view>
+				<view class="uni-flex val">
+					积分达1000分以上的用户有资格分享公司上市时增发的20%（暂定）股票，获得股份的具体数量以用户的积分为准，按比例分配。
 				</view>
-				<view class="uni-flex uni-row description">
-					<view class="uni-flex" style="margin-right: 10rpx;">
-						<text class="star">*</text>
-						<text class="define">积分定义：</text>
-					</view>
-					<view class="uni-flex rest">
-						<text class="define">指的是用户本身+用户自身邀请的粉丝（含一、二级粉丝）在本平台消费金额的总和，按1:1的比例转换的积分。</text>
-					</view>
+			</view>
+			<view>
+				<view class="uni-flex uni-row rankbar">
+					<view class="uni-flex rest content" style="background: #A8C0F0;">我的积分排名</view>
+					<view class="uni-flex rest content" style="background: linear-gradient(90deg,#FC7322,#FFA01A);">平台用户积分排行榜</view>
 				</view>
-				<view class="uni-flex uni-row description">
-					<view class="uni-flex" style="margin-right: 10rpx;">
-						<text class="star">*</text>
-						<text class="define">积分权益：</text>
-					</view>
-					<view class="uni-flex rest">
-						<text class="define">积分达1000分以上的用户有资格分享公司上市时增发的20%（暂定）股票，获得股份的具体数量以用户的积分为准，按比例分配。</text>
+				<view class="empty-text" v-if="rankList.length == 0">暂无佣金排名数据</view>
+				<view class="ranklist" v-else>
+					<view class="uni-flex uni-row vertical item" :style="{'border-bottom': index == rankList.length - 1 ? 'none' : '1px solid #EEEEEE'}"
+						v-for="(item, index) in rankList" :key="index" v-if="item.nickname">
+						<view class="uni-flex uni-column content" style="width: 140rpx;">
+							<view v-if="index < 3">
+								<image :src="'/static/school/rank' + index + '.png'" style="width: 76rpx;height: 56rpx;"></image>
+							</view>
+							<view class="num" v-else>{{item.rankingNumber}}</view>
+						</view>
+						<view class="uni-flex rest vertical">
+							<image :src="item.headimgurl" class="head"></image>
+							<text class="nick">{{item.nickname}}</text>
+						</view>
+						<view class="uni-flex vertical" style="margin-right: 19rpx;">
+							<image src="/static/school/star.png" style="width: 40rpx;height: 40rpx;"></image>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -80,7 +87,8 @@
 				},
 				teamList: [],
 				userDetail: {}, //获取用户详情
-				userInfo: {} //获取用户授权信息
+				userInfo: {}, //获取用户授权信息
+				rankList: [] //佣金排名
 			}
 		},
 		onLoad() {
@@ -88,6 +96,7 @@
 		},
 		onShow() {
 			this.getUserDetail()
+			this.getRanking()
 		},
 		methods: {
 			//获取用户详情
@@ -95,6 +104,13 @@
 				let that = this
 				interfaceurl.checkAuth(interfaceurl.showDetail, {}).then((res) => {
 					that.userDetail = res.data
+				});
+			},
+			//获取排名列表
+			getRanking() {
+				let that = this
+				interfaceurl.checkAuth(interfaceurl.teamRankingList, {}).then((res) => {
+					that.rankList = res.data
 				});
 			}
 		}
@@ -109,95 +125,99 @@
 	page {
 		background: #EFEFEF;
 	}
+	.chartimg {
+		width: 729rpx;
+		height: 443rpx;
+	}
+	.chartbg {
+		width: 750rpx;
+		height: 289rpx;
+		position: absolute;
+		z-index: -1;
+	}
 	.layout {
 		margin: 0 auto;
-		width: 707rpx;
-		padding-top: 16rpx;
+		width: 687rpx;
 		.topitem {
-			height: 287rpx;
-		}
-		.chartbg {
-			width: 707rpx;
-			height: 287rpx;
-			position: absolute;
-			z-index: -1;
+			height: 270rpx;
+			background: #FFFFFF;
+			border-radius: 10rpx;
+			.desc {
+				width: 300rpx;
+				height: 80rpx;
+				color: #FFFFFF;
+				background:linear-gradient(90deg,#FC7322,#FFA01A);
+				border-radius: 80rpx;
+			}
 		}
 		.info {
 			width: 100%;
-			color: #FFFFFF;
+			height: 100%;
+			color: #333333;
 			view {
 				line-height: 1.5;
 			}
 			.head {
-				width: 120rpx;
-				height: 120rpx;
+				width: 118rpx;
+				height: 118rpx;
 				margin-left: 50rpx;
 				margin-right: 20rpx;
 				border-radius: 50%;
 			}
 			.nick {
-				font-size:30rpx;
-				
-			}
-			.desc {
-				border-bottom: 1px solid #FFFFFF;
+				font-size:32rpx;
 			}
 		}
-		.remark {
-			font-size: 22rpx;
-			color: #0684ED;
-			margin-left: 40rpx;
-		}
-		.place {
-			margin-top: 12rpx;
-			margin-bottom: 20rpx;
-			width:690rpx;
-			height:100rpx;
-			background:rgba(255,255,255,1);
-			box-shadow:0px 4rpx 9rpx 0px rgba(185,214,243,0.23);
-			border-radius:15rpx;
-			.rank {
+		.defined {
+			.key {
+				color: #313131;
+				font-size: 35rpx;
+				margin-left: 33rpx;
+				margin-bottom: 22rpx;
+			}
+			.val {
 				color: #333333;
-				font-size: 36rpx;
-				font-weight:bolder;
-				margin-left: 30rpx;
-			}
-			.ranking {
-				font-size: 40rpx;
-				color: #ff0033;
-				font-weight:bolder;
-				margin-right: 30rpx;
+				font-size: 29rpx;
+				font-weight: lighter;
+				background: #FFFFFF;
+				padding: 30rpx;
+				padding-top: 20rpx;
+				margin-bottom: 57rpx;
 			}
 		}
-		.chart {
-			width:690rpx;
-			height:400rpx;
-			background:rgba(255,255,255,1);
-			box-shadow:0px 4rpx 9rpx 0px rgba(185,214,243,0.23);
-			border-radius:15rpx;
-			.charttitle {
-				font-size: 30rpx;
-				color: #333333;
-				margin-left: 30rpx;
-				margin-bottom: 6rpx;
-			}
-			.chartimg {
-				width: 650rpx;
-				height: 330rpx;
-				margin-left: 20rpx;
-				// border: 1px dashed;
-			}
+		.rankbar {
+			height: 82rpx;
+			color: #FFFFFF;
+			font-size: 32rpx;
 		}
-		.description {
-			margin-top: 24rpx;
-			width: 666rpx;
-			.star {
-				color: #FF0000;
-				font-size: 30rpx;
-			}
-			.define {
-				color: #AAAAAA;
-				font-size: 24rpx;
+		.ranklist {
+			background: #FFFFFF;
+			.item {
+				height: 120rpx;
+				border-bottom: 1px solid #EEEEEE;
+				.num {
+					font-size: 30rpx;
+					color: #333333;
+				}
+				.me {
+					font-size: 28rpx;
+					color: #999999;
+				}
+				.head {
+					width: 80rpx;
+					height: 80rpx;
+					border-radius: 50%;
+					margin-left: 50rpx;
+				}
+				.nick {
+					color: #333333;
+					font-size: 24rpx;
+					margin-left: 30rpx;
+				}
+				.money {
+					font-size: 24rpx;
+					color: #ff0033;
+				}
 			}
 		}
 	}
