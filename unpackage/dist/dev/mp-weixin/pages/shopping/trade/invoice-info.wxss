@@ -106,7 +106,8 @@ form {
 	height: 88rpx;
 	line-height: 88rpx;
 	color: #BEBEBE;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	border-bottom: 2rpx solid #D8D8D8;
 }
 .uni-page-body {
@@ -316,7 +317,8 @@ radio-group label, checkbox-group label{
 	border-radius: 8rpx;
 	margin:20rpx 0;
 	position: relative;
-	box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+	        box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
 }
 .uni-card-content {
 	font-size: 30rpx;
@@ -530,7 +532,8 @@ radio-group label, checkbox-group label{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	width: 100%;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -588,7 +591,8 @@ radio-group label, checkbox-group label{
 	background: #eee;
 }
 .uni-list.uni-collapse {
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	height: 0;
 	overflow: hidden;
 }
@@ -610,7 +614,8 @@ radio-group label, checkbox-group label{
 	-webkit-flex: 1;
 	        flex: 1;
 	width: 100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
@@ -641,7 +646,8 @@ radio-group label, checkbox-group label{
 /* 图文列表 */
 .uni-media-list {
 	padding: 22rpx 30rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -738,7 +744,8 @@ radio-group label, checkbox-group label{
 	border-bottom: 2rpx solid;
 	border-right: 2rpx solid;
 	border-color: #eee;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .no-border-right {
 	border-right: none;
@@ -895,7 +902,8 @@ radio-group label, checkbox-group label{
 	font-size: 34rpx;
 	line-height: 50rpx;
 	width: 100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	padding: 20rpx 30rpx 0;
 }
 .feedback-input {
@@ -1150,14 +1158,16 @@ radio-group label, checkbox-group label{
 		        flex-direction: row;
 		position: relative;
 		padding-bottom: 20rpx;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		overflow: hidden;
 }
 .uni-timeline-item .uni-timeline-item-keynode {
 		width: 160rpx;
 		-webkit-flex-shrink: 0;
 		        flex-shrink: 0;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		padding-right: 20rpx;
 		text-align: right;
 		line-height: 65rpx;
@@ -1580,66 +1590,66 @@ radio-group label, checkbox-group label{
   margin: 0 auto;
 }
 .space .title {
-    font-size: 30rpx;
-    color: #333333;
+  font-size: 30rpx;
+  color: #333333;
 }
 .space .weixin {
-    width: 30rpx;
-    height: 30rpx;
-    margin-right: 10rpx;
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
 }
 .space .common,
-  .space .type {
-    margin: 20rpx 0;
-    width: 150rpx;
-    height: 50rpx;
-    border-radius: 25rpx;
-    font-size: 24rpx;
-    background: #F5F5F5;
-    color: #333333;
+.space .type {
+  margin: 20rpx 0;
+  width: 150rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  font-size: 24rpx;
+  background: #F5F5F5;
+  color: #333333;
 }
 .space .type {
-    width: 100rpx;
+  width: 100rpx;
 }
 .space .base {
-    background: #ff0033;
-    color: #FFFFFF;
+  background: #ff0033;
+  color: #FFFFFF;
 }
 .space .tip {
-    color: #999999;
-    font-size: 24rpx;
+  color: #999999;
+  font-size: 24rpx;
 }
 .space .line {
-    width: 100%;
-    height: 4rpx;
-    background: #dddddd;
-    margin-top: 20rpx;
-    margin-bottom: 30rpx;
+  width: 100%;
+  height: 4rpx;
+  background: #dddddd;
+  margin-top: 20rpx;
+  margin-bottom: 30rpx;
 }
 .space .input-view {
-    width: 100%;
-    height: 60rpx;
-    background: whitesmoke;
-    border-radius: 10rpx;
-    margin-bottom: 20rpx;
+  width: 100%;
+  height: 60rpx;
+  background: whitesmoke;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
 }
 .space .input-view input {
-      margin-left: 20rpx;
-      width: 100%;
+  margin-left: 20rpx;
+  width: 100%;
 }
 .space .expend {
-    color: #666666;
-    font-size: 20rpx;
-    text-align: center;
+  color: #666666;
+  font-size: 20rpx;
+  text-align: center;
 }
 .space .confirm {
-    width: 710rpx;
-    height: 80rpx;
-    background: #ff0033;
-    border-radius: 40rpx;
-    color: #FFFFFF;
-    font-size: 30rpx;
-    margin-top: 65rpx;
-    margin-bottom: 30rpx;
+  width: 710rpx;
+  height: 80rpx;
+  background: #ff0033;
+  border-radius: 40rpx;
+  color: #FFFFFF;
+  font-size: 30rpx;
+  margin-top: 65rpx;
+  margin-bottom: 30rpx;
 }
 

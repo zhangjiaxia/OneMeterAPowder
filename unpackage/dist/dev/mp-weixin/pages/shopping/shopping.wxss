@@ -2,7 +2,8 @@
 .uni-swipe_content {
 	position: relative;
 	width: 100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	overflow: hidden;
 	border-radius: 10rpx;
 }
@@ -105,7 +106,8 @@
 	left: 0px;
 	bottom: 0px;
 	padding: 0rpx 30rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	border-bottom: 1px solid #F5F5F5;
 	display: -webkit-box;
 	display: -webkit-flex;

@@ -106,7 +106,8 @@ form {
 	height: 88rpx;
 	line-height: 88rpx;
 	color: #BEBEBE;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	border-bottom: 2rpx solid #D8D8D8;
 }
 .uni-page-body {
@@ -316,7 +317,8 @@ radio-group label, checkbox-group label{
 	border-radius: 8rpx;
 	margin:20rpx 0;
 	position: relative;
-	box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+	        box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
 }
 .uni-card-content {
 	font-size: 30rpx;
@@ -530,7 +532,8 @@ radio-group label, checkbox-group label{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	width: 100%;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -588,7 +591,8 @@ radio-group label, checkbox-group label{
 	background: #eee;
 }
 .uni-list.uni-collapse {
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	height: 0;
 	overflow: hidden;
 }
@@ -610,7 +614,8 @@ radio-group label, checkbox-group label{
 	-webkit-flex: 1;
 	        flex: 1;
 	width: 100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
@@ -641,7 +646,8 @@ radio-group label, checkbox-group label{
 /* 图文列表 */
 .uni-media-list {
 	padding: 22rpx 30rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -738,7 +744,8 @@ radio-group label, checkbox-group label{
 	border-bottom: 2rpx solid;
 	border-right: 2rpx solid;
 	border-color: #eee;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .no-border-right {
 	border-right: none;
@@ -895,7 +902,8 @@ radio-group label, checkbox-group label{
 	font-size: 34rpx;
 	line-height: 50rpx;
 	width: 100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	padding: 20rpx 30rpx 0;
 }
 .feedback-input {
@@ -1150,14 +1158,16 @@ radio-group label, checkbox-group label{
 		        flex-direction: row;
 		position: relative;
 		padding-bottom: 20rpx;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		overflow: hidden;
 }
 .uni-timeline-item .uni-timeline-item-keynode {
 		width: 160rpx;
 		-webkit-flex-shrink: 0;
 		        flex-shrink: 0;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		padding-right: 20rpx;
 		text-align: right;
 		line-height: 65rpx;
@@ -1587,35 +1597,36 @@ page {
   width: 710rpx;
   height: 160rpx;
   background: white;
-  box-shadow: 0px 2rpx 10rpx 0px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0px 2rpx 10rpx 0px rgba(0, 0, 0, 0.08);
+          box-shadow: 0px 2rpx 10rpx 0px rgba(0, 0, 0, 0.08);
   border-radius: 15rpx;
 }
 .address .location {
-    color: #ff0033;
-    font-size: 66rpx !important;
-    margin-left: 40rpx;
-    margin-right: 30rpx;
+  color: #ff0033;
+  font-size: 66rpx !important;
+  margin-left: 40rpx;
+  margin-right: 30rpx;
 }
 .address .backGrey {
-    font-size: 25rpx !important;
-    margin-right: 30rpx;
+  font-size: 25rpx !important;
+  margin-right: 30rpx;
 }
 .address .nick {
-    font-size: 32rpx;
-    color: #333333;
-    margin-right: 30rpx;
+  font-size: 32rpx;
+  color: #333333;
+  margin-right: 30rpx;
 }
 .address .phone {
-    color: #999999;
-    font-size: 30rpx;
+  color: #999999;
+  font-size: 30rpx;
 }
 .address .position {
-    font-size: 28rpx;
-    color: #333333;
+  font-size: 28rpx;
+  color: #333333;
 }
 .address .noposit {
-    font-size: 26rpx;
-    color: #333333;
+  font-size: 26rpx;
+  color: #333333;
 }
 .title {
   font-size: 24rpx;
@@ -1624,7 +1635,8 @@ page {
 .order {
   width: 710rpx;
   background: white;
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+          box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
   border-radius: 15rpx;
   margin-top: 20rpx;
 }
@@ -1633,50 +1645,50 @@ page {
   margin-bottom: 27rpx;
 }
 .orderitem .goodsimg {
-    width: 159rpx;
-    height: 159rpx;
-    margin-left: 20rpx;
-    margin-right: 30rpx;
+  width: 159rpx;
+  height: 159rpx;
+  margin-left: 20rpx;
+  margin-right: 30rpx;
 }
 .orderitem .goodsinfo .prop {
-    background: #F3F0F3;
+  background: #F3F0F3;
 }
 .orderitem .goodsinfo .prop .size {
-      color: #A09DA1;
-      margin-right: 10rpx;
-      padding: 6rpx;
-      display: -webkit-inline-box;
-      display: -webkit-inline-flex;
-      display: inline-flex;
-      margin-bottom: 10rpx;
-      font-size: 23rpx;
-      border-radius: 6rpx;
+  color: #A09DA1;
+  margin-right: 10rpx;
+  padding: 6rpx;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  margin-bottom: 10rpx;
+  font-size: 23rpx;
+  border-radius: 6rpx;
 }
 .orderitem .goodsdata {
-    margin-left: 40rpx;
-    margin-right: 30rpx;
+  margin-left: 40rpx;
+  margin-right: 30rpx;
 }
 .orderitem .goodsdata .number {
-      color: #999999;
-      font-size: 20rpx;
-      text-align: right;
+  color: #999999;
+  font-size: 20rpx;
+  text-align: right;
 }
 .settle {
   font-size: 24rpx;
 }
 .settle .totaldesc {
-    color: #999999;
+  color: #999999;
 }
 .settle .totalspace {
-    margin-left: 10px;
-    margin-right: 20px;
-    margin-bottom: 40rpx;
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-bottom: 40rpx;
 }
 .settle .totalspace .total {
-      color: #333333;
+  color: #333333;
 }
 .settle .totalspace .totalnum {
-      color: #FF0808;
+  color: #FF0808;
 }
 .base {
   font-size: 30rpx;
@@ -1687,21 +1699,22 @@ page {
   color: #999999;
 }
 .subbase .back {
-    font-size: 25rpx;
-    margin-left: 14rpx;
+  font-size: 25rpx;
+  margin-left: 14rpx;
 }
 .ordersettle {
   margin: 20rpx 0;
   width: 710rpx;
   background: white;
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+          box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
   border-radius: 15rpx;
 }
 .ordersettle .space {
-    margin-left: 19rpx;
-    margin-right: 29rpx;
-    height: 80rpx;
-    border-bottom: 1px solid #EEEEEE;
+  margin-left: 19rpx;
+  margin-right: 29rpx;
+  height: 80rpx;
+  border-bottom: 1px solid #EEEEEE;
 }
 .btnop {
   height: 80rpx;
@@ -1711,13 +1724,13 @@ page {
   bottom: 0;
 }
 .btnop .total {
-    height: 100%;
-    background: #333333;
-    padding-left: 80rpx;
+  height: 100%;
+  background: #333333;
+  padding-left: 80rpx;
 }
 .btnop .confirm {
-    height: 100%;
-    width: 250rpx;
-    background: #ff0033;
+  height: 100%;
+  width: 250rpx;
+  background: #ff0033;
 }
 

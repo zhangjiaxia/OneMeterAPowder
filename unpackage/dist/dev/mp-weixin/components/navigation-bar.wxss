@@ -62,11 +62,11 @@
   height: 44px;
 }
 .bar-line .bar-back {
-    font-size: 52rpx !important;
-    position: absolute;
-    left: 30rpx;
+  font-size: 52rpx !important;
+  position: absolute;
+  left: 30rpx;
 }
 .bar-line .bar-title {
-    font-size: 32rpx;
+  font-size: 32rpx;
 }
 

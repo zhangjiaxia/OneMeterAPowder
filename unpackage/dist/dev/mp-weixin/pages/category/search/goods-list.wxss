@@ -51,20 +51,20 @@ page {
   white-space: nowrap;
 }
 .tab-list .tab {
-    line-height: 76rpx;
-    text-align: center;
-    display: inline-block;
-    margin: 0 20rpx;
+  line-height: 76rpx;
+  text-align: center;
+  display: inline-block;
+  margin: 0 20rpx;
 }
 .tab-list .tab .tab-text {
-      font-size: 30rpx;
-      color: #333333;
-      height: 100%;
-      display: block;
+  font-size: 30rpx;
+  color: #333333;
+  height: 100%;
+  display: block;
 }
 .tab-list .tab .tab-active {
-      border-bottom: 4rpx solid #ff0033;
-      color: #ff0033;
+  border-bottom: 4rpx solid #ff0033;
+  color: #ff0033;
 }
 .space {
   width: 700rpx;
@@ -75,31 +75,31 @@ page {
   overflow: auto;
 }
 .space .goods {
-    width: 340rpx;
-    background: #FFFFFF;
-    border-radius: 20rpx;
-    float: left;
-    margin-bottom: 20rpx;
+  width: 340rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  float: left;
+  margin-bottom: 20rpx;
 }
 .space .goods .goodsimg {
-      width: 340rpx;
-      height: 340rpx;
-      border-top-left-radius: 20rpx;
-      border-top-right-radius: 20rpx;
+  width: 340rpx;
+  height: 340rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
 }
 .space .goods .title {
-      height: 60rpx;
-      font-size: 24rpx;
-      color: #333333;
-      margin: 10rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+  color: #333333;
+  margin: 10rpx;
 }
 .space .goods .price {
-      font-size: 30rpx;
-      color: #ff0033;
-      margin-left: 10rpx;
-      margin-bottom: 20rpx;
+  font-size: 30rpx;
+  color: #ff0033;
+  margin-left: 10rpx;
+  margin-bottom: 20rpx;
 }
 .space .goods view {
-      line-height: 1.2;
+  line-height: 1.2;
 }
 

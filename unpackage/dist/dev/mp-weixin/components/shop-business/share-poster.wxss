@@ -43,21 +43,21 @@
   left: 50rpx;
 }
 .share-panel .share-btn {
-    width: 300rpx;
-    height: 80rpx;
-    background: #17CA17;
-    border-radius: 40rpx;
-    color: #FFFFFF;
-    margin-top: 12rpx;
-    margin-bottom: 12rpx;
-    font-size: 30rpx;
+  width: 300rpx;
+  height: 80rpx;
+  background: #17CA17;
+  border-radius: 40rpx;
+  color: #FFFFFF;
+  margin-top: 12rpx;
+  margin-bottom: 12rpx;
+  font-size: 30rpx;
 }
 .share-panel .wx-chat {
-    margin-right: 30rpx;
-    line-height: 80rpx;
+  margin-right: 30rpx;
+  line-height: 80rpx;
 }
 .share-panel .share-img {
-    width: 64rpx;
-    height: 64rpx;
+  width: 64rpx;
+  height: 64rpx;
 }
 

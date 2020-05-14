@@ -106,7 +106,8 @@ form {
 	height: 88rpx;
 	line-height: 88rpx;
 	color: #BEBEBE;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	border-bottom: 2rpx solid #D8D8D8;
 }
 .uni-page-body {
@@ -316,7 +317,8 @@ radio-group label, checkbox-group label{
 	border-radius: 8rpx;
 	margin:20rpx 0;
 	position: relative;
-	box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
+	        box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
 }
 .uni-card-content {
 	font-size: 30rpx;
@@ -530,7 +532,8 @@ radio-group label, checkbox-group label{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	width: 100%;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -588,7 +591,8 @@ radio-group label, checkbox-group label{
 	background: #eee;
 }
 .uni-list.uni-collapse {
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	height: 0;
 	overflow: hidden;
 }
@@ -610,7 +614,8 @@ radio-group label, checkbox-group label{
 	-webkit-flex: 1;
 	        flex: 1;
 	width: 100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
@@ -641,7 +646,8 @@ radio-group label, checkbox-group label{
 /* 图文列表 */
 .uni-media-list {
 	padding: 22rpx 30rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -738,7 +744,8 @@ radio-group label, checkbox-group label{
 	border-bottom: 2rpx solid;
 	border-right: 2rpx solid;
 	border-color: #eee;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .no-border-right {
 	border-right: none;
@@ -895,7 +902,8 @@ radio-group label, checkbox-group label{
 	font-size: 34rpx;
 	line-height: 50rpx;
 	width: 100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	padding: 20rpx 30rpx 0;
 }
 .feedback-input {
@@ -1150,14 +1158,16 @@ radio-group label, checkbox-group label{
 		        flex-direction: row;
 		position: relative;
 		padding-bottom: 20rpx;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		overflow: hidden;
 }
 .uni-timeline-item .uni-timeline-item-keynode {
 		width: 160rpx;
 		-webkit-flex-shrink: 0;
 		        flex-shrink: 0;
-		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
 		padding-right: 20rpx;
 		text-align: right;
 		line-height: 65rpx;
@@ -1585,88 +1595,90 @@ page {
   position: relative;
 }
 .topitem .bg {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: -1;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
 }
 .info {
   width: 100%;
 }
 .info view {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 .info .head {
-    width: 120rpx;
-    height: 120rpx;
-    margin-left: 50rpx;
-    margin-right: 20rpx;
-    border-radius: 50%;
+  width: 120rpx;
+  height: 120rpx;
+  margin-left: 50rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
 }
 .info .rate {
-    width: 60rpx;
-    height: 30rpx;
+  width: 60rpx;
+  height: 30rpx;
 }
 .info .arrow {
-    width: 17rpx;
-    height: 26rpx;
+  width: 17rpx;
+  height: 26rpx;
 }
 .info .nick {
-    font-size: 30rpx;
-    color: #FFFFFF;
+  font-size: 30rpx;
+  color: #FFFFFF;
 }
 .info .nick .vip {
-      width: 56rpx;
-      height: 25rpx;
-      margin-left: 20rpx;
+  width: 56rpx;
+  height: 25rpx;
+  margin-left: 20rpx;
 }
 .info .nick .gold {
-      width: 40rpx;
-      height: 31rpx;
-      margin-left: 16rpx;
+  width: 40rpx;
+  height: 31rpx;
+  margin-left: 16rpx;
 }
 .info .idnumber {
-    font-size: 20rpx;
-    color: #FFFFFF;
+  font-size: 20rpx;
+  color: #FFFFFF;
 }
 .info .time {
-    font-size: 20rpx;
-    color: #FFFFFF;
+  font-size: 20rpx;
+  color: #FFFFFF;
 }
 .commission {
   margin: 20rpx auto;
   width: 730rpx;
   height: 160rpx;
   background: white;
-  box-shadow: 0px 1px 6rpx 0px rgba(116, 114, 114, 0.13);
+  -webkit-box-shadow: 0px 1px 6rpx 0px rgba(116, 114, 114, 0.13);
+          box-shadow: 0px 1px 6rpx 0px rgba(116, 114, 114, 0.13);
   border-radius: 20rpx;
   color: #333333;
 }
 .commission view {
-    line-height: 1.3;
+  line-height: 1.3;
 }
 .commission .line {
-    width: 2rpx;
-    height: 80rpx;
-    background: #333333;
+  width: 2rpx;
+  height: 80rpx;
+  background: #333333;
 }
 .commission .money {
-    font-size: 30rpx;
+  font-size: 30rpx;
 }
 .commission .tip {
-    font-size: 20rpx;
+  font-size: 20rpx;
 }
 .commissiondetail {
   width: 730rpx;
   height: 250rpx;
   background: white;
-  box-shadow: 0px 2rpx 12rpx 0px rgba(116, 114, 114, 0.2);
+  -webkit-box-shadow: 0px 2rpx 12rpx 0px rgba(116, 114, 114, 0.2);
+          box-shadow: 0px 2rpx 12rpx 0px rgba(116, 114, 114, 0.2);
   border-radius: 20rpx;
   margin: 0 auto;
 }
 .commissiondetail .vline {
-    height: 100%;
-    border-right: 1px solid #EEEEEE;
+  height: 100%;
+  border-right: 1px solid #EEEEEE;
 }
 .ranking {
   width: 730rpx;
@@ -1677,39 +1689,39 @@ page {
   margin-bottom: 47rpx;
 }
 .ranking .rank {
-    height: 100rpx;
-    border-bottom: 1px solid #EEEEEE;
-    margin-left: 20rpx;
+  height: 100rpx;
+  border-bottom: 1px solid #EEEEEE;
+  margin-left: 20rpx;
 }
 .ranking .rank .title {
-      font-size: 28rpx;
-      color: #333333;
+  font-size: 28rpx;
+  color: #333333;
 }
 .ranking .ranklist .item {
-    height: 120rpx;
-    border-bottom: 1px solid #EEEEEE;
+  height: 120rpx;
+  border-bottom: 1px solid #EEEEEE;
 }
 .ranking .ranklist .item .num {
-      font-size: 30rpx;
-      color: #333333;
+  font-size: 30rpx;
+  color: #333333;
 }
 .ranking .ranklist .item .me {
-      font-size: 28rpx;
-      color: #999999;
+  font-size: 28rpx;
+  color: #999999;
 }
 .ranking .ranklist .item .head {
-      width: 80rpx;
-      height: 80rpx;
-      border-radius: 50%;
-      margin-left: 50rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-left: 50rpx;
 }
 .ranking .ranklist .item .nick {
-      color: #333333;
-      font-size: 24rpx;
-      margin-left: 30rpx;
+  color: #333333;
+  font-size: 24rpx;
+  margin-left: 30rpx;
 }
 .ranking .ranklist .item .money {
-      font-size: 24rpx;
-      color: #ff0033;
+  font-size: 24rpx;
+  color: #ff0033;
 }
 

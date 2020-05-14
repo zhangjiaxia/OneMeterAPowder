@@ -128,7 +128,8 @@ page{
   min-height: 100%;
   background: #EEEEEE;
   position: relative;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .empty-text{
   text-align: center;
